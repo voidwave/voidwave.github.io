@@ -2,23 +2,91 @@
 <html>
 
 <head>
-    <title>Desktop</title>
-    <link rel="stylesheet" href="style.css" />
+    <style>
+        /* Add some styling to make the website look like a terminal */
+        body {
+            font-family: monospace;
+            color: rgb(0, 128, 0);
+            background-color: black;
+        }
 
+        input[type="text"] {
+            background-color: rgb(0, 15, 0);
+            border: none;
+            color: white;
+            font-family: monospace;
+            font-size: 16px;
+        }
+
+        .prompt {
+            color: green;
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1>Desktop</h1>
-        <pre class="terminal"></pre>
-        <div class="files">
-            <div class="file" draggable>File 1</div>
-            <div class="file" draggable>File 2</div>
-            <div class="file" draggable>File 3</div>
-
-        </div>
+    <!-- Create a div to hold the terminal output -->
+    <div id="terminal">
+        <!-- Display a prompt -->
+        <span class="prompt">user@localhost:~$ </span>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Add a form to allow the user to enter commands -->
+    <form id="command-form">
+        <input type="text" id="command-input" autofocus>
+    </form>
+
+    <!-- Add some JavaScript to handle command input and output -->
+    <script>
+        // Get a reference to the form and input field
+        const form = document.getElementById('command-form');
+        const input = document.getElementById('command-input');
+
+        // Add an event listener to the form to handle command submission
+        form.addEventListener('submit', e => {
+            // Prevent the form from refreshing the page
+            e.preventDefault();
+
+            // Get the value of the input field
+            const command = input.value;
+
+            // Clear the input field
+            input.value = '';
+
+            // Log the command to the terminal output
+            log(`user@localhost:~$ ${command}`);
+
+            // Add some code here to handle the command and display the output
+            // For example, you could use a switch statement to handle different commands
+            switch (command) {
+                case 'help':
+                    log('Available commands:');
+                    log('- help: display this help message');
+                    log('- date: display the current date and time');
+                    break;
+                case 'date':
+                    log(new Date().toString());
+                    break;
+                default:
+                    log('Command not recognized');
+            }
+        });
+
+        // Add a function to log output to the terminal
+        function log(output) {
+            // Create a new div to hold the output
+            const line = document.createElement('div');
+
+            // Add the output to the div
+            line.innerText = output;
+
+            // Add the div to the terminal
+            document.getElementById('terminal').appendChild(line);
+
+            // Scroll the terminal to the bottom
+            window.scrollTo(0, document.body.scrollHeight);
+        }
+    </script>
 </body>
 
 </html>

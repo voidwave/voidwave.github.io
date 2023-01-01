@@ -9,3 +9,131 @@ body {
     padding: 0;
     height: 100%;
 }
+
+.dragging {
+    opacity: 0.5;
+}
+
+@font-face {
+    font-family: 'Kawkab';
+    src: url('./assets/fonts/KawkabMono-Bold.eot');
+    /* IE9 Compat Modes */
+    src: url('./assets/fonts/KawkabMono-Bold.eot?#iefix') format('embedded-opentype'),
+        /* IE6-IE8 */
+        url('./assets/fonts/KawkabMono-Bold.woff2') format('woff2'),
+        /* Super Modern Browsers */
+        url('./assets/fonts/KawkabMono-Bold.woff') format('woff'),
+        /* Pretty Modern Browsers */
+        url('./assets/fonts/KawkabMono-Bold.ttf') format('truetype'),
+        /* Safari, Android, iOS */
+        url('webfont.svg#svgFontName') format('svg');
+    /* Legacy iOS */
+}
+
+/* Add styles for the top panel */
+.top-panel {
+    background-color: #0000006c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.top-panel h1 {
+    color: white;
+    font-size: 19px;
+    margin: 0;
+    /* Add the glitch effect */
+    text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 3px #00ff00, 0 0 4px #00ff00, 0 0 5px #00ff00;
+    animation: glitch 1s infinite;
+}
+
+.top-panel a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.top-panel .fa {
+    font-size: 15px;
+}
+
+/* Add styles for the main content */
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100% - 50px);
+}
+
+body {
+    font-family: 'Kawkab', Fallback, monospace;
+    color: white;
+    background-color: black;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0 0 1px #00ff00;
+    }
+
+    25% {
+        text-shadow: 0 0 2px #00ff00;
+    }
+
+    50% {
+        text-shadow: 0 0 3px #00ff00;
+    }
+
+    75% {
+        text-shadow: 0 0 2px #00ff00;
+    }
+
+    100% {
+        text-shadow: 0 0 1px #00ff00;
+    }
+}
+
+button {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    float: right;
+    width: 5%;
+    height: 50px;
+    padding: 0px;
+    font-size: 16px;
+}
+
+.yt-window {
+    position: fixed;
+    z-index: 0;
+    top: 10%;
+    width: 60%;
+    height: 60%;
+    background-color: rgba(0, 0, 0, 0.192);
+
+}
+
+/* Style the draggable bar */
+#draggable-bar {
+    background-color: rgb(0, 114, 0);
+    color: white;
+    line-height: 55px;
+    padding: 0px;
+    width: 95%;
+    height: 50px;
+    cursor: grab;
+    float: left;
+    border: none;
+    text-align: left;
+    text-indent: 15px;
+    z-index: 9;
+}
+
+/* Style the draggable bar while it is being dragged */
+#draggable-bar.dragging {
+    cursor: move;
+    z-index: 10;
+    opacity: 0.5;
+}

@@ -1,43 +1,95 @@
-const canvas = document.getElementById('Matrix');
-const context = canvas.getContext('2d');
+//check if mobile or not
+var isMobile = false;
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    isMobile = true;
+}
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+console.log("isMobile= " + isMobile);
+var ytwindow = document.getElementsByClassName("yt-window");
+const button = document.getElementById('toggle-button');
 
-const arabic = 'سذضصثقفغعهخحجدطكمنتالبيسشئءؤرلاىةوزظا';
-const latin = 'QWERTYUIOPASDFGHJKLZXCVBNM';
-const nums = '0123456789';
-
-const alphabet = arabic + latin + nums;
-
-const fontSize = 11;
-const columns = canvas.width / fontSize;
-
-const rainDrops = [];
-
-for (let x = 0; x < columns; x++) {
-	rainDrops[x] = 1;
+//hide controls if mobile
+if (isMobile) {
+    document.getElementById("draggable-bar").style.display = 'none';
+    button.style.display = 'none';
+    ytwindow[0].style.width = '100%';
+    ytwindow[0].style.height = '85%';
 }
 
 
-const draw = () => {
-	context.fillStyle = 'rgba(0, 0, 0, 0.05)';
-	context.fillRect(0, 0, canvas.width, canvas.height);
+window.onload = function () {
 
-	context.font = 'bold ' + fontSize + 'px consolas';
+    ytwindow[0].style.transition = "transform 4s";
+    ytwindow[0].style.transform = "scale(0.85)";
+}
 
-	for (let i = 0; i < rainDrops.length; i++) {
-		// If the current character is one of the letters "VOIDWAE", set the fill style to white.
-		// Otherwise, set it to green.
-		const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-		context.fillStyle = 'VOIDWAE'.includes(text) ? '#FFF' : '#0F0';
-		context.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
-		if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-			rainDrops[i] = 0;
-		}
-		rainDrops[i]++;
-	}
-};
+// Add an event listener to the button to toggle the iframe
+button.addEventListener('click', () => {
+    // Check the current display value of the iframe
+    if (ytwindow[0].style.display === 'none') {
+        // Show the iframe
+        ytwindow[0].style.display = 'block';
+    } else {
+        // Hide the iframe
+        ytwindow[0].style.display = 'none';
+    }
+});
 
-setInterval(draw, 20);
+button.addEventListener('dragstart', e => {
+    // Set the data to be transferred during the drag
+    e.dataTransfer.setData('text/plain', '');
+
+    // Add a class to the button to style it while it is being dragged
+    button.classList.add('dragging');
+});
+
+// Add an event listener to the button to handle drag end
+button.addEventListener('dragend', () => {
+    // Remove the class from the button
+    button.classList.remove('dragging');
+});
+
+
+dragElement(document.getElementById("yt-window-id"));
+
+function dragElement(elmnt) {
+    var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+    if (document.getElementById("draggable-bar")) {
+        // if present, the header is where you move the DIV from:
+        document.getElementById("draggable-bar").onmousedown = dragMouseDown;
+    } else {
+        // otherwise, move the DIV from anywhere inside the DIV:
+        elmnt.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // get the mouse cursor position at startup:
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        pos1 = pos3 - e.clientX;
+        pos2 = pos4 - e.clientY;
+        pos3 = e.clientX;
+        pos4 = e.clientY;
+        // set the element's new position:
+        elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+        elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+    }
+
+    function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+    }
+}

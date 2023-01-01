@@ -10,7 +10,7 @@ const nums = '0123456789';
 
 const alphabet = arabic + latin + nums;
 
-const fontSize = 16;
+const fontSize = 11;
 const columns = canvas.width / fontSize;
 
 const rainDrops = [];

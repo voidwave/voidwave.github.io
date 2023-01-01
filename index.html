@@ -1,3 +1,5 @@
+<!--بسم الله الرحمن الرحيم-->
+
 <!DOCTYPE html>
 <html>
 
@@ -9,6 +11,22 @@
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <style>
+        @font-face {
+            font-family: 'Kawkab';
+            src: url('./assets/fonts/KawkabMono-Bold.eot');
+            /* IE9 Compat Modes */
+            src: url('./assets/fonts/KawkabMono-Bold.eot?#iefix') format('embedded-opentype'),
+                /* IE6-IE8 */
+                url('./assets/fonts/KawkabMono-Bold.woff2') format('woff2'),
+                /* Super Modern Browsers */
+                url('./assets/fonts/KawkabMono-Bold.woff') format('woff'),
+                /* Pretty Modern Browsers */
+                url('./assets/fonts/KawkabMono-Bold.ttf') format('truetype'),
+                /* Safari, Android, iOS */
+                url('webfont.svg#svgFontName') format('svg');
+            /* Legacy iOS */
+        }
+
         /* Add styles for the top panel */
         .top-panel {
             background-color: #0000006c;
@@ -20,7 +38,7 @@
 
         .top-panel h1 {
             color: white;
-            font-size: 24px;
+            font-size: 19px;
             margin: 0;
             /* Add the glitch effect */
             text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 3px #00ff00, 0 0 4px #00ff00, 0 0 5px #00ff00;
@@ -30,11 +48,11 @@
         .top-panel a {
             color: white;
             text-decoration: none;
-            margin-left: 20px;
+            margin-left: 10px;
         }
 
         .top-panel .fa {
-            font-size: 18px;
+            font-size: 15px;
         }
 
         /* Add styles for the main content */
@@ -46,7 +64,7 @@
         }
 
         body {
-            font-family: monospace;
+            font-family: 'Kawkab', Fallback, monospace;
             color: white;
             background-color: black;
         }

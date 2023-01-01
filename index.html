@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -8,67 +9,99 @@
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
     <style>
-        h1 {
-            text-align: center;
-            text-shadow: -1px -1px 0 #00740a, 1px -1px 0 #00740a, -1px 1px 0 #00740a, 1px 1px 0 #00740a, -2px 0 0 #00740a, 2px 0 0 #00740a, 0 2px 0 #00740a, 0 -2px 0 #00740a;
+        /* Add styles for the top panel */
+        .top-panel {
+            background-color: #0000006c;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
         }
 
-        h2 {
-            text-align: center;
-            text-shadow: -1px -1px 0 #00740a, 1px -1px 0 #00740a, -1px 1px 0 #00740a, 1px 1px 0 #00740a, -2px 0 0 #00740a, 2px 0 0 #00740a, 0 2px 0 #00740a, 0 -2px 0 #00740a;
+        .top-panel h1 {
+            color: white;
+            font-size: 24px;
+            margin: 0;
+            /* Add the glitch effect */
+            text-shadow: 0 0 1px #00ff00, 0 0 2px #00ff00, 0 0 3px #00ff00, 0 0 4px #00ff00, 0 0 5px #00ff00;
+            animation: glitch 1s infinite;
         }
 
-        a {
-            text-align: center;
-            text-shadow: -1px -1px 0 #00740a, 1px -1px 0 #00740a, -1px 1px 0 #00740a, 1px 1px 0 #00740a, -2px 0 0 #00740a, 2px 0 0 #00740a, 0 2px 0 #00740a, 0 -2px 0 #00740a;
+        .top-panel a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
         }
 
-        p {
-            text-align: center;
+        .top-panel .fa {
+            font-size: 18px;
         }
 
-        div {
-            text-align: center;
+        /* Add styles for the main content */
+        .main-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100% - 50px);
         }
 
         body {
-            font-family: "Audiowide", sans-serif;
+            font-family: monospace;
+            color: white;
+            background-color: black;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0 0 1px #00ff00;
+            }
+
+            25% {
+                text-shadow: 0 0 2px #00ff00;
+            }
+
+            50% {
+                text-shadow: 0 0 3px #00ff00;
+            }
+
+            75% {
+                text-shadow: 0 0 2px #00ff00;
+            }
+
+            100% {
+                text-shadow: 0 0 1px #00ff00;
+            }
         }
     </style>
     <title>voidwave</title>
-
 </head>
 
 <body>
-    <div id="wrapper">
-        <div style="position: absolute; left: 0%; top: 1%; width:100%; height:50px; ">
-            <h1 style="color:rgb(255, 255, 255);">VOIDWAVE</h1>
+    <!-- Add the top panel -->
+    <div class="top-panel">
+        <h1>voidwave</h1>
+        <div>
+            <a href="mailto:majed@voidwave.com">majed@voidwave.com</a>
+            <a href="https://twitter.com/majedaltaemi"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.youtube.com/user/majedemon"><i class="fa fa-youtube-square"></i></a>
         </div>
 
-        <div
-            style="position: absolute; z-index: 1; left: 0px; top: 10%; width:100%; height:70%; background-color: rgba(0, 0, 0, 0.192);">
-            <iframe style="width:75%;height:100%;"
-                src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe>
-        </div>
-
-        <div style="position: absolute; left: 0%; bottom: 110px; width:100%; height:10px; ">
-            <h2 style="color:rgb(255, 255, 255);"> majed@voidwave.com</h2>
-            <a style=" color:rgb(255, 255, 255);" href="https://twitter.com/majedaltaemi"><i
-                    class="fa fa-twitter fa-3x"></i></a>
-            <a style="color:rgb(255, 255, 255);" href="https://www.youtube.com/user/majedemon"><i
-                    class="fa fa-youtube-square fa-3x"></i></a>
-        </div>
-        <div style="position: absolute; left: 0%; bottom: 50px; width:50px; height:10px; ">
-
-        </div>
 
     </div>
+    <iframe
+        style="position: absolute; z-index: 0; left: 0px; top: 10%; width:100%; height:85%; background-color: rgba(0, 0, 0, 0.192);"
+        src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+
+
 
     <canvas id="Matrix"></canvas>
-    <script src="./index.js"></script>
+    <script src="index.js"></script>
+    <script src="animation.js"></script>
+
+
 
 </body>
 

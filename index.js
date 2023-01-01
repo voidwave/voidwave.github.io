@@ -19,11 +19,12 @@ for (let x = 0; x < columns; x++) {
 	rainDrops[x] = 1;
 }
 
+
 const draw = () => {
 	context.fillStyle = 'rgba(0, 0, 0, 0.05)';
 	context.fillRect(0, 0, canvas.width, canvas.height);
 
-	context.font = fontSize + 'px monospace';
+	context.font = 'bold ' + fontSize + 'px consolas';
 
 	for (let i = 0; i < rainDrops.length; i++) {
 		// If the current character is one of the letters "VOIDWAE", set the fill style to white.
@@ -39,4 +40,4 @@ const draw = () => {
 	}
 };
 
-setInterval(draw, 30);
+setInterval(draw, 20);

@@ -221,7 +221,7 @@ body {
     border: 10px;
     float: right;
     padding: 0px;
-    font-size: 50px;
+    /* font-size: 50px; */
     position: fixed;
     z-index: 0;
     right: 5%;
@@ -236,7 +236,7 @@ body {
     border: 10px;
     float: right;
     padding: 0px;
-    font-size: 50px;
+    /* font-size: 50px; */
     position: fixed;
     z-index: 0;
     right: 10%;
@@ -251,7 +251,7 @@ body {
     border: 10px;
     float: right;
     padding: 0px;
-    font-size: 50px;
+    /* font-size: 5px; */
     position: fixed;
     z-index: 0;
     right: 15%;

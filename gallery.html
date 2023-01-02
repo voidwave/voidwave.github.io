@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GameDev Gallery</title>
+    <style>
+        /* Add your CSS styles here */
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -5px;
+        }
+
+        #gallery img {
+            width: 25%;
+            margin: 5px;
+            cursor: pointer;
+        }
+
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .lightbox.open {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="gallery">
+        <img src="https://voidwave.github.io/img/3.jpg" alt="Photo 1">
+        <img src="https://voidwave.github.io/img/9.jpg" alt="Photo 2">
+        <img src="https://voidwave.github.io/img/54.jpg" alt="Photo 3">
+        <!-- Add more photos here -->
+    </div>
+
+    <div class="lightbox">
+        <img src="">
+        <button class="close">Close</button>
+    </div>
+
+    <script>
+        // Add your JavaScript code here
+        const images = document.querySelectorAll('#gallery img');
+        const lightbox = document.querySelector('.lightbox');
+        const closeButton = document.querySelector('.lightbox .close');
+
+        images.forEach(image => {
+            image.addEventListener('click', () => {
+                lightbox.classList.add('open');
+                lightbox.querySelector('img').src = image.src;
+            });
+        });
+
+        closeButton.addEventListener('click', () => {
+            lightbox.classList.remove('open');
+            lightbox.querySelector('img').src = '';
+        });
+    </script>
+</body>
+
+</html>

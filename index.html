@@ -26,9 +26,9 @@
     </div>
 
     <!--style="position: absolute; z-index: 1; left: 20px; bottom: 20px; width:100px; height:100px;"-->
-    <div id="yt-window-id" class="yt-window">
+    <div id="yt-window-id" class="window">
         <div id="yt-bar" class="draggable" draggable>Project Videos</div>
-        <button id="yt-toggle-button">X</button>
+        <button id="yt-toggle-button" class="close-button">X</button>
         <iframe style="width:100%; height:100%;"
             src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"
             title="YouTube video player" frameborder="0"
@@ -36,43 +36,46 @@
             allowfullscreen></iframe>
     </div>
 
-    <div id="tw-window-id" class="tw-window">
+    <div id="tw-window-id" class="window">
         <div id="tw-bar" class="draggable" draggable>@majedaltaemi</div>
-        <button id="tw-toggle-button">X</button>
+        <button id="tw-toggle-button" class="close-button">X</button>
         <iframe height=100% width=100% src="https://voidwave.github.io/twitter.html"></iframe>
     </div>
 
-    <div id="gl-window-id" class="gl-window">
+    <div id="gl-window-id" class="window">
         <div id="gl-bar" class="draggable" draggable>Project Gallery</div>
-        <button id="gl-toggle-button">X</button>
+        <button id="gl-toggle-button" class="close-button">X</button>
         <iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0"
             allowfullscreen style=" width:100%; height:95%;"></iframe>
     </div>
 
-    <div id="yt-icon-id">
-        <div class="draggable" draggable>
-            <i style="font-size: 50px" class="fa fa-youtube-square"></i>
-            <i style="color: white; font-size: 10px;font-style: normal;">Video</i>
+    <div class="side-panel">
+        <div id="yt-icon-id">
+            <div class="icon">
+                <i style="font-size: 50px" class="fa fa-youtube-square"></i>
+                <i style="color: white; font-size: 10px;font-style: normal;">Video</i>
+            </div>
         </div>
-    </div>
 
-    <div id="tw-icon-id">
-        <div class="draggable" draggable>
-            <i style="font-size: 50px" class="fa fa-twitter"></i>
-            <i style="color: white; font-size: 10px;font-style: normal;">Tweets</i>
+        <div id="tw-icon-id">
+            <div class="icon">
+                <i style="font-size: 50px" class="fa fa-twitter"></i>
+                <i style="color: white; font-size: 10px;font-style: normal;">Tweets</i>
+            </div>
         </div>
-    </div>
 
-    <div id="gl-icon-id">
-        <div class="draggable" draggable>
-            <i style="font-size: 50px" class="fa fa-camera-retro"></i>
-            <i style="color: white; font-size: 10px; font-style: normal; ">Gallery</i>
+        <div id="gl-icon-id">
+            <div class="icon">
+                <i style="font-size: 50px" class="fa fa-camera-retro"></i>
+                <i style="color: white; font-size: 10px; font-style: normal; ">Gallery</i>
+            </div>
         </div>
     </div>
 
     <canvas id="Matrix"></canvas>
-    <script src="index.js"></script>
     <script src="background.js"></script>
+    <script src="index.js"></script>
+
 
 
 </body>

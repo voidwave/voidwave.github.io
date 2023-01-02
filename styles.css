@@ -33,6 +33,7 @@ body {
 /* Add styles for the top panel */
 .top-panel {
     background-color: #0000006c;
+    z-index: 10;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,6 +42,7 @@ body {
 
 .top-panel h1 {
     color: white;
+    z-index: 10;
     font-size: 19px;
     margin: 0;
     /* Add the glitch effect */
@@ -50,6 +52,7 @@ body {
 
 .top-panel a {
     color: white;
+    z-index: 10;
     text-decoration: none;
     margin-left: 10px;
 }
@@ -64,6 +67,26 @@ body {
     align-items: center;
     justify-content: center;
     height: calc(100% - 50px);
+}
+
+.side-panel {
+    background-color: rgba(0, 0, 0, 0.486);
+    position: fixed;
+    z-index: 0;
+    top: 35px;
+    left: 0;
+    height: 100%;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 20px;
+
+}
+
+.side-panel div {
+    margin-bottom: 100px;
 }
 
 body {
@@ -94,79 +117,29 @@ body {
     }
 }
 
-
-.yt-window {
+.window {
     position: fixed;
     z-index: 1;
+    right: 0%;
+    width: 60%;
+    height: 60%;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+#yt-window-id {
     top: 10%;
-    width: 60%;
-    height: 60%;
-    background-color: rgba(0, 0, 0, 1);
+
 }
 
-.tw-window {
-    position: fixed;
-    z-index: 1;
-    right: 100px;
+#tw-window-id {
+
     bottom: 5%;
-    width: 60%;
-    height: 60%;
-    background-color: rgba(0, 0, 0, 1);
+
 }
 
-.gl-window {
-    position: fixed;
-    z-index: 1;
+#gl-window-id {
     bottom: 10%;
-    right: 100px;
-    width: 60%;
-    height: 60%;
-    background-color: rgba(0, 0, 0, 1);
 }
-
-/* Style the draggable bar */
-#yt-bar {
-    background-color: rgb(0, 114, 0);
-    color: white;
-    line-height: 30px;
-    padding: 0px;
-    width: 95%;
-    height: 30px;
-    float: left;
-    border: none;
-    text-align: left;
-    text-indent: 15px;
-    z-index: 9;
-}
-
-#tw-bar {
-    background-color: rgb(0, 114, 0);
-    color: white;
-    line-height: 30px;
-    padding: 0px;
-    width: 95%;
-    height: 30px;
-    float: left;
-    border: none;
-    text-align: left;
-    text-indent: 15px;
-    z-index: 9;
-}
-
-#gl-bar {
-    background-color: rgb(0, 114, 0);
-    color: white;
-    line-height: 30px;
-    padding: 0px;
-    width: 95%;
-    height: 30px;
-    float: left;
-    border: none;
-    text-align: left;
-    text-indent: 15px;
-    z-index: 9;
-}
-
 
 .draggable {
     left: 0px;
@@ -174,6 +147,30 @@ body {
     width: 100%;
     height: 100%;
     cursor: grab;
+    background-color: rgb(0, 114, 0);
+    color: white;
+    line-height: 30px;
+    padding: 0px;
+    width: 95%;
+    height: 30px;
+    float: left;
+    border: none;
+    text-align: left;
+    text-indent: 15px;
+    z-index: 9;
+}
+
+.icon {
+    cursor: pointer;
+    border: 10px;
+    float: right;
+    padding: 0px;
+    /* font-size: 5px; */
+    position: fixed;
+    z-index: 0;
+    /* right: 15%; */
+    width: 50px;
+    height: 50px;
 }
 
 .draggable.dragging {
@@ -182,7 +179,7 @@ body {
     opacity: 0.5;
 }
 
-#yt-toggle-button {
+.close-button {
     background-color: rgb(255, 0, 0);
     color: white;
     border: none;
@@ -191,6 +188,21 @@ body {
     height: 30px;
     padding: 0px;
     font-size: 16px;
+    cursor: pointer;
+
+}
+
+/* #yt-toggle-button {
+    background-color: rgb(255, 0, 0);
+    color: white;
+    border: none;
+    float: right;
+    width: 5%;
+    height: 30px;
+    padding: 0px;
+    font-size: 16px;
+    cursor: pointer;
+
 }
 
 #tw-toggle-button {
@@ -213,51 +225,22 @@ body {
     height: 30px;
     padding: 0px;
     font-size: 16px;
-}
+} */
 
 #yt-icon-id {
     /* background-color: rgb(255, 0, 0); */
     color: rgb(255, 0, 0);
-    border: 10px;
-    float: right;
-    padding: 0px;
-    /* font-size: 50px; */
-    position: fixed;
-    z-index: 0;
-    right: 5%;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.192);
 }
 
 #tw-icon-id {
     /* background-color: rgb(255, 0, 0); */
     color: rgb(17, 80, 255);
-    border: 10px;
-    float: right;
-    padding: 0px;
-    /* font-size: 50px; */
-    position: fixed;
-    z-index: 0;
-    right: 10%;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.192);
+
 }
 
 #gl-icon-id {
     /* background-color: rgb(255, 0, 0); */
     color: rgb(0, 114, 0);
-    border: 10px;
-    float: right;
-    padding: 0px;
-    /* font-size: 5px; */
-    position: fixed;
-    z-index: 0;
-    right: 15%;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(0, 0, 0, 0.192);
 }
 
 /* .fa fa-youtube-square {

@@ -15,6 +15,8 @@ const columns = canvas.width / fontSize;
 
 const rainDrops = [];
 
+var mColor = '#0F0';
+
 for (let x = 0; x < columns; x++) {
 	rainDrops[x] = 1;
 }
@@ -30,7 +32,7 @@ const draw = () => {
 		// If the current character is one of the letters "VOIDWAE", set the fill style to white.
 		// Otherwise, set it to green.
 		const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-		context.fillStyle = 'VOIDWAE'.includes(text) ? '#FFF' : '#0F0';
+		context.fillStyle = mColor;
 		context.fillText(text, i * fontSize, rainDrops[i] * fontSize);
 
 		if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {

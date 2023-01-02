@@ -54,7 +54,7 @@ function MaxMinWindow(elmnt) {
     // Max
     if (elmnt[0].style.width === '60%') {
         // Show the iframe
-        elmnt[0].style.top = '0px'
+        elmnt[0].style.top = '20px'
         elmnt[0].style.left = '0px'
         elmnt[0].style.width = '100%'
         elmnt[0].style.height = '95%'

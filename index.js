@@ -6,64 +6,111 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 
 console.log("isMobile= " + isMobile);
 var ytwindow = document.getElementsByClassName("yt-window");
-const button = document.getElementById('toggle-button');
+var twwindow = document.getElementsByClassName("tw-window");
+const ytCloseButton = document.getElementById('yt-toggle-button');
+const twCloseButton = document.getElementById('tw-toggle-button');
+const ytbar = document.getElementById('yt-bar');
+const twbar = document.getElementById('tw-bar');
+
+const ytIcon = document.getElementById('yt-icon-id');
+const twIcon = document.getElementById('tw-icon-id');
+
 
 //hide controls if mobile
+
 if (isMobile) {
-    document.getElementById("draggable-bar").style.display = 'none';
-    button.style.display = 'none';
+
+    ytbar.style.display = 'none';
+    twbar.style.display = 'none';
+    ytCloseButton.style.display = 'none';
+    twCloseButton.style.display = 'none';
+
+    twwindow[0].style.display = 'none';
+
+    ytIcon.style.display = 'none';
+    twIcon.style.display = 'none';
     ytwindow[0].style.width = '100%';
     ytwindow[0].style.height = '85%';
 }
 
 
-window.onload = function () {
-
-    ytwindow[0].style.transition = "transform 4s";
-    ytwindow[0].style.transform = "scale(0.85)";
-}
+// function ChangeWindowSize(elmnt, scale) {
+//     elmnt[0].style.transition = "transform 1s";
+//     elmnt[0].style.transform = "scale(" + scale + ")";
+// }
 
 
 // Add an event listener to the button to toggle the iframe
-button.addEventListener('click', () => {
-    // Check the current display value of the iframe
-    if (ytwindow[0].style.display === 'none') {
+ytCloseButton.addEventListener('click', () => ShowHideWindow(ytwindow), false);
+ytIcon.addEventListener('dblclick', () => ShowHideWindow(ytwindow), false);
+ytbar.addEventListener('dblclick', () => MaxMinWindow(ytwindow), false);
+
+twCloseButton.addEventListener('click', () => ShowHideWindow(twwindow), false);
+twIcon.addEventListener('dblclick', () => ShowHideWindow(twwindow), false);
+twbar.addEventListener('dblclick', () => MaxMinWindow(twwindow), false);
+
+
+function MaxMinWindow(elmnt) {
+    // Max
+    if (elmnt[0].style.width === '60%') {
         // Show the iframe
-        ytwindow[0].style.display = 'block';
+        elmnt[0].style.top = '0px'
+        elmnt[0].style.left = '0px'
+        elmnt[0].style.width = '100%'
+        elmnt[0].style.height = '95%'
+
+    } else {
+        // Min
+        elmnt[0].style.top = '10%'
+        elmnt[0].style.left = '10px'
+        elmnt[0].style.width = '50%'
+        elmnt[0].style.height = '50%'
+
+    }
+}
+
+function ShowHideWindow(elmnt) {
+    // Check the current display value of the iframe
+    if (elmnt[0].style.display === 'none') {
+        // Show the iframe
+        unfade(elmnt[0]);
+
     } else {
         // Hide the iframe
-        ytwindow[0].style.display = 'none';
+        fade(elmnt[0]);
+
     }
-});
+}
 
-button.addEventListener('dragstart', e => {
-    // Set the data to be transferred during the drag
-    e.dataTransfer.setData('text/plain', '');
+function BringToFront(elmnt) {
+    // Check the current display value of the iframe
+    elmnt[0].style.zIndex = '10';
+}
 
-    // Add a class to the button to style it while it is being dragged
-    button.classList.add('dragging');
-});
-
-// Add an event listener to the button to handle drag end
-button.addEventListener('dragend', () => {
-    // Remove the class from the button
-    button.classList.remove('dragging');
-});
-
-
+dragElement(document.getElementById("yt-icon-id"));
 dragElement(document.getElementById("yt-window-id"));
 
+dragElement(document.getElementById("tw-icon-id"));
+dragElement(document.getElementById("tw-window-id"));
+
 function dragElement(elmnt) {
+
+
+
     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-    if (document.getElementById("draggable-bar")) {
+    if (elmnt.getElementsByClassName("draggable")) {
         // if present, the header is where you move the DIV from:
-        document.getElementById("draggable-bar").onmousedown = dragMouseDown;
+        elmnt.getElementsByClassName("draggable")[0].onmousedown = dragMouseDown;
     } else {
         // otherwise, move the DIV from anywhere inside the DIV:
         elmnt.onmousedown = dragMouseDown;
     }
 
     function dragMouseDown(e) {
+
+
+
+
         e = e || window.event;
         e.preventDefault();
         // get the mouse cursor position at startup:
@@ -75,6 +122,15 @@ function dragElement(elmnt) {
     }
 
     function elementDrag(e) {
+
+        twwindow[0].style.zIndex = '1';
+        ytwindow[0].style.zIndex = '1';
+        twwindow[0].style.width = '30%'
+        twwindow[0].style.height = '40%'
+        ytwindow[0].style.width = '60%'
+        ytwindow[0].style.height = '60%'
+        ytIcon.style.zIndex = '0';
+        twIcon.style.zIndex = '0';
         e = e || window.event;
         e.preventDefault();
         // calculate the new cursor position:
@@ -85,6 +141,7 @@ function dragElement(elmnt) {
         // set the element's new position:
         elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
         elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        elmnt.style.zIndex = '10';
     }
 
     function closeDragElement() {
@@ -92,4 +149,31 @@ function dragElement(elmnt) {
         document.onmouseup = null;
         document.onmousemove = null;
     }
+}
+
+
+function fade(element) {
+    var op = 1;  // initial opacity
+    var timer = setInterval(function () {
+        if (op <= 0.1) {
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    }, 15);
+}
+
+function unfade(element) {
+    var op = 0.1;  // initial opacity
+    element.style.display = 'block';
+    var timer = setInterval(function () {
+        if (op >= 1) {
+            clearInterval(timer);
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op += op * 0.1;
+    }, 5);
 }

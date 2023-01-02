@@ -101,7 +101,7 @@ body {
     top: 10%;
     width: 60%;
     height: 60%;
-    background-color: rgba(0, 0, 0, 0.192);
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .tw-window {
@@ -111,7 +111,7 @@ body {
     bottom: 5%;
     width: 60%;
     height: 60%;
-    background-color: rgba(0, 0, 0, 0.192);
+    background-color: rgba(0, 0, 0, 1);
 }
 
 .gl-window {

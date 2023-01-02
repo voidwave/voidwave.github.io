@@ -14,7 +14,7 @@ const twbar = document.getElementById('tw-bar');
 
 const ytIcon = document.getElementById('yt-icon-id');
 const twIcon = document.getElementById('tw-icon-id');
-
+twwindow[0].style.display = 'none';
 
 //hide controls if mobile
 

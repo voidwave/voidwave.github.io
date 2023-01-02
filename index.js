@@ -7,14 +7,22 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 console.log("isMobile= " + isMobile);
 var ytwindow = document.getElementsByClassName("yt-window");
 var twwindow = document.getElementsByClassName("tw-window");
+var glwindow = document.getElementsByClassName("gl-window");
+
 const ytCloseButton = document.getElementById('yt-toggle-button');
 const twCloseButton = document.getElementById('tw-toggle-button');
+const glCloseButton = document.getElementById('gl-toggle-button');
+
 const ytbar = document.getElementById('yt-bar');
 const twbar = document.getElementById('tw-bar');
+const glbar = document.getElementById('gl-bar');
 
 const ytIcon = document.getElementById('yt-icon-id');
 const twIcon = document.getElementById('tw-icon-id');
+const glIcon = document.getElementById('gl-icon-id');
+
 twwindow[0].style.display = 'none';
+glwindow[0].style.display = 'none';
 
 //hide controls if mobile
 
@@ -29,6 +37,8 @@ if (isMobile) {
 
     ytIcon.style.display = 'none';
     twIcon.style.display = 'none';
+    glIcon.style.display = 'none';
+
     ytwindow[0].style.width = '100%';
     ytwindow[0].style.height = '85%';
 }
@@ -49,6 +59,9 @@ twCloseButton.addEventListener('click', () => ShowHideWindow(twwindow), false);
 twIcon.addEventListener('dblclick', () => ShowHideWindow(twwindow), false);
 twbar.addEventListener('dblclick', () => MaxMinWindow(twwindow), false);
 
+glCloseButton.addEventListener('click', () => ShowHideWindow(glwindow), false);
+glIcon.addEventListener('dblclick', () => ShowHideWindow(glwindow), false);
+glbar.addEventListener('dblclick', () => MaxMinWindow(glwindow), false);
 
 function MaxMinWindow(elmnt) {
     // Max
@@ -63,8 +76,8 @@ function MaxMinWindow(elmnt) {
         // Min
         elmnt[0].style.top = '10%'
         elmnt[0].style.left = '10px'
-        elmnt[0].style.width = '50%'
-        elmnt[0].style.height = '50%'
+        elmnt[0].style.width = '60%'
+        elmnt[0].style.height = '60%'
 
     }
 }
@@ -92,6 +105,9 @@ dragElement(document.getElementById("yt-window-id"));
 
 dragElement(document.getElementById("tw-icon-id"));
 dragElement(document.getElementById("tw-window-id"));
+
+dragElement(document.getElementById("gl-icon-id"));
+dragElement(document.getElementById("gl-window-id"));
 
 function dragElement(elmnt) {
 
@@ -125,12 +141,16 @@ function dragElement(elmnt) {
 
         twwindow[0].style.zIndex = '1';
         ytwindow[0].style.zIndex = '1';
-        twwindow[0].style.width = '30%'
-        twwindow[0].style.height = '40%'
+        glwindow[0].style.zIndex = '1';
+        twwindow[0].style.width = '60%'
+        twwindow[0].style.height = '60%'
+        glwindow[0].style.width = '60%'
+        glwindow[0].style.height = '60%'
         ytwindow[0].style.width = '60%'
         ytwindow[0].style.height = '60%'
         ytIcon.style.zIndex = '0';
         twIcon.style.zIndex = '0';
+        glIcon.style.zIndex = '0';
         e = e || window.event;
         e.preventDefault();
         // calculate the new cursor position:

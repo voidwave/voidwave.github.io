@@ -32,6 +32,11 @@ const pongIcon = document.getElementById('pong-icon-id');
 
 const sidepanel = document.getElementsByClassName('side-panel');
 
+twwindow.style.width = '60%';
+pongwindow.style.width = '60%';
+ytwindow.style.width = '60%';
+glwindow.style.width = '60%';
+
 twwindow.style.display = 'none';
 glwindow.style.display = 'none';
 pongwindow.style.display = 'none';

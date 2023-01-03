@@ -54,6 +54,8 @@ if (isMobile) {
     pongIcon.style.display = 'none';
     ytwindow.style.width = '100%';
     ytwindow.style.height = '85%';
+    ytwindow.style.right = '0px';
+    ytwindow.style.border = 'none';
 }
 
 

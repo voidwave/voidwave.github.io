@@ -15,6 +15,11 @@ const twCloseButton = document.getElementById('tw-toggle-button');
 const glCloseButton = document.getElementById('gl-toggle-button');
 const pongCloseButton = document.getElementById('pong-toggle-button');
 
+const ytMaxButton = document.getElementById('yt-max-button');
+const twMaxButton = document.getElementById('tw-max-button');
+const glMaxButton = document.getElementById('gl-max-button');
+const pongMaxButton = document.getElementById('pong-max-button');
+
 const ytbar = document.getElementById('yt-bar');
 const twbar = document.getElementById('tw-bar');
 const glbar = document.getElementById('gl-bar');
@@ -39,6 +44,7 @@ if (isMobile) {
     twbar.style.display = 'none';
     ytCloseButton.style.display = 'none';
     twCloseButton.style.display = 'none';
+    ytMaxButton.style.display = 'none';
 
     twwindow.style.display = 'none';
 
@@ -61,18 +67,22 @@ if (isMobile) {
 ytCloseButton.addEventListener('click', () => ShowHideWindow(ytwindow), false);
 ytIcon.addEventListener('click', () => ShowHideWindow(ytwindow), false);
 ytbar.addEventListener('dblclick', () => MaxMinWindow(ytwindow), false);
+ytMaxButton.addEventListener('click', () => MaxMinWindow(ytwindow), false);
 
 twCloseButton.addEventListener('click', () => ShowHideWindow(twwindow), false);
 twIcon.addEventListener('click', () => ShowHideWindow(twwindow), false);
 twbar.addEventListener('dblclick', () => MaxMinWindow(twwindow), false);
+twMaxButton.addEventListener('click', () => MaxMinWindow(twwindow), false);
 
 glCloseButton.addEventListener('click', () => ShowHideWindow(glwindow), false);
 glIcon.addEventListener('click', () => ShowHideWindow(glwindow), false);
 glbar.addEventListener('dblclick', () => MaxMinWindow(glwindow), false);
+glMaxButton.addEventListener('click', () => MaxMinWindow(glwindow), false);
 
 pongCloseButton.addEventListener('click', () => AddRemovePong(pongwindow), false);
 pongIcon.addEventListener('click', () => AddRemovePong(pongwindow), false);
 pongbar.addEventListener('dblclick', () => MaxMinWindow(pongwindow), false);
+pongMaxButton.addEventListener('click', () => MaxMinWindow(pongwindow), false);
 
 function MaxMinWindow(elmnt) {
     // Max
@@ -112,6 +122,7 @@ function AddRemovePong(elmnt) {
     if (elmnt.style.display === 'none') {
         // Show the iframe
         unfade(elmnt);
+
         pongDiv.innerHTML = '<iframe id="pongIframe" src="pong.html" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>';
 
     } else {
@@ -222,7 +233,9 @@ function unfade(element) {
     twwindow.style.zIndex = '1';
     ytwindow.style.zIndex = '1';
     glwindow.style.zIndex = '1';
-    element.style.zIndex = '10';
+    pongwindow.style.zIndex = '1';
+
+
     var timer = setInterval(function () {
         if (op >= 1) {
             clearInterval(timer);
@@ -231,4 +244,6 @@ function unfade(element) {
         element.style.filter = 'alpha(opacity=' + op * 100 + ")";
         op += op * 0.1;
     }, 5);
+
+    element.style.zIndex = '10';
 }

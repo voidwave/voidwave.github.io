@@ -1,0 +1,195 @@
+<html>
+
+<head>
+    <title>Pong</title>
+</head>
+
+<body>
+    <canvas id="game" style="background-color: black;"></canvas>
+    <script>
+        // set up canvas
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth - 10;
+        canvas.height = window.innerHeight;
+        // set up ball
+        let x = canvas.width / 2;
+        let y = canvas.height / 2;
+        const ballRadius = 10;
+        let dx = 4;
+        let dy = 3;
+        let maxSpeed = 12;
+        // set up paddles
+        const paddleHeight = 75;
+        const paddleWidth = 10;
+        let paddle1Y = (canvas.height - paddleHeight) / 2;
+        let paddle2Y = (canvas.height - paddleHeight) / 2;
+        const paddleSpeed = 5;
+        const ballPositions = [];
+        // set up scores
+        let player1Score = 0;
+        let player2Score = 0;
+
+        // draw ball on canvas
+        function drawBall() {
+            for (let i = 0; i < ballPositions.length; i++) {
+                const pos = ballPositions[i];
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, ballRadius * (i / 100 + 0.1), 0, Math.PI * 2);  // divide radius by i + 1 to decrease size
+                ctx.fillStyle = `rgba(255, 255, 255, ${(i + 1) / ballPositions.length})`;
+                ctx.fill();
+                ctx.closePath();
+            }
+            ctx.beginPath();
+            ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            ctx.closePath();
+        }
+
+        // draw paddles on canvas
+        function drawPaddles() {
+            ctx.fillStyle = 'white';
+            ctx.fillRect(0, paddle1Y, paddleWidth, paddleHeight);
+            ctx.fillRect(canvas.width - paddleWidth, paddle2Y, paddleWidth, paddleHeight);
+        }
+
+        // draw scores on canvas
+        function drawScores() {
+            ctx.font = '16px Arial';
+            ctx.fillStyle = 'white';
+            ctx.fillText(player1Score, canvas.width / 4, 20);
+            ctx.fillText(player2Score, 3 * canvas.width / 4, 20);
+        }
+
+        // move ball
+        function moveBall() {
+            x += dx;
+            y += dy;
+            ballPositions.push({ x, y });
+            if (ballPositions.length > 50) {
+                ballPositions.shift();
+            }
+        }
+
+        // move paddles
+        function movePaddles() {
+            movePaddle1();
+
+            // player 2 paddle movement
+            if (wPressed && paddle2Y > 0) {
+                paddle2Y -= paddleSpeed;
+            } else if (sPressed && paddle2Y < canvas.height - paddleHeight) {
+                paddle2Y += paddleSpeed;
+            }
+        }
+
+        // handle ball collision with walls
+        function ballWallCollision() {
+            if (y + dy < ballRadius || y + dy > canvas.height - ballRadius) {
+                dy = -dy;
+            }
+            // player 1 scores
+            if (x + dx < 0) {
+                player2Score++;
+                x = canvas.width / 2;
+                y = canvas.height / 2;
+                dx = 4;
+            }
+            // player 2 scores
+            if (x + dx > canvas.width) {
+                player1Score++;
+                x = canvas.width / 2;
+                y = canvas.height / 2;
+                dx = 4;
+
+            }
+        }
+
+        // handle ball collision with paddles
+        function ballPaddleCollision() {
+            // player 1 paddle collision
+            if (x + dx < paddleWidth && y > paddle1Y && y < paddle1Y + paddleHeight) {
+                // dx = Math.cos(getRandomAngle());
+                dy = Math.sin(getRandomAngle());
+                dy = dy * 5;
+                dx = -dx * 1.25;
+            }
+            // player 2 paddle collision
+            if (x + dx > canvas.width - paddleWidth && y > paddle2Y && y < paddle2Y + paddleHeight) {
+                // dx = -Math.cos(getRandomAngle());
+                dy = Math.sin(getRandomAngle());
+                dy = dy * 5;
+                dx = -dx * 1.25;
+            }
+
+            if (dx < -maxSpeed)
+                dx = -maxSpeed;
+            if (dx > maxSpeed)
+                dx = maxSpeed;
+        }
+
+        // draw game
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBall();
+            drawPaddles();
+            drawScores();
+            ballWallCollision();
+            ballPaddleCollision();
+            moveBall();
+            movePaddles();
+        }
+
+        // keydown events
+        document.addEventListener('keydown', keyDownHandler);
+        document.addEventListener('keyup', keyUpHandler);
+
+        let upPressed = false;
+        let downPressed = false;
+        let wPressed = false;
+        let sPressed = false;
+        function keyDownHandler(e) {
+            if (e.keyCode === 38) {
+                upPressed = true;
+            } else if (e.keyCode === 40) {
+                downPressed = true;
+            } else if (e.keyCode === 87) {
+                wPressed = true;
+            } else if (e.keyCode === 83) {
+                sPressed = true;
+            }
+        }
+
+        function keyUpHandler(e) {
+            if (e.keyCode === 38) {
+                upPressed = false;
+            } else if (e.keyCode === 40) {
+                downPressed = false;
+            } else if (e.keyCode === 87) {
+                wPressed = false;
+            } else if (e.keyCode === 83) {
+                sPressed = false;
+            }
+        }
+
+        function movePaddle1() {
+            if (y > paddle1Y + paddleHeight / 2) {
+                paddle1Y += paddleSpeed;
+            } else if (y < paddle1Y + paddleHeight / 2) {
+                paddle1Y -= paddleSpeed;
+            }
+        }
+        function getRandomAngle() {
+            const minAngle = -Math.PI / 4;
+            const maxAngle = Math.PI / 4;
+            return minAngle + Math.random() * (maxAngle - minAngle);
+        }
+
+
+        // game loop
+        setInterval(draw, 5);
+    </script>
+</body>
+
+</html>

@@ -8,24 +8,28 @@ console.log("isMobile= " + isMobile);
 var ytwindow = document.getElementById("yt-window-id");
 var twwindow = document.getElementById("tw-window-id");
 var glwindow = document.getElementById("gl-window-id");
+var pongwindow = document.getElementById("pong-window-id");
 
 const ytCloseButton = document.getElementById('yt-toggle-button');
 const twCloseButton = document.getElementById('tw-toggle-button');
 const glCloseButton = document.getElementById('gl-toggle-button');
+const pongCloseButton = document.getElementById('pong-toggle-button');
 
 const ytbar = document.getElementById('yt-bar');
 const twbar = document.getElementById('tw-bar');
 const glbar = document.getElementById('gl-bar');
+const pongbar = document.getElementById('pong-bar');
 
 const ytIcon = document.getElementById('yt-icon-id');
 const twIcon = document.getElementById('tw-icon-id');
 const glIcon = document.getElementById('gl-icon-id');
+const pongIcon = document.getElementById('pong-icon-id');
 
 const sidepanel = document.getElementsByClassName('side-panel');
 
 twwindow.style.display = 'none';
 glwindow.style.display = 'none';
-
+pongwindow.style.display = 'none';
 //hide controls if mobile
 
 if (isMobile) {
@@ -41,7 +45,7 @@ if (isMobile) {
     ytIcon.style.display = 'none';
     twIcon.style.display = 'none';
     glIcon.style.display = 'none';
-
+    pongIcon.style.display = 'none';
     ytwindow.style.width = '100%';
     ytwindow.style.height = '85%';
 }
@@ -66,22 +70,26 @@ glCloseButton.addEventListener('click', () => ShowHideWindow(glwindow), false);
 glIcon.addEventListener('click', () => ShowHideWindow(glwindow), false);
 glbar.addEventListener('dblclick', () => MaxMinWindow(glwindow), false);
 
+pongCloseButton.addEventListener('click', () => AddRemovePong(pongwindow), false);
+pongIcon.addEventListener('click', () => AddRemovePong(pongwindow), false);
+pongbar.addEventListener('dblclick', () => MaxMinWindow(pongwindow), false);
+
 function MaxMinWindow(elmnt) {
     // Max
     if (elmnt.style.width === '60%') {
         // Show the iframe
         elmnt.style.top = '35px'
         elmnt.style.left = '100px'
-        elmnt.style.width = '85%'
+        elmnt.style.right = '50px'
+        elmnt.style.width = '90%'
         elmnt.style.height = '90%'
-
     } else {
         // Min
         elmnt.style.top = '10%'
         elmnt.style.left = '100px'
+        elmnt.style.right = '50px'
         elmnt.style.width = '60%'
         elmnt.style.height = '60%'
-
     }
 }
 
@@ -96,6 +104,23 @@ function ShowHideWindow(elmnt) {
         fade(elmnt);
 
     }
+}
+
+function AddRemovePong(elmnt) {
+
+    pongDiv = document.getElementById("pongDiv");
+    if (elmnt.style.display === 'none') {
+        // Show the iframe
+        unfade(elmnt);
+        pongDiv.innerHTML = '<iframe id="pongIframe" src="pong.html" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>';
+
+    } else {
+        // Hide the iframe
+        fade(elmnt);
+        pongDiv.innerHTML = '';
+    }
+
+
 }
 
 function BringToFront(elmnt) {
@@ -143,15 +168,19 @@ function dragElement(elmnt, index) {
         twwindow.style.zIndex = '1';
         ytwindow.style.zIndex = '1';
         glwindow.style.zIndex = '1';
+        pongwindow.style.zIndex = '1';
+
         twwindow.style.width = '60%'
         twwindow.style.height = '60%'
         glwindow.style.width = '60%'
         glwindow.style.height = '60%'
         ytwindow.style.width = '60%'
         ytwindow.style.height = '60%'
-        ytIcon.style.zIndex = '0';
-        twIcon.style.zIndex = '0';
-        glIcon.style.zIndex = '0';
+        pongwindow.style.width = '60%'
+        pongwindow.style.height = '60%'
+        // ytIcon.style.zIndex = '0';
+        // twIcon.style.zIndex = '0';
+        // glIcon.style.zIndex = '0';
 
         e = e || window.event;
         e.preventDefault();

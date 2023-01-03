@@ -70,7 +70,7 @@ body {
 }
 
 .side-panel {
-    background-color: rgba(0, 0, 0, 0.486);
+    background-color: rgba(0, 0, 0, 0.75);
     position: fixed;
     z-index: 0;
     top: 35px;
@@ -120,7 +120,7 @@ body {
 .window {
     position: fixed;
     z-index: 1;
-    right: 0%;
+    right: 50px;
     width: 60%;
     height: 60%;
     background-color: rgba(0, 0, 0, 1);

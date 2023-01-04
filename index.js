@@ -129,7 +129,7 @@ function AddRemovePong(elmnt) {
         // Show the iframe
         unfade(elmnt);
 
-        pongDiv.innerHTML = '<iframe id="pongIframe" src="pong.html" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>';
+        pongDiv.innerHTML = '<iframe style="width:100%; height:100%; border: none;" src="primejinn/index.html"></iframe>';//'<iframe id="pongIframe" src="pong.html" scrolling="no" frameborder="0" width="100%" height="100%"></iframe>';
 
     } else {
         // Hide the iframe

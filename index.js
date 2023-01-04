@@ -158,7 +158,7 @@ function AddRemoveTw(elmnt) {
     if (elmnt.style.display === 'none') {
         // Show the iframe
         unfade(elmnt);
-        Div.innerHTML = '<iframe style="width:98%; height:100%; border: none;" src="https://voidwave.github.io/twitter.html"></iframe>';
+        Div.innerHTML = '<iframe style="width:100%; height:100%; border: none;" src="https://voidwave.github.io/twitter.html"></iframe>';
     } else {
         // Hide the iframe
         fade(elmnt);

@@ -159,6 +159,11 @@ body {
     z-index: 9;
 }
 
+.draggable:hover {
+    color: yellow;
+    background-image: linear-gradient(rgb(0, 216, 0), rgba(22, 133, 22, 0.404));
+}
+
 .icon {
     cursor: pointer;
     border: 10px;
@@ -172,7 +177,11 @@ body {
     height: 50px;
 }
 
-.draggable.dragging {
+.icon:hover {
+    color: yellow;
+}
+
+.draggable.drag {
     cursor: move;
     z-index: 10;
     opacity: 0.5;
@@ -190,6 +199,11 @@ body {
     cursor: pointer;
 }
 
+.close-button:hover {
+    color: yellow;
+    background-image: linear-gradient(rgb(196, 66, 5), rgb(66, 4, 4));
+}
+
 .max-button {
     background-image: linear-gradient(rgb(107, 107, 107), rgb(36, 36, 36));
     color: white;
@@ -200,6 +214,11 @@ body {
     padding: 0px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.max-button:hover {
+    color: yellow;
+    background-image: linear-gradient(rgb(161, 196, 5), rgb(50, 66, 4));
 }
 
 /* #yt-toggle-button {

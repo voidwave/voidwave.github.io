@@ -31,6 +31,18 @@
         let player1Score = 0;
         let player2Score = 0;
 
+        addEventListener("resize", (event) => { });
+
+        onresize = (event) => {
+            canvas.width = window.innerWidth - 10;
+            canvas.height = window.innerHeight;
+            x = canvas.width / 2;
+            y = canvas.height / 2;
+            paddle1Y = (canvas.height - paddleHeight) / 2;
+            paddle2Y = (canvas.height - paddleHeight) / 2;
+
+        };
+
         // draw ball on canvas
         function drawBall() {
             for (let i = 0; i < ballPositions.length; i++) {
@@ -43,7 +55,7 @@
             }
             ctx.beginPath();
             ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = 'red';
             ctx.fill();
             ctx.closePath();
         }
@@ -57,10 +69,10 @@
 
         // draw scores on canvas
         function drawScores() {
-            ctx.font = '16px Arial';
-            ctx.fillStyle = 'white';
-            ctx.fillText(player1Score, canvas.width / 4, 20);
-            ctx.fillText(player2Score, 3 * canvas.width / 4, 20);
+            ctx.font = '60px monospace';
+            ctx.fillStyle = 'green';
+            ctx.fillText(player1Score, canvas.width / 4, canvas.height / 2);
+            ctx.fillText(player2Score, 3 * canvas.width / 4, canvas.height / 2);
         }
 
         // move ball
@@ -78,9 +90,9 @@
             movePaddle1();
 
             // player 2 paddle movement
-            if (wPressed && paddle2Y > 0) {
+            if (upPressed && paddle2Y > 0) {
                 paddle2Y -= paddleSpeed;
-            } else if (sPressed && paddle2Y < canvas.height - paddleHeight) {
+            } else if (downPressed && paddle2Y < canvas.height - paddleHeight) {
                 paddle2Y += paddleSpeed;
             }
         }
@@ -148,29 +160,20 @@
 
         let upPressed = false;
         let downPressed = false;
-        let wPressed = false;
-        let sPressed = false;
+
         function keyDownHandler(e) {
-            if (e.keyCode === 38) {
+            if (e.keyCode === 38 || e.keyCode === 87) {
                 upPressed = true;
-            } else if (e.keyCode === 40) {
+            } else if (e.keyCode === 40 || e.keyCode === 83) {
                 downPressed = true;
-            } else if (e.keyCode === 87) {
-                wPressed = true;
-            } else if (e.keyCode === 83) {
-                sPressed = true;
             }
         }
 
         function keyUpHandler(e) {
-            if (e.keyCode === 38) {
+            if (e.keyCode === 38 || e.keyCode === 87) {
                 upPressed = false;
-            } else if (e.keyCode === 40) {
+            } else if (e.keyCode === 40 || e.keyCode === 83) {
                 downPressed = false;
-            } else if (e.keyCode === 87) {
-                wPressed = false;
-            } else if (e.keyCode === 83) {
-                sPressed = false;
             }
         }
 

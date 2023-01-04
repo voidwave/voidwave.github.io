@@ -71,18 +71,18 @@ if (isMobile) {
 
 
 // Add an event listener to the button to toggle the iframe
-ytCloseButton.addEventListener('click', () => ShowHideWindow(ytwindow), false);
-ytIcon.addEventListener('click', () => ShowHideWindow(ytwindow), false);
+ytCloseButton.addEventListener('click', () => AddRemoveYT(ytwindow), false);
+ytIcon.addEventListener('click', () => AddRemoveYT(ytwindow), false);
 ytbar.addEventListener('dblclick', () => MaxMinWindow(ytwindow), false);
 ytMaxButton.addEventListener('click', () => MaxMinWindow(ytwindow), false);
 
-twCloseButton.addEventListener('click', () => ShowHideWindow(twwindow), false);
-twIcon.addEventListener('click', () => ShowHideWindow(twwindow), false);
+twCloseButton.addEventListener('click', () => AddRemoveTw(twwindow), false);
+twIcon.addEventListener('click', () => AddRemoveTw(twwindow), false);
 twbar.addEventListener('dblclick', () => MaxMinWindow(twwindow), false);
 twMaxButton.addEventListener('click', () => MaxMinWindow(twwindow), false);
 
-glCloseButton.addEventListener('click', () => ShowHideWindow(glwindow), false);
-glIcon.addEventListener('click', () => ShowHideWindow(glwindow), false);
+glCloseButton.addEventListener('click', () => AddRemoveGl(glwindow), false);
+glIcon.addEventListener('click', () => AddRemoveGl(glwindow), false);
 glbar.addEventListener('dblclick', () => MaxMinWindow(glwindow), false);
 glMaxButton.addEventListener('click', () => MaxMinWindow(glwindow), false);
 
@@ -95,16 +95,16 @@ function MaxMinWindow(elmnt) {
     // Max
     if (elmnt.style.width === '60%') {
         // Show the iframe
-        elmnt.style.top = '35px'
-        elmnt.style.left = '100px'
-        elmnt.style.right = '50px'
-        elmnt.style.width = '90%'
-        elmnt.style.height = '90%'
+        //elmnt.style.top = '35px'
+        //elmnt.style.left = '100px'
+        //elmnt.style.right = '100px'
+        elmnt.style = "width: calc(100% - 110px);height: calc(100% - 50px);left: 100px;top: 35px;";
+        //elmnt.style.height = '90%'
     } else {
         // Min
         elmnt.style.top = '10%'
         elmnt.style.left = '100px'
-        elmnt.style.right = '50px'
+        //elmnt.style.right = '100px'
         elmnt.style.width = '60%'
         elmnt.style.height = '60%'
     }
@@ -124,7 +124,6 @@ function ShowHideWindow(elmnt) {
 }
 
 function AddRemovePong(elmnt) {
-
     pongDiv = document.getElementById("pongDiv");
     if (elmnt.style.display === 'none') {
         // Show the iframe
@@ -137,10 +136,48 @@ function AddRemovePong(elmnt) {
         fade(elmnt);
         pongDiv.innerHTML = '';
     }
-
-
 }
 
+function AddRemoveGl(elmnt) {
+    Div = document.getElementById("glDiv");
+    if (elmnt.style.display === 'none') {
+        // Show the iframe
+        unfade(elmnt);
+
+        Div.innerHTML = ' <iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>';
+
+    } else {
+        // Hide the iframe
+        fade(elmnt);
+        Div.innerHTML = '';
+    }
+}
+
+function AddRemoveTw(elmnt) {
+    Div = document.getElementById("twDiv");
+    if (elmnt.style.display === 'none') {
+        // Show the iframe
+        unfade(elmnt);
+        Div.innerHTML = '<iframe style="width:98%; height:100%; border: none;" src="https://voidwave.github.io/twitter.html"></iframe>';
+    } else {
+        // Hide the iframe
+        fade(elmnt);
+        Div.innerHTML = '';
+    }
+}
+
+function AddRemoveYT(elmnt) {
+    Div = document.getElementById("ytDiv");
+    if (elmnt.style.display === 'none') {
+        // Show the iframe
+        unfade(elmnt);
+        Div.innerHTML = '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>';
+    } else {
+        // Hide the iframe
+        fade(elmnt);
+        Div.innerHTML = '';
+    }
+}
 function BringToFront(elmnt) {
     // Check the current display value of the iframe
     elmnt.style.zIndex = '10';

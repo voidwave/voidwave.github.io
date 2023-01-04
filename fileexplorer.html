@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head></head>
+
+<body>
+    <div id="file-explorer">
+        <ul id="files">
+        </ul>
+    </div>
+
+    <script>
+        function retrieveFiles() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Parse the JSON response
+                    var files = JSON.parse(xhr.responseText);
+                    // Iterate over the list of files and directories
+                    for (var i = 0; i < files.length; i++) {
+                        // Create a list item for each file or directory
+                        var li = document.createElement("li");
+                        li.innerHTML = files[i];
+                        // Append the list item to the list of files
+                        document.getElementById("files").appendChild(li);
+                    }
+                }
+            }
+            // Send a GET request to the server to retrieve the list of files
+            xhr.open("GET", "/files", true);
+            xhr.send();
+        }
+
+        // Call the retrieveFiles function when the page loads
+        window.onload = retrieveFiles;
+    </script>
+</body>
+
+</html>

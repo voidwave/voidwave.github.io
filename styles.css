@@ -32,7 +32,7 @@ body {
 
 /* Add styles for the top panel */
 .top-panel {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 27, 0, 0.5));
+    background-color: rgba(0, 0, 0, 1);
     z-index: 10;
     display: flex;
     align-items: center;
@@ -82,6 +82,7 @@ body {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 10px;
+
 }
 
 .side-panel div {
@@ -126,6 +127,7 @@ body {
     border: rgb(0, 114, 0);
     border-style: solid;
     border-radius: 25px 25px 0px 0px;
+
 }
 
 #yt-window-id {
@@ -133,9 +135,7 @@ body {
 }
 
 #tw-window-id {
-
     bottom: 5%;
-
 }
 
 #gl-window-id {
@@ -157,7 +157,7 @@ body {
     text-align: left;
     text-indent: 5px;
     z-index: 9;
-    border-radius: 22px 0px 0px 0px;
+    border-radius: 20px 0px 0px 0px;
 }
 
 .draggable:hover {
@@ -176,13 +176,11 @@ body {
     width: 50px;
     height: 80px;
     /* background-color: rgb(0, 0, 0); */
-
     border: 10px;
     /* border: rgb(0, 114, 0);
     border-style: solid;
     align-content: center;
     align-items: center; */
-
 }
 
 .icon-text {
@@ -213,16 +211,18 @@ body {
     padding: 0px;
     font-size: 16px;
     cursor: pointer;
-    border-radius: 0px 25px 0px 0px;
+    border-radius: 0px 20px 0px 0px;
+
 }
 
 .close-button:hover {
     color: yellow;
     background-image: linear-gradient(rgb(196, 66, 5), rgb(66, 4, 4));
+
 }
 
 .max-button {
-    background-image: linear-gradient(rgb(107, 107, 107), rgb(36, 36, 36));
+    background-image: linear-gradient(rgb(0, 0, 0), rgb(36, 36, 36));
     color: white;
     border: none;
     float: right;

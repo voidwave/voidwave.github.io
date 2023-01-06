@@ -14,6 +14,12 @@ body {
     opacity: 0.5;
 }
 
+/* 
+* {
+    border-style: solid;
+    border-color: aqua;
+} */
+
 @font-face {
     font-family: 'Kawkab';
     src: url('./assets/fonts/KawkabMono-Bold.eot');
@@ -26,8 +32,6 @@ body {
         /* Pretty Modern Browsers */
         url('./assets/fonts/KawkabMono-Bold.ttf') format('truetype'),
         /* Safari, Android, iOS */
-        url('webfont.svg#svgFontName') format('svg');
-    /* Legacy iOS */
 }
 
 /* Add styles for the top panel */
@@ -73,20 +77,21 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.75));
     position: fixed;
     z-index: 0;
-    top: 35px;
+    top: 25%;
     left: 0;
-    height: 100%;
-    width: 50px;
+    height: 340px;
+    width: 60px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     padding: 10px;
+    align-items: center;
 
 }
 
 .side-panel div {
-    margin-bottom: 100px;
+    margin-bottom: 10px;
 }
 
 body {
@@ -124,10 +129,9 @@ body {
     width: 60%;
     height: 60%;
     background-image: linear-gradient(rgb(0, 0, 0), rgba(0, 0, 0, 0.404));
-    border: rgb(0, 114, 0);
+    border: rgb(0, 0, 0);
     border-style: solid;
     border-radius: 25px 25px 0px 0px;
-
 }
 
 #yt-window-id {
@@ -167,20 +171,12 @@ body {
 
 .icon {
     cursor: pointer;
-    /* float: right; */
     padding: 0px;
-    /* font-size: 5px; */
-    position: fixed;
+    position: relative;
     z-index: 0;
-    /* right: 15%; */
     width: 50px;
     height: 80px;
-    /* background-color: rgb(0, 0, 0); */
-    border: 10px;
-    /* border: rgb(0, 114, 0);
-    border-style: solid;
-    align-content: center;
-    align-items: center; */
+    border: 1px;
 }
 
 .icon-text {
@@ -192,7 +188,8 @@ body {
 }
 
 .icon:hover {
-    color: yellow;
+    scale: 1.1;
+
 }
 
 .draggable.drag {
@@ -204,13 +201,13 @@ body {
 .close-button {
     background-image: linear-gradient(red, rgb(97, 0, 0));
     color: white;
-    border: none;
     float: right;
     width: 50px;
     height: 30px;
     padding: 0px;
     font-size: 16px;
     cursor: pointer;
+    border: none;
     border-radius: 0px 20px 0px 0px;
 
 }
@@ -238,56 +235,6 @@ body {
     background-image: linear-gradient(rgb(161, 196, 5), rgb(50, 66, 4));
 }
 
-/* #yt-toggle-button {
-    background-color: rgb(255, 0, 0);
-    color: white;
-    border: none;
-    float: right;
-    width: 5%;
-    height: 30px;
-    padding: 0px;
-    font-size: 16px;
-    cursor: pointer;
-
-}
-
-#tw-toggle-button {
-    background-color: rgb(255, 0, 0);
-    color: white;
-    border: none;
-    float: right;
-    width: 5%;
-    height: 30px;
-    padding: 0px;
-    font-size: 16px;
-}
-
-#gl-toggle-button {
-    background-color: rgb(255, 0, 0);
-    color: white;
-    border: none;
-    float: right;
-    width: 5%;
-    height: 30px;
-    padding: 0px;
-    font-size: 16px;
-} */
-
-#yt-icon-id {
-    /* background-color: rgb(255, 0, 0); */
-    color: rgb(255, 0, 0);
-}
-
-#tw-icon-id {
-    /* background-color: rgb(255, 0, 0); */
-    color: rgb(17, 80, 255);
-
-}
-
-#gl-icon-id {
-    /* background-color: rgb(255, 0, 0); */
-    color: rgb(0, 114, 0);
-}
 
 /* .fa fa-youtube-square {
 

@@ -10,12 +10,11 @@
     <link rel="stylesheet" href="./styles.css">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-
     <title>voidwave</title>
 </head>
 
 <body>
-    <!-- top panel -->
+    <!-- TopPanel -->
     <div class="top-panel">
         <h1>voidwave</h1>
         <div>
@@ -25,9 +24,9 @@
         </div>
     </div>
 
-    <!--style="position: absolute; z-index: 1; left: 20px; bottom: 20px; width:100px; height:100px;"-->
-    <div id="yt-window-id" class="window">
-        <div id="yt-bar" class="draggable" draggable><i style="font-size: 20px" class="fa fa-youtube-square"></i>
+    <!--Windows-->
+    <div class="window">
+        <div class="draggable" draggable><i style="font-size: 20px" class="fa fa-youtube-square"></i>
             Project Videos</div>
         <button class="close-button">✖</button>
         <button class="max-button">▢</button>
@@ -39,8 +38,8 @@
 
     </div>
 
-    <div id="tw-window-id" class="window">
-        <div id="tw-bar" class="draggable" draggable><i style="font-size: 20px" class="fa fa-twitter"></i>
+    <div class="window">
+        <div class="draggable" draggable><i style="font-size: 20px" class="fa fa-twitter"></i>
             @majedaltaemi</div>
         <button class="close-button">✖</button>
         <button class="max-button">▢</button>
@@ -48,8 +47,8 @@
 
     </div>
 
-    <div id="gl-window-id" class="window">
-        <div id="gl-bar" class="draggable" draggable><i style="font-size: 20px" class="fa fa-camera-retro"></i>
+    <div class="window">
+        <div class="draggable" draggable><i style="font-size: 20px" class="fa fa-camera-retro"></i>
             Project Gallery</div>
         <button class="close-button">✖</button>
         <button class="max-button">▢</button>
@@ -57,14 +56,16 @@
 
     </div>
 
-    <div id="pong-window-id" class="window">
-        <div id="pong-bar" class="draggable" draggable><i style="font-size: 20px" class="fa fa-gamepad"></i> Prime
+    <div class="window">
+        <div class="draggable" draggable><i style="font-size: 20px" class="fa fa-gamepad"></i> Prime
         </div>
         <button class="close-button">✖</button>
         <button class="max-button">▢</button>
         <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
+
     </div>
 
+    <!--SidePanel Icons-->
     <div class="side-panel">
         <div class="icon">
             <i style="font-size: 50px; color: rgb(255, 0, 0);" class="fa fa-youtube-square"></i>
@@ -87,8 +88,6 @@
     <canvas id="Matrix"></canvas>
     <script src="background.js"></script>
     <script src="index.js"></script>
-
-
 
 </body>
 

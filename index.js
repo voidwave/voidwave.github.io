@@ -6,7 +6,7 @@ var isMobile = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
 }
-console.log("isMobile= " + isMobile);
+//console.log("isMobile= " + isMobile);
 
 //storing iframe data, so instead of just hiding the iframe but still have the data
 //running in the background, we remove it from the div and add it when it launches from here
@@ -23,6 +23,7 @@ const Frames = document.getElementsByClassName("frame");
 const windowBars = document.getElementsByClassName("draggable");
 const icons = document.getElementsByClassName('icon');
 const sidepanel = document.getElementsByClassName('side-panel');
+
 
 //hide windows
 for (var i = 0; i < windows.length; i++) {
@@ -96,8 +97,10 @@ function AddRemove(elmnt, index) {
     if (elmnt.style.display === 'none') {
         // Show the iframe
         unfade(elmnt);
-        console.log(Frames[index]);
+        //console.log(Frames[index]);
         Frames[index].innerHTML = FramesContentHTML[index];
+        elmnt.style.top = '40px';
+        elmnt.style.left = '100px'
     } else {
         // Hide the iframe
         fade(elmnt);
@@ -107,7 +110,7 @@ function AddRemove(elmnt, index) {
 
 function BringToFront(elmnt) {
     for (var i = 0; i < windows.length; i++) {
-        console.log(windows[i].style.zIndex);
+        //console.log(windows[i].style.zIndex);
         windows[i].style.zIndex = '1';
     }
     elmnt.style.zIndex = '10';

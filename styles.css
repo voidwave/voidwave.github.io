@@ -120,6 +120,7 @@ body {
 .window {
     position: fixed;
     z-index: 1;
+    top: 10%;
     right: 50px;
     width: 60%;
     height: 60%;
@@ -129,6 +130,7 @@ body {
     border-radius: 25px 25px 0px 0px;
 }
 
+/* 
 #yt-window-id {
     top: 10%;
 }
@@ -139,7 +141,7 @@ body {
 
 #gl-window-id {
     bottom: 10%;
-}
+} */
 
 .draggable {
     left: 0px;

@@ -20,19 +20,14 @@ body {
     border-color: aqua;
 } */
 
-@font-face {
+/* @font-face {
     font-family: 'Kawkab';
     src: url('./assets/fonts/KawkabMono-Bold.eot');
-    /* IE9 Compat Modes */
     src: url('./assets/fonts/KawkabMono-Bold.eot?#iefix') format('embedded-opentype'),
-        /* IE6-IE8 */
         url('./assets/fonts/KawkabMono-Bold.woff2') format('woff2'),
-        /* Super Modern Browsers */
         url('./assets/fonts/KawkabMono-Bold.woff') format('woff'),
-        /* Pretty Modern Browsers */
         url('./assets/fonts/KawkabMono-Bold.ttf') format('truetype'),
-        /* Safari, Android, iOS */
-}
+} */
 
 /* Add styles for the top panel */
 .top-panel {

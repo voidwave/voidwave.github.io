@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<head>
+    <title>voidwave Projects</title>
+    <style>
+        /* * {
+            border: 3px;
+            border-color: blue;
+            border-style: solid;
+        } */
+
+        body {
+            background-color: green;
+        }
+
+        .top-panel {
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 30px;
+            background-color: black;
+        }
+
+        .top-panel button {
+            background-color: black;
+            outline: 2px;
+            color: white;
+            width: 40px;
+            height: 100%;
+        }
+
+        #Content {
+            width: 100%;
+            top: 30px;
+            left: 0px;
+            border-radius: 3px;
+            border: 1px solid rgb(22, 3, 3);
+            display: grid;
+            /* Use display property as grid*/
+            gap: 5px;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
+
+        .project-icon {
+            /* float: none; */
+            margin: 10px;
+            /* margin-left: 10px; */
+            width: 100px;
+            height: 100px;
+            background-color: black;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top-panel">
+        <button id="backButton">Back</button>
+    </div>
+
+    <div id="Content">
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+        <div class="project-icon"></div>
+
+    </div>
+
+</body>
+
+<script>
+
+</script>
+
+</html>

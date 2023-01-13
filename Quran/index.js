@@ -32,9 +32,7 @@ var surasTashkeel;// = LoadXml('QuranText/Quran/quran-simple.xml');
 var surasClean;// = LoadXml('QuranText/Quran/quran-simple-clean.xml');
 var surasEnglish;// = LoadXml('QuranText/English-Translation/en.sahih.xml');
 var surasTafsirJalalyn;// = LoadXml('QuranText/Arabic-Tafsir/ar.jalalayn.xml');
-
 var randomButton;
-
 
 
 LoadSuraTashkeel('https://voidwave.github.io/Quran/QuranText/Quran/quran-simple.xml');
@@ -97,10 +95,12 @@ function LoadSuraTafsirJalalyn(path) {
 
 window.onload = function () {
     randomButton = document.getElementById("random-button");
+    randomSurahButton = document.getElementById("randomSurah-button");
+
     //random ayah
     randomButton.addEventListener('click', function () {
         console.log("R Clicked");
-        let randomAyah = document.getElementById('random-ayah');
+        let randomAyah = document.getElementById('maincontent');
         var randomSura = generateRandomNumber(0, 113);
         var maxAyah = surasTashkeel[randomSura].children.length;
         maxAyah--;
@@ -110,6 +110,23 @@ window.onload = function () {
             + "\n" + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } "
             + '\n\n' + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text')
             + '\n\n' + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text');
+
+    });
+
+    //random surah
+    randomSurahButton.addEventListener('click', function () {
+        console.log("R Clicked");
+        let randomAyah = document.getElementById('maincontent');
+        var randomSura = generateRandomNumber(0, 113);
+
+        randomAyah.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + '\n\n\n' + "</h3>";
+        randomAyah.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '\n\n\n' + '</h3>';
+        for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
+            randomAyah.innerHTML += '<h2 style="color: greenyellow;">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+                + "<h3>" + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
+                + "<h3>" + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
+                + '<br>';
+
 
     });
 };

@@ -2,7 +2,6 @@
 function loadHtml(id, filename) {
 
     // console.log('div id: ${id}, filename: ${filename}');
-
     let xhttp;
     let element = document.getElementById(id);
     let file = filename;
@@ -34,13 +33,16 @@ var surasClean;// = LoadXml('QuranText/Quran/quran-simple-clean.xml');
 var surasEnglish;// = LoadXml('QuranText/English-Translation/en.sahih.xml');
 var surasTafsirJalalyn;// = LoadXml('QuranText/Arabic-Tafsir/ar.jalalayn.xml');
 
-LoadSuraTashkeel('QuranText/Quran/quran-simple.xml');
-LoadSuraClean('QuranText/Quran/quran-simple-clean.xml');
-LoadSuraEnglish('QuranText/English-Translation/en.sahih.xml');
-LoadSuraTafsirJalalyn('QuranText/Arabic-Tafsir/ar.jalalayn.xml');
+var randomButton;
+
+
+
+LoadSuraTashkeel('https://voidwave.github.io/Quran/QuranText/Quran/quran-simple.xml');
+LoadSuraClean('https://voidwave.github.io/Quran/QuranText/Quran/quran-simple-clean.xml');
+LoadSuraEnglish('https://voidwave.github.io/Quran/QuranText/English-Translation/en.sahih.xml');
+LoadSuraTafsirJalalyn('https://voidwave.github.io/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
 // console.log("Check Quran Loaded: " + LoadXml('QuranText/Quran/quran-simple.xml').length);
 //console.log("Check Quran Loaded: " + surasTashkeel.length);
-
 
 function LoadSuraTashkeel(path) {
     let xmlContent = '';
@@ -91,22 +93,26 @@ function LoadSuraTafsirJalalyn(path) {
 }
 
 
-//random ayah
-const randomButton = document.getElementById("random-button");
-randomButton.addEventListener('click', function () {
-    console.log("R Clicked");
-    let randomAyah = document.getElementById('random-ayah');
-    var randomSura = generateRandomNumber(0, 113);
-    var maxAyah = surasTashkeel[randomSura].children.length;
-    maxAyah--;
-    var randomAyahNumber = generateRandomNumber(0, maxAyah);
 
-    randomAyah.innerText = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + ":" + (randomAyahNumber + 1) + "]"
-        + "\n" + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text')
-        + '\n\n' + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text')
-        + '\n\n' + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text');
 
-});
+window.onload = function () {
+    randomButton = document.getElementById("random-button");
+    //random ayah
+    randomButton.addEventListener('click', function () {
+        console.log("R Clicked");
+        let randomAyah = document.getElementById('random-ayah');
+        var randomSura = generateRandomNumber(0, 113);
+        var maxAyah = surasTashkeel[randomSura].children.length;
+        maxAyah--;
+        var randomAyahNumber = generateRandomNumber(0, maxAyah);
+
+        randomAyah.innerText = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + ":" + (randomAyahNumber + 1) + "]"
+            + "\n" + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } "
+            + '\n\n' + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text')
+            + '\n\n' + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text');
+
+    });
+};
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

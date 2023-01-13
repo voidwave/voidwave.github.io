@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Al-Quran</title>
+    <script src="index.js"></script>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: "Mada", sans-serif
+        }
+
+        .w3-row-padding img {
+            margin-bottom: 12px
+        }
+
+        /* Set the width of the sidebar to 120px */
+        .w3-sidebar {
+            width: 120px;
+            background: #222;
+        }
+
+        /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+        #main {
+            margin-left: 120px
+        }
+
+        /* Remove margins from "page content" on small screens */
+        @media only screen and (max-width: 600px) {
+            #main {
+                margin-left: 0
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- <div class="nav">
+        <a href='#' onclick='loadHtml("maincontent","home.html")'>Home</a>
+        <a href='#' onclick='loadHtml("maincontent","search.html")'>Search</a>
+        <a href='#' onclick='loadHtml("maincontent","random.html")'>Random</a>
+    </div> -->
+    <div id="main">
+        <header id="home">
+            <h1><span></span> القرآن الكريم</h1>
+            <!-- <p>Al-Quran PWA</p> -->
+        </header>
+    </div>
+    <div id='maincontent' class='maincontent'>
+        <button id="random-button">Random</button>
+        <h2>
+            <div id="random-ayah">
+
+
+            </div>
+        </h2>
+    </div>
+
+</body>
+
+</html>

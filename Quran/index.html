@@ -19,7 +19,33 @@
         div {
             background-color: black;
             color: white;
-            font-family: "Mada", sans-serif
+            font-family: "Mada", sans-serif;
+        }
+
+        button {
+            cursor: pointer;
+            color: rgb(255, 255, 255);
+            background-color: black;
+            border: 5px;
+            border-color: greenyellow;
+            border-style: solid;
+            font-style: normal;
+            font-weight: bold;
+            width: 100px;
+            height: 50px;
+        }
+
+        #nav {
+            margin-top: 60px;
+            float: left;
+            width: 100px;
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
+            grid-gap: 1px;
+            justify-content: start;
+            align-content: start;
+            transition: all 0.5s ease;
         }
     </style>
 
@@ -27,17 +53,18 @@
 </head>
 
 <body>
+    <button id="random-button" style="color: gray;">Random Ayah</button>
+    <button id="randomSurah-button" style="color: gray;">Random Surah</button>
+    <button id="show-nav" style="position: absolute; left: 2px; top:5px">Surah</button>
 
-    <div class="nav">
-        <button id="random-button">Random Ayah</button>
-        <button id="randomSurah-button">Random Surah</button>
-        <!-- <a href='#' onclick='loadHtml("maincontent","search.html")'>Search</a>
-        <a href='#' onclick='loadHtml("maincontent","random.html")'>Random</a> -->
+    <div id="nav" style="display: none;">
+
+
     </div>
 
     <div id="main">
         <header id="home">
-            <h1 style="text-align: center;color: greenyellow;"><span>القرآن الكريم</span></h1>
+            <h1 style="font-size: 40px; text-align: center;color: greenyellow;"><span>القرآن الكريم</span></h1>
 
 
         </header>

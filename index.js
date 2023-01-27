@@ -49,7 +49,11 @@ if (isMobile) {
         if (windows[0].childNodes[i].className == 'edge lt' ||
             windows[0].childNodes[i].className == 'edge lb' ||
             windows[0].childNodes[i].className == 'edge rt' ||
-            windows[0].childNodes[i].className == 'edge rb') {
+            windows[0].childNodes[i].className == 'edge rb' ||
+            windows[0].childNodes[i].className == 'edge l' ||
+            windows[0].childNodes[i].className == 'edge b' ||
+            windows[0].childNodes[i].className == 'edge r' ||
+            windows[0].childNodes[i].className == 'edge t') {
             windows[0].childNodes[i].style.display = 'none';
         }
     }
@@ -103,7 +107,11 @@ function MaxMinWindow(elmnt) {
             if (elmnt.childNodes[i].className == 'edge lt' ||
                 elmnt.childNodes[i].className == 'edge lb' ||
                 elmnt.childNodes[i].className == 'edge rt' ||
-                elmnt.childNodes[i].className == 'edge rb') {
+                elmnt.childNodes[i].className == 'edge rb' ||
+                elmnt.childNodes[i].className == 'edge l' ||
+                elmnt.childNodes[i].className == 'edge b' ||
+                elmnt.childNodes[i].className == 'edge r' ||
+                elmnt.childNodes[i].className == 'edge t') {
                 elmnt.childNodes[i].style.display = 'none';
             }
         }
@@ -120,7 +128,11 @@ function MaxMinWindow(elmnt) {
             if (elmnt.childNodes[i].className == 'edge lt' ||
                 elmnt.childNodes[i].className == 'edge lb' ||
                 elmnt.childNodes[i].className == 'edge rt' ||
-                elmnt.childNodes[i].className == 'edge rb') {
+                elmnt.childNodes[i].className == 'edge rb' ||
+                elmnt.childNodes[i].className == 'edge l' ||
+                elmnt.childNodes[i].className == 'edge b' ||
+                elmnt.childNodes[i].className == 'edge r' ||
+                elmnt.childNodes[i].className == 'edge t') {
                 elmnt.childNodes[i].style.display = 'block';
             }
         }
@@ -322,6 +334,27 @@ function resize(sx, sy) {
             width = focusedElement.width + movement.x;
             height = focusedElement.height + movement.y;
             break;
+
+        case 'RESIZE-L':
+            width = focusedElement.width - movement.x;
+            //height = focusedElement.height - movement.y;
+            tx = focusedElement.translateX + movement.x;
+            //ty = focusedElement.translateY + movement.y;
+            break;
+        case 'RESIZE-T':
+            //width = focusedElement.width + movement.x;
+            height = focusedElement.height - movement.y;
+            ty = focusedElement.translateY + movement.y;
+            break;
+        case 'RESIZE-B':
+            // width = focusedElement.width - movement.x;
+            height = focusedElement.height + movement.y;
+            //tx = focusedElement.translateX + movement.x;
+            break;
+        case 'RESIZE-R':
+            width = focusedElement.width + movement.x;
+            //height = focusedElement.height + movement.y;
+            break;
     }
 
     width = Math.max(50, width);
@@ -375,6 +408,10 @@ function onMouseMoveResize(e) {
         case 'RESIZE-RT':
         case 'RESIZE-LB':
         case 'RESIZE-RB':
+        case 'RESIZE-T':
+        case 'RESIZE-R':
+        case 'RESIZE-L':
+        case 'RESIZE-B':
             resize(e.screenX, e.screenY);
             break;
     }

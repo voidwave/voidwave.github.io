@@ -109,8 +109,10 @@ window.onload = function () {
     }
 
     showNav.addEventListener('click', function () {
-        if (list.style.display == 'none')
+        if (list.style.display == 'none') {
             list.style.display = 'grid';
+            SurahText.innerHTML = '';
+        }
         else
             list.style.display = 'none';
 
@@ -167,6 +169,7 @@ setTimeout(function () {
 
 
 function ViewSurah(index) {
+    document.getElementById("nav").style.display = 'none';
     SurahText.innerHTML = "<h3>" + surasTashkeel[index].getAttribute('name') + " [" + (index + 1) + "]" + "</h3>";
     SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
     for (var a = 0; a < surasTashkeel[index].children.length; a++)
@@ -174,5 +177,6 @@ function ViewSurah(index) {
             + '<h3 >' + surasTafsirJalalyn[index].children[a].getAttribute('text') + "</h3>"
             + '<h3 >' + surasEnglish[index].children[a].getAttribute('text') + "</h3>"
             + '<br>';
+
 
 }

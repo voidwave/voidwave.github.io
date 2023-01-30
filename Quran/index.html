@@ -36,16 +36,24 @@
         }
 
         #nav {
-            margin-top: 60px;
-            float: left;
-            width: 100px;
+            margin-top: 0px;
+            left: calc(50% - 150px);
+            /* float: left; */
+            width: 300px;
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
             grid-gap: 1px;
             justify-content: start;
             align-content: start;
             transition: all 0.5s ease;
+            position: absolute;
+        }
+
+        #show-nav {
+            position: fixed;
+            left: 2px;
+            top: 5px
         }
     </style>
 
@@ -55,7 +63,7 @@
 <body>
     <button id="random-button" style="color: gray;">Random Ayah</button>
     <button id="randomSurah-button" style="color: gray;">Random Surah</button>
-    <button id="show-nav" style="position: absolute; left: 2px; top:5px">Surah</button>
+    <button id="show-nav">Surah</button>
 
     <div id="nav" style="display: none;">
 

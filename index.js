@@ -14,8 +14,7 @@ const FramesContentHTML = [
     '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>',
     '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
     '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="https://paypal.me/Altaemi"></iframe>'
+    '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>'
 ]
 const windows = document.getElementsByClassName('window');
 const closeButtons = document.getElementsByClassName('close-button');
@@ -68,7 +67,7 @@ for (var i = 0; i < closeButtons.length; i++) {
 }
 
 // Add an event listener to the icons to toggle the window
-for (var i = 0; i < icons.length - 1; i++) {
+for (var i = 0; i < icons.length; i++) {
     (function (index) {
         icons[index].addEventListener('click', () => AddRemove(closeButtons[index].parentNode, index), false);
     })(i);

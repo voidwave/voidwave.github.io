@@ -118,6 +118,24 @@
         <span data-user-action="RESIZE-R" class="edge r"></span>
         <div class="max" style="display: none;">min</div>
     </div>
+
+    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
+        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-paypal"></i>
+            Donate
+        </div>
+        <button class="close-button">✖</button>
+        <button class="max-button">▢</button>
+        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
+        <span data-user-action="RESIZE-LT" class="edge lt"></span>
+        <span data-user-action="RESIZE-RT" class="edge rt"></span>
+        <span data-user-action="RESIZE-LB" class="edge lb"></span>
+        <span data-user-action="RESIZE-RB" class="edge rb"></span>
+        <span data-user-action="RESIZE-L" class="edge l"></span>
+        <span data-user-action="RESIZE-T" class="edge t"></span>
+        <span data-user-action="RESIZE-B" class="edge b"></span>
+        <span data-user-action="RESIZE-R" class="edge r"></span>
+        <div class="max" style="display: none;">min</div>
+    </div>
     <!--SidePanel Icons-->
     <div class="side-panel">
         <div class="icon">
@@ -140,12 +158,20 @@
             <i style="font-size: 50px;color: rgb(184, 187, 0);" class="fa fa-folder"></i>
             <i class="icon-text">_projects_</i>
         </div>
+        <div class="icon" onclick='openInNewTab("https://paypal.me/Altaemi");'>
+            <i style="font-size: 50px;color: rgb(255, 255, 255);" class="fa fa-paypal"></i>
+            <i class="icon-text">_donate_</i>
+        </div>
     </div>
 
     <canvas id="Matrix"></canvas>
     <script src="background.js"></script>
     <script src="index.js"></script>
-
+    <script>
+        function openInNewTab(url) {
+            window.open(url, '_blank').focus();
+        }
+    </script>
 </body>
 
 </html>

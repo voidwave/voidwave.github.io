@@ -11,7 +11,7 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 //storing iframe data, so instead of just hiding the iframe but still have the data
 //running in the background, we remove it from the div and add it when it launches from here
 const FramesContentHTML = [
-    '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>',
+    '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; showinfo="1"; gyroscope; picture-in-picture"allowfullscreen></iframe>',
     '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
     '<iframe style="width:100%; height:100%; border: none;" src="https://player.twitch.tv/?channel=voidwave&parent=voidwave.github.io" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
     '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>',

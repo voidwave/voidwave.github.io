@@ -15,6 +15,7 @@ const FramesContentHTML = [
     '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
     '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>',
     '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
+    'https://steamcommunity.com/app/1746820/allnews/',
     'https://x.com/majedaltaemi',
     'https://www.instagram.com/majedaltaemi/'
 ]

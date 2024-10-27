@@ -69,12 +69,12 @@ body {
 }
 
 .side-panel {
-    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.75));
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 1));
     position: fixed;
     z-index: 0;
     top: 25%;
     left: 0;
-    height: 340px;
+    height: 500px;
     width: 60px;
     display: flex;
     flex-direction: column;

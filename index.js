@@ -13,9 +13,10 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 const FramesContentHTML = [
     '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>',
     '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="https://player.twitch.tv/?channel=voidwave&parent=voidwave.github.io" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
     '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>'
+    '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
+    'https://x.com/majedaltaemi',
+    'https://www.instagram.com/majedaltaemi/'
 ]
 const windows = document.getElementsByClassName('window');
 const closeButtons = document.getElementsByClassName('close-button');
@@ -144,17 +145,22 @@ function MaxMinWindow(elmnt) {
 //here iframe data is toggled in or off the div
 function AddRemove(elmnt, index) {
 
-    if (elmnt.style.display === 'none') {
-        // Show the iframe
-        unfade(elmnt);
-        //console.log(Frames[index]);
-        Frames[index].innerHTML = FramesContentHTML[index];
-        elmnt.style.top = '40px';
-        elmnt.style.left = '100px'
+    if (FramesContentHTML[index].startsWith("https")) {
+        window.open(FramesContentHTML[index], "_blank");
     } else {
-        // Hide the iframe
-        fade(elmnt);
-        Frames[index].innerHTML = '';
+
+        if (elmnt.style.display === 'none') {
+            // Show the iframe
+            unfade(elmnt);
+            //console.log(Frames[index]);
+            Frames[index].innerHTML = FramesContentHTML[index];
+            elmnt.style.top = '40px';
+            elmnt.style.left = '100px'
+        } else {
+            // Hide the iframe
+            fade(elmnt);
+            Frames[index].innerHTML = '';
+        }
     }
 }
 

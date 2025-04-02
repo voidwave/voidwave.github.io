@@ -36,65 +36,85 @@ var randomButton;
 var SurahText;
 var surahButtons;
 var showNav;
-LoadSuraTashkeel('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml');
-LoadSuraClean('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml');
-LoadSuraEnglish('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml');
-LoadSuraTafsirJalalyn('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
+
+
+Promise.all([
+    loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml').then(data => surasTashkeel = data),
+    loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml').then(data => surasClean = data),
+    loadXml('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml').then(data => surasEnglish = data),
+    loadXml('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml').then(data => surasTafsirJalalyn = data)
+]).then(() => {
+    console.log("All XML files loaded successfully!");
+    initializePage(); // Call the function that initializes the page
+}).catch(error => {
+    console.error("Error loading XML files:", error);
+});
+// LoadSuraTashkeel('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml');
+// LoadSuraClean('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml');
+// LoadSuraEnglish('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml');
+// LoadSuraTafsirJalalyn('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
 // console.log("Check Quran Loaded: " + LoadXml('QuranText/Quran/quran-simple.xml').length);
 //console.log("Check Quran Loaded: " + surasTashkeel.length);
 
-function LoadSuraTashkeel(path) {
-    let xmlContent = '';
-    fetch(path).then((response) => {
-        response.text().then((xml) => {
-            xmlContent = xml;
+// function LoadSuraTashkeel(path) {
+//     let xmlContent = '';
+//     fetch(path).then((response) => {
+//         response.text().then((xml) => {
+//             xmlContent = xml;
+//             let parser = new DOMParser();
+//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
+//             surasTashkeel = xmlDOM.querySelectorAll('sura');
+//         });
+//     });
+// }
+
+// function LoadSuraClean(path) {
+//     let xmlContent = '';
+//     fetch(path).then((response) => {
+//         response.text().then((xml) => {
+//             xmlContent = xml;
+//             let parser = new DOMParser();
+//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
+//             surasClean = xmlDOM.querySelectorAll('sura');
+//         });
+//     });
+// }
+
+// function LoadSuraEnglish(path) {
+//     let xmlContent = '';
+//     fetch(path).then((response) => {
+//         response.text().then((xml) => {
+//             xmlContent = xml;
+//             let parser = new DOMParser();
+//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
+//             surasEnglish = xmlDOM.querySelectorAll('sura');
+//         });
+//     });
+// }
+
+// function LoadSuraTafsirJalalyn(path) {
+//     let xmlContent = '';
+//     fetch(path).then((response) => {
+//         response.text().then((xml) => {
+//             xmlContent = xml;
+//             let parser = new DOMParser();
+//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
+//             surasTafsirJalalyn = xmlDOM.querySelectorAll('sura');
+//         });
+//     });
+// }
+
+function loadXml(path) {
+    return fetch(path)
+        .then(response => response.text())
+        .then(xml => {
             let parser = new DOMParser();
-            let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-            surasTashkeel = xmlDOM.querySelectorAll('sura');
+            let xmlDOM = parser.parseFromString(xml, 'application/xml');
+            return xmlDOM.querySelectorAll('sura'); // Return the parsed sura elements
         });
-    });
 }
 
-function LoadSuraClean(path) {
-    let xmlContent = '';
-    fetch(path).then((response) => {
-        response.text().then((xml) => {
-            xmlContent = xml;
-            let parser = new DOMParser();
-            let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-            surasClean = xmlDOM.querySelectorAll('sura');
-        });
-    });
-}
-
-function LoadSuraEnglish(path) {
-    let xmlContent = '';
-    fetch(path).then((response) => {
-        response.text().then((xml) => {
-            xmlContent = xml;
-            let parser = new DOMParser();
-            let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-            surasEnglish = xmlDOM.querySelectorAll('sura');
-        });
-    });
-}
-
-function LoadSuraTafsirJalalyn(path) {
-    let xmlContent = '';
-    fetch(path).then((response) => {
-        response.text().then((xml) => {
-            xmlContent = xml;
-            let parser = new DOMParser();
-            let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-            surasTafsirJalalyn = xmlDOM.querySelectorAll('sura');
-        });
-    });
-}
-
-
-
-
-window.onload = function () {
+function initializePage() {
     showNav = document.getElementById('show-nav');
     SurahText = document.getElementById('maincontent');
     randomButton = document.getElementById("random-button");
@@ -102,7 +122,6 @@ window.onload = function () {
     var list = document.getElementById("nav");
 
     for (var i = 0; i < 114; i++) {
-        // Create a new surah list item
         var surahItem = document.createElement("button");
         surahItem.className = "surah";
         list.appendChild(surahItem);
@@ -112,17 +131,15 @@ window.onload = function () {
         if (list.style.display == 'none') {
             list.style.display = 'grid';
             SurahText.innerHTML = '';
-        }
-        else
+        } else {
             list.style.display = 'none';
-
+        }
     });
 
-    //random ayah
+    // Random Ayah button functionality
     randomButton.addEventListener('click', function () {
         var randomSura = generateRandomNumber(0, 113);
-        var maxAyah = surasTashkeel[randomSura].children.length;
-        maxAyah--;
+        var maxAyah = surasTashkeel[randomSura].children.length - 1;
         var randomAyahNumber = generateRandomNumber(0, maxAyah);
 
         SurahText.innerHTML = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + ":" + (randomAyahNumber + 1) + "]"
@@ -130,21 +147,82 @@ window.onload = function () {
             + "<h3>" + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
             + "<h3>" + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
             + '<br>';
-
     });
 
-    //random surah
+    // Random Surah button functionality
     randomSurahButton.addEventListener('click', function () {
         var randomSura = generateRandomNumber(0, 113);
         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
         for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
-            SurahText.innerHTML += '<h2 style="color: greenyellow; ">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
-                + '<h3 >' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
-                + '<h3 >' + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
+            SurahText.innerHTML += '<h2 style="color: greenyellow;">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+                + '<h3>' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
+                + '<h3>' + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
                 + '<br>';
     });
-};
+
+    setTimeout(function () {
+        surahButtons = document.getElementsByClassName("surah");
+        for (var i = 0; i < 114; i++) {
+            surahButtons[i].innerHTML = surasTashkeel[i].getAttribute('name') + " " + (i + 1);
+            (function (index) {
+                surahButtons[index].addEventListener('click', () => ViewSurah(index), false);
+            })(i);
+        }
+    }, 100);
+}
+
+// window.onload = function () {
+//     showNav = document.getElementById('show-nav');
+//     SurahText = document.getElementById('maincontent');
+//     randomButton = document.getElementById("random-button");
+//     randomSurahButton = document.getElementById("randomSurah-button");
+//     var list = document.getElementById("nav");
+
+//     for (var i = 0; i < 114; i++) {
+//         // Create a new surah list item
+//         var surahItem = document.createElement("button");
+//         surahItem.className = "surah";
+//         list.appendChild(surahItem);
+//     }
+
+//     showNav.addEventListener('click', function () {
+//         if (list.style.display == 'none') {
+//             list.style.display = 'grid';
+//             SurahText.innerHTML = '';
+//         }
+//         else
+//             list.style.display = 'none';
+
+//     });
+
+//     //random ayah
+//     randomButton.addEventListener('click', function () {
+//         var randomSura = generateRandomNumber(0, 113);
+//         var maxAyah = surasTashkeel[randomSura].children.length;
+//         maxAyah--;
+//         var randomAyahNumber = generateRandomNumber(0, maxAyah);
+
+//         SurahText.innerHTML = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + ":" + (randomAyahNumber + 1) + "]"
+//             + '<h2 style="color: greenyellow;">  ' + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } " + '</h2>'
+//             + "<h3>" + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
+//             + "<h3>" + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
+//             + '<br>';
+
+//     });
+
+//     //random surah
+//     randomSurahButton.addEventListener('click', function () {
+//         var randomSura = generateRandomNumber(0, 113);
+//         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
+//         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
+//         for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
+//             SurahText.innerHTML += '<h2 style="color: greenyellow; ">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+//                 + '<h3 >' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
+//                 + '<h3 >' + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
+//                 + '<br>';
+//     });
+// };
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

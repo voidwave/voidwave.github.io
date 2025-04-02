@@ -36,10 +36,10 @@ var randomButton;
 var SurahText;
 var surahButtons;
 var showNav;
-LoadSuraTashkeel('https://voidwave.github.io/Quran/QuranText/Quran/quran-simple.xml');
-LoadSuraClean('https://voidwave.github.io/Quran/QuranText/Quran/quran-simple-clean.xml');
-LoadSuraEnglish('https://voidwave.github.io/Quran/QuranText/English-Translation/en.sahih.xml');
-LoadSuraTafsirJalalyn('https://voidwave.github.io/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
+LoadSuraTashkeel('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml');
+LoadSuraClean('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml');
+LoadSuraEnglish('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml');
+LoadSuraTafsirJalalyn('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
 // console.log("Check Quran Loaded: " + LoadXml('QuranText/Quran/quran-simple.xml').length);
 //console.log("Check Quran Loaded: " + surasTashkeel.length);
 

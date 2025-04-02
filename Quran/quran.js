@@ -1,5 +1,5 @@
 // The base URL for the images
-const baseUrl = 'https://voidwave.github.io/Quran/QuranPNGs/';
+const baseUrl = 'https://voidwave.com/Quran/QuranPNGs/';
 // The current page number
 let currentPage = 1;
 

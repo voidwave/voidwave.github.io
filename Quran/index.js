@@ -7,7 +7,7 @@ function loadHtml(id, filename) {
     let file = filename;
 
     if (file) {
-        console.log(file);
+        // console.log(file);
         xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
@@ -31,6 +31,8 @@ var clearButton;
 var SurahText;
 var surahButtons;
 var showNav;
+let showTafsir = true; // Flag to track the visibility of Tafsir
+let showEnglish = true; // Flag to track the visibility of English
 
 
 Promise.all([
@@ -64,11 +66,35 @@ function initializePage() {
     randomSurahButton = document.getElementById("randomSurah-button");
     clearButton = document.getElementById('clear-button');
     var list = document.getElementById("nav");
+    var toggleTafsirButton = document.getElementById("toggle-tafsir"); // Get the toggle button
+    var toggleEnglishButton = document.getElementById("toggle-english"); // Get the toggle button
 
-    if (!randomSurahButton || !clearButton) {
-        console.error('One or more elements are missing. Please check the HTML and ensure IDs are correct.');
-        return;
-    }
+    toggleTafsirButton.addEventListener('click', function () {
+        // Toggle the visibility flags
+        showTafsir = !showTafsir;
+
+
+        // Optionally, update the button text to reflect the current state
+        toggleTafsirButton.innerText = showTafsir ? "HIDE TAFSIR" : "SHOW TAFSIR";
+
+        // Re-render the content based on the new visibility state
+        if (selectedSurah !== null) {
+            ViewSurah(selectedSurah);
+        }
+    });
+    toggleEnglishButton.addEventListener('click', function () {
+        // Toggle the visibility flags
+        showEnglish = !showEnglish;
+
+        // Optionally, update the button text to reflect the current state
+        toggleEnglishButton.innerText = showEnglish ? "HIDE ENGLISH" : "SHOW ENGLISH";
+
+        // Re-render the content based on the new visibility state
+        if (selectedSurah !== null) {
+            ViewSurah(selectedSurah);
+        }
+    });
+
 
     for (var i = 0; i < 114; i++) {
         var surahItem = document.createElement("button");
@@ -95,9 +121,9 @@ function initializePage() {
         var randomAyahNumber = generateRandomNumber(0, maxAyah);
 
         SurahText.innerHTML = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomAyahNumber + 1) + ":" + (randomSura + 1) + "]"
-            + '<h2 style="color: greenyellow;">  ' + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } " + '</h2>'
-            + "<h3>" + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
-            + "<h3 style='direction: ltr;'>" + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
+            + '<h2 style="color: white;">  ' + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } " + '</h2>'
+            + (showTafsir ? '<h3 style="color: gray;">' + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>" : '')
+            + (showEnglish ? "<h3 style='direction: ltr; color: gray;'>" + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>" : '')
             + '<br>';
     });
 
@@ -110,9 +136,9 @@ function initializePage() {
         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
         for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
-            SurahText.innerHTML += '<h2 style="color: greenyellow;">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
-                + '<h3>' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
-                + "<h3 style='direction: ltr;'>" + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
+            SurahText.innerHTML += '<h2 style="color: white;">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+                + (showTafsir ? '<h3 style="color: gray;">' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>" : '')
+                + (showEnglish ? "<h3 style='direction: ltr;color: gray;'>" + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>" : '')
                 + '<br>';
     });
     // Clear button functionality
@@ -174,11 +200,10 @@ function setupSearchBar() {
                         result.style.padding = '10px';
                         result.style.borderBottom = '1px solid #ccc';
                         result.innerHTML = `
-                          <h4>${surahName} [${a + 1}:${s + 1}]</h4>
-                        <p style="color: greenyellow;">${highlightedAyahText}</p>
-                        <p><strong>Tafsir:</strong> ${tafsir}</p>
-                         <p style="direction: ltr;"><strong>English:</strong> ${english}</p>
-                    `;
+                           <h4>${surahName} [${a + 1}:${s + 1}]</h4>
+                        <p style="color: white;">${highlightedAyahText}</p>` +
+                            (showTafsir ? `<p style="color: gray;"><strong></strong> ${tafsir}</p>` : ``) +
+                            (showEnglish ? `<p style="direction: ltr; color: gray;"><strong></strong> ${english}</p>` : ``);
                         resultsContainer.appendChild(result);
                     }
                 }
@@ -202,10 +227,9 @@ function setupSearchBar() {
                     result.style.borderBottom = '1px solid #ccc';
                     result.innerHTML = `
                         <h4>${surahName} [${a + 1}:${s + 1}]</h4>
-                        <p style="color: greenyellow;">${highlightedAyahText}</p>
-                        <p><strong>Tafsir:</strong> ${tafsir}</p>
-                         <p style="direction: ltr;"><strong>English:</strong> ${english}</p>
-                    `;
+                        <p style="color: white;">${highlightedAyahText}</p>` +
+                        (showTafsir ? `<p style="color: gray;"><strong></strong> ${tafsir}</p>` : ``) +
+                        (showEnglish ? `<p style="direction: ltr; color: gray;"><strong></strong> ${english}</p>` : ``);
                     resultsContainer.appendChild(result);
                 }
             }
@@ -250,7 +274,7 @@ function highlightMatch(text, query) {
             highlightedText.substring(end);
     }
 
-    console.log('highlightMatch result:', highlightedText); // Debug
+    // console.log('highlightMatch result:', highlightedText); // Debug
     return highlightedText;
 }
 
@@ -282,9 +306,9 @@ function ViewSurah(index) {
     SurahText.innerHTML = "<h3>" + surasTashkeel[index].getAttribute('name') + " [" + (index + 1) + "]" + "</h3>";
     SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
     for (var a = 0; a < surasTashkeel[index].children.length; a++)
-        SurahText.innerHTML += '<h2 style="color: greenyellow; ">  ' + surasTashkeel[index].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
-            + '<h3 >' + surasTafsirJalalyn[index].children[a].getAttribute('text') + "</h3>"
-            + "<h3 style='direction: ltr;'>" + surasEnglish[index].children[a].getAttribute('text') + "</h3>"
+        SurahText.innerHTML += '<h2 style="color: white; ">  ' + surasTashkeel[index].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+            + (showTafsir ? '<h3 style="color: gray;">' + surasTafsirJalalyn[index].children[a].getAttribute('text') + "</h3>" : '')
+            + (showEnglish ? "<h3 style='direction: ltr; color: gray;'>" + surasEnglish[index].children[a].getAttribute('text') + "</h3>" : '')
             + '<br>';
 
 

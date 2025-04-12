@@ -1,136 +1,122 @@
-// The base URL for the images
+// Base URL for Quran images
 const baseUrl = 'https://voidwave.com/Quran/QuranPNGs/';
-// The current page number
-let currentPage = 1;
 
-// The maximum number of pages to keep in the DOM
-const maxPages = 3;
-
-// The total number of pages
+// Config
 const totalPages = 605;
+const pageHeight = 965;
 
-// The container for the images
-const container = document.getElementById('container');
-const progressBar = document.getElementById('progress-bar');
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('container');
+    const progressBar = document.getElementById('progress-bar');
+    const pageNumberEl = document.getElementById('page-number');
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    // The progress container
-    const progressContainer = document.getElementById('progress');
+    // Set up container for scrolling
+    container.style.height = `${totalPages * pageHeight}px`;
+    container.style.position = 'relative';
+    container.style.overflowY = 'auto';
 
-    // Navigate to a page when the progress container is clicked
-    progressContainer.addEventListener('click', (event) => {
-        const rect = progressContainer.getBoundingClientRect();
-        const clickX = event.clientX - rect.left;
-        const progressWidth = rect.width;
-        const clickRatio = clickX / progressWidth;
-        const page = Math.round(clickRatio * totalPages);
-        navigateToPage(page);
-    });
-});
+    // Create empty page placeholders
+    for (let i = 1; i <= totalPages; i++) {
+        const pageDiv = document.createElement('div');
+        pageDiv.id = `page-${i}`;
+        pageDiv.className = 'page';
+        pageDiv.dataset.page = i;
+        pageDiv.style.height = `${pageHeight}px`;
+        pageDiv.style.position = 'absolute';
+        pageDiv.style.top = `${(i - 1) * pageHeight}px`;
+        pageDiv.style.width = '100%';
+        container.appendChild(pageDiv);
+    }
 
-// Create an Intersection Observer to load more pages when the user scrolls to the bottom
-let observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting && entry.target.id === 'bottom' && currentPage < totalPages) {
-            loadNextPage();
-        } else if (entry.isIntersecting && entry.target.id === 'top' && currentPage > 1) {
-            loadPreviousPage();
+    // Keep track of which pages are currently loaded
+    const loadedPages = new Set();
+
+    // Scroll handler
+    container.addEventListener('scroll', () => {
+        // Get current scroll position
+        const scrollTop = container.scrollTop;
+        const viewportHeight = container.clientHeight;
+
+        // Calculate visible page range
+        const firstVisiblePage = Math.floor(scrollTop / pageHeight) + 1;
+        const lastVisiblePage = Math.ceil((scrollTop + viewportHeight) / pageHeight);
+
+        // Update UI
+        const currentPage = firstVisiblePage;
+        updateProgressBar(scrollTop, currentPage);
+
+        console.log(`Visible pages: ${firstVisiblePage} to ${lastVisiblePage}`);
+
+        // Determine which pages to load and unload
+        for (let i = 1; i <= totalPages; i++) {
+            // Page is visible - load it if not already loaded
+            if (i >= firstVisiblePage && i <= lastVisiblePage) {
+                if (!loadedPages.has(i)) {
+                    loadPage(i);
+                    loadedPages.add(i);
+                }
+            }
+            // Page is not visible - unload it if it's loaded
+            else if (loadedPages.has(i)) {
+                unloadPage(i);
+                loadedPages.delete(i);
+            }
         }
     });
-}, {
-    rootMargin: '100px'
+
+    // Progress bar click handler
+    document.getElementById('progress').addEventListener('click', (event) => {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const ratio = (event.clientX - rect.left) / rect.width;
+        const targetPage = Math.max(1, Math.min(totalPages, Math.ceil(ratio * totalPages)));
+        navigateToPage(targetPage);
+    });
+
+    // Initial check for visible pages
+    setTimeout(() => {
+        container.dispatchEvent(new Event('scroll'));
+    }, 100);
+
+    function loadPage(pageNum) {
+        const pageDiv = document.getElementById(`page-${pageNum}`);
+        if (!pageDiv) return;
+
+        console.log(`Loading page ${pageNum}`);
+
+        const img = new Image();
+        img.src = `${baseUrl}${pageNum.toString().padStart(3, '0')}.png`;
+        img.alt = `Quran Page ${pageNum}`;
+        img.style.width = '100%';
+        img.style.display = 'block';
+
+        // Clear any existing content and add the image
+        pageDiv.innerHTML = '';
+        pageDiv.appendChild(img);
+    }
+
+    function unloadPage(pageNum) {
+        const pageDiv = document.getElementById(`page-${pageNum}`);
+        if (!pageDiv) return;
+
+        console.log(`Unloading page ${pageNum}`);
+
+        // Clear the page div
+        pageDiv.innerHTML = '';
+    }
+
+    function updateProgressBar(scrollTop, currentPage) {
+        // Update progress bar
+        const viewHeight = container.clientHeight;
+        const maxScroll = container.scrollHeight - viewHeight;
+        const progress = (scrollTop / maxScroll) * 100;
+        progressBar.style.width = `${progress}%`;
+
+        // Update page counter
+        pageNumberEl.textContent = `Page ${currentPage} / ${totalPages}`;
+    }
+
+    function navigateToPage(pageNum) {
+        if (pageNum < 1 || pageNum > totalPages) return;
+        container.scrollTop = (pageNum - 1) * pageHeight;
+    }
 });
-
-// Load the initial pages
-loadInitialPages();
-// Update the progress bar
-function updateProgressBar() {
-    const progress = (currentPage / totalPages) * 100;
-    progressBar.style.width = `${progress}%`;
-}
-
-// Navigate to a specific page
-function navigateToPage(page) {
-    // Clear the container
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-
-    // Set the current page
-    currentPage = page;
-
-    // Load the new pages
-    loadInitialPages();
-
-    // Update the progress bar
-    updateProgressBar();
-}
-
-// Create a Resize Observer to reconnect the Intersection Observer when the iframe is resized
-const resizeObserver = new ResizeObserver(() => {
-    observer.disconnect();
-    observer = new IntersectionObserver(observer.callback, observer.options);
-    observer.observe(container.firstChild);
-    observer.observe(container.lastChild);
-});
-
-// Observe the body for resize events
-resizeObserver.observe(document.body);
-
-function loadInitialPages() {
-    for (let i = 0; i < maxPages && i < totalPages; i++) {
-        loadNextPage();
-    }
-}
-
-function loadNextPage() {
-    const img = document.createElement('img');
-    img.src = `${baseUrl}${currentPage.toString().padStart(3, '0')}.png`;
-    container.appendChild(img);
-    currentPage++;
-
-    // Remove the old page if there are more than maxPages in the DOM
-    while (container.children.length > maxPages) {
-        container.removeChild(container.firstChild);
-    }
-
-    // Observe the last image for scrolling
-    if (container.lastChild) {
-        observer.observe(container.lastChild);
-        container.lastChild.id = 'bottom';
-    }
-
-    // If it's the first image, also observe it for scrolling up
-    if (container.firstChild) {
-        observer.observe(container.firstChild);
-        container.firstChild.id = 'top';
-    }
-
-    updateProgressBar();
-}
-
-function loadPreviousPage() {
-    currentPage--;
-    const img = document.createElement('img');
-    img.src = `${baseUrl}${currentPage.toString().padStart(3, '0')}.png`;
-    container.insertBefore(img, container.firstChild);
-
-    // Remove the old page if there are more than maxPages in the DOM
-    while (container.children.length > maxPages) {
-        container.removeChild(container.lastChild);
-    }
-
-    // Observe the first image for scrolling
-    if (container.firstChild) {
-        observer.observe(container.firstChild);
-        container.firstChild.id = 'top';
-    }
-
-    // If it's the last image, also observe it for scrolling down
-    if (container.lastChild) {
-        observer.observe(container.lastChild);
-        container.lastChild.id = 'bottom';
-    }
-
-    updateProgressBar();
-}

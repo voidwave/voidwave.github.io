@@ -27,6 +27,7 @@ var surasClean;
 var surasEnglish;
 var surasTafsirJalalyn;
 var randomButton;
+var clearButton;
 var SurahText;
 var surahButtons;
 var showNav;
@@ -61,7 +62,13 @@ function initializePage() {
     SurahText = document.getElementById('maincontent');
     randomButton = document.getElementById("random-button");
     randomSurahButton = document.getElementById("randomSurah-button");
+    clearButton = document.getElementById('clear-button');
     var list = document.getElementById("nav");
+
+    if (!randomSurahButton || !clearButton) {
+        console.error('One or more elements are missing. Please check the HTML and ensure IDs are correct.');
+        return;
+    }
 
     for (var i = 0; i < 114; i++) {
         var surahItem = document.createElement("button");
@@ -83,6 +90,7 @@ function initializePage() {
         document.getElementById('search-results').innerHTML = '';
 
         var randomSura = generateRandomNumber(0, 113);
+        selectSurah(randomSura);
         var maxAyah = surasTashkeel[randomSura].children.length - 1;
         var randomAyahNumber = generateRandomNumber(0, maxAyah);
 
@@ -98,6 +106,7 @@ function initializePage() {
         document.getElementById('search-results').innerHTML = '';
 
         var randomSura = generateRandomNumber(0, 113);
+        selectSurah(randomSura);
         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
         for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
@@ -107,7 +116,7 @@ function initializePage() {
                 + '<br>';
     });
     // Clear button functionality
-    document.getElementById('clear-button').addEventListener('click', function () {
+    clearButton.addEventListener('click', function () {
         // Clear the current surah and ayah
         SurahText.innerHTML = '';  // Clear the displayed surah and ayah
 
@@ -116,7 +125,9 @@ function initializePage() {
 
         // Optionally, clear the search bar as well
         document.getElementById('search-bar').value = '';  // Clear the search bar input
+        clearSurahSelection();
     });
+
     setTimeout(function () {
         surahButtons = document.getElementsByClassName("surah");
         for (var i = 0; i < 114; i++) {
@@ -128,6 +139,7 @@ function initializePage() {
     }, 100);
 }
 
+var selectedSurah = null; // Variable to track selected Surah
 
 function setupSearchBar() {
     const searchBar = document.getElementById('search-bar');
@@ -141,27 +153,55 @@ function setupSearchBar() {
 
         let matchCount = 0;
 
-        for (let s = 0; s < surasClean.length; s++) {
+        if (selectedSurah === null) {
+            // Search the entire Quran if no surah is selected
+            for (let s = 0; s < surasClean.length; s++) {
+                for (let a = 0; a < surasClean[s].children.length; a++) {
+                    const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                    if (cleanText && cleanText.includes(query)) {
+                        matchCount++;
+
+                        const surahName = surasTashkeel[s].getAttribute('name');
+                        const cleanAyahText = surasClean[s].children[a].getAttribute('text');
+                        const tashkeelAyahText = surasTashkeel[s].children[a].getAttribute('text');
+                        const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
+                        const english = surasEnglish[s].children[a].getAttribute('text');
+
+                        // Step 1: Highlight the tashkeel ayah text based on the clean text and search query
+                        const highlightedAyahText = highlightMatch(cleanAyahText, query);
+
+                        const result = document.createElement('div');
+                        result.style.padding = '10px';
+                        result.style.borderBottom = '1px solid #ccc';
+                        result.innerHTML = `
+                        <h4>${surahName} [${s + 1}:${a + 1}]</h4>
+                        <p style="color: greenyellow;">${highlightedAyahText}</p>
+                        <p><strong>Tafsir:</strong> ${tafsir}</p>
+                        <p><strong>English:</strong> ${english}</p>
+                    `;
+                        resultsContainer.appendChild(result);
+                    }
+                }
+            }
+        } else {
+            // Search only the selected surah
+            const s = selectedSurah;
             for (let a = 0; a < surasClean[s].children.length; a++) {
                 const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
                 if (cleanText && cleanText.includes(query)) {
                     matchCount++;
 
                     const surahName = surasTashkeel[s].getAttribute('name');
-                    const cleanAyahText = surasClean[s].children[a].getAttribute('text');
-                    const tashkeelAyahText = surasTashkeel[s].children[a].getAttribute('text');
+                    const ayahText = surasTashkeel[s].children[a].getAttribute('text');
                     const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
                     const english = surasEnglish[s].children[a].getAttribute('text');
-
-                    // Step 1: Highlight the tashkeel ayah text based on the clean text and search query
-                    const highlightedAyahText = highlightMatch(cleanAyahText, query);
 
                     const result = document.createElement('div');
                     result.style.padding = '10px';
                     result.style.borderBottom = '1px solid #ccc';
                     result.innerHTML = `
                         <h4>${surahName} [${s + 1}:${a + 1}]</h4>
-                        <p style="color: greenyellow;">${highlightedAyahText}</p>
+                        <p style="color: greenyellow;">${ayahText}</p>
                         <p><strong>Tafsir:</strong> ${tafsir}</p>
                         <p><strong>English:</strong> ${english}</p>
                     `;
@@ -175,7 +215,19 @@ function setupSearchBar() {
         }
     });
 }
+// Function to select a surah (for example when a surah button is clicked)
+function selectSurah(surahIndex) {
+    selectedSurah = surahIndex;  // Store the selected surah index
+    // Optionally, highlight the selected surah in your UI (e.g., add a class to the button)
+    // Refresh the results based on the selected surah
+    document.getElementById('search-bar').dispatchEvent(new Event('input')); // Trigger search based on the new selection
+}
 
+// Reset the search to search the entire Quran
+function clearSurahSelection() {
+    selectedSurah = null;  // Clear the selected surah
+    document.getElementById('search-bar').dispatchEvent(new Event('input')); // Trigger search based on the new state
+}
 function highlightMatch(text, query) {
     // Step 1: Escape the query to make it safe for regex
     const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escape regex
@@ -224,6 +276,7 @@ setTimeout(function () {
 
 
 function ViewSurah(index) {
+    selectSurah(index);
     document.getElementById("nav").style.display = 'none';
     SurahText.innerHTML = "<h3>" + surasTashkeel[index].getAttribute('name') + " [" + (index + 1) + "]" + "</h3>";
     SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';

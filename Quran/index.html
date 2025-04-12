@@ -22,17 +22,32 @@
             font-family: "Mada", sans-serif;
         }
 
+        #button-container {
+            display: flex;
+            justify-content: right;
+            /* Align the buttons to the right */
+            align-items: center;
+            /* Vertically align them to the center */
+        }
+
+        /* For the buttons */
         button {
             cursor: pointer;
             color: rgb(255, 255, 255);
             background-color: black;
-            border: 5px;
-            border-color: greenyellow;
-            border-style: solid;
+            border: 3px solid greenyellow;
             font-style: normal;
             font-weight: bold;
             width: 100px;
             height: 50px;
+            font-size: 12px;
+            padding: 0;
+            /* Ensure no extra padding */
+            display: inline-flex;
+            justify-content: center;
+            /* Centers text horizontally */
+            align-items: center;
+            /* Centers text vertically */
         }
 
         #nav {
@@ -55,27 +70,59 @@
             left: 2px;
             top: 5px
         }
+
+        #search-bar::placeholder {
+            color: #999;
+            direction: rtl;
+
+        }
+
+        #search-results div {
+            background-color: #111;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid greenyellow;
+            border-radius: 8px;
+        }
+
+        mark {
+            background-color: yellow;
+            color: black;
+            font-weight: bold;
+        }
     </style>
 
 
 </head>
 
 <body>
-    <button id="random-button" style="color: gray;">Random Ayah</button>
-    <button id="randomSurah-button" style="color: gray;">Random Surah</button>
-    <button id="show-nav">Surah</button>
+    <div id="button-container">
+        <button id="random-button" style="color: gray;">RANDOM AYAH</button>
+        <button id="randomSurah-button" style="color: gray;">RANDOM SURAH</button>
+        <button id="clear-button" style="color: gray;">CLEAR</button>
+        <button id="show-nav">NAV</button>
+    </div>
 
-    <div id="nav" style="display: none;">
+    <div id=" nav" style="display: none;">
 
 
     </div>
 
     <div id="main">
         <header id="home">
-            <h1 style="font-size: 40px; text-align: center;color: greenyellow;"><span>القرآن الكريم</span></h1>
-
-
+            <h1 style="font-size: 40px; text-align: center;color: greenyellow;">
+                <span>القرآن الكريم</span>
+            </h1>
         </header>
+
+        <!-- Search Bar -->
+        <div style="padding: 10px; width: 90%; margin: 0 auto;">
+            <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..."
+                style="width: 100%; padding: 12px; font-size: 18px; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
+        </div>
+
+        <!-- Search Results -->
+        <div id="search-results" style="padding: 10px;"></div>
     </div>
 
     <h2>

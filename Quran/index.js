@@ -22,16 +22,10 @@ function loadHtml(id, filename) {
     }
 }
 
-
-//load quran xml
-//this was going to be a nice single function call for each with just the path
-//but javascript, async, global variables and the fetch function... headache of undefined
-//needed to assign the global function inside the fetch.then scope, assigning with return, or a parameter doesnt work
-
-var surasTashkeel;// = LoadXml('QuranText/Quran/quran-simple.xml');
-var surasClean;// = LoadXml('QuranText/Quran/quran-simple-clean.xml');
-var surasEnglish;// = LoadXml('QuranText/English-Translation/en.sahih.xml');
-var surasTafsirJalalyn;// = LoadXml('QuranText/Arabic-Tafsir/ar.jalalayn.xml');
+var surasTashkeel;
+var surasClean;
+var surasEnglish;
+var surasTafsirJalalyn;
 var randomButton;
 var SurahText;
 var surahButtons;
@@ -45,64 +39,12 @@ Promise.all([
     loadXml('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml').then(data => surasTafsirJalalyn = data)
 ]).then(() => {
     console.log("All XML files loaded successfully!");
-    initializePage(); // Call the function that initializes the page
+    initializePage();
+    setupSearchBar(); // Call the function that initializes the page
 }).catch(error => {
     console.error("Error loading XML files:", error);
 });
-// LoadSuraTashkeel('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml');
-// LoadSuraClean('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml');
-// LoadSuraEnglish('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml');
-// LoadSuraTafsirJalalyn('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml');
-// console.log("Check Quran Loaded: " + LoadXml('QuranText/Quran/quran-simple.xml').length);
-//console.log("Check Quran Loaded: " + surasTashkeel.length);
 
-// function LoadSuraTashkeel(path) {
-//     let xmlContent = '';
-//     fetch(path).then((response) => {
-//         response.text().then((xml) => {
-//             xmlContent = xml;
-//             let parser = new DOMParser();
-//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-//             surasTashkeel = xmlDOM.querySelectorAll('sura');
-//         });
-//     });
-// }
-
-// function LoadSuraClean(path) {
-//     let xmlContent = '';
-//     fetch(path).then((response) => {
-//         response.text().then((xml) => {
-//             xmlContent = xml;
-//             let parser = new DOMParser();
-//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-//             surasClean = xmlDOM.querySelectorAll('sura');
-//         });
-//     });
-// }
-
-// function LoadSuraEnglish(path) {
-//     let xmlContent = '';
-//     fetch(path).then((response) => {
-//         response.text().then((xml) => {
-//             xmlContent = xml;
-//             let parser = new DOMParser();
-//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-//             surasEnglish = xmlDOM.querySelectorAll('sura');
-//         });
-//     });
-// }
-
-// function LoadSuraTafsirJalalyn(path) {
-//     let xmlContent = '';
-//     fetch(path).then((response) => {
-//         response.text().then((xml) => {
-//             xmlContent = xml;
-//             let parser = new DOMParser();
-//             let xmlDOM = parser.parseFromString(xmlContent, 'application/xml');
-//             surasTafsirJalalyn = xmlDOM.querySelectorAll('sura');
-//         });
-//     });
-// }
 
 function loadXml(path) {
     return fetch(path)
@@ -138,6 +80,8 @@ function initializePage() {
 
     // Random Ayah button functionality
     randomButton.addEventListener('click', function () {
+        document.getElementById('search-results').innerHTML = '';
+
         var randomSura = generateRandomNumber(0, 113);
         var maxAyah = surasTashkeel[randomSura].children.length - 1;
         var randomAyahNumber = generateRandomNumber(0, maxAyah);
@@ -151,6 +95,8 @@ function initializePage() {
 
     // Random Surah button functionality
     randomSurahButton.addEventListener('click', function () {
+        document.getElementById('search-results').innerHTML = '';
+
         var randomSura = generateRandomNumber(0, 113);
         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
@@ -160,7 +106,17 @@ function initializePage() {
                 + '<h3>' + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
                 + '<br>';
     });
+    // Clear button functionality
+    document.getElementById('clear-button').addEventListener('click', function () {
+        // Clear the current surah and ayah
+        SurahText.innerHTML = '';  // Clear the displayed surah and ayah
 
+        // Clear search results
+        document.getElementById('search-results').innerHTML = '';  // Clear the search results
+
+        // Optionally, clear the search bar as well
+        document.getElementById('search-bar').value = '';  // Clear the search bar input
+    });
     setTimeout(function () {
         surahButtons = document.getElementsByClassName("surah");
         for (var i = 0; i < 114; i++) {
@@ -172,57 +128,78 @@ function initializePage() {
     }, 100);
 }
 
-// window.onload = function () {
-//     showNav = document.getElementById('show-nav');
-//     SurahText = document.getElementById('maincontent');
-//     randomButton = document.getElementById("random-button");
-//     randomSurahButton = document.getElementById("randomSurah-button");
-//     var list = document.getElementById("nav");
 
-//     for (var i = 0; i < 114; i++) {
-//         // Create a new surah list item
-//         var surahItem = document.createElement("button");
-//         surahItem.className = "surah";
-//         list.appendChild(surahItem);
-//     }
+function setupSearchBar() {
+    const searchBar = document.getElementById('search-bar');
+    const resultsContainer = document.getElementById('search-results');
 
-//     showNav.addEventListener('click', function () {
-//         if (list.style.display == 'none') {
-//             list.style.display = 'grid';
-//             SurahText.innerHTML = '';
-//         }
-//         else
-//             list.style.display = 'none';
+    searchBar.addEventListener('input', function () {
+        const query = this.value.trim().toLowerCase();
+        resultsContainer.innerHTML = ''; // Clear previous results
 
-//     });
+        if (query.length < 2) return; // Avoid overly short searches
 
-//     //random ayah
-//     randomButton.addEventListener('click', function () {
-//         var randomSura = generateRandomNumber(0, 113);
-//         var maxAyah = surasTashkeel[randomSura].children.length;
-//         maxAyah--;
-//         var randomAyahNumber = generateRandomNumber(0, maxAyah);
+        let matchCount = 0;
 
-//         SurahText.innerHTML = surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + ":" + (randomAyahNumber + 1) + "]"
-//             + '<h2 style="color: greenyellow;">  ' + " { " + surasTashkeel[randomSura].children[randomAyahNumber].getAttribute('text') + " } " + '</h2>'
-//             + "<h3>" + surasTafsirJalalyn[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
-//             + "<h3>" + surasEnglish[randomSura].children[randomAyahNumber].getAttribute('text') + "</h3>"
-//             + '<br>';
+        for (let s = 0; s < surasClean.length; s++) {
+            for (let a = 0; a < surasClean[s].children.length; a++) {
+                const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                if (cleanText && cleanText.includes(query)) {
+                    matchCount++;
 
-//     });
+                    const surahName = surasTashkeel[s].getAttribute('name');
+                    const cleanAyahText = surasClean[s].children[a].getAttribute('text');
+                    const tashkeelAyahText = surasTashkeel[s].children[a].getAttribute('text');
+                    const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
+                    const english = surasEnglish[s].children[a].getAttribute('text');
 
-//     //random surah
-//     randomSurahButton.addEventListener('click', function () {
-//         var randomSura = generateRandomNumber(0, 113);
-//         SurahText.innerHTML = "<h3>" + surasTashkeel[randomSura].getAttribute('name') + " [" + (randomSura + 1) + "]" + "</h3>";
-//         SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
-//         for (var a = 0; a < surasTashkeel[randomSura].children.length; a++)
-//             SurahText.innerHTML += '<h2 style="color: greenyellow; ">  ' + surasTashkeel[randomSura].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
-//                 + '<h3 >' + surasTafsirJalalyn[randomSura].children[a].getAttribute('text') + "</h3>"
-//                 + '<h3 >' + surasEnglish[randomSura].children[a].getAttribute('text') + "</h3>"
-//                 + '<br>';
-//     });
-// };
+                    // Step 1: Highlight the tashkeel ayah text based on the clean text and search query
+                    const highlightedAyahText = highlightMatch(cleanAyahText, query);
+
+                    const result = document.createElement('div');
+                    result.style.padding = '10px';
+                    result.style.borderBottom = '1px solid #ccc';
+                    result.innerHTML = `
+                        <h4>${surahName} [${s + 1}:${a + 1}]</h4>
+                        <p style="color: greenyellow;">${highlightedAyahText}</p>
+                        <p><strong>Tafsir:</strong> ${tafsir}</p>
+                        <p><strong>English:</strong> ${english}</p>
+                    `;
+                    resultsContainer.appendChild(result);
+                }
+            }
+        }
+
+        if (matchCount === 0) {
+            resultsContainer.innerHTML = '<p>No results found.</p>';
+        }
+    });
+}
+
+function highlightMatch(text, query) {
+    // Step 1: Escape the query to make it safe for regex
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escape regex
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+    // Step 2: Find the positions of the matches in the clean text
+    let match;
+    let indices = [];
+    while ((match = regex.exec(text)) !== null) {
+        indices.push([match.index, match.index + match[0].length]);
+    }
+
+    // Step 3: Highlight the matched text in the tashkeel text
+    let highlightedText = text;
+    for (let i = indices.length - 1; i >= 0; i--) {
+        let [start, end] = indices[i];
+        highlightedText = highlightedText.substring(0, start) +
+            '<mark>' + highlightedText.substring(start, end) + '</mark>' +
+            highlightedText.substring(end);
+    }
+
+    console.log('highlightMatch result:', highlightedText); // Debug
+    return highlightedText;
+}
 
 function generateRandomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);

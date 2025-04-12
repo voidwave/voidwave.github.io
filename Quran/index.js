@@ -34,7 +34,7 @@ var showNav;
 
 
 Promise.all([
-    loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-simple.xml').then(data => surasTashkeel = data),
+    loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-uthmani.xml').then(data => surasTashkeel = data),
     loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml').then(data => surasClean = data),
     loadXml('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml').then(data => surasEnglish = data),
     loadXml('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml').then(data => surasTafsirJalalyn = data)
@@ -174,7 +174,7 @@ function setupSearchBar() {
                         result.style.padding = '10px';
                         result.style.borderBottom = '1px solid #ccc';
                         result.innerHTML = `
-                        <h4>${surahName} [${s + 1}:${a + 1}]</h4>
+                          <h4>${surahName} [${a + 1}:${s + 1}]</h4>
                         <p style="color: greenyellow;">${highlightedAyahText}</p>
                         <p><strong>Tafsir:</strong> ${tafsir}</p>
                         <p><strong>English:</strong> ${english}</p>
@@ -192,16 +192,17 @@ function setupSearchBar() {
                     matchCount++;
 
                     const surahName = surasTashkeel[s].getAttribute('name');
-                    const ayahText = surasTashkeel[s].children[a].getAttribute('text');
+                    const cleanAyahText = surasClean[s].children[a].getAttribute('text');
                     const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
                     const english = surasEnglish[s].children[a].getAttribute('text');
+                    const highlightedAyahText = highlightMatch(cleanAyahText, query);
 
                     const result = document.createElement('div');
                     result.style.padding = '10px';
                     result.style.borderBottom = '1px solid #ccc';
                     result.innerHTML = `
-                        <h4>${surahName} [${s + 1}:${a + 1}]</h4>
-                        <p style="color: greenyellow;">${ayahText}</p>
+                        <h4>${surahName} [${a + 1}:${s + 1}]</h4>
+                        <p style="color: greenyellow;">${highlightedAyahText}</p>
                         <p><strong>Tafsir:</strong> ${tafsir}</p>
                         <p><strong>English:</strong> ${english}</p>
                     `;

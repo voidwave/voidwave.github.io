@@ -16,8 +16,7 @@ let lastScrollY = window.scrollY;
 let openBtn = document.getElementById("open-surah-picker");
 let overlay = document.getElementById("surah-picker-overlay");
 let list = document.getElementById("surah-list");
-
-
+let savedPage = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -33,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Set up container for scrolling
     container.style.height = `${totalPages * viewportHeight}px`;
     container.style.position = 'relative';
+    savedPage = parseInt(localStorage.getItem('currentPage'));
 
     (async () => {
         const map = await loadQuranPageMapFromXML("https://voidwave.com/Quran/quran_pages.xml");
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Toggle overlay visibility
-    ["click", "touchstart"].forEach(evt =>
+    ["click"].forEach(evt =>
         openBtn.addEventListener(evt, () => {
             overlay.classList.toggle("show");
         })
@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let pageHeight = 1.62 * window.innerWidth;
 
         // Calculate visible page range
+
         const firstVisiblePage = Math.floor(scrollTop / pageHeight) + 1;
         const lastVisiblePage = firstVisiblePage + 2//Math.ceil((scrollTop + viewportHeight) / pageHeight);
 
@@ -203,7 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = `${progress}%`;
 
         // Update page counter
-        pageNumberEl.textContent = `Page ${currentPage} / ${totalPages}`;
+        pageNumberEl.textContent = `${currentPage}`;
+
+        if (currentPage != 1)
+            localStorage.setItem('currentPage', currentPage);
     }
 
     function navigateToPage(pageNum) {
@@ -218,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // behavior: 'smooth' // or 'auto'
         });
     }
-
 
     async function loadQuranPageMapFromXML(url) {
         const response = await fetch(url);
@@ -283,4 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
 
+    if (!isNaN(savedPage)) {
+        navigateToPage(savedPage);
+    }
 });

@@ -21,7 +21,7 @@
 
         #progress {
             width: 100%;
-            height: 20px;
+            height: 3vh;
             position: fixed;
             bottom: 0;
             background: #000000;
@@ -37,13 +37,18 @@
         #page-number {
             position: fixed;
             bottom: 16px;
-            right: 20px;
+            left: 50%;
+            width: 10%;
+            /* Center horizontally */
+            transform: translateX(-50%);
+            /* Offset its own width */
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 6px 12px;
             border-radius: 8px;
             font-family: sans-serif;
-            font-size: 14px;
+            font-size: 2rem;
+            text-align: center;
             z-index: 1000;
             pointer-events: none;
         }
@@ -69,8 +74,9 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: #001403;
+            background: #0000009a;
             color: black;
+            height: 5vh;
             padding: 10px 20px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             font-family: "Mada", sans-serif;
@@ -81,8 +87,10 @@
         }
 
         #top-nav button {
-            font-size: 16px;
+            font-size: 20px;
             padding: 8px 14px;
+            height: 5vh;
+            width: 10vw;
             border: none;
             border-radius: 5px;
             background: #007025;
@@ -116,8 +124,9 @@
         }
 
         #surah-list button {
+            height: 5vh;
             padding: 12px;
-            font-size: 18px;
+            font-size: 2rem;
             background: #ffffff10;
             color: white;
             border: 1px solid #ffffff30;

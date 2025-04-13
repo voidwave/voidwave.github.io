@@ -1,0 +1,1873 @@
+<?xml version='1.0' encoding='utf-8'?>
+<quran>
+    <page number="1">
+        <range surah="1" start="1" end="7" />
+    </page>
+    <page number="2">
+        <range surah="2" start="1" end="5" />
+    </page>
+    <page number="3">
+        <range surah="2" start="6" end="16" />
+    </page>
+    <page number="4">
+        <range surah="2" start="17" end="24" />
+    </page>
+    <page number="5">
+        <range surah="2" start="25" end="29" />
+    </page>
+    <page number="6">
+        <range surah="2" start="30" end="37" />
+    </page>
+    <page number="7">
+        <range surah="2" start="38" end="48" />
+    </page>
+    <page number="8">
+        <range surah="2" start="49" end="57" />
+    </page>
+    <page number="9">
+        <range surah="2" start="58" end="61" />
+    </page>
+    <page number="10">
+        <range surah="2" start="62" end="69" />
+    </page>
+    <page number="11">
+        <range surah="2" start="70" end="76" />
+    </page>
+    <page number="12">
+        <range surah="2" start="77" end="83" />
+    </page>
+    <page number="13">
+        <range surah="2" start="84" end="88" />
+    </page>
+    <page number="14">
+        <range surah="2" start="89" end="93" />
+    </page>
+    <page number="15">
+        <range surah="2" start="94" end="101" />
+    </page>
+    <page number="16">
+        <range surah="2" start="102" end="105" />
+    </page>
+    <page number="17">
+        <range surah="2" start="106" end="112" />
+    </page>
+    <page number="18">
+        <range surah="2" start="113" end="119" />
+    </page>
+    <page number="19">
+        <range surah="2" start="120" end="126" />
+    </page>
+    <page number="20">
+        <range surah="2" start="127" end="134" />
+    </page>
+    <page number="21">
+        <range surah="2" start="135" end="141" />
+    </page>
+    <page number="22">
+        <range surah="2" start="142" end="145" />
+    </page>
+    <page number="23">
+        <range surah="2" start="146" end="153" />
+    </page>
+    <page number="24">
+        <range surah="2" start="154" end="163" />
+    </page>
+    <page number="25">
+        <range surah="2" start="164" end="169" />
+    </page>
+    <page number="26">
+        <range surah="2" start="170" end="176" />
+    </page>
+    <page number="27">
+        <range surah="2" start="177" end="181" />
+    </page>
+    <page number="28">
+        <range surah="2" start="182" end="186" />
+    </page>
+    <page number="29">
+        <range surah="2" start="187" end="190" />
+    </page>
+    <page number="30">
+        <range surah="2" start="191" end="196" />
+    </page>
+    <page number="31">
+        <range surah="2" start="197" end="202" />
+    </page>
+    <page number="32">
+        <range surah="2" start="203" end="210" />
+    </page>
+    <page number="33">
+        <range surah="2" start="211" end="215" />
+    </page>
+    <page number="34">
+        <range surah="2" start="216" end="219" />
+    </page>
+    <page number="35">
+        <range surah="2" start="220" end="224" />
+    </page>
+    <page number="36">
+        <range surah="2" start="225" end="230" />
+    </page>
+    <page number="37">
+        <range surah="2" start="231" end="233" />
+    </page>
+    <page number="38">
+        <range surah="2" start="234" end="237" />
+    </page>
+    <page number="39">
+        <range surah="2" start="238" end="245" />
+    </page>
+    <page number="40">
+        <range surah="2" start="246" end="248" />
+    </page>
+    <page number="41">
+        <range surah="2" start="249" end="252" />
+    </page>
+    <page number="42">
+        <range surah="2" start="253" end="256" />
+    </page>
+    <page number="43">
+        <range surah="2" start="257" end="259" />
+    </page>
+    <page number="44">
+        <range surah="2" start="260" end="264" />
+    </page>
+    <page number="45">
+        <range surah="2" start="265" end="269" />
+    </page>
+    <page number="46">
+        <range surah="2" start="270" end="274" />
+    </page>
+    <page number="47">
+        <range surah="2" start="275" end="281" />
+    </page>
+    <page number="48">
+        <range surah="2" start="282" end="282" />
+    </page>
+    <page number="49">
+        <range surah="2" start="283" end="286" />
+    </page>
+    <page number="50">
+        <range surah="3" start="1" end="9" />
+    </page>
+    <page number="51">
+        <range surah="3" start="10" end="15" />
+    </page>
+    <page number="52">
+        <range surah="3" start="16" end="22" />
+    </page>
+    <page number="53">
+        <range surah="3" start="23" end="29" />
+    </page>
+    <page number="54">
+        <range surah="3" start="30" end="37" />
+    </page>
+    <page number="55">
+        <range surah="3" start="38" end="45" />
+    </page>
+    <page number="56">
+        <range surah="3" start="46" end="52" />
+    </page>
+    <page number="57">
+        <range surah="3" start="53" end="61" />
+    </page>
+    <page number="58">
+        <range surah="3" start="62" end="70" />
+    </page>
+    <page number="59">
+        <range surah="3" start="71" end="77" />
+    </page>
+    <page number="60">
+        <range surah="3" start="78" end="83" />
+    </page>
+    <page number="61">
+        <range surah="3" start="84" end="91" />
+    </page>
+    <page number="62">
+        <range surah="3" start="92" end="100" />
+    </page>
+    <page number="63">
+        <range surah="3" start="101" end="108" />
+    </page>
+    <page number="64">
+        <range surah="3" start="109" end="115" />
+    </page>
+    <page number="65">
+        <range surah="3" start="116" end="121" />
+    </page>
+    <page number="66">
+        <range surah="3" start="122" end="132" />
+    </page>
+    <page number="67">
+        <range surah="3" start="133" end="140" />
+    </page>
+    <page number="68">
+        <range surah="3" start="141" end="148" />
+    </page>
+    <page number="69">
+        <range surah="3" start="149" end="153" />
+    </page>
+    <page number="70">
+        <range surah="3" start="154" end="157" />
+    </page>
+    <page number="71">
+        <range surah="3" start="158" end="165" />
+    </page>
+    <page number="72">
+        <range surah="3" start="166" end="173" />
+    </page>
+    <page number="73">
+        <range surah="3" start="174" end="180" />
+    </page>
+    <page number="74">
+        <range surah="3" start="181" end="186" />
+    </page>
+    <page number="75">
+        <range surah="3" start="187" end="194" />
+    </page>
+    <page number="76">
+        <range surah="3" start="195" end="200" />
+    </page>
+    <page number="77">
+        <range surah="4" start="1" end="6" />
+    </page>
+    <page number="78">
+        <range surah="4" start="7" end="11" />
+    </page>
+    <page number="79">
+        <range surah="4" start="12" end="14" />
+    </page>
+    <page number="80">
+        <range surah="4" start="15" end="19" />
+    </page>
+    <page number="81">
+        <range surah="4" start="20" end="23" />
+    </page>
+    <page number="82">
+        <range surah="4" start="24" end="26" />
+    </page>
+    <page number="83">
+        <range surah="4" start="27" end="33" />
+    </page>
+    <page number="84">
+        <range surah="4" start="34" end="37" />
+    </page>
+    <page number="85">
+        <range surah="4" start="38" end="44" />
+    </page>
+    <page number="86">
+        <range surah="4" start="45" end="51" />
+    </page>
+    <page number="87">
+        <range surah="4" start="52" end="59" />
+    </page>
+    <page number="88">
+        <range surah="4" start="60" end="65" />
+    </page>
+    <page number="89">
+        <range surah="4" start="66" end="74" />
+    </page>
+    <page number="90">
+        <range surah="4" start="75" end="79" />
+    </page>
+    <page number="91">
+        <range surah="4" start="80" end="86" />
+    </page>
+    <page number="92">
+        <range surah="4" start="87" end="91" />
+    </page>
+    <page number="93">
+        <range surah="4" start="92" end="94" />
+    </page>
+    <page number="94">
+        <range surah="4" start="95" end="101" />
+    </page>
+    <page number="95">
+        <range surah="4" start="102" end="105" />
+    </page>
+    <page number="96">
+        <range surah="4" start="106" end="113" />
+    </page>
+    <page number="97">
+        <range surah="4" start="114" end="121" />
+    </page>
+    <page number="98">
+        <range surah="4" start="122" end="127" />
+    </page>
+    <page number="99">
+        <range surah="4" start="128" end="134" />
+    </page>
+    <page number="100">
+        <range surah="4" start="135" end="140" />
+    </page>
+    <page number="101">
+        <range surah="4" start="141" end="147" />
+    </page>
+    <page number="102">
+        <range surah="4" start="148" end="154" />
+    </page>
+    <page number="103">
+        <range surah="4" start="155" end="162" />
+    </page>
+    <page number="104">
+        <range surah="4" start="163" end="170" />
+    </page>
+    <page number="105">
+        <range surah="4" start="171" end="175" />
+    </page>
+    <page number="106">
+        <range surah="4" start="176" end="176" />
+        <range surah="5" start="1" end="2" />
+    </page>
+    <page number="107">
+        <range surah="5" start="3" end="5" />
+    </page>
+    <page number="108">
+        <range surah="5" start="6" end="9" />
+    </page>
+    <page number="109">
+        <range surah="5" start="10" end="13" />
+    </page>
+    <page number="110">
+        <range surah="5" start="14" end="17" />
+    </page>
+    <page number="111">
+        <range surah="5" start="18" end="23" />
+    </page>
+    <page number="112">
+        <range surah="5" start="24" end="31" />
+    </page>
+    <page number="113">
+        <range surah="5" start="32" end="36" />
+    </page>
+    <page number="114">
+        <range surah="5" start="37" end="41" />
+    </page>
+    <page number="115">
+        <range surah="5" start="42" end="45" />
+    </page>
+    <page number="116">
+        <range surah="5" start="46" end="50" />
+    </page>
+    <page number="117">
+        <range surah="5" start="51" end="57" />
+    </page>
+    <page number="118">
+        <range surah="5" start="58" end="64" />
+    </page>
+    <page number="119">
+        <range surah="5" start="65" end="70" />
+    </page>
+    <page number="120">
+        <range surah="5" start="71" end="76" />
+    </page>
+    <page number="121">
+        <range surah="5" start="77" end="82" />
+    </page>
+    <page number="122">
+        <range surah="5" start="83" end="89" />
+    </page>
+    <page number="123">
+        <range surah="5" start="90" end="95" />
+    </page>
+    <page number="124">
+        <range surah="5" start="96" end="103" />
+    </page>
+    <page number="125">
+        <range surah="5" start="104" end="108" />
+    </page>
+    <page number="126">
+        <range surah="5" start="109" end="113" />
+    </page>
+    <page number="127">
+        <range surah="5" start="114" end="120" />
+    </page>
+    <page number="128">
+        <range surah="6" start="1" end="8" />
+    </page>
+    <page number="129">
+        <range surah="6" start="9" end="18" />
+    </page>
+    <page number="130">
+        <range surah="6" start="19" end="27" />
+    </page>
+    <page number="131">
+        <range surah="6" start="28" end="35" />
+    </page>
+    <page number="132">
+        <range surah="6" start="36" end="44" />
+    </page>
+    <page number="133">
+        <range surah="6" start="45" end="52" />
+    </page>
+    <page number="134">
+        <range surah="6" start="53" end="59" />
+    </page>
+    <page number="135">
+        <range surah="6" start="60" end="68" />
+    </page>
+    <page number="136">
+        <range surah="6" start="69" end="73" />
+    </page>
+    <page number="137">
+        <range surah="6" start="74" end="81" />
+    </page>
+    <page number="138">
+        <range surah="6" start="82" end="90" />
+    </page>
+    <page number="139">
+        <range surah="6" start="91" end="94" />
+    </page>
+    <page number="140">
+        <range surah="6" start="95" end="101" />
+    </page>
+    <page number="141">
+        <range surah="6" start="102" end="110" />
+    </page>
+    <page number="142">
+        <range surah="6" start="111" end="118" />
+    </page>
+    <page number="143">
+        <range surah="6" start="119" end="124" />
+    </page>
+    <page number="144">
+        <range surah="6" start="125" end="131" />
+    </page>
+    <page number="145">
+        <range surah="6" start="132" end="137" />
+    </page>
+    <page number="146">
+        <range surah="6" start="138" end="142" />
+    </page>
+    <page number="147">
+        <range surah="6" start="143" end="146" />
+    </page>
+    <page number="148">
+        <range surah="6" start="147" end="151" />
+    </page>
+    <page number="149">
+        <range surah="6" start="152" end="157" />
+    </page>
+    <page number="150">
+        <range surah="6" start="158" end="165" />
+    </page>
+    <page number="151">
+        <range surah="7" start="1" end="11" />
+    </page>
+    <page number="152">
+        <range surah="7" start="12" end="22" />
+    </page>
+    <page number="153">
+        <range surah="7" start="23" end="30" />
+    </page>
+    <page number="154">
+        <range surah="7" start="31" end="37" />
+    </page>
+    <page number="155">
+        <range surah="7" start="38" end="43" />
+    </page>
+    <page number="156">
+        <range surah="7" start="44" end="51" />
+    </page>
+    <page number="157">
+        <range surah="7" start="52" end="57" />
+    </page>
+    <page number="158">
+        <range surah="7" start="58" end="67" />
+    </page>
+    <page number="159">
+        <range surah="7" start="68" end="73" />
+    </page>
+    <page number="160">
+        <range surah="7" start="74" end="81" />
+    </page>
+    <page number="161">
+        <range surah="7" start="82" end="87" />
+    </page>
+    <page number="162">
+        <range surah="7" start="88" end="95" />
+    </page>
+    <page number="163">
+        <range surah="7" start="96" end="104" />
+    </page>
+    <page number="164">
+        <range surah="7" start="105" end="120" />
+    </page>
+    <page number="165">
+        <range surah="7" start="121" end="130" />
+    </page>
+    <page number="166">
+        <range surah="7" start="131" end="137" />
+    </page>
+    <page number="167">
+        <range surah="7" start="138" end="143" />
+    </page>
+    <page number="168">
+        <range surah="7" start="144" end="149" />
+    </page>
+    <page number="169">
+        <range surah="7" start="150" end="155" />
+    </page>
+    <page number="170">
+        <range surah="7" start="156" end="159" />
+    </page>
+    <page number="171">
+        <range surah="7" start="160" end="163" />
+    </page>
+    <page number="172">
+        <range surah="7" start="164" end="170" />
+    </page>
+    <page number="173">
+        <range surah="7" start="171" end="178" />
+    </page>
+    <page number="174">
+        <range surah="7" start="179" end="187" />
+    </page>
+    <page number="175">
+        <range surah="7" start="188" end="195" />
+    </page>
+    <page number="176">
+        <range surah="7" start="196" end="206" />
+    </page>
+    <page number="177">
+        <range surah="8" start="1" end="8" />
+    </page>
+    <page number="178">
+        <range surah="8" start="9" end="16" />
+    </page>
+    <page number="179">
+        <range surah="8" start="17" end="25" />
+    </page>
+    <page number="180">
+        <range surah="8" start="26" end="33" />
+    </page>
+    <page number="181">
+        <range surah="8" start="34" end="40" />
+    </page>
+    <page number="182">
+        <range surah="8" start="41" end="45" />
+    </page>
+    <page number="183">
+        <range surah="8" start="46" end="52" />
+    </page>
+    <page number="184">
+        <range surah="8" start="53" end="61" />
+    </page>
+    <page number="185">
+        <range surah="8" start="62" end="69" />
+    </page>
+    <page number="186">
+        <range surah="8" start="70" end="75" />
+    </page>
+    <page number="187">
+        <range surah="9" start="1" end="6" />
+    </page>
+    <page number="188">
+        <range surah="9" start="7" end="13" />
+    </page>
+    <page number="189">
+        <range surah="9" start="14" end="20" />
+    </page>
+    <page number="190">
+        <range surah="9" start="21" end="26" />
+    </page>
+    <page number="191">
+        <range surah="9" start="27" end="31" />
+    </page>
+    <page number="192">
+        <range surah="9" start="32" end="36" />
+    </page>
+    <page number="193">
+        <range surah="9" start="37" end="40" />
+    </page>
+    <page number="194">
+        <range surah="9" start="41" end="47" />
+    </page>
+    <page number="195">
+        <range surah="9" start="48" end="54" />
+    </page>
+    <page number="196">
+        <range surah="9" start="55" end="61" />
+    </page>
+    <page number="197">
+        <range surah="9" start="62" end="68" />
+    </page>
+    <page number="198">
+        <range surah="9" start="69" end="72" />
+    </page>
+    <page number="199">
+        <range surah="9" start="73" end="79" />
+    </page>
+    <page number="200">
+        <range surah="9" start="80" end="86" />
+    </page>
+    <page number="201">
+        <range surah="9" start="87" end="93" />
+    </page>
+    <page number="202">
+        <range surah="9" start="94" end="99" />
+    </page>
+    <page number="203">
+        <range surah="9" start="100" end="106" />
+    </page>
+    <page number="204">
+        <range surah="9" start="107" end="111" />
+    </page>
+    <page number="205">
+        <range surah="9" start="112" end="117" />
+    </page>
+    <page number="206">
+        <range surah="9" start="118" end="122" />
+    </page>
+    <page number="207">
+        <range surah="9" start="123" end="129" />
+    </page>
+    <page number="208">
+        <range surah="10" start="1" end="6" />
+    </page>
+    <page number="209">
+        <range surah="10" start="7" end="14" />
+    </page>
+    <page number="210">
+        <range surah="10" start="15" end="20" />
+    </page>
+    <page number="211">
+        <range surah="10" start="21" end="25" />
+    </page>
+    <page number="212">
+        <range surah="10" start="26" end="33" />
+    </page>
+    <page number="213">
+        <range surah="10" start="34" end="42" />
+    </page>
+    <page number="214">
+        <range surah="10" start="43" end="53" />
+    </page>
+    <page number="215">
+        <range surah="10" start="54" end="61" />
+    </page>
+    <page number="216">
+        <range surah="10" start="62" end="70" />
+    </page>
+    <page number="217">
+        <range surah="10" start="71" end="78" />
+    </page>
+    <page number="218">
+        <range surah="10" start="79" end="88" />
+    </page>
+    <page number="219">
+        <range surah="10" start="89" end="97" />
+    </page>
+    <page number="220">
+        <range surah="10" start="98" end="106" />
+    </page>
+    <page number="221">
+        <range surah="10" start="107" end="109" />
+        <range surah="11" start="1" end="5" />
+    </page>
+    <page number="222">
+        <range surah="11" start="6" end="12" />
+    </page>
+    <page number="223">
+        <range surah="11" start="13" end="19" />
+    </page>
+    <page number="224">
+        <range surah="11" start="20" end="28" />
+    </page>
+    <page number="225">
+        <range surah="11" start="29" end="37" />
+    </page>
+    <page number="226">
+        <range surah="11" start="38" end="45" />
+    </page>
+    <page number="227">
+        <range surah="11" start="46" end="53" />
+    </page>
+    <page number="228">
+        <range surah="11" start="54" end="62" />
+    </page>
+    <page number="229">
+        <range surah="11" start="63" end="71" />
+    </page>
+    <page number="230">
+        <range surah="11" start="72" end="81" />
+    </page>
+    <page number="231">
+        <range surah="11" start="82" end="88" />
+    </page>
+    <page number="232">
+        <range surah="11" start="89" end="97" />
+    </page>
+    <page number="233">
+        <range surah="11" start="98" end="108" />
+    </page>
+    <page number="234">
+        <range surah="11" start="109" end="117" />
+    </page>
+    <page number="235">
+        <range surah="11" start="118" end="123" />
+        <range surah="12" start="1" end="4" />
+    </page>
+    <page number="236">
+        <range surah="12" start="5" end="14" />
+    </page>
+    <page number="237">
+        <range surah="12" start="15" end="22" />
+    </page>
+    <page number="238">
+        <range surah="12" start="23" end="30" />
+    </page>
+    <page number="239">
+        <range surah="12" start="31" end="37" />
+    </page>
+    <page number="240">
+        <range surah="12" start="38" end="43" />
+    </page>
+    <page number="241">
+        <range surah="12" start="44" end="52" />
+    </page>
+    <page number="242">
+        <range surah="12" start="53" end="63" />
+    </page>
+    <page number="243">
+        <range surah="12" start="64" end="69" />
+    </page>
+    <page number="244">
+        <range surah="12" start="70" end="78" />
+    </page>
+    <page number="245">
+        <range surah="12" start="79" end="86" />
+    </page>
+    <page number="246">
+        <range surah="12" start="87" end="95" />
+    </page>
+    <page number="247">
+        <range surah="12" start="96" end="103" />
+    </page>
+    <page number="248">
+        <range surah="12" start="104" end="111" />
+    </page>
+    <page number="249">
+        <range surah="13" start="1" end="5" />
+    </page>
+    <page number="250">
+        <range surah="13" start="6" end="13" />
+    </page>
+    <page number="251">
+        <range surah="13" start="14" end="18" />
+    </page>
+    <page number="252">
+        <range surah="13" start="19" end="28" />
+    </page>
+    <page number="253">
+        <range surah="13" start="29" end="34" />
+    </page>
+    <page number="254">
+        <range surah="13" start="35" end="42" />
+    </page>
+    <page number="255">
+        <range surah="13" start="43" end="43" />
+        <range surah="14" start="1" end="5" />
+    </page>
+    <page number="256">
+        <range surah="14" start="6" end="10" />
+    </page>
+    <page number="257">
+        <range surah="14" start="11" end="18" />
+    </page>
+    <page number="258">
+        <range surah="14" start="19" end="24" />
+    </page>
+    <page number="259">
+        <range surah="14" start="25" end="33" />
+    </page>
+    <page number="260">
+        <range surah="14" start="34" end="42" />
+    </page>
+    <page number="261">
+        <range surah="14" start="43" end="52" />
+    </page>
+    <page number="262">
+        <range surah="15" start="1" end="15" />
+    </page>
+    <page number="263">
+        <range surah="15" start="16" end="31" />
+    </page>
+    <page number="264">
+        <range surah="15" start="32" end="51" />
+    </page>
+    <page number="265">
+        <range surah="15" start="52" end="70" />
+    </page>
+    <page number="266">
+        <range surah="15" start="71" end="90" />
+    </page>
+    <page number="267">
+        <range surah="15" start="91" end="99" />
+        <range surah="16" start="1" end="6" />
+    </page>
+    <page number="268">
+        <range surah="16" start="7" end="14" />
+    </page>
+    <page number="269">
+        <range surah="16" start="15" end="26" />
+    </page>
+    <page number="270">
+        <range surah="16" start="27" end="34" />
+    </page>
+    <page number="271">
+        <range surah="16" start="35" end="42" />
+    </page>
+    <page number="272">
+        <range surah="16" start="43" end="54" />
+    </page>
+    <page number="273">
+        <range surah="16" start="55" end="64" />
+    </page>
+    <page number="274">
+        <range surah="16" start="65" end="72" />
+    </page>
+    <page number="275">
+        <range surah="16" start="73" end="79" />
+    </page>
+    <page number="276">
+        <range surah="16" start="80" end="87" />
+    </page>
+    <page number="277">
+        <range surah="16" start="88" end="93" />
+    </page>
+    <page number="278">
+        <range surah="16" start="94" end="102" />
+    </page>
+    <page number="279">
+        <range surah="16" start="103" end="110" />
+    </page>
+    <page number="280">
+        <range surah="16" start="111" end="118" />
+    </page>
+    <page number="281">
+        <range surah="16" start="119" end="128" />
+    </page>
+    <page number="282">
+        <range surah="17" start="1" end="7" />
+    </page>
+    <page number="283">
+        <range surah="17" start="8" end="17" />
+    </page>
+    <page number="284">
+        <range surah="17" start="18" end="27" />
+    </page>
+    <page number="285">
+        <range surah="17" start="28" end="38" />
+    </page>
+    <page number="286">
+        <range surah="17" start="39" end="49" />
+    </page>
+    <page number="287">
+        <range surah="17" start="50" end="58" />
+    </page>
+    <page number="288">
+        <range surah="17" start="59" end="66" />
+    </page>
+    <page number="289">
+        <range surah="17" start="67" end="75" />
+    </page>
+    <page number="290">
+        <range surah="17" start="76" end="86" />
+    </page>
+    <page number="291">
+        <range surah="17" start="87" end="96" />
+    </page>
+    <page number="292">
+        <range surah="17" start="97" end="104" />
+    </page>
+    <page number="293">
+        <range surah="17" start="105" end="111" />
+        <range surah="18" start="1" end="4" />
+    </page>
+    <page number="294">
+        <range surah="18" start="5" end="15" />
+    </page>
+    <page number="295">
+        <range surah="18" start="16" end="20" />
+    </page>
+    <page number="296">
+        <range surah="18" start="21" end="27" />
+    </page>
+    <page number="297">
+        <range surah="18" start="28" end="34" />
+    </page>
+    <page number="298">
+        <range surah="18" start="35" end="45" />
+    </page>
+    <page number="299">
+        <range surah="18" start="46" end="53" />
+    </page>
+    <page number="300">
+        <range surah="18" start="54" end="61" />
+    </page>
+    <page number="301">
+        <range surah="18" start="62" end="74" />
+    </page>
+    <page number="302">
+        <range surah="18" start="75" end="83" />
+    </page>
+    <page number="303">
+        <range surah="18" start="84" end="97" />
+    </page>
+    <page number="304">
+        <range surah="18" start="98" end="110" />
+    </page>
+    <page number="305">
+        <range surah="19" start="1" end="11" />
+    </page>
+    <page number="306">
+        <range surah="19" start="12" end="25" />
+    </page>
+    <page number="307">
+        <range surah="19" start="26" end="38" />
+    </page>
+    <page number="308">
+        <range surah="19" start="39" end="51" />
+    </page>
+    <page number="309">
+        <range surah="19" start="52" end="64" />
+    </page>
+    <page number="310">
+        <range surah="19" start="65" end="76" />
+    </page>
+    <page number="311">
+        <range surah="19" start="77" end="95" />
+    </page>
+    <page number="312">
+        <range surah="19" start="96" end="98" />
+        <range surah="20" start="1" end="12" />
+    </page>
+    <page number="313">
+        <range surah="20" start="13" end="37" />
+    </page>
+    <page number="314">
+        <range surah="20" start="38" end="51" />
+    </page>
+    <page number="315">
+        <range surah="20" start="52" end="64" />
+    </page>
+    <page number="316">
+        <range surah="20" start="65" end="76" />
+    </page>
+    <page number="317">
+        <range surah="20" start="77" end="87" />
+    </page>
+    <page number="318">
+        <range surah="20" start="88" end="98" />
+    </page>
+    <page number="319">
+        <range surah="20" start="99" end="113" />
+    </page>
+    <page number="320">
+        <range surah="20" start="114" end="125" />
+    </page>
+    <page number="321">
+        <range surah="20" start="126" end="135" />
+    </page>
+    <page number="322">
+        <range surah="21" start="1" end="10" />
+    </page>
+    <page number="323">
+        <range surah="21" start="11" end="24" />
+    </page>
+    <page number="324">
+        <range surah="21" start="25" end="35" />
+    </page>
+    <page number="325">
+        <range surah="21" start="36" end="44" />
+    </page>
+    <page number="326">
+        <range surah="21" start="45" end="57" />
+    </page>
+    <page number="327">
+        <range surah="21" start="58" end="72" />
+    </page>
+    <page number="328">
+        <range surah="21" start="73" end="81" />
+    </page>
+    <page number="329">
+        <range surah="21" start="82" end="90" />
+    </page>
+    <page number="330">
+        <range surah="21" start="91" end="101" />
+    </page>
+    <page number="331">
+        <range surah="21" start="102" end="112" />
+    </page>
+    <page number="332">
+        <range surah="22" start="1" end="5" />
+    </page>
+    <page number="333">
+        <range surah="22" start="6" end="15" />
+    </page>
+    <page number="334">
+        <range surah="22" start="16" end="23" />
+    </page>
+    <page number="335">
+        <range surah="22" start="24" end="30" />
+    </page>
+    <page number="336">
+        <range surah="22" start="31" end="38" />
+    </page>
+    <page number="337">
+        <range surah="22" start="39" end="46" />
+    </page>
+    <page number="338">
+        <range surah="22" start="47" end="55" />
+    </page>
+    <page number="339">
+        <range surah="22" start="56" end="64" />
+    </page>
+    <page number="340">
+        <range surah="22" start="65" end="72" />
+    </page>
+    <page number="341">
+        <range surah="22" start="73" end="78" />
+    </page>
+    <page number="342">
+        <range surah="23" start="1" end="17" />
+    </page>
+    <page number="343">
+        <range surah="23" start="18" end="27" />
+    </page>
+    <page number="344">
+        <range surah="23" start="28" end="42" />
+    </page>
+    <page number="345">
+        <range surah="23" start="43" end="59" />
+    </page>
+    <page number="346">
+        <range surah="23" start="60" end="74" />
+    </page>
+    <page number="347">
+        <range surah="23" start="75" end="89" />
+    </page>
+    <page number="348">
+        <range surah="23" start="90" end="104" />
+    </page>
+    <page number="349">
+        <range surah="23" start="105" end="118" />
+    </page>
+    <page number="350">
+        <range surah="24" start="1" end="10" />
+    </page>
+    <page number="351">
+        <range surah="24" start="11" end="20" />
+    </page>
+    <page number="352">
+        <range surah="24" start="21" end="27" />
+    </page>
+    <page number="353">
+        <range surah="24" start="28" end="31" />
+    </page>
+    <page number="354">
+        <range surah="24" start="32" end="36" />
+    </page>
+    <page number="355">
+        <range surah="24" start="37" end="43" />
+    </page>
+    <page number="356">
+        <range surah="24" start="44" end="53" />
+    </page>
+    <page number="357">
+        <range surah="24" start="54" end="58" />
+    </page>
+    <page number="358">
+        <range surah="24" start="59" end="61" />
+    </page>
+    <page number="359">
+        <range surah="24" start="62" end="64" />
+        <range surah="25" start="1" end="2" />
+    </page>
+    <page number="360">
+        <range surah="25" start="3" end="11" />
+    </page>
+    <page number="361">
+        <range surah="25" start="12" end="20" />
+    </page>
+    <page number="362">
+        <range surah="25" start="21" end="32" />
+    </page>
+    <page number="363">
+        <range surah="25" start="33" end="43" />
+    </page>
+    <page number="364">
+        <range surah="25" start="44" end="55" />
+    </page>
+    <page number="365">
+        <range surah="25" start="56" end="67" />
+    </page>
+    <page number="366">
+        <range surah="25" start="68" end="77" />
+    </page>
+    <page number="367">
+        <range surah="26" start="1" end="19" />
+    </page>
+    <page number="368">
+        <range surah="26" start="20" end="39" />
+    </page>
+    <page number="369">
+        <range surah="26" start="40" end="60" />
+    </page>
+    <page number="370">
+        <range surah="26" start="61" end="83" />
+    </page>
+    <page number="371">
+        <range surah="26" start="84" end="111" />
+    </page>
+    <page number="372">
+        <range surah="26" start="112" end="136" />
+    </page>
+    <page number="373">
+        <range surah="26" start="137" end="159" />
+    </page>
+    <page number="374">
+        <range surah="26" start="160" end="183" />
+    </page>
+    <page number="375">
+        <range surah="26" start="184" end="206" />
+    </page>
+    <page number="376">
+        <range surah="26" start="207" end="227" />
+    </page>
+    <page number="377">
+        <range surah="27" start="1" end="13" />
+    </page>
+    <page number="378">
+        <range surah="27" start="14" end="22" />
+    </page>
+    <page number="379">
+        <range surah="27" start="23" end="35" />
+    </page>
+    <page number="380">
+        <range surah="27" start="36" end="44" />
+    </page>
+    <page number="381">
+        <range surah="27" start="45" end="55" />
+    </page>
+    <page number="382">
+        <range surah="27" start="56" end="63" />
+    </page>
+    <page number="383">
+        <range surah="27" start="64" end="76" />
+    </page>
+    <page number="384">
+        <range surah="27" start="77" end="88" />
+    </page>
+    <page number="385">
+        <range surah="27" start="89" end="93" />
+        <range surah="28" start="1" end="5" />
+    </page>
+    <page number="386">
+        <range surah="28" start="6" end="13" />
+    </page>
+    <page number="387">
+        <range surah="28" start="14" end="21" />
+    </page>
+    <page number="388">
+        <range surah="28" start="22" end="28" />
+    </page>
+    <page number="389">
+        <range surah="28" start="29" end="35" />
+    </page>
+    <page number="390">
+        <range surah="28" start="36" end="43" />
+    </page>
+    <page number="391">
+        <range surah="28" start="44" end="50" />
+    </page>
+    <page number="392">
+        <range surah="28" start="51" end="59" />
+    </page>
+    <page number="393">
+        <range surah="28" start="60" end="70" />
+    </page>
+    <page number="394">
+        <range surah="28" start="71" end="77" />
+    </page>
+    <page number="395">
+        <range surah="28" start="78" end="84" />
+    </page>
+    <page number="396">
+        <range surah="28" start="85" end="88" />
+        <range surah="29" start="1" end="6" />
+    </page>
+    <page number="397">
+        <range surah="29" start="7" end="14" />
+    </page>
+    <page number="398">
+        <range surah="29" start="15" end="23" />
+    </page>
+    <page number="399">
+        <range surah="29" start="24" end="30" />
+    </page>
+    <page number="400">
+        <range surah="29" start="31" end="38" />
+    </page>
+    <page number="401">
+        <range surah="29" start="39" end="45" />
+    </page>
+    <page number="402">
+        <range surah="29" start="46" end="52" />
+    </page>
+    <page number="403">
+        <range surah="29" start="53" end="63" />
+    </page>
+    <page number="404">
+        <range surah="29" start="64" end="69" />
+        <range surah="30" start="1" end="5" />
+    </page>
+    <page number="405">
+        <range surah="30" start="6" end="15" />
+    </page>
+    <page number="406">
+        <range surah="30" start="16" end="24" />
+    </page>
+    <page number="407">
+        <range surah="30" start="25" end="32" />
+    </page>
+    <page number="408">
+        <range surah="30" start="33" end="41" />
+    </page>
+    <page number="409">
+        <range surah="30" start="42" end="50" />
+    </page>
+    <page number="410">
+        <range surah="30" start="51" end="60" />
+    </page>
+    <page number="411">
+        <range surah="31" start="1" end="11" />
+    </page>
+    <page number="412">
+        <range surah="31" start="12" end="19" />
+    </page>
+    <page number="413">
+        <range surah="31" start="20" end="28" />
+    </page>
+    <page number="414">
+        <range surah="31" start="29" end="34" />
+    </page>
+    <page number="415">
+        <range surah="32" start="1" end="11" />
+    </page>
+    <page number="416">
+        <range surah="32" start="12" end="20" />
+    </page>
+    <page number="417">
+        <range surah="32" start="21" end="30" />
+    </page>
+    <page number="418">
+        <range surah="33" start="1" end="6" />
+    </page>
+    <page number="419">
+        <range surah="33" start="7" end="15" />
+    </page>
+    <page number="420">
+        <range surah="33" start="16" end="22" />
+    </page>
+    <page number="421">
+        <range surah="33" start="23" end="30" />
+    </page>
+    <page number="422">
+        <range surah="33" start="31" end="35" />
+    </page>
+    <page number="423">
+        <range surah="33" start="36" end="43" />
+    </page>
+    <page number="424">
+        <range surah="33" start="44" end="50" />
+    </page>
+    <page number="425">
+        <range surah="33" start="51" end="54" />
+    </page>
+    <page number="426">
+        <range surah="33" start="55" end="62" />
+    </page>
+    <page number="427">
+        <range surah="33" start="63" end="73" />
+    </page>
+    <page number="428">
+        <range surah="34" start="1" end="7" />
+    </page>
+    <page number="429">
+        <range surah="34" start="8" end="14" />
+    </page>
+    <page number="430">
+        <range surah="34" start="15" end="22" />
+    </page>
+    <page number="431">
+        <range surah="34" start="23" end="31" />
+    </page>
+    <page number="432">
+        <range surah="34" start="32" end="39" />
+    </page>
+    <page number="433">
+        <range surah="34" start="40" end="48" />
+    </page>
+    <page number="434">
+        <range surah="34" start="49" end="54" />
+        <range surah="35" start="1" end="3" />
+    </page>
+    <page number="435">
+        <range surah="35" start="4" end="11" />
+    </page>
+    <page number="436">
+        <range surah="35" start="12" end="18" />
+    </page>
+    <page number="437">
+        <range surah="35" start="19" end="30" />
+    </page>
+    <page number="438">
+        <range surah="35" start="31" end="38" />
+    </page>
+    <page number="439">
+        <range surah="35" start="39" end="44" />
+    </page>
+    <page number="440">
+        <range surah="35" start="45" end="45" />
+        <range surah="36" start="1" end="12" />
+    </page>
+    <page number="441">
+        <range surah="36" start="13" end="27" />
+    </page>
+    <page number="442">
+        <range surah="36" start="28" end="40" />
+    </page>
+    <page number="443">
+        <range surah="36" start="41" end="54" />
+    </page>
+    <page number="444">
+        <range surah="36" start="55" end="70" />
+    </page>
+    <page number="445">
+        <range surah="36" start="71" end="83" />
+    </page>
+    <page number="446">
+        <range surah="37" start="1" end="24" />
+    </page>
+    <page number="447">
+        <range surah="37" start="25" end="51" />
+    </page>
+    <page number="448">
+        <range surah="37" start="52" end="76" />
+    </page>
+    <page number="449">
+        <range surah="37" start="77" end="102" />
+    </page>
+    <page number="450">
+        <range surah="37" start="103" end="126" />
+    </page>
+    <page number="451">
+        <range surah="37" start="127" end="153" />
+    </page>
+    <page number="452">
+        <range surah="37" start="154" end="182" />
+    </page>
+    <page number="453">
+        <range surah="38" start="1" end="16" />
+    </page>
+    <page number="454">
+        <range surah="38" start="17" end="26" />
+    </page>
+    <page number="455">
+        <range surah="38" start="27" end="42" />
+    </page>
+    <page number="456">
+        <range surah="38" start="43" end="61" />
+    </page>
+    <page number="457">
+        <range surah="38" start="62" end="83" />
+    </page>
+    <page number="458">
+        <range surah="38" start="84" end="88" />
+        <range surah="39" start="1" end="5" />
+    </page>
+    <page number="459">
+        <range surah="39" start="6" end="10" />
+    </page>
+    <page number="460">
+        <range surah="39" start="11" end="21" />
+    </page>
+    <page number="461">
+        <range surah="39" start="22" end="31" />
+    </page>
+    <page number="462">
+        <range surah="39" start="32" end="40" />
+    </page>
+    <page number="463">
+        <range surah="39" start="41" end="47" />
+    </page>
+    <page number="464">
+        <range surah="39" start="48" end="56" />
+    </page>
+    <page number="465">
+        <range surah="39" start="57" end="67" />
+    </page>
+    <page number="466">
+        <range surah="39" start="68" end="74" />
+    </page>
+    <page number="467">
+        <range surah="39" start="75" end="75" />
+        <range surah="40" start="1" end="7" />
+    </page>
+    <page number="468">
+        <range surah="40" start="8" end="16" />
+    </page>
+    <page number="469">
+        <range surah="40" start="17" end="25" />
+    </page>
+    <page number="470">
+        <range surah="40" start="26" end="33" />
+    </page>
+    <page number="471">
+        <range surah="40" start="34" end="40" />
+    </page>
+    <page number="472">
+        <range surah="40" start="41" end="49" />
+    </page>
+    <page number="473">
+        <range surah="40" start="50" end="58" />
+    </page>
+    <page number="474">
+        <range surah="40" start="59" end="66" />
+    </page>
+    <page number="475">
+        <range surah="40" start="67" end="77" />
+    </page>
+    <page number="476">
+        <range surah="40" start="78" end="85" />
+    </page>
+    <page number="477">
+        <range surah="41" start="1" end="11" />
+    </page>
+    <page number="478">
+        <range surah="41" start="12" end="20" />
+    </page>
+    <page number="479">
+        <range surah="41" start="21" end="29" />
+    </page>
+    <page number="480">
+        <range surah="41" start="30" end="38" />
+    </page>
+    <page number="481">
+        <range surah="41" start="39" end="46" />
+    </page>
+    <page number="482">
+        <range surah="41" start="47" end="54" />
+    </page>
+    <page number="483">
+        <range surah="42" start="1" end="10" />
+    </page>
+    <page number="484">
+        <range surah="42" start="11" end="15" />
+    </page>
+    <page number="485">
+        <range surah="42" start="16" end="22" />
+    </page>
+    <page number="486">
+        <range surah="42" start="23" end="31" />
+    </page>
+    <page number="487">
+        <range surah="42" start="32" end="44" />
+    </page>
+    <page number="488">
+        <range surah="42" start="45" end="51" />
+    </page>
+    <page number="489">
+        <range surah="42" start="52" end="53" />
+        <range surah="43" start="1" end="10" />
+    </page>
+    <page number="490">
+        <range surah="43" start="11" end="22" />
+    </page>
+    <page number="491">
+        <range surah="43" start="23" end="33" />
+    </page>
+    <page number="492">
+        <range surah="43" start="34" end="47" />
+    </page>
+    <page number="493">
+        <range surah="43" start="48" end="60" />
+    </page>
+    <page number="494">
+        <range surah="43" start="61" end="73" />
+    </page>
+    <page number="495">
+        <range surah="43" start="74" end="89" />
+    </page>
+    <page number="496">
+        <range surah="44" start="1" end="18" />
+    </page>
+    <page number="497">
+        <range surah="44" start="19" end="39" />
+    </page>
+    <page number="498">
+        <range surah="44" start="40" end="59" />
+    </page>
+    <page number="499">
+        <range surah="45" start="1" end="13" />
+    </page>
+    <page number="500">
+        <range surah="45" start="14" end="22" />
+    </page>
+    <page number="501">
+        <range surah="45" start="23" end="32" />
+    </page>
+    <page number="502">
+        <range surah="45" start="33" end="37" />
+        <range surah="46" start="1" end="5" />
+    </page>
+    <page number="503">
+        <range surah="46" start="6" end="14" />
+    </page>
+    <page number="504">
+        <range surah="46" start="15" end="20" />
+    </page>
+    <page number="505">
+        <range surah="46" start="21" end="28" />
+    </page>
+    <page number="506">
+        <range surah="46" start="29" end="35" />
+    </page>
+    <page number="507">
+        <range surah="47" start="1" end="11" />
+    </page>
+    <page number="508">
+        <range surah="47" start="12" end="19" />
+    </page>
+    <page number="509">
+        <range surah="47" start="20" end="29" />
+    </page>
+    <page number="510">
+        <range surah="47" start="30" end="38" />
+    </page>
+    <page number="511">
+        <range surah="48" start="1" end="9" />
+    </page>
+    <page number="512">
+        <range surah="48" start="10" end="15" />
+    </page>
+    <page number="513">
+        <range surah="48" start="16" end="23" />
+    </page>
+    <page number="514">
+        <range surah="48" start="24" end="28" />
+    </page>
+    <page number="515">
+        <range surah="48" start="29" end="29" />
+        <range surah="49" start="1" end="4" />
+    </page>
+    <page number="516">
+        <range surah="49" start="5" end="11" />
+    </page>
+    <page number="517">
+        <range surah="49" start="12" end="18" />
+    </page>
+    <page number="518">
+        <range surah="50" start="1" end="15" />
+    </page>
+    <page number="519">
+        <range surah="50" start="16" end="35" />
+    </page>
+    <page number="520">
+        <range surah="50" start="36" end="45" />
+        <range surah="51" start="1" end="6" />
+    </page>
+    <page number="521">
+        <range surah="51" start="7" end="30" />
+    </page>
+    <page number="522">
+        <range surah="51" start="31" end="51" />
+    </page>
+    <page number="523">
+        <range surah="51" start="52" end="60" />
+        <range surah="52" start="1" end="14" />
+    </page>
+    <page number="524">
+        <range surah="52" start="15" end="31" />
+    </page>
+    <page number="525">
+        <range surah="52" start="32" end="49" />
+    </page>
+    <page number="526">
+        <range surah="53" start="1" end="26" />
+    </page>
+    <page number="527">
+        <range surah="53" start="27" end="44" />
+    </page>
+    <page number="528">
+        <range surah="53" start="45" end="62" />
+        <range surah="54" start="1" end="6" />
+    </page>
+    <page number="529">
+        <range surah="54" start="7" end="27" />
+    </page>
+    <page number="530">
+        <range surah="54" start="28" end="49" />
+    </page>
+    <page number="531">
+        <range surah="54" start="50" end="55" />
+        <range surah="55" start="1" end="16" />
+    </page>
+    <page number="532">
+        <range surah="55" start="17" end="40" />
+    </page>
+    <page number="533">
+        <range surah="55" start="41" end="67" />
+    </page>
+    <page number="534">
+        <range surah="55" start="68" end="78" />
+        <range surah="56" start="1" end="16" />
+    </page>
+    <page number="535">
+        <range surah="56" start="17" end="50" />
+    </page>
+    <page number="536">
+        <range surah="56" start="51" end="76" />
+    </page>
+    <page number="537">
+        <range surah="56" start="77" end="96" />
+        <range surah="57" start="1" end="3" />
+    </page>
+    <page number="538">
+        <range surah="57" start="4" end="11" />
+    </page>
+    <page number="539">
+        <range surah="57" start="12" end="18" />
+    </page>
+    <page number="540">
+        <range surah="57" start="19" end="24" />
+    </page>
+    <page number="541">
+        <range surah="57" start="25" end="29" />
+    </page>
+    <page number="542">
+        <range surah="58" start="1" end="6" />
+    </page>
+    <page number="543">
+        <range surah="58" start="7" end="11" />
+    </page>
+    <page number="544">
+        <range surah="58" start="12" end="21" />
+    </page>
+    <page number="545">
+        <range surah="58" start="22" end="22" />
+        <range surah="59" start="1" end="3" />
+    </page>
+    <page number="546">
+        <range surah="59" start="4" end="9" />
+    </page>
+    <page number="547">
+        <range surah="59" start="10" end="16" />
+    </page>
+    <page number="548">
+        <range surah="59" start="17" end="24" />
+    </page>
+    <page number="549">
+        <range surah="60" start="1" end="5" />
+    </page>
+    <page number="550">
+        <range surah="60" start="6" end="11" />
+    </page>
+    <page number="551">
+        <range surah="60" start="12" end="13" />
+        <range surah="61" start="1" end="5" />
+    </page>
+    <page number="552">
+        <range surah="61" start="6" end="14" />
+    </page>
+    <page number="553">
+        <range surah="62" start="1" end="8" />
+    </page>
+    <page number="554">
+        <range surah="62" start="9" end="11" />
+        <range surah="63" start="1" end="4" />
+    </page>
+    <page number="555">
+        <range surah="63" start="5" end="11" />
+    </page>
+    <page number="556">
+        <range surah="64" start="1" end="9" />
+    </page>
+    <page number="557">
+        <range surah="64" start="10" end="18" />
+    </page>
+    <page number="558">
+        <range surah="65" start="1" end="5" />
+    </page>
+    <page number="559">
+        <range surah="65" start="6" end="12" />
+    </page>
+    <page number="560">
+        <range surah="66" start="1" end="7" />
+    </page>
+    <page number="561">
+        <range surah="66" start="8" end="12" />
+    </page>
+    <page number="562">
+        <range surah="67" start="1" end="12" />
+    </page>
+    <page number="563">
+        <range surah="67" start="13" end="26" />
+    </page>
+    <page number="564">
+        <range surah="67" start="27" end="30" />
+        <range surah="68" start="1" end="15" />
+    </page>
+    <page number="565">
+        <range surah="68" start="16" end="42" />
+    </page>
+    <page number="566">
+        <range surah="68" start="43" end="52" />
+        <range surah="69" start="1" end="8" />
+    </page>
+    <page number="567">
+        <range surah="69" start="9" end="34" />
+    </page>
+    <page number="568">
+        <range surah="69" start="35" end="52" />
+        <range surah="70" start="1" end="10" />
+    </page>
+    <page number="569">
+        <range surah="70" start="11" end="39" />
+    </page>
+    <page number="570">
+        <range surah="70" start="40" end="44" />
+        <range surah="71" start="1" end="10" />
+    </page>
+    <page number="571">
+        <range surah="71" start="11" end="28" />
+    </page>
+    <page number="572">
+        <range surah="72" start="1" end="13" />
+    </page>
+    <page number="573">
+        <range surah="72" start="14" end="28" />
+    </page>
+    <page number="574">
+        <range surah="73" start="1" end="19" />
+    </page>
+    <page number="575">
+        <range surah="73" start="20" end="20" />
+        <range surah="74" start="1" end="17" />
+    </page>
+    <page number="576">
+        <range surah="74" start="18" end="47" />
+    </page>
+    <page number="577">
+        <range surah="74" start="48" end="56" />
+        <range surah="75" start="1" end="19" />
+    </page>
+    <page number="578">
+        <range surah="75" start="20" end="40" />
+        <range surah="76" start="1" end="5" />
+    </page>
+    <page number="579">
+        <range surah="76" start="6" end="25" />
+    </page>
+    <page number="580">
+        <range surah="76" start="26" end="31" />
+        <range surah="77" start="1" end="19" />
+    </page>
+    <page number="581">
+        <range surah="77" start="20" end="50" />
+    </page>
+    <page number="582">
+        <range surah="78" start="1" end="30" />
+    </page>
+    <page number="583">
+        <range surah="78" start="31" end="40" />
+        <range surah="79" start="1" end="15" />
+    </page>
+    <page number="584">
+        <range surah="79" start="16" end="46" />
+    </page>
+    <page number="585">
+        <range surah="80" start="1" end="42" />
+    </page>
+    <page number="586">
+        <range surah="81" start="1" end="29" />
+    </page>
+    <page number="587">
+        <range surah="82" start="1" end="19" />
+        <range surah="83" start="1" end="6" />
+    </page>
+    <page number="588">
+        <range surah="83" start="7" end="34" />
+    </page>
+    <page number="589">
+        <range surah="83" start="35" end="36" />
+        <range surah="84" start="1" end="25" />
+    </page>
+    <page number="590">
+        <range surah="85" start="1" end="22" />
+    </page>
+    <page number="591">
+        <range surah="86" start="1" end="17" />
+        <range surah="87" start="1" end="15" />
+    </page>
+    <page number="592">
+        <range surah="87" start="16" end="19" />
+        <range surah="88" start="1" end="26" />
+    </page>
+    <page number="593">
+        <range surah="89" start="1" end="23" />
+    </page>
+    <page number="594">
+        <range surah="89" start="24" end="30" />
+        <range surah="90" start="1" end="20" />
+    </page>
+    <page number="595">
+        <range surah="91" start="1" end="15" />
+        <range surah="92" start="1" end="14" />
+    </page>
+    <page number="596">
+        <range surah="92" start="15" end="21" />
+        <range surah="93" start="1" end="11" />
+        <range surah="94" start="1" end="8" />
+    </page>
+    <page number="597">
+        <range surah="95" start="1" end="8" />
+        <range surah="96" start="1" end="19" />
+    </page>
+    <page number="598">
+        <range surah="97" start="1" end="5" />
+        <range surah="98" start="1" end="7" />
+    </page>
+    <page number="599">
+        <range surah="98" start="8" end="8" />
+        <range surah="99" start="1" end="8" />
+        <range surah="100" start="1" end="9" />
+    </page>
+    <page number="600">
+        <range surah="100" start="10" end="11" />
+        <range surah="101" start="1" end="11" />
+        <range surah="102" start="1" end="8" />
+    </page>
+    <page number="601">
+        <range surah="103" start="1" end="3" />
+        <range surah="104" start="1" end="9" />
+        <range surah="105" start="1" end="5" />
+    </page>
+    <page number="602">
+        <range surah="106" start="1" end="4" />
+        <range surah="107" start="1" end="7" />
+        <range surah="108" start="1" end="3" />
+    </page>
+    <page number="603">
+        <range surah="109" start="1" end="6" />
+        <range surah="110" start="1" end="3" />
+        <range surah="111" start="1" end="5" />
+    </page>
+    <page number="604">
+        <range surah="112" start="1" end="4" />
+        <range surah="113" start="1" end="5" />
+        <range surah="114" start="1" end="6" />
+    </page>
+</quran>

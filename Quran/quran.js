@@ -7,10 +7,18 @@ const totalPages = 604;
 let container;
 let progressBar;
 let pageNumberEl;
-
+let quranPageMap = [];
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    loadQuranPageMapFromXML("quran_pages.xml").then(map => {
+        quranPageMap = map;
+
+
+    });
+    // Example usage
+    const page = getPageForAyah(2, 200);
+    console.log("Page:", page);
     container = document.getElementById('container');
     progressBar = document.getElementById('progress-bar');
     pageNumberEl = document.getElementById('page-number');
@@ -154,5 +162,49 @@ document.addEventListener('DOMContentLoaded', () => {
             left: 0//,
             // behavior: 'smooth' // or 'auto'
         });
+    }
+
+
+    async function loadQuranPageMapFromXML(url) {
+        const response = await fetch(url);
+        const xmlText = await response.text();
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlText, "application/xml");
+
+        const pages = xmlDoc.getElementsByTagName("page");
+        const map = [];
+
+        for (const page of pages) {
+            const pageNumber = parseInt(page.getAttribute("number"));
+            const ranges = [];
+            const rangeElements = page.getElementsByTagName("range");
+
+            for (const range of rangeElements) {
+                ranges.push({
+                    surah: parseInt(range.getAttribute("surah")),
+                    startAyah: parseInt(range.getAttribute("start")),
+                    endAyah: parseInt(range.getAttribute("end"))
+                });
+            }
+
+            map.push({ page: pageNumber, ranges });
+        }
+
+        return map;
+    }
+
+    function getPageForAyah(surah, ayah) {
+        for (const pageEntry of quranPageMap) {
+            for (const range of pageEntry.ranges) {
+                if (
+                    range.surah === surah &&
+                    ayah >= range.startAyah &&
+                    ayah <= range.endAyah
+                ) {
+                    return pageEntry.page;
+                }
+            }
+        }
+        return null;
     }
 });

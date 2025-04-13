@@ -2,18 +2,24 @@
 const baseUrl = 'https://voidwave.com/Quran/QuranPNGs/';
 
 // Config
-const totalPages = 605;
-const pageHeight = 965;
+const totalPages = 604;
+
+let container;
+let progressBar;
+let pageNumberEl;
+
 
 document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('container');
-    const progressBar = document.getElementById('progress-bar');
-    const pageNumberEl = document.getElementById('page-number');
+
+    container = document.getElementById('container');
+    progressBar = document.getElementById('progress-bar');
+    pageNumberEl = document.getElementById('page-number');
+    const viewportHeight = window.innerHeight;
 
     // Set up container for scrolling
-    container.style.height = `${totalPages * pageHeight}px`;
+    container.style.height = `${totalPages * viewportHeight}px`;
     container.style.position = 'relative';
-    container.style.overflowY = 'auto';
+
 
     // Create empty page placeholders
     for (let i = 1; i <= totalPages; i++) {
@@ -21,10 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         pageDiv.id = `page-${i}`;
         pageDiv.className = 'page';
         pageDiv.dataset.page = i;
-        pageDiv.style.height = `${pageHeight}px`;
-        pageDiv.style.position = 'absolute';
-        pageDiv.style.top = `${(i - 1) * pageHeight}px`;
-        pageDiv.style.width = '100%';
+        pageDiv.style.height = `${viewportHeight}px`;
+        pageDiv.style.top = `${(i - 1) * viewportHeight}px`;
         container.appendChild(pageDiv);
     }
 
@@ -32,15 +36,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const loadedPages = new Set();
 
     // Scroll handler
-    container.addEventListener('scroll', () => {
+    window.addEventListener('scroll', () => {
         // Get current scroll position
-        const scrollTop = container.scrollTop;
-        const viewportHeight = container.clientHeight;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        let pageHeight = 1.62 * window.innerWidth;
 
         // Calculate visible page range
         const firstVisiblePage = Math.floor(scrollTop / pageHeight) + 1;
-        const lastVisiblePage = Math.ceil((scrollTop + viewportHeight) / pageHeight);
+        const lastVisiblePage = firstVisiblePage + 2//Math.ceil((scrollTop + viewportHeight) / pageHeight);
 
+        // console.log("scrolltop =" + scrollTop);
+        // console.log("firstVisiblePage =" + firstVisiblePage);
+        // console.log("lastVisiblePage =" + lastVisiblePage);
+        // console.log("viewportHeight =" + viewportHeight);
         // Update UI
         const currentPage = firstVisiblePage;
         updateProgressBar(scrollTop, currentPage);
@@ -64,17 +73,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    window.addEventListener('resize', () => {
+
+        let pageHeight = 1.62 * window.innerWidth;
+        container.style.height = `${totalPages * pageHeight}px`;
+
+        const children = container.childNodes;
+        for (let i = 0; i < children.length; i++) {
+            children[i].style.height = `${pageHeight}px`;
+            children[i].style.top = `${i * pageHeight}px`;
+        }
+
+        console.log("Resized event called");
+
+        // Force scroll recalculation and page (un)loading
+        window.dispatchEvent(new Event('scroll'));
+    });
     // Progress bar click handler
+
     document.getElementById('progress').addEventListener('click', (event) => {
         const rect = event.currentTarget.getBoundingClientRect();
         const ratio = (event.clientX - rect.left) / rect.width;
         const targetPage = Math.max(1, Math.min(totalPages, Math.ceil(ratio * totalPages)));
         navigateToPage(targetPage);
     });
-
     // Initial check for visible pages
     setTimeout(() => {
-        container.dispatchEvent(new Event('scroll'));
+        window.dispatchEvent(new Event('resize'));
     }, 100);
 
     function loadPage(pageNum) {
@@ -87,7 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = `${baseUrl}${pageNum.toString().padStart(3, '0')}.png`;
         img.alt = `Quran Page ${pageNum}`;
         img.style.width = '100%';
+        img.style.height = '100%';
         img.style.display = 'block';
+        img.style.objectFit = 'contain';
 
         // Clear any existing content and add the image
         pageDiv.innerHTML = '';
@@ -106,8 +133,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateProgressBar(scrollTop, currentPage) {
         // Update progress bar
-        const viewHeight = container.clientHeight;
-        const maxScroll = container.scrollHeight - viewHeight;
+
+        let pageheight = 1.62 * window.innerWidth;
+        const maxScroll = totalPages * pageheight;
         const progress = (scrollTop / maxScroll) * 100;
         progressBar.style.width = `${progress}%`;
 
@@ -117,6 +145,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function navigateToPage(pageNum) {
         if (pageNum < 1 || pageNum > totalPages) return;
-        container.scrollTop = (pageNum - 1) * pageHeight;
+        let pageHeight = 1.62 * window.innerWidth;
+        console.log("navigate to page = " + pageNum);
+        let scrollpos = (pageNum - 1) * pageHeight;
+
+        window.scrollTo({
+            top: scrollpos,
+            left: 0//,
+            // behavior: 'smooth' // or 'auto'
+        });
     }
 });

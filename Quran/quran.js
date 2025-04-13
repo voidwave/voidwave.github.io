@@ -58,9 +58,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Toggle overlay visibility
-    openBtn.onclick = () => {
-        overlay.classList.toggle("show");
-    };
+    ["click", "touchstart"].forEach(evt =>
+        openBtn.addEventListener(evt, () => {
+            overlay.classList.toggle("show");
+        })
+    );
+
     // Create empty page placeholders
     for (let i = 1; i <= totalPages; i++) {
         const pageDiv = document.createElement('div');

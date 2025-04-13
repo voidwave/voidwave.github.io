@@ -64,34 +64,79 @@
 
         }
 
-        #sura-nav {
+        #top-nav {
             position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 9999;
-            padding: 6px 10px;
-            font-size: 16px;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #001403;
+            color: black;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             font-family: "Mada", sans-serif;
-            border-radius: 6px;
-            background: white;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
         }
 
-        #sura-nav.visible {
-            opacity: 1;
-            pointer-events: auto;
+        #top-nav button {
+            font-size: 16px;
+            padding: 8px 14px;
+            border: none;
+            border-radius: 5px;
+            background: #007025;
+            color: white;
+            cursor: pointer;
+        }
+
+        #surah-picker-overlay {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        #surah-picker-overlay.show {
+            display: flex;
+        }
+
+        #surah-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #surah-list button {
+            padding: 12px;
+            font-size: 18px;
+            background: #ffffff10;
+            color: white;
+            border: 1px solid #ffffff30;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: right;
+            font-family: "Mada", sans-serif;
         }
     </style>
 </head>
 
 <body>
-    <select id="sura-nav">
-        <option value="">Jump to Surah</option>
-    </select>
+    <nav id="top-nav">
+        <button id="open-surah-picker">Surahs</button>
+    </nav>
 
+    <div id="surah-picker-overlay">
+        <div id="surah-list"></div>
+    </div>
     <div id="container"></div>
 
     <div id="page-number"

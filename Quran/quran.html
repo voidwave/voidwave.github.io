@@ -1,7 +1,10 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
+
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <title>Al-Quran</title>
@@ -61,14 +64,34 @@
 
         }
 
-        /* .img {
-            height: 100%;
-            width: 100%;
-        } */
+        #sura-nav {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 9999;
+            padding: 6px 10px;
+            font-size: 16px;
+            font-family: "Mada", sans-serif;
+            border-radius: 6px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        #sura-nav.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
     </style>
 </head>
 
 <body>
+    <select id="sura-nav">
+        <option value="">Jump to Surah</option>
+    </select>
+
     <div id="container"></div>
 
     <div id="page-number"

@@ -9,16 +9,27 @@ let progressBar;
 let pageNumberEl;
 let quranPageMap = [];
 
+let showTimeout = null;
+let hideTimeout = null;
+let lastScrollY = window.scrollY;
+
+
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    loadQuranPageMapFromXML("quran_pages.xml").then(map => {
+    navDropdown = document.getElementById("sura-nav");
+
+    (async () => {
+        const map = await loadQuranPageMapFromXML("https://voidwave.com/Quran/quran_pages.xml");
         quranPageMap = map;
+        populateSuraDropdown();
+        const page = getPageForAyah(2, 200);
+        console.log("Page:", page);
+    })();
 
 
-    });
-    // Example usage
-    const page = getPageForAyah(2, 200);
-    console.log("Page:", page);
     container = document.getElementById('container');
     progressBar = document.getElementById('progress-bar');
     pageNumberEl = document.getElementById('page-number');
@@ -45,6 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll handler
     window.addEventListener('scroll', () => {
+
+        lastScrollY = window.scrollY;
         // Get current scroll position
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
@@ -79,8 +92,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 loadedPages.delete(i);
             }
         }
-    });
 
+        if (Math.abs(window.scrollY - lastScrollY) > 5) {
+            lastScrollY = window.scrollY;
+            showNav();
+        }
+    });
+    // Mouse movement near top
+    document.addEventListener("mousemove", (e) => {
+        if (e.clientY < 80 && e.clientX < 300) {
+            showNav();
+        }
+    });
+    // Show when near the top or scrolling
+    function showNav() {
+        navDropdown.classList.add("visible");
+        if (hideTimeout) clearTimeout(hideTimeout);
+        hideTimeout = setTimeout(() => {
+            navDropdown.classList.remove("visible");
+        }, 2000); // auto-hide after 2 seconds of no movement
+    }
     window.addEventListener('resize', () => {
 
         let pageHeight = 1.62 * window.innerWidth;
@@ -206,5 +237,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         return null;
+    }
+
+    const suraNames = [
+        "الفاتحة", "البقرة", "آل عمران", "النساء", "المائدة", "الأنعام", "الأعراف",
+        "الأنفال", "التوبة", "يونس", "هود", "يوسف", "الرعد", "إبراهيم", "الحجر",
+        "النحل", "الإسراء", "الكهف", "مريم", "طه", "الأنبياء", "الحج", "المؤمنون",
+        "النور", "الفرقان", "الشعراء", "النمل", "القصص", "العنكبوت", "الروم",
+        "لقمان", "السجدة", "الأحزاب", "سبأ", "فاطر", "يس", "الصافات", "ص",
+        "الزمر", "غافر", "فصلت", "الشورى", "الزخرف", "الدخان", "الجاثية",
+        "الأحقاف", "محمد", "الفتح", "الحجرات", "ق", "الذاريات", "الطور", "النجم",
+        "القمر", "الرحمن", "الواقعة", "الحديد", "المجادلة", "الحشر", "الممتحنة",
+        "الصف", "الجمعة", "المنافقون", "التغابن", "الطلاق", "التحريم", "الملك",
+        "القلم", "الحاقة", "المعارج", "نوح", "الجن", "المزمل", "المدثر",
+        "القيامة", "الإنسان", "المرسلات", "النبأ", "النازعات", "عبس", "التكوير",
+        "الإنفطار", "المطففين", "الإنشقاق", "البروج", "الطارق", "الأعلى", "الغاشية",
+        "الفجر", "البلد", "الشمس", "الليل", "الضحى", "الشرح", "التين", "العلق",
+        "القدر", "البينة", "الزلزلة", "العاديات", "القارعة", "التكاثر", "العصر",
+        "الهمزة", "الفيل", "قريش", "الماعون", "الكوثر", "الكافرون", "النصر",
+        "المسد", "الإخلاص", "الفلق", "الناس"
+    ];
+
+    function populateSuraDropdown() {
+        const dropdown = document.getElementById("sura-nav");
+        for (let i = 0; i < suraNames.length; i++) {
+            const option = document.createElement("option");
+            option.value = i + 1; // Sura numbers start from 1
+            option.textContent = `${i + 1}. ${suraNames[i]}`;
+            dropdown.appendChild(option);
+        }
+
+        dropdown.addEventListener("change", () => {
+            const suraNum = parseInt(dropdown.value);
+            if (!isNaN(suraNum)) {
+                const page = getPageForAyah(suraNum, 1);
+                if (page !== null) {
+                    navigateToPage(page); // Replace this with your page viewer logic
+                } else {
+                    console.warn("Page not found for that Surah.");
+                }
+            }
+        });
     }
 });

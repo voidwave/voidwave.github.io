@@ -18,13 +18,31 @@ let overlay = document.getElementById("surah-picker-overlay");
 let list = document.getElementById("surah-list");
 let savedPage = 1;
 let resizeTimeout;
+let searchBar;
+let resultsContainer;
+var surasClean;
+var surasEnglish;
+var surasTafsirJalalyn;
+
+Promise.all([
+    loadXml('https://voidwave.com/Quran/QuranText/Quran/quran-simple-clean.xml').then(data => surasClean = data),
+    loadXml('https://voidwave.com/Quran/QuranText/English-Translation/en.sahih.xml').then(data => surasEnglish = data),
+    loadXml('https://voidwave.com/Quran/QuranText/Arabic-Tafsir/ar.jalalayn.xml').then(data => surasTafsirJalalyn = data)
+]).then(() => {
+    console.log("All XML files loaded successfully!");
+    //initializePage();
+    // Call the function that initializes the page
+}).catch(error => {
+    console.error("Error loading XML files:", error);
+});
 
 document.addEventListener('DOMContentLoaded', () => {
 
     openBtn = document.getElementById("open-surah-picker");
     overlay = document.getElementById("surah-picker-overlay");
     list = document.getElementById("surah-list");
-
+    searchBar = document.getElementById('search-bar');
+    resultsContainer = document.getElementById('search-results');
     container = document.getElementById('container');
     progressBar = document.getElementById('progress-bar');
     pageNumberEl = document.getElementById('page-number');
@@ -165,7 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('progress').addEventListener('click', (event) => {
         const rect = event.currentTarget.getBoundingClientRect();
-        const ratio = (event.clientX - rect.left) / rect.width;
+        const ratio = (rect.right - event.clientX) / rect.width;
         const targetPage = Math.max(1, Math.min(totalPages, Math.ceil(ratio * totalPages)));
         navigateToPage(targetPage);
     });
@@ -297,4 +315,127 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!isNaN(savedPage)) {
         navigateToPage(savedPage);
     }
+    setupSearchBar();
+    var selectedSurah = null; // Variable to track selected Surah
+    function setupSearchBar() {
+
+
+
+        searchBar.addEventListener('input', function () {
+            const query = this.value.trim().toLowerCase();
+            resultsContainer.innerHTML = ''; // Clear previous results
+
+            if (query.length < 2) return; // Avoid overly short searches
+
+            let matchCount = 0;
+
+            if (selectedSurah === null) {
+                // Search the entire Quran if no surah is selected
+                for (let s = 0; s < surasClean.length; s++) {
+                    for (let a = 0; a < surasClean[s].children.length; a++) {
+                        const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                        if (cleanText && cleanText.includes(query)) {
+                            matchCount++;
+
+                            const surahName = surasClean[s].getAttribute('name');
+                            const cleanAyahText = surasClean[s].children[a].getAttribute('text');
+                            //const tashkeelAyahText = surasTashkeel[s].children[a].getAttribute('text');
+                            const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
+                            const english = surasEnglish[s].children[a].getAttribute('text');
+
+                            // Step 1: Highlight the tashkeel ayah text based on the clean text and search query
+                            const highlightedAyahText = highlightMatch(cleanAyahText, query);
+
+                            const result = document.createElement('div');
+                            result.style.padding = '10px';
+                            result.style.borderBottom = '1px solid #ccc';
+                            result.innerHTML = `
+                               <h4>${surahName} [${a + 1}:${s + 1}]</h4>
+                            <p style="color: white;">${highlightedAyahText}</p>` +
+                                `<p style="color: gray;"><strong></strong> ${tafsir}</p>` +
+                                `<p style="direction: ltr; color: gray;"><strong></strong> ${english}</p>`;
+                            resultsContainer.appendChild(result);
+                            const pagenumber = getPageForAyah(s + 1, a + 1);
+                            result.addEventListener('click', () => {
+                                navigateToPage(pagenumber);
+                            });
+                        }
+                    }
+                }
+            } else {
+                // Search only the selected surah
+                const s = selectedSurah;
+                for (let a = 0; a < surasClean[s].children.length; a++) {
+                    const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                    if (cleanText && cleanText.includes(query)) {
+                        matchCount++;
+
+                        const surahName = surasClean[s].getAttribute('name');
+                        const cleanAyahText = surasClean[s].children[a].getAttribute('text');
+                        const tafsir = surasTafsirJalalyn[s].children[a].getAttribute('text');
+                        const english = surasEnglish[s].children[a].getAttribute('text');
+                        const highlightedAyahText = highlightMatch(cleanAyahText, query);
+
+                        const result = document.createElement('div');
+                        result.style.padding = '10px';
+                        result.style.borderBottom = '1px solid #ccc';
+                        result.innerHTML = `
+                            <h4>${surahName} [${a + 1}:${s + 1}]</h4>
+                            <p style="color: white;">${highlightedAyahText}</p>` +
+                            `<p style="color: gray;"><strong></strong> ${tafsir}</p>` +
+                            `<p style="direction: ltr; color: gray;"><strong></strong> ${english}</p>`;
+                        resultsContainer.appendChild(result);
+                        const pagenumber = getPageForAyah(s + 1, a + 1);
+                        result.addEventListener('click', () => {
+                            navigateToPage(pagenumber);
+                        });
+                    }
+                }
+            }
+
+            if (matchCount === 0) {
+                resultsContainer.innerHTML = '<p>No results found.</p>';
+            }
+        });
+    }
+
 });
+
+
+
+
+
+function loadXml(path) {
+    return fetch(path)
+        .then(response => response.text())
+        .then(xml => {
+            let parser = new DOMParser();
+            let xmlDOM = parser.parseFromString(xml, 'application/xml');
+            return xmlDOM.querySelectorAll('sura'); // Return the parsed sura elements
+        });
+}
+
+function highlightMatch(text, query) {
+    // Step 1: Escape the query to make it safe for regex
+    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escape regex
+    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+
+    // Step 2: Find the positions of the matches in the clean text
+    let match;
+    let indices = [];
+    while ((match = regex.exec(text)) !== null) {
+        indices.push([match.index, match.index + match[0].length]);
+    }
+
+    // Step 3: Highlight the matched text in the tashkeel text
+    let highlightedText = text;
+    for (let i = indices.length - 1; i >= 0; i--) {
+        let [start, end] = indices[i];
+        highlightedText = highlightedText.substring(0, start) +
+            '<mark>' + highlightedText.substring(start, end) + '</mark>' +
+            highlightedText.substring(end);
+    }
+
+    // console.log('highlightMatch result:', highlightedText); // Debug
+    return highlightedText;
+}

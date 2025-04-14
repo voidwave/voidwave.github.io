@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<meta charset="UTF-8">
 
-<html>
+<html dir="rtl" lang="ar">
 
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada">
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
@@ -136,17 +136,57 @@
             text-align: right;
             font-family: "Mada", sans-serif;
         }
+
+        #search-bar::placeholder {
+            color: #999;
+            direction: rtl;
+            z-index: 11000;
+        }
+
+        #search-results {
+            position: fixed;
+            top: 60px;
+            /* or below the navbar */
+            right: 0;
+            left: 0;
+            max-height: 40vh;
+            /* or however tall you want the scrollable area */
+            overflow-y: auto;
+            z-index: 12000;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #search-results div {
+            position: relative;
+            background-color: #111;
+            padding: 10px;
+            border: 1px solid greenyellow;
+            border-radius: 8px;
+            color: white;
+        }
     </style>
 </head>
 
 <body>
     <nav id="top-nav">
         <button id="open-surah-picker">Surahs</button>
+        <div style="padding: 10px; width: 90%; margin: 0 auto;">
+            <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..."
+                style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
+        </div>
     </nav>
 
     <div id="surah-picker-overlay">
         <div id="surah-list"></div>
     </div>
+
+
+    <!-- Search Results -->
+    <div id="search-results" style="padding: 10px;"></div>
+
     <div id="container"></div>
 
     <div id="page-number"

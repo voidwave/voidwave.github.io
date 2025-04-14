@@ -97,8 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log("lastVisiblePage =" + lastVisiblePage);
         // console.log("viewportHeight =" + viewportHeight);
         // Update UI
-        const currentPage = firstVisiblePage;
-        updateProgressBar(scrollTop, currentPage);
+        //const currentPage = firstVisiblePage;
+        updateProgressBar(scrollTop, firstVisiblePage);
 
         console.log(`Visible pages: ${firstVisiblePage} to ${lastVisiblePage}`);
 
@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pageNumberEl.textContent = `${currentPage}`;
 
         if (currentPage != 1)
-            localStorage.setItem('currentPage', currentPage + 1);
+            localStorage.setItem('currentPage', currentPage);
     }
 
     function navigateToPage(pageNum) {

@@ -17,6 +17,7 @@ let openBtn = document.getElementById("open-surah-picker");
 let overlay = document.getElementById("surah-picker-overlay");
 let list = document.getElementById("surah-list");
 let savedPage = 1;
+let resizeTimeout;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -97,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // console.log("lastVisiblePage =" + lastVisiblePage);
         // console.log("viewportHeight =" + viewportHeight);
         // Update UI
-        //const currentPage = firstVisiblePage;
+        let currentPage = firstVisiblePage;
         updateProgressBar(scrollTop, firstVisiblePage);
 
         console.log(`Visible pages: ${firstVisiblePage} to ${lastVisiblePage}`);
@@ -138,20 +139,27 @@ document.addEventListener('DOMContentLoaded', () => {
     //     }, 2000); // auto-hide after 2 seconds of no movement
     // }
     window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
 
-        let pageHeight = 1.62 * window.innerWidth;
-        container.style.height = `${totalPages * pageHeight}px`;
+        resizeTimeout = setTimeout(() => {
 
-        const children = container.childNodes;
-        for (let i = 0; i < children.length; i++) {
-            children[i].style.height = `${pageHeight}px`;
-            children[i].style.top = `${i * pageHeight}px`;
-        }
+            let pageHeight = 1.62 * window.innerWidth;
+            container.style.height = `${totalPages * pageHeight}px`;
 
-        console.log("Resized event called");
+            const children = container.childNodes;
+            for (let i = 0; i < children.length; i++) {
+                children[i].style.height = `${pageHeight}px`;
+                children[i].style.top = `${i * pageHeight}px`;
+            }
 
-        // Force scroll recalculation and page (un)loading
-        window.dispatchEvent(new Event('scroll'));
+            console.log("Resized event called");
+
+            // Force scroll recalculation and page (un)loading
+            window.dispatchEvent(new Event('scroll'));
+
+            console.log('Resize done');
+        }, 200); // Adjust the delay as needed (200ms is a good starting point)
+
     });
     // Progress bar click handler
 

@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pageNumberEl.textContent = `${currentPage}`;
 
         if (currentPage != 1)
-            localStorage.setItem('currentPage', currentPage);
+            localStorage.setItem('currentPage', currentPage + 1);
     }
 
     function navigateToPage(pageNum) {

@@ -13,9 +13,10 @@ let showTimeout = null;
 let hideTimeout = null;
 let lastScrollY = window.scrollY;
 
-let openBtn = document.getElementById("open-surah-picker");
-let overlay = document.getElementById("surah-picker-overlay");
-let list = document.getElementById("surah-list");
+let openBtn;
+let clearSearchBtn;
+let overlay;
+let list;
 let savedPage = 1;
 let resizeTimeout;
 let searchBar;
@@ -39,6 +40,7 @@ Promise.all([
 document.addEventListener('DOMContentLoaded', () => {
 
     openBtn = document.getElementById("open-surah-picker");
+    clearSearchBtn = document.getElementById("clear-search");
     overlay = document.getElementById("surah-picker-overlay");
     list = document.getElementById("surah-list");
     searchBar = document.getElementById('search-bar');
@@ -82,7 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.classList.toggle("show");
         })
     );
-
+    ["click"].forEach(evt =>
+        clearSearchBtn.addEventListener(evt, () => {
+            resultsContainer.innerHTML = '';
+            searchBar.value = '';
+        })
+    );
     // Create empty page placeholders
     for (let i = 1; i <= totalPages; i++) {
         const pageDiv = document.createElement('div');
@@ -111,10 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstVisiblePage = Math.floor(scrollTop / pageHeight) + 1;
         const lastVisiblePage = firstVisiblePage + 2//Math.ceil((scrollTop + viewportHeight) / pageHeight);
 
-        // console.log("scrolltop =" + scrollTop);
-        // console.log("firstVisiblePage =" + firstVisiblePage);
-        // console.log("lastVisiblePage =" + lastVisiblePage);
-        // console.log("viewportHeight =" + viewportHeight);
+
         // Update UI
         let currentPage = firstVisiblePage;
         updateProgressBar(scrollTop, firstVisiblePage);
@@ -358,6 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             const pagenumber = getPageForAyah(s + 1, a + 1);
                             result.addEventListener('click', () => {
                                 navigateToPage(pagenumber);
+                                resultsContainer.innerHTML = '';
+
                             });
                         }
                     }
@@ -388,6 +394,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const pagenumber = getPageForAyah(s + 1, a + 1);
                         result.addEventListener('click', () => {
                             navigateToPage(pagenumber);
+                            resultsContainer.innerHTML = '';
                         });
                     }
                 }

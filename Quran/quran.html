@@ -73,7 +73,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
+            width: 95%;
             background: #0000009a;
             color: black;
             height: 5vh;
@@ -87,8 +88,8 @@
         }
 
         #top-nav button {
-            font-size: 1em;
-            padding: 8px 14px;
+            font-size: 2em;
+            padding: 8px 20px;
             /* height: 5vh;
             width: 10vw; */
             border: none;
@@ -104,7 +105,7 @@
             top: 50px;
             left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 90vh;
             background: rgba(0, 0, 0, 0.95);
             z-index: 9999;
             overflow-y: auto;
@@ -145,11 +146,11 @@
 
         #search-results {
             position: fixed;
-            top: 60px;
+            top: 5vh;
             /* or below the navbar */
             right: 0;
             left: 0;
-            max-height: 40vh;
+            max-height: 95vh;
             /* or however tall you want the scrollable area */
             overflow-y: auto;
             z-index: 12000;
@@ -157,6 +158,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            background-color: #111;
         }
 
         #search-results div {
@@ -173,10 +175,12 @@
 <body>
     <nav id="top-nav">
         <button id="open-surah-picker">Surahs</button>
+
         <div style="padding: 10px; width: 90%; margin: 0 auto;">
             <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..."
-                style="width: 100%; padding: 12px; font-size: 1rem; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
+                style="width: 80%; height: 100%; padding: 12px; font-size: 2rem; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
         </div>
+        <button id="clear-search">X</button>
     </nav>
 
     <div id="surah-picker-overlay">

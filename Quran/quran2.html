@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+    <title>Al-Quran</title>
+    <style>
+        body {
+            background-color: black;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            filter: invert(1);
+        }
+
+        #progress {
+            width: 100%;
+            height: 3vh;
+            position: fixed;
+            bottom: 0;
+            background: #000000;
+        }
+
+        #progress-bar {
+            height: 100%;
+            background: #007025;
+        }
+
+
+
+        #page-number {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            width: 10%;
+            /* Center horizontally */
+            transform: translateX(-50%);
+            /* Offset its own width */
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-family: sans-serif;
+            font-size: 2rem;
+            text-align: center;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        #container {
+            /* height: 100vh;
+            position: relative; */
+            overflow: hidden;
+        }
+
+        .page {
+            position: absolute;
+            width: 100%;
+            /* background: rgba(255, 255, 255, 0.7); */
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+
+        }
+
+        #top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 95%;
+            background: #0000009a;
+            color: black;
+            height: 5vh;
+            padding: 10px 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-family: "Mada", sans-serif;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        #top-nav button {
+            font-size: 2em;
+            padding: 8px 20px;
+            /* height: 5vh;
+            width: 10vw; */
+            border: none;
+            border-radius: 5px;
+            resize: both;
+            background: #007025;
+            color: white;
+            cursor: pointer;
+        }
+
+        #surah-picker-overlay {
+            position: fixed;
+            top: 50px;
+            left: 0;
+            width: 100vw;
+            height: 90vh;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            overflow-y: auto;
+            display: none;
+            flex-direction: column;
+            padding: 50px;
+            box-sizing: border-box;
+        }
+
+        #surah-picker-overlay.show {
+            display: flex;
+        }
+
+        #surah-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #surah-list button {
+            height: 5vh;
+            padding: 12px;
+            font-size: 1em;
+            background: #ffffff10;
+            color: white;
+            border: 1px solid #ffffff30;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: right;
+            font-family: "Mada", sans-serif;
+        }
+
+        #search-bar::placeholder {
+            color: #999;
+            direction: rtl;
+            z-index: 11000;
+        }
+
+        #search-results {
+            position: fixed;
+            top: 5vh;
+            /* or below the navbar */
+            right: 0;
+            left: 0;
+            max-height: 95vh;
+            /* or however tall you want the scrollable area */
+            overflow-y: auto;
+            z-index: 12000;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+        }
+
+        #search-results div {
+            position: relative;
+            background-color: #111;
+            padding: 10px;
+            border: 1px solid greenyellow;
+            border-radius: 8px;
+            color: white;
+        }
+
+        .largecontainer {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .left,
+        .right {
+            height: 100%;
+            overflow: auto;
+            padding: 10px;
+        }
+
+        .left {
+            background: #000000;
+            width: 50%;
+        }
+
+        .right {
+            background: #0000ff;
+            flex-grow: 1;
+        }
+
+        .resizer {
+            height: 100%;
+            width: 5px;
+            background: #ff0000;
+            cursor: ew-resize;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="top-nav">
+        <button id="open-surah-picker">Surahs</button>
+
+        <div style="padding: 10px; width: 90%; margin: 0 auto;">
+            <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..."
+                style="width: 80%; height: 100%; padding: 12px; font-size: 2rem; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
+        </div>
+        <button id="clear-search">X</button>
+    </nav>
+
+    <div id="surah-picker-overlay">
+        <div id="surah-list"></div>
+    </div>
+
+
+    <!-- Search Results -->
+    <div id="search-results" style="padding: 10px;"></div>
+
+    <div class="largecontainer">
+
+        <div class="right" id="text"></div>
+        <div class="resizer" id="resizer"></div>
+        <div class="left" id="container"></div>
+
+    </div>
+
+
+    <div id="page-number"
+        style="position: fixed; bottom: 10px; right: 10px; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; border-radius: 5px; font-family: sans-serif; z-index: 9999;">
+        Page 1 / 605
+    </div>
+    <div id="progress">
+        <div id="progress-bar"></div>
+    </div>
+
+
+    <script src="quran2.js"></script>
+
+    <script>
+        const resizer = document.getElementById('resizer');
+        const left = resizer.nextElementSibling;
+        const right = resizer.previousElementSibling;
+        let isDragging = false;
+
+        resizer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            document.body.style.cursor = 'ew-resize';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const offsetLeft = e.clientX;
+            const containerWidth = resizer.parentNode.getBoundingClientRect().width;
+            const leftWidth = offsetLeft;
+            const rightWidth = containerWidth - leftWidth - resizer.offsetWidth;
+
+            if (leftWidth > 100 && rightWidth > 100) {
+                left.style.width = leftWidth + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            document.body.style.cursor = 'default';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,6 +1,7 @@
 /*This file contains color and style changes for the colorful theme type*/
 :root {
     --accent: 24, 216, 65;
+    --backcolor: 0, 0, 0;
 }
 
 :root {
@@ -40,7 +41,7 @@
 }
 
 .backgroundContainer {
-    background-color: rgba(var(--accent), 0.17) !important;
+    background-color: rgba(var(--backcolor), 0.17) !important;
 }
 
 .formDialogHeader,

@@ -362,7 +362,7 @@ body {
         justify-content: center;
         /* Center icons */
         padding: 10px;
-        top: 40px;
+        top: 200px;
         /* Position below top panel */
         margin-top: 40px;
         /* Space below fixed top panel */
@@ -452,14 +452,20 @@ body {
 
     /* Style mobile logo */
     #mobile-logo {
+        position: fixed;
         display: block;
         /* Show on mobile */
         width: 150px;
         /* Adjust size as needed */
         height: auto;
-        margin: 30px auto;
-        /* Center horizontally, add vertical margin */
-        opacity: 0.7;
+        /* margin: 30px auto; */
+        /* Removed */
+        top: 60px;
+        left: 50%;
+        /* Added */
+        transform: translateX(-50%);
+        /* Added */
+        /* opacity: 0.7; */
         /* Optional: make it slightly transparent */
     }
 }

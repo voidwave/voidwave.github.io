@@ -26,199 +26,21 @@
         </div>
     </div>
 
-    <!--Windows-->
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px"
-                class="fa fa-youtube-square"></i>
-            YOUTUBE PLAYLIST</div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"><iframe style="width:100%; height:100%;"
-                src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen></iframe></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
+    <!-- Window Container -->
+    <div id="window-container"></div>
+
+    <!--SidePanel Container-->
+    <div id="side-panel-container" class="side-panel">
+        <!-- Icons will be generated here by JavaScript -->
     </div>
 
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-steam"></i>
-            HYDROGEN ON STEAM</div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
+    <!-- Mobile Logo -->
+    <img id="mobile-logo" src="voidwave-512.png" alt="Voidwave Logo">
 
-    <!-- <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-twitch"></i>
-            VOIDWAVE Twitch Stream</div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div> -->
-
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px"
-                class="fa fa-camera-retro"></i>
-            GALLERY</div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
-
-    <!-- <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-gamepad"></i> Prime
-        </div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-         <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div> -->
-
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-folder"></i>
-            RANDOM PROJECTS
-        </div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-qrcode"></i>
-            HYDROGEN UPDATES</div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-folder"></i>
-            TWITTER
-        </div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
-    <div class="window" style="top: 40px; left: 100px;  width: 500px; height: 500px;">
-        <div data-user-action="MOVE" class="draggable" draggable><i style="font-size: 20px" class="fa fa-folder"></i>
-            INSTAGRAM
-        </div>
-        <button class="close-button">✖</button>
-        <button class="max-button">▢</button>
-        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
-        <span data-user-action="RESIZE-LT" class="edge lt"></span>
-        <span data-user-action="RESIZE-RT" class="edge rt"></span>
-        <span data-user-action="RESIZE-LB" class="edge lb"></span>
-        <span data-user-action="RESIZE-RB" class="edge rb"></span>
-        <span data-user-action="RESIZE-L" class="edge l"></span>
-        <span data-user-action="RESIZE-T" class="edge t"></span>
-        <span data-user-action="RESIZE-B" class="edge b"></span>
-        <span data-user-action="RESIZE-R" class="edge r"></span>
-        <div class="max" style="display: none;">min</div>
-    </div>
-    <!--SidePanel Icons-->
-    <div class="side-panel">
-        <div class="icon">
-            <i style="font-size: 50px; color: rgb(255, 0, 0);" class="fa fa-youtube-square"></i>
-            <i class="icon-text">VIDEO</i>
-        </div>
-        <div class="icon">
-            <i style="font-size: 50px; color: rgb(255, 153, 0);" class="fa fa-steam"></i>
-            <i class="icon-text">HYDROGEN ON STEAM</i>
-        </div>
-        <div class="icon">
-            <i style="font-size: 50px;color: rgb(0, 114, 0);" class="fa fa-camera-retro"></i>
-            <i class="icon-text">GALLARY</i>
-        </div>
-        <!-- <div class="icon">
-            <i style="font-size: 50px" class="fa fa-gamepad"></i>
-            <i class="icon-text">__prime__</i>
-        </div> -->
-        <div class="icon">
-            <i style="font-size: 50px;color: rgb(184, 187, 0);" class="fa fa-folder"></i>
-            <i class="icon-text">RANDOM PROJECTS</i>
-        </div>
-        <div class="icon">
-            <i style="font-size: 50px; color: rgb(255, 153, 0);" class="fa fa-qrcode"></i>
-            <i class="icon-text">HYDROGEN UPDATES</i>
-        </div>
-        <div class="icon">
-            <i style="font-size: 50px; color: rgb(33, 111, 156);" class="fa fa-twitter"></i>
-            <i class="icon-text">TWITTER</i>
-        </div>
-        <div class="icon">
-            <i style="font-size: 50px; color: rgb(129, 0, 108);" class="fa fa-instagram"></i>
-            <i class="icon-text">INSTAGRAM</i>
-        </div>
+    <!-- Mobile Fullscreen View Container -->
+    <div id="mobile-content-view" style="display: none;">
+        <button id="mobile-back-button">← Back</button>
+        <div id="mobile-content-frame"></div>
     </div>
 
     <canvas id="Matrix"></canvas>

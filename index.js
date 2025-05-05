@@ -1,430 +1,632 @@
 //بسم الله الرحمن الرحيم
 //Majed Altaemi : voidwave.com
 
+// Window Configuration Data
+const windowData = [
+    {
+        id: 'youtube',
+        title: 'YOUTUBE PLAYLIST',
+        iconClass: 'fa-youtube-square',
+        iconColor: 'rgb(255, 0, 0)',
+        initialTop: '50px',
+        initialLeft: '100px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentHTML: '<iframe style="width:100%; height:100%;" src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
+        contentType: 'iframe'
+    },
+    {
+        id: 'steam',
+        title: 'HYDROGEN ON STEAM',
+        iconClass: 'fa-steam',
+        iconColor: 'rgb(255, 153, 0)',
+        initialTop: '70px',
+        initialLeft: '150px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
+        contentType: 'iframe'
+    },
+    {
+        id: 'gallery',
+        title: 'GALLERY',
+        iconClass: 'fa-camera-retro',
+        iconColor: 'rgb(0, 114, 0)',
+        initialTop: '90px',
+        initialLeft: '200px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentHTML: '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen width="100%" height="100%"></iframe>',
+        contentType: 'iframe'
+    },
+    {
+        id: 'projects',
+        title: 'RANDOM PROJECTS',
+        iconClass: 'fa-folder',
+        iconColor: 'rgb(184, 187, 0)',
+        initialTop: '110px',
+        initialLeft: '250px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
+        contentType: 'iframe'
+    },
+    {
+        id: 'hydrogen-updates',
+        title: 'HYDROGEN UPDATES',
+        iconClass: 'fa-qrcode',
+        iconColor: 'rgb(255, 153, 0)',
+        initialTop: '130px',
+        initialLeft: '300px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentURL: 'https://steamcommunity.com/app/1746820/allnews/',
+        contentType: 'url'
+    },
+    {
+        id: 'twitter',
+        title: 'TWITTER',
+        iconClass: 'fa-twitter', // Changed from fa-folder
+        iconColor: 'rgb(33, 111, 156)',
+        initialTop: '150px',
+        initialLeft: '350px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentURL: 'https://x.com/majedaltaemi',
+        contentType: 'url'
+    },
+    {
+        id: 'instagram',
+        title: 'INSTAGRAM',
+        iconClass: 'fa-instagram', // Changed from fa-folder
+        iconColor: 'rgb(129, 0, 108)',
+        initialTop: '170px',
+        initialLeft: '400px',
+        initialWidth: '500px',
+        initialHeight: '500px',
+        contentURL: 'https://www.instagram.com/majedaltaemi/',
+        contentType: 'url'
+    }
+];
+
+// Function to create a single window element
+function createWindowElement(data, index) {
+    const windowEl = document.createElement('div');
+    windowEl.className = 'window';
+    windowEl.dataset.windowId = data.id; // Link element to data
+    windowEl.dataset.windowIndex = index; // Store index if needed
+    windowEl.style.top = data.initialTop;
+    windowEl.style.left = data.initialLeft;
+    windowEl.style.width = data.initialWidth;
+    windowEl.style.height = data.initialHeight;
+    windowEl.style.display = 'none'; // Initially hidden
+    windowEl.style.zIndex = 1; // Default z-index
+
+    windowEl.innerHTML = `
+        <div data-user-action="MOVE" class="draggable" draggable="true">
+            <i style="font-size: 20px; margin-right: 5px;" class="fa ${data.iconClass}"></i> ${data.title}
+        </div>
+        <button class="close-button" data-action="close">✖</button>
+        <button class="max-button" data-action="toggle-maxmin">▢</button>
+        <div class="frame" style="width:100%; height:calc(100% - 30px);"></div>
+        <span data-user-action="RESIZE-LT" class="edge lt"></span>
+        <span data-user-action="RESIZE-RT" class="edge rt"></span>
+        <span data-user-action="RESIZE-LB" class="edge lb"></span>
+        <span data-user-action="RESIZE-RB" class="edge rb"></span>
+        <span data-user-action="RESIZE-L" class="edge l"></span>
+        <span data-user-action="RESIZE-T" class="edge t"></span>
+        <span data-user-action="RESIZE-B" class="edge b"></span>
+        <span data-user-action="RESIZE-R" class="edge r"></span>
+        <div class="max" style="display: none;">min</div> <!-- Helper for max/min state -->
+    `;
+    return windowEl;
+}
+
+// Function to create a single side panel icon element
+function createIconElement(data, index) {
+    const iconEl = document.createElement('div');
+    iconEl.className = 'icon';
+    iconEl.dataset.windowId = data.id; // Link element to data
+    iconEl.dataset.windowIndex = index; // Store index
+    iconEl.dataset.action = 'toggle'; // Action for event listener
+
+    iconEl.innerHTML = `
+        <i style="font-size: 50px; color: ${data.iconColor};" class="fa ${data.iconClass}"></i>
+        <i class="icon-text">${data.title}</i>
+    `;
+    return iconEl;
+}
+
+// Function to render all windows and icons
+function renderWindowsAndIcons(dataArray, windowContainer, iconContainer) {
+    dataArray.forEach((data, index) => {
+        const windowEl = createWindowElement(data, index);
+        windowContainer.appendChild(windowEl);
+
+        const iconEl = createIconElement(data, index);
+        iconContainer.appendChild(iconEl);
+    });
+}
+
+// Get references to static containers
+const windowContainer = document.getElementById('window-container');
+const sidePanelContainer = document.getElementById('side-panel-container');
+const mobileViewContainer = document.getElementById('mobile-content-view');
+const mobileContentFrame = document.getElementById('mobile-content-frame');
+const mobileBackButton = document.getElementById('mobile-back-button');
+
 //check if mobile or not
 var isMobile = false;
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
     isMobile = true;
+    document.body.classList.add('mobile-view'); // Add class to trigger mobile CSS
 }
-//console.log("isMobile= " + isMobile);
 
-//storing iframe data, so instead of just hiding the iframe but still have the data
-//running in the background, we remove it from the div and add it when it launches from here
-const FramesContentHTML = [
-    '<iframe style="width:100%; height:100%;"src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"title="YouTube video player" frameborder="0"allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"allowfullscreen></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
-    '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen  width="100%" height="100%"></iframe>',
-    '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
-    'https://steamcommunity.com/app/1746820/allnews/',
-    'https://x.com/majedaltaemi',
-    'https://www.instagram.com/majedaltaemi/'
-]
-const windows = document.getElementsByClassName('window');
-const closeButtons = document.getElementsByClassName('close-button');
-const maxButtons = document.getElementsByClassName('max-button');
-const Frames = document.getElementsByClassName("frame");
-const windowBars = document.getElementsByClassName("draggable");
-const icons = document.getElementsByClassName('icon');
-const sidepanel = document.getElementsByClassName('side-panel');
-const windowState = document.getElementsByClassName('max');
-const edgeHandles = document.getElementsByClassName('edge');
-//hide windows
-for (var i = 0; i < windows.length; i++) {
-    // windows[i].style.width = '60%';
-    windows[i].style.display = 'none';
+// Render windows and icons on load
+// Windows are created hidden by default
+if (!isMobile) { // Only render desktop windows if not mobile
+    renderWindowsAndIcons(windowData, windowContainer, sidePanelContainer);
+} else { // Only render icons for mobile
+    windowData.forEach((data, index) => {
+        const iconEl = createIconElement(data, index);
+        sidePanelContainer.appendChild(iconEl);
+    });
 }
-//show youtube window
-windows[0].style.display = 'block';
 
-//hide everything on mobile except for youtube frame
-//and scale it correctly
-if (isMobile) {
-    sidepanel[0].style.display = 'none';
-    windowBars[0].style.display = 'none';
-    closeButtons[0].style.display = 'none';
-    maxButtons[0].style.display = 'none';
-    windows[0].style.width = '100%';
-    windows[0].style.height = '85%';
-    windows[0].style.right = '0px';
-    windows[0].style.left = '0px';
-    windows[0].style.border = 'none';
-    for (var i = 0; i < windows[0].childNodes.length; i++) {
-        if (windows[0].childNodes[i].className == 'edge lt' ||
-            windows[0].childNodes[i].className == 'edge lb' ||
-            windows[0].childNodes[i].className == 'edge rt' ||
-            windows[0].childNodes[i].className == 'edge rb' ||
-            windows[0].childNodes[i].className == 'edge l' ||
-            windows[0].childNodes[i].className == 'edge b' ||
-            windows[0].childNodes[i].className == 'edge r' ||
-            windows[0].childNodes[i].className == 'edge t') {
-            windows[0].childNodes[i].style.display = 'none';
+// Function to get a specific window element by index
+function getWindowByIndex(index) {
+    // Note: This relies on the order remaining consistent. Using IDs might be more robust.
+    return windowContainer.querySelector(`.window[data-window-index="${index}"]`);
+}
+
+// Function to get window data by index
+function getWindowDataByIndex(index) {
+    return windowData[index];
+}
+
+//show youtube window (index 0) - DESKTOP ONLY
+if (!isMobile) {
+    const initialWindow = getWindowByIndex(0);
+    if (initialWindow) {
+        initialWindow.style.display = 'block';
+        const initialData = getWindowDataByIndex(0);
+        if (initialData && initialData.contentType === 'iframe') {
+            const frame = initialWindow.querySelector('.frame');
+            if (frame) frame.innerHTML = initialData.contentHTML;
         }
+        BringToFront(initialWindow); // Bring initially shown window to front
     }
 }
 
-// Add an event listener to the close button to toggle the window
-for (var i = 0; i < closeButtons.length; i++) {
-    (function (index) {
-        closeButtons[index].addEventListener('click', () => AddRemove(closeButtons[index].parentNode, index), false);
-    })(i);
+//hide everything on mobile except for youtube frame // *** REMOVED - Replaced by CSS and new logic ***
+//and scale it correctly
+// if (isMobile) {
+//     const spContainer = document.getElementById('side-panel-container'); // Use ID
+//     if (spContainer) spContainer.style.display = 'none';
+//     const firstWindow = getWindowByIndex(0);
+//     if (firstWindow) { // ... rest of old mobile logic ... }
+// }
+
+// --- Event Listeners (Refactor to use Event Delegation) ---
+
+// --- DESKTOP Event Listeners ---
+if (!isMobile) {
+    // Add listener to the window container for close, max/min, drag start, focus
+    windowContainer.addEventListener('mousedown', (e) => {
+        const target = e.target;
+        const windowEl = target.closest('.window');
+        if (!windowEl) return; // Click wasn't inside a window
+
+        BringToFront(windowEl); // Bring window to front on any click inside
+
+        // Handle specific actions based on clicked element
+        const action = target.dataset.action;
+        const userAction = target.dataset.userAction; // For drag/resize
+
+        if (action === 'close') {
+            const index = parseInt(windowEl.dataset.windowIndex, 10);
+            AddRemove(windowEl, index); // Desktop AddRemove
+        } else if (action === 'toggle-maxmin') {
+            MaxMinWindow(windowEl);
+        } else if (userAction === 'MOVE' && target.classList.contains('draggable')) {
+            dragMouseDown(e, windowEl); // Pass the window element
+        } else if (userAction && userAction.startsWith('RESIZE-') && target.classList.contains('edge')) {
+            onMouseDownResize(e);
+        }
+    });
+
+    // Add listener to the window container for double-click on title bar
+    windowContainer.addEventListener('dblclick', (e) => {
+        const target = e.target;
+        if (target.classList.contains('draggable') || target.closest('.draggable')) {
+            const windowEl = target.closest('.window');
+            if (windowEl) {
+                MaxMinWindow(windowEl);
+            }
+        }
+    });
 }
 
-// Add an event listener to the icons to toggle the window
-for (var i = 0; i < icons.length; i++) {
-    (function (index) {
-        icons[index].addEventListener('click', () => AddRemove(closeButtons[index].parentNode, index), false);
-    })(i);
+// --- MOBILE & DESKTOP Side Panel Listener ---
+sidePanelContainer.addEventListener('click', (e) => {
+    const iconEl = e.target.closest('.icon');
+    if (!iconEl) return;
+
+    const index = parseInt(iconEl.dataset.windowIndex, 10);
+    const data = getWindowDataByIndex(index);
+    if (!data) return;
+
+    if (isMobile) {
+        // --- Mobile icon click logic ---
+        if (data.contentType === 'url') {
+            window.open(data.contentURL, "_blank");
+        } else if (data.contentType === 'iframe') {
+            mobileContentFrame.innerHTML = data.contentHTML; // Load iframe content
+            mobileViewContainer.style.display = 'block'; // Show the mobile view
+            // Hide icon panel and maybe top bar?
+            sidePanelContainer.style.display = 'none';
+            document.querySelector('.top-panel').style.display = 'none'; // Hide top panel
+        }
+    } else {
+        // --- Desktop icon click logic ---
+        const windowEl = getWindowByIndex(index);
+        if (windowEl) {
+            AddRemove(windowEl, index); // Use desktop AddRemove
+        }
+    }
+});
+
+// --- MOBILE Back Button Listener ---
+if (isMobile) {
+    mobileBackButton.addEventListener('click', () => {
+        mobileViewContainer.style.display = 'none'; // Hide the mobile view
+        mobileContentFrame.innerHTML = ''; // Clear the content
+        // Show icon panel and top bar again
+        sidePanelContainer.style.display = 'flex'; // Or 'block' or ''; depending on default CSS
+        document.querySelector('.top-panel').style.display = 'flex'; // Restore top panel display
+    });
 }
 
-// Add an event listener to the window bars to toggle maximize and minimize window
-for (var i = 0; i < windowBars.length; i++) {
-    (function (index) {
-        windowBars[index].addEventListener('dblclick', () => MaxMinWindow(windowBars[index].parentNode), false);
-    })(i);
-}
-// Add an event listener to the window bars to toggle maximize and minimize window
-for (var i = 0; i < windowBars.length; i++) {
-    (function (index) {
-        windowBars[index].addEventListener('click', () => BringToFront(windowBars[index].parentNode), false);
-    })(i);
-}
-// Add an event listener to the max buttons to toggle maximize and minimize window
-for (var i = 0; i < maxButtons.length; i++) {
-    (function (index) {
-        maxButtons[index].addEventListener('click', () => MaxMinWindow(maxButtons[index].parentNode), false);
-    })(i);
-}
-
+// --- Desktop Window Functions (Should not be called if isMobile is true) ---
 
 function MaxMinWindow(elmnt) {
     // Max
+    const maxStateDiv = elmnt.querySelector('.max'); // Find max state div within the element
+    const edges = elmnt.querySelectorAll('.edge'); // Find edges within the element
 
-    // if (elmnt.style.width === '60%') {
-    if (elmnt.querySelector('.max').innerHTML === 'min') {
-        // Show the iframe
+    // Use getComputedStyle to check current state reliably if needed,
+    // but the '.max' div state seems intended for this.
+    // const isMinimized = elmnt.style.width === '500px'; // Less reliable
+    const isMinimized = maxStateDiv ? maxStateDiv.innerHTML === 'min' : true;
+
+
+    if (isMinimized) { // Maximize
         BringToFront(elmnt);
-        elmnt.querySelector('.max').innerHTML = 'max';
-        elmnt.style = "width: calc(100% - 110px);height: calc(100% - 50px);left: 100px;top: 35px; z-index:10";
+        if (maxStateDiv) maxStateDiv.innerHTML = 'max';
 
-        for (var i = 0; i < elmnt.childNodes.length; i++) {
-            if (elmnt.childNodes[i].className == 'edge lt' ||
-                elmnt.childNodes[i].className == 'edge lb' ||
-                elmnt.childNodes[i].className == 'edge rt' ||
-                elmnt.childNodes[i].className == 'edge rb' ||
-                elmnt.childNodes[i].className == 'edge l' ||
-                elmnt.childNodes[i].className == 'edge b' ||
-                elmnt.childNodes[i].className == 'edge r' ||
-                elmnt.childNodes[i].className == 'edge t') {
-                elmnt.childNodes[i].style.display = 'none';
-            }
-        }
+        // Store previous state before maximizing (important for restoring)
+        elmnt.dataset.prevWidth = elmnt.style.width || elmnt.offsetWidth + 'px';
+        elmnt.dataset.prevHeight = elmnt.style.height || elmnt.offsetHeight + 'px';
+        elmnt.dataset.prevTop = elmnt.style.top || elmnt.offsetTop + 'px';
+        elmnt.dataset.prevLeft = elmnt.style.left || elmnt.offsetLeft + 'px';
 
-    } else {
-        // Min
-        elmnt.style.top = '10%'
-        elmnt.style.left = '100px'
-        elmnt.style.width = '500px'
-        elmnt.style.height = '500px'
-        elmnt.querySelector('.max').innerHTML = 'min'
+        // Apply maximized styles
+        elmnt.style.width = "calc(100% - 80px)"; // Adjust width considering side panel
+        elmnt.style.height = "calc(100% - 40px)"; // Adjust height considering top panel
+        elmnt.style.left = "70px"; // Position next to side panel
+        elmnt.style.top = "30px"; // Position below top panel
+        // elmnt.style.zIndex = '10'; // BringToFront already handles z-index
 
-        for (var i = 0; i < elmnt.childNodes.length; i++) {
-            if (elmnt.childNodes[i].className == 'edge lt' ||
-                elmnt.childNodes[i].className == 'edge lb' ||
-                elmnt.childNodes[i].className == 'edge rt' ||
-                elmnt.childNodes[i].className == 'edge rb' ||
-                elmnt.childNodes[i].className == 'edge l' ||
-                elmnt.childNodes[i].className == 'edge b' ||
-                elmnt.childNodes[i].className == 'edge r' ||
-                elmnt.childNodes[i].className == 'edge t') {
-                elmnt.childNodes[i].style.display = 'block';
-            }
-        }
+        // Hide resize handles when maximized
+        edges.forEach(edge => edge.style.display = 'none');
+
+    } else { // Restore (Minimize)
+        if (maxStateDiv) maxStateDiv.innerHTML = 'min';
+
+        // Restore previous dimensions and position from data attributes
+        elmnt.style.width = elmnt.dataset.prevWidth || '500px'; // Fallback
+        elmnt.style.height = elmnt.dataset.prevHeight || '500px'; // Fallback
+        elmnt.style.top = elmnt.dataset.prevTop || '50px'; // Fallback
+        elmnt.style.left = elmnt.dataset.prevLeft || '100px'; // Fallback
+
+        // Show resize handles when restored
+        edges.forEach(edge => edge.style.display = 'block');
     }
-
 }
 
 //here iframe data is toggled in or off the div
 function AddRemove(elmnt, index) {
+    const data = getWindowDataByIndex(index);
+    if (!data) return; // Safety check
 
-    if (FramesContentHTML[index].startsWith("https")) {
-        window.open(FramesContentHTML[index], "_blank");
-    } else {
+    const frame = elmnt.querySelector('.frame'); // Get frame specific to this window
 
+    if (data.contentType === 'url') {
+        window.open(data.contentURL, "_blank");
+        // Don't toggle display for URL types, maybe focus if already open?
+        if (elmnt.style.display !== 'none') {
+            BringToFront(elmnt);
+        }
+    } else if (data.contentType === 'iframe') {
         if (elmnt.style.display === 'none') {
-            // Show the iframe
+            // Show the window and load iframe
+            elmnt.style.opacity = 0; // Start faded out
+            elmnt.style.display = 'block'; // Make it visible for unfade
+            BringToFront(elmnt); // Bring to front when opening
+            if (frame) {
+                // Check if content needs loading/reloading
+                if (!frame.innerHTML || frame.innerHTML.trim() === '') {
+                    frame.innerHTML = data.contentHTML;
+                }
+            }
+            // Restore position if it was closed while maximized
+            if (elmnt.querySelector('.max')?.innerHTML === 'max') {
+                MaxMinWindow(elmnt); // Call MaxMin to reset to minimized state
+            }
+            // Make sure position is reasonable (might have been closed then browser resized)
+            // TODO: Add logic to ensure window is within viewport bounds on show?
             unfade(elmnt);
-            //console.log(Frames[index]);
-            Frames[index].innerHTML = FramesContentHTML[index];
-            elmnt.style.top = '40px';
-            elmnt.style.left = '100px'
         } else {
-            // Hide the iframe
-            fade(elmnt);
-            Frames[index].innerHTML = '';
+            // Hide the window and clear iframe
+            fade(elmnt, () => { // Pass callback to clear content after fade
+                if (frame) {
+                    frame.innerHTML = ''; // Clear content after hidden
+                }
+            });
         }
     }
 }
 
+
 function BringToFront(elmnt) {
-    for (var i = 0; i < windows.length; i++) {
-        //console.log(windows[i].style.zIndex);
-        windows[i].style.zIndex = '1';
-        windows[i].style.border = 'none';
-    }
-    elmnt.style.zIndex = '10';
-    elmnt.style.border = 'solid';
+    if (isMobile) return; // Don't run on mobile
+    // Find all window elements within the container
+    const allWindows = windowContainer.querySelectorAll('.window');
+    let maxZ = 0;
+    allWindows.forEach(win => {
+        const currentZ = parseInt(win.style.zIndex) || 0;
+        if (currentZ > maxZ) {
+            maxZ = currentZ;
+        }
+        // Optional: Reset border/styles for inactive windows
+        win.style.borderStyle = 'solid'; // Assuming default is solid now? Check CSS
+        win.style.borderColor = 'rgb(100, 100, 100)'; // Example inactive border
+    });
+
+    // Set the target element's z-index higher than all others
+    elmnt.style.zIndex = maxZ + 1;
+    // Optional: Apply active styles
+    elmnt.style.borderStyle = 'solid';
+    elmnt.style.borderColor = 'rgb(0, 255, 0)'; // Example active border
 }
 
-// function MinimizeAllWindows() {
-//     for (var i = 0; i < windows.length; i++) {
-//         windows[i].style.width = '60%';
-//         windows[i].style.height = '60%';
-//     }
-// }
+// --- Drag Logic Adaptation --- // DESKTOP ONLY
+let draggedElement = null;
+let offsetX = 0, offsetY = 0;
 
-// //adding the drag event to window bars
-// for (var i = 0; i < windows.length; i++) {
-//     dragElement(windows, i);
-// }
+function dragMouseDown(e, elmnt) {
+    if (isMobile) return;
+    // Ensure drag is initiated by the left mouse button
+    if (e.button !== 0) return;
 
-// function dragElement(elmnt, index) {
-//     var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-//     if (elmnt[index].getElementsByClassName("draggable")) {
-//         elmnt[index].getElementsByClassName("draggable")[0].onmousedown = dragMouseDown;
-//     }
-//     else {
-//         // otherwise, move the DIV from anywhere inside the DIV:
-//         elmnt[index].onmousedown = dragMouseDown;
-//     }
+    // Prevent drag if maximized? Or allow drag even when maximized? Currently allows.
+    // const maxStateDiv = elmnt.querySelector('.max');
+    // if (maxStateDiv && maxStateDiv.innerHTML === 'max') return; // Uncomment to prevent dragging maximized windows
 
-//     function dragMouseDown(e) {
-//         e = e || window.event;
-//         e.preventDefault();
-//         // get the mouse cursor position at startup:
-//         pos3 = e.clientX;
-//         pos4 = e.clientY;
-//         document.onmouseup = closeDragElement;
-//         // call a function whenever the cursor moves:
-//         document.onmousemove = elementDrag;
-//     }
+    e.preventDefault();
+    draggedElement = elmnt; // The window element itself
+    BringToFront(draggedElement); // Bring to front on drag start
 
-//     function elementDrag(e) {
-//         MinimizeAllWindows();
-//         e = e || window.event;
-//         e.preventDefault();
-//         // calculate the new cursor position:
-//         pos1 = pos3 - e.clientX;
-//         pos2 = pos4 - e.clientY;
-//         pos3 = e.clientX;
-//         pos4 = e.clientY;
-//         // set the element's new position:
-//         elmnt[index].style.top = (elmnt[index].offsetTop - pos2) + "px";
-//         elmnt[index].style.left = (elmnt[index].offsetLeft - pos1) + "px";
-//         //.style.zIndex = '10';
-//         BringToFront(elmnt[index]);
-//     }
-
-//     function closeDragElement() {
-//         // stop moving when mouse button is released:
-//         document.onmouseup = null;
-//         document.onmousemove = null;
-//     }
-// }
+    // Calculate the offset from the element's top-left corner
+    const rect = draggedElement.getBoundingClientRect();
+    offsetX = e.clientX - rect.left;
+    offsetY = e.clientY - rect.top;
 
 
-function fade(element) {
-    var op = 1;  // initial opacity
+    // Add listeners to the document to track mouse movement and release
+    document.addEventListener('mousemove', elementDrag);
+    document.addEventListener('mouseup', closeDragElement);
+    document.addEventListener('mouseleave', closeDragElement); // Stop if mouse leaves window
+
+    // Style the dragged element (optional)
+    draggedElement.style.cursor = 'grabbing';
+    // You might add a class for visual feedback
+    // draggedElement.classList.add('dragging');
+}
+
+function elementDrag(e) {
+    if (isMobile || !draggedElement) return;
+    e.preventDefault();
+
+    // Restore window if it was maximized before dragging starts
+    const maxStateDiv = draggedElement.querySelector('.max');
+    if (maxStateDiv && maxStateDiv.innerHTML === 'max') {
+        MaxMinWindow(draggedElement); // Restore to normal size first
+        // Recalculate offset after resize might be needed if MaxMinWindow changes size/pos drastically
+        const rect = draggedElement.getBoundingClientRect();
+        offsetX = Math.min(e.clientX - rect.left, rect.width); // Keep offset reasonable
+        offsetY = Math.min(e.clientY - rect.top, rect.height); // Keep offset reasonable
+    }
+
+    // Calculate new position
+    let newLeft = e.clientX - offsetX;
+    let newTop = e.clientY - offsetY;
+
+    // TODO: Add boundary checks to keep window within viewport?
+
+    // Set the element's new position
+    draggedElement.style.left = newLeft + "px";
+    draggedElement.style.top = newTop + "px";
+}
+
+function closeDragElement() {
+    if (isMobile) return;
+    if (draggedElement) {
+        draggedElement.style.cursor = 'grab'; // Reset cursor
+        // draggedElement.classList.remove('dragging');
+    }
+    // Remove the global listeners
+    document.removeEventListener('mousemove', elementDrag);
+    document.removeEventListener('mouseup', closeDragElement);
+    document.removeEventListener('mouseleave', closeDragElement);
+    draggedElement = null; // Clear the dragged element reference
+}
+
+
+// --- Fade/Unfade Functions (Modified to accept optional callback) ---
+// Used by Desktop AddRemove
+function fade(element, callback) {
+    var op = 1; // initial opacity
+    element.style.opacity = op; // Ensure opacity is set before interval starts
     var timer = setInterval(function () {
         if (op <= 0.1) {
             clearInterval(timer);
             element.style.display = 'none';
+            element.style.opacity = 1; // Reset opacity for next time
+            element.style.filter = ''; // Reset filter
+            if (callback) callback(); // Execute callback after fadeout
+        } else {
+            op -= op * 0.1;
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ')';
         }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-    }, 15);
+    }, 15); // Faster fade? Original was 15
 }
 
-function unfade(element) {
-    var op = 0.1;  // initial opacity
-    element.style.top = '40px';
-    element.style.left = '100px';
-    element.style.display = 'block';
-    element.style.transform = ' translate(0, 0)';
-
+function unfade(element, callback) {
+    var op = 0.1; // initial opacity
+    element.style.opacity = op; // Set initial opacity
+    element.style.display = 'block'; // Make sure it's displayed before fading in
     var timer = setInterval(function () {
         if (op >= 1) {
             clearInterval(timer);
+            element.style.opacity = 1; // Ensure fully opaque
+            element.style.filter = ''; // Reset filter
+            if (callback) callback(); // Execute callback after fadein
+        } else {
+            op += op * 0.1;
+            element.style.opacity = op;
+            element.style.filter = 'alpha(opacity=' + op * 100 + ')';
         }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op += op * 0.1;
-    }, 5);
-
-    BringToFront(element);
+    }, 15); // Faster fade? Original was 15
 }
 
-let userAction;
-let focusedElement = {
-    DOM: null,
-    width: 0,
-    height: 0,
-    screenX: 0,
-    screenY: 0,
-    translateX: 0,
-    translateY: 0,
-};
 
-function focusElement(dom, width, height, sx, sy, tx, ty) {
-    focusedElement.DOM = dom;
-    focusedElement.width = width;
-    focusedElement.height = height;
-    focusedElement.screenX = sx;
-    focusedElement.screenY = sy;
-    focusedElement.translateX = tx;
-    focusedElement.translateY = ty;
-}
-
-function blurElement() {
-    focusedElement = {
-        DOM: null,
-        width: 0,
-        height: 0,
-        screenX: 0,
-        screenY: 0,
-        translateX: 0,
-        translateY: 0,
-    };
-}
-
-function getMovement(sx, sy) {
-    return {
-        x: sx - focusedElement.screenX,
-        y: sy - focusedElement.screenY
-    };
-}
-
-function move(sx, sy) {
-    const movement = getMovement(sx, sy);
-    const tx = focusedElement.translateX + movement.x;
-    const ty = focusedElement.translateY + movement.y;
-    focusedElement.DOM.style.transform = `translate(${tx}px, ${ty}px)`;
-    if (focusedElement.DOM.querySelector('.max').innerHTML === 'max')
-        MaxMinWindow(focusedElement.DOM);
-    BringToFront(focusedElement.DOM);
-}
-
-function resize(sx, sy) {
-    const movement = getMovement(sx, sy);
-    let tx = focusedElement.translateX;
-    let ty = focusedElement.translateY;
-    let width = focusedElement.width;
-    let height = focusedElement.height;
-
-    switch (userAction) {
-        case 'RESIZE-LT':
-            width = focusedElement.width - movement.x;
-            height = focusedElement.height - movement.y;
-            tx = focusedElement.translateX + movement.x;
-            ty = focusedElement.translateY + movement.y;
-            break;
-        case 'RESIZE-RT':
-            width = focusedElement.width + movement.x;
-            height = focusedElement.height - movement.y;
-            ty = focusedElement.translateY + movement.y;
-            break;
-        case 'RESIZE-LB':
-            width = focusedElement.width - movement.x;
-            height = focusedElement.height + movement.y;
-            tx = focusedElement.translateX + movement.x;
-            break;
-        case 'RESIZE-RB':
-            width = focusedElement.width + movement.x;
-            height = focusedElement.height + movement.y;
-            break;
-
-        case 'RESIZE-L':
-            width = focusedElement.width - movement.x;
-            //height = focusedElement.height - movement.y;
-            tx = focusedElement.translateX + movement.x;
-            //ty = focusedElement.translateY + movement.y;
-            break;
-        case 'RESIZE-T':
-            //width = focusedElement.width + movement.x;
-            height = focusedElement.height - movement.y;
-            ty = focusedElement.translateY + movement.y;
-            break;
-        case 'RESIZE-B':
-            // width = focusedElement.width - movement.x;
-            height = focusedElement.height + movement.y;
-            //tx = focusedElement.translateX + movement.x;
-            break;
-        case 'RESIZE-R':
-            width = focusedElement.width + movement.x;
-            //height = focusedElement.height + movement.y;
-            break;
-    }
-
-    width = Math.max(50, width);
-    height = Math.max(50, height);
-
-    focusedElement.DOM.style.transform = `translate(${tx}px, ${ty}px)`;
-    focusedElement.DOM.style.width = `${width}px`;
-    focusedElement.DOM.style.height = `${height}px`;
-}
+// --- Resize Logic --- // DESKTOP ONLY
+let resizeTarget = null;
+let resizeAction = null;
+let startX, startY, startWidth, startHeight, startLeft, startTop;
 
 function onMouseDownResize(e) {
-    if (e.target && e.target.dataset && e.target.dataset.userAction) {
-        let tx = 0;
-        let ty = 0;
-        const transform = e.target.parentNode.style.transform;
-        const matchTranslate = transform.match(/translate\((-?\d+.?\d*)px ?, ?(-?\d+.?\d*)px\)/);
-        if (matchTranslate) {
-            tx = parseInt(matchTranslate[1]);
-            ty = parseInt(matchTranslate[2]);
-        }
+    if (isMobile) return;
+    const edge = e.target;
+    if (!edge.classList.contains('edge')) return;
+    if (e.button !== 0) return; // Only left click
 
-        focusElement(
-            e.target.parentNode,
-            parseInt(e.target.parentNode.style.width),
-            parseInt(e.target.parentNode.style.height),
-            e.screenX,
-            e.screenY,
-            tx,
-            ty
-        );
+    resizeTarget = edge.closest('.window');
+    if (!resizeTarget) return;
 
-        userAction = e.target.dataset.userAction;
-    }
+    // Prevent resize if maximized
+    const maxStateDiv = resizeTarget.querySelector('.max');
+    if (maxStateDiv && maxStateDiv.innerHTML === 'max') return;
+
+
+    resizeAction = edge.dataset.userAction; // e.g., "RESIZE-RB"
+    e.preventDefault();
+    BringToFront(resizeTarget); // Bring to front
+
+    startX = e.clientX;
+    startY = e.clientY;
+    startWidth = resizeTarget.offsetWidth;
+    startHeight = resizeTarget.offsetHeight;
+    startLeft = resizeTarget.offsetLeft;
+    startTop = resizeTarget.offsetTop;
+
+    document.addEventListener('mousemove', onMouseMoveResize);
+    document.addEventListener('mouseup', onMouseUpResize);
+    document.addEventListener('mouseleave', onMouseUpResize); // Stop if mouse leaves window
 }
 
 function onMouseUpResize(e) {
-    blurElement();
-
-    userAction = null;
+    if (isMobile) return;
+    document.removeEventListener('mousemove', onMouseMoveResize);
+    document.removeEventListener('mouseup', onMouseUpResize);
+    document.removeEventListener('mouseleave', onMouseUpResize);
+    resizeTarget = null;
+    resizeAction = null;
 }
-
-
 
 function onMouseMoveResize(e) {
-    // console.log("moving");
-    switch (userAction) {
-        case 'MOVE':
-            move(e.screenX, e.screenY);
-            break;
-        case 'RESIZE-LT':
-        case 'RESIZE-RT':
-        case 'RESIZE-LB':
-        case 'RESIZE-RB':
-        case 'RESIZE-T':
-        case 'RESIZE-R':
-        case 'RESIZE-L':
-        case 'RESIZE-B':
-            resize(e.screenX, e.screenY);
-            break;
+    if (isMobile || !resizeTarget || !resizeAction) return;
+    e.preventDefault();
+
+    const dx = e.clientX - startX;
+    const dy = e.clientY - startY;
+
+    let newWidth = startWidth;
+    let newHeight = startHeight;
+    let newLeft = startLeft;
+    let newTop = startTop;
+
+    // Adjust dimensions and position based on the edge being dragged
+    if (resizeAction.includes('R')) {
+        newWidth = startWidth + dx;
+    } else if (resizeAction.includes('L')) {
+        newWidth = startWidth - dx;
+        newLeft = startLeft + dx;
     }
+
+    if (resizeAction.includes('B')) {
+        newHeight = startHeight + dy;
+    } else if (resizeAction.includes('T')) {
+        newHeight = startHeight - dy;
+        newTop = startTop + dy;
+    }
+
+    // Basic minimum size constraint
+    const minWidth = 150;
+    const minHeight = 100;
+
+    if (newWidth < minWidth) {
+        if (resizeAction.includes('L')) {
+            newLeft = startLeft + startWidth - minWidth;
+        }
+        newWidth = minWidth;
+    }
+    if (newHeight < minHeight) {
+        if (resizeAction.includes('T')) {
+            newTop = startTop + startHeight - minHeight;
+        }
+        newHeight = minHeight;
+    }
+
+    // Apply the new styles
+    resizeTarget.style.width = `${newWidth}px`;
+    resizeTarget.style.height = `${newHeight}px`;
+    resizeTarget.style.left = `${newLeft}px`;
+    resizeTarget.style.top = `${newTop}px`;
 }
 
-document.addEventListener('mousedown', onMouseDownResize);
-document.addEventListener('mouseup', onMouseUpResize);
-document.addEventListener('mousemove', onMouseMoveResize);
+
+// Original functions potentially needed by resize logic (verify/remove if unused)
+/*
+function focusElement(dom, width, height, sx, sy, tx, ty) {
+    // ... (Original implementation - likely needs adaptation or removal) ...
+}
+
+function blurElement() {
+    // ... (Original implementation - likely needs adaptation or removal) ...
+}
+
+function getMovement(sx, sy) {
+    // ... (Original implementation - likely needs adaptation or removal) ...
+}
+
+function move(sx, sy) {
+    // ... (Original implementation - likely needs adaptation or removal) ...
+}
+
+function resize(sx, sy) {
+    // ... (Original implementation - likely needs adaptation or removal) ...
+}
+*/

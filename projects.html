@@ -2,164 +2,40 @@
 
 <head>
     <title>voidwave Projects</title>
-
-    <style>
-        body {
-            font-family: monospace;
-            background-color: rgb(0, 0, 0);
-        }
-
-        .top-panel {
-            left: 0px;
-            top: 0px;
-            width: 100%;
-            height: 30px;
-            background-color: black;
-        }
-
-        .top-panel button {
-            background-color: black;
-            outline: 2px;
-            color: white;
-            width: 100px;
-            height: 100%;
-        }
-
-        p {
-            color: white;
-            margin-top: 104px;
-            text-align: center;
-        }
-
-        #Files {
-            width: 100%;
-            top: 30px;
-            left: 0px;
-            border-radius: 3px;
-            /* border: 1px solid rgb(22, 3, 3); */
-            display: grid;
-            /* Use display property as grid*/
-            gap: 5px;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        }
-
-        .project-icon {
-            /* float: none; */
-            margin: 20px;
-            /* margin-left: 10px; */
-            width: 100px;
-            height: 100px;
-            background-color: black;
-            cursor: pointer;
-            border-style: double;
-            border-color: green;
-            border-radius: 5px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/projects.css">
+    <!-- Add Font Awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <div class="top-panel">
+    <!-- Back button might not be needed here anymore, or could go back to index.html -->
+    <!-- <div class="top-panel">
         <button id="backButton">Back</button>
-    </div>
+    </div> -->
 
     <div id="Files">
-        <div class="project-icon" style="background-image: url('img/vw-qr-100.jpg');">
-            <div
-                style="position: absolute; margin-top: 35px;width: 100px;height: 32px; background-image: url('img/youtube-logo.png');">
+        <!-- Folder Icon for YouTube Projects -->
+        <a href="youtube_projects.html" class="folder-link">
+            <div class="folder-icon">
+                <i class="fa fa-folder"></i> <!-- Using Font Awesome folder icon -->
+                <p>YouTube Projects</p>
             </div>
-            <p>AI PRERENDERED DEMO (2024)</p>
-        </div>
+        </a>
 
-        <div class="project-icon" style="background-image: url('img/JavaScript-logo.png');">
-            <p>Al-Quran.js</p>
-        </div>
-
-        <div class="project-icon" style="background-image: url('img/quran.png');">
-            <p>Quran Scroll</p>
-        </div>
-        <div class="project-icon" style="background-image: url('img/voidwave_RGB.png');">
-            <p>Prime Jinn Sandbox (2017)</p>
-        </div>
-
-        <div class="project-icon" style="background-image: url('img/voidwave_RGB.png');">
-            <div
-                style="position: absolute; margin-top: 35px;width: 100px;height: 32px; background-image: url('img/youtube-logo.png');">
+        <!-- Folder Icon for Other Projects -->
+        <a href="demos_projects.html" class="folder-link">
+            <div class="folder-icon">
+                <i class="fa fa-folder"></i> <!-- Using Font Awesome folder icon -->
+                <p>Demo Projects</p>
             </div>
-            <p>Prime Jinn Video (2017)</p>
-        </div>
-
-        <div class="project-icon" style="background-image: url('img/vw-blacknwhite.png');">
-            <div
-                style="position: absolute; margin-top: 35px;width: 100px;height: 32px; background-image: url('img/youtube-logo.png');">
-            </div>
-            <p>Project Voxel Video (2016)</p>
-        </div>
-
-        <div class="project-icon" style="background-image: url('img/vw-qr-100.jpg');">
-            <div
-                style="position: absolute; margin-top: 35px;width: 100px;height: 32px; background-image: url('img/youtube-logo.png');">
-            </div>
-            <p>FPS: Rocket Jump Video (2022)</p>
-        </div>
-
-
-        <!-- <div class="project-icon" style="background-image: url('img/JavaScript-logo.png');">
-            <p>Al-Quran.PNG</p>
-        </div> -->
-
+        </a>
     </div>
 
-    <div id="View"
-        style="background-color: brown; position: absolute; top: 37px; width: calc(100% - 16px);;height: calc(100% - 40px);">
+    <!-- Remove the View div as it's not needed on this page anymore -->
+    <!-- <div id="View"></div> -->
 
-    </div>
-
+    <!-- Remove script link as the JS logic moves to the sub-pages -->
+    <!-- <script src="scripts/projects.js"></script> -->
 </body>
-
-<script>
-    const projectIcons = document.getElementsByClassName('project-icon');
-    const view = document.getElementById('View');
-    const backButton = document.getElementById('backButton');
-    // <iframe style="width:100%; height:100%; border: none;" src="primejinn/index.html"></iframe>
-    const FramesContentHTML = [
-        '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/pMM3PzSojqk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
-        '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>',
-        '<iframe style="width:100%; height:100%; border: none;" src="Quran/quran.html"></iframe>',
-        '<iframe style="width:100%; height:100%; border: none;" src="primejinn/index.html"></iframe>',
-        '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/f48cQPfXy3I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
-        '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/ypSCp02pHBM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
-        '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/lkFQ3f5EQmM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>',
-
-    ]
-
-    view.style.display = 'none';
-    backButton.style.display = 'none';
-    backButton.addEventListener('click', () => closeProject(), false);
-
-    // Add an event listener to the close button to toggle the window
-    for (var i = 0; i < projectIcons.length; i++) {
-        (function (index) {
-            projectIcons[index].addEventListener('click', () => openProject(projectIcons[index], index), false);
-        })(i);
-    }
-
-    function openProject(elmnt, index) {
-
-        // Show the iframe
-        view.style.display = 'block';
-        view.innerHTML = FramesContentHTML[index];
-        backButton.style.display = 'block';
-    }
-
-    function closeProject() {
-        // Hide the iframe
-        view.style.display = 'none';
-        view.innerHTML = '';
-        backButton.style.display = 'none';
-
-    }
-
-</script>
 
 </html>

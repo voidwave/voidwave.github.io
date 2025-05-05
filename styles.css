@@ -414,7 +414,7 @@ body {
 
     #mobile-back-button {
         position: absolute;
-        top: 10px;
+        bottom: 10px;
         left: 10px;
         z-index: 101;
         padding: 8px 15px;

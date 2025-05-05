@@ -259,13 +259,19 @@ sidePanelContainer.addEventListener('click', (e) => {
     if (isMobile) {
         // --- Mobile icon click logic ---
         if (data.contentType === 'url') {
-            window.open(data.contentURL, "_blank");
+            window.location.href = data.contentURL; // Open in same window
         } else if (data.contentType === 'iframe') {
+            // Push a state *before* showing the view
+            try {
+                history.pushState({ mobileView: 'open' }, '', window.location.pathname);
+            } catch (e) {
+                console.error("History API pushState not supported or failed:", e);
+            }
             mobileContentFrame.innerHTML = data.contentHTML; // Load iframe content
             mobileViewContainer.style.display = 'block'; // Show the mobile view
-            // Hide icon panel and maybe top bar?
+            // Hide icon panel and top bar
             sidePanelContainer.style.display = 'none';
-            document.querySelector('.top-panel').style.display = 'none'; // Hide top panel
+            document.querySelector('.top-panel').style.display = 'none';
         }
     } else {
         // --- Desktop icon click logic ---
@@ -279,11 +285,39 @@ sidePanelContainer.addEventListener('click', (e) => {
 // --- MOBILE Back Button Listener ---
 if (isMobile) {
     mobileBackButton.addEventListener('click', () => {
-        mobileViewContainer.style.display = 'none'; // Hide the mobile view
-        mobileContentFrame.innerHTML = ''; // Clear the content
-        // Show icon panel and top bar again
-        sidePanelContainer.style.display = 'flex'; // Or 'block' or ''; depending on default CSS
-        document.querySelector('.top-panel').style.display = 'flex'; // Restore top panel display
+        // Check if the view is actually open before going back
+        if (mobileViewContainer.style.display !== 'none') {
+            mobileViewContainer.style.display = 'none'; // Hide the mobile view
+            mobileContentFrame.innerHTML = ''; // Clear the content
+            // Show icon panel and top bar again
+            sidePanelContainer.style.display = 'flex'; // Restore side panel display
+            document.querySelector('.top-panel').style.display = 'flex'; // Restore top panel display
+
+            // Go back in history to remove the state we pushed
+            // Only go back if the current state likely corresponds to our pushed state
+            if (history.state && history.state.mobileView === 'open') {
+                history.back();
+            }
+        }
+    });
+
+    // --- MOBILE Popstate Listener (Browser Back Button) ---
+    window.addEventListener('popstate', (event) => {
+        // Check if the mobile view is currently visible
+        // This listener fires *after* the history has changed
+        if (mobileViewContainer.style.display !== 'none') {
+            // If the view is visible, the popstate likely means the user pressed back
+            // from the state we pushed. We just need to hide the view.
+            // We don't need to check event.state here typically, 
+            // because if the view is open, any back navigation should close it.
+            mobileViewContainer.style.display = 'none';
+            mobileContentFrame.innerHTML = '';
+            sidePanelContainer.style.display = 'flex';
+            document.querySelector('.top-panel').style.display = 'flex';
+            // Do NOT call history.back() here, as the event already represents the back action.
+        }
+        // If mobileViewContainer was *not* displayed, the popstate is unrelated
+        // to our view, so we let the browser handle it normally.
     });
 }
 

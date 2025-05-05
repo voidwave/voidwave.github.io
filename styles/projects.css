@@ -71,8 +71,8 @@ p {
     margin: 20px;
     width: 120px;
     height: 100px;
-    background-color: #f0e68c;
-    border: 1px solid #bdb76b;
+    background-color: #f0e68c75;
+    /* border: 1px solid #bdb76b; */
     border-radius: 5px;
     display: flex;
     flex-direction: column;
@@ -85,8 +85,8 @@ p {
 }
 
 .folder-icon i.fa-folder {
-    font-size: 40px;
-    color: #daa520;
+    font-size: 75px;
+    color: #f7b613;
     margin-bottom: 10px;
 }
 

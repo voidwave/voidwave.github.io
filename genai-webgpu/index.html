@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Project Depth Test</title>
+  <title>Unity Web Player | Project Depth Test</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
   <link rel="manifest" href="manifest.webmanifest">
@@ -14,7 +14,7 @@
   <div id="unity-container">
     <canvas id="unity-canvas" width=720 height=1280 tabindex="-1"></canvas>
     <div id="unity-loading-bar">
-      <div id="unity-logo"></div>
+      <img id="unity-logo" src="TemplateData/logo.png" alt="Voidwave Logo">
       <div id="unity-progress-bar-empty">
         <div id="unity-progress-bar-full"></div>
       </div>
@@ -62,9 +62,9 @@
     var loaderUrl = buildUrl + "/genai-webgpu.loader.js";
     var config = {
       arguments: [],
-      dataUrl: buildUrl + "/genai-webgpu.data.br",
-      frameworkUrl: buildUrl + "/genai-webgpu.framework.js.br",
-      codeUrl: buildUrl + "/genai-webgpu.wasm.br",
+      dataUrl: buildUrl + "/genai-webgpu.data",
+      frameworkUrl: buildUrl + "/genai-webgpu.framework.js",
+      codeUrl: buildUrl + "/genai-webgpu.wasm",
       streamingAssetsUrl: "StreamingAssets",
       companyName: "voidwave",
       productName: "Project Depth Test",

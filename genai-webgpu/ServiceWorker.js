@@ -1,9 +1,9 @@
 const cacheName = "voidwave-Project Depth Test-0.1.1";
 const contentToCache = [
     "Build/genai-webgpu.loader.js",
-    "Build/genai-webgpu.framework.js.br",
-    "Build/genai-webgpu.data.br",
-    "Build/genai-webgpu.wasm.br",
+    "Build/genai-webgpu.framework.js",
+    "Build/genai-webgpu.data",
+    "Build/genai-webgpu.wasm",
     "TemplateData/style.css"
 
 ];

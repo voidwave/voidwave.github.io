@@ -1,0 +1,232 @@
+{
+  "prompt": {
+    "3": {
+      "inputs": {
+        "seed": 835221574924410,
+        "steps": 8,
+        "cfg": 3.4,
+        "sampler_name": "dpmpp_2s_ancestral",
+        "scheduler": "karras",
+        "denoise": 1,
+        "model": [
+          "15",
+          1
+        ],
+        "positive": [
+          "19",
+          0
+        ],
+        "negative": [
+          "19",
+          1
+        ],
+        "latent_image": [
+          "5",
+          0
+        ]
+      },
+      "class_type": "KSampler",
+      "_meta": {
+        "title": "KSampler"
+      }
+    },
+    "4": {
+      "inputs": {
+        "ckpt_name": "wildcardxXLTURBO_wildcardxXLTURBOV10.safetensors"
+      },
+      "class_type": "CheckpointLoaderSimple",
+      "_meta": {
+        "title": "Load Checkpoint"
+      }
+    },
+    "5": {
+      "inputs": {
+        "width": 2048,
+        "height": 1024,
+        "batch_size": 1
+      },
+      "class_type": "EmptyLatentImage",
+      "_meta": {
+        "title": "Empty Latent Image"
+      }
+    },
+    "6": {
+      "inputs": {
+        "text": "((masterpiece)), (cinematic), photography, inside an ancient temple ruin, overgrown, alpine mountains, maya, blue sky",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "7": {
+      "inputs": {
+        "text": "text, watermark, uniform,  ugly, high contrast, jpeg, (worst quality, low quality, lowres, low details, overexposed, underexposed, grayscale, bw,  bad art:1.4), (font, username, error, logo, words, letters, digits, autograph, trademark, name:1.2), (blur, blurry, grainy), poorly lit, bad shadow, draft, cropped, out of frame, cut off, censored, jpeg artifacts, out of focus, glitch, duplicate, (amateur:1.3), cave",
+        "clip": [
+          "4",
+          1
+        ]
+      },
+      "class_type": "CLIPTextEncode",
+      "_meta": {
+        "title": "CLIP Text Encode (Prompt)"
+      }
+    },
+    "8": {
+      "inputs": {
+        "samples": [
+          "3",
+          0
+        ],
+        "vae": [
+          "4",
+          2
+        ]
+      },
+      "class_type": "VAEDecode",
+      "_meta": {
+        "title": "VAE Decode"
+      }
+    },
+    "12": {
+      "inputs": {
+        "strength": 0.9500000000000001,
+        "start_percent": 0,
+        "end_percent": 0.9,
+        "positive": [
+          "6",
+          0
+        ],
+        "negative": [
+          "7",
+          0
+        ],
+        "control_net": [
+          "36",
+          0
+        ],
+        "image": [
+          "51",
+          0
+        ]
+      },
+      "class_type": "ACN_AdvancedControlNetApply",
+      "_meta": {
+        "title": "Apply Advanced ControlNet 🛂🅐🅒🅝"
+      }
+    },
+    "15": {
+      "inputs": {
+        "startStep": 0,
+        "stopStep": 999,
+        "tilingX": true,
+        "tilingY": false,
+        "model": [
+          "4",
+          0
+        ]
+      },
+      "class_type": "Model Patch Seamless (mtb)",
+      "_meta": {
+        "title": "Model Patch Seamless (mtb)"
+      }
+    },
+    "19": {
+      "inputs": {
+        "strength": 0.35000000000000003,
+        "start_percent": 0,
+        "end_percent": 0.7000000000000001,
+        "positive": [
+          "12",
+          0
+        ],
+        "negative": [
+          "12",
+          1
+        ],
+        "control_net": [
+          "36",
+          0
+        ],
+        "image": [
+          "52",
+          0
+        ]
+      },
+      "class_type": "ACN_AdvancedControlNetApply",
+      "_meta": {
+        "title": "Apply Advanced ControlNet 🛂🅐🅒🅝"
+      }
+    },
+    "36": {
+      "inputs": {
+        "control_net_name": "diffusion_pytorch_model_promax.safetensors"
+      },
+      "class_type": "ControlNetLoader",
+      "_meta": {
+        "title": "Load ControlNet Model"
+      }
+    },
+    "51": {
+      "inputs": {
+        "image": "DepthImage"
+      },
+      "class_type": "ETN_LoadImageBase64",
+      "_meta": {
+        "title": "Load Image (Base64)"
+      }
+    },
+    "52": {
+      "inputs": {
+        "image": "OutlineImage"
+      },
+      "class_type": "ETN_LoadImageBase64",
+      "_meta": {
+        "title": "Load Image (Base64)"
+      }
+    },
+    "54": {
+      "inputs": {
+        "output_path": "[time(%Y-%m-%d)]",
+        "filename_prefix": "ComfyUI",
+        "filename_delimiter": "_",
+        "filename_number_padding": 4,
+        "filename_number_start": "false",
+        "extension": "png",
+        "dpi": 300,
+        "quality": 100,
+        "optimize_image": "true",
+        "lossless_webp": "false",
+        "overwrite_mode": "false",
+        "show_history": "false",
+        "show_history_by_prefix": "true",
+        "embed_workflow": "true",
+        "show_previews": "true",
+        "images": [
+          "8",
+          0
+        ]
+      },
+      "class_type": "Image Save",
+      "_meta": {
+        "title": "Image Save"
+      }
+    },
+    "55": {
+      "inputs": {
+        "images": [
+          "54",
+          0
+        ]
+      },
+      "class_type": "PreviewImage",
+      "_meta": {
+        "title": "Preview Image"
+      }
+    }
+  }
+}

@@ -413,8 +413,8 @@ body {
     }
 
     #mobile-back-button {
-        position: absolute;
-        bottom: 10px;
+        position: fixed;
+        top: 10px;
         left: 10px;
         z-index: 101;
         padding: 8px 15px;
@@ -431,10 +431,11 @@ body {
     }
 
     #mobile-content-frame {
+        margin-top: 40px;
         width: 100%;
-        height: 100%;
+        height: 90%;
         /* Takes remaining height */
-        overflow: auto;
+        /* overflow: auto; */
         /* Allow scrolling within the frame */
     }
 

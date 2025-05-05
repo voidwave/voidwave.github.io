@@ -23,7 +23,7 @@ const youtubeProjectData = [
 
 const filesContainer = document.getElementById('Files');
 // const view = document.getElementById('View'); // Remove reference to view
-const backButton = document.getElementById('backButton');
+//const backButton = document.getElementById('backButton');
 
 // Function to generate project icons
 function renderProjectIcons(projects) {
@@ -65,7 +65,7 @@ function openProject(index) {
             // Requires #Files to have a defined height when in this mode.
         }
 
-        backButton.style.display = 'block'; // Show the specific back button
+        //backButton.style.display = 'block'; // Show the specific back button
     } else {
         console.error('Invalid project index:', index);
     }
@@ -75,13 +75,13 @@ function openProject(index) {
 function closeProject() {
     // Re-render the icons
     renderProjectIcons(youtubeProjectData);
-    backButton.style.display = 'none'; // Hide the specific back button
+    //backButton.style.display = 'none'; // Hide the specific back button
 }
 
 // Initial setup
 // view.style.display = 'none'; // Remove view logic
-backButton.style.display = 'none'; // Hide the back button initially
-backButton.addEventListener('click', closeProject, false);
+// backButton.style.display = 'none'; // Hide the back button initially
+// backButton.addEventListener('click', closeProject, false);
 
 // Render the YouTube project icons on load
 renderProjectIcons(youtubeProjectData); 

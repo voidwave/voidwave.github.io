@@ -40,11 +40,11 @@ const projectData = [
 ];
 
 const view = document.getElementById('View');
-const backButton = document.getElementById('backButton');
+//const backButton = document.getElementById('backButton');
 
 view.style.display = 'none';
-backButton.style.display = 'none';
-backButton.addEventListener('click', () => closeProject(), false);
+//backButton.style.display = 'none';
+//backButton.addEventListener('click', () => closeProject(), false);
 
 const filesContainer = document.getElementById('Files');
 
@@ -60,11 +60,11 @@ projectData.forEach((project, index) => {
 function openProject(index) {
     view.style.display = 'block';
     view.innerHTML = projectData[index].iframeContent;
-    backButton.style.display = 'block';
+    //backButton.style.display = 'block';
 }
 
 function closeProject() {
     view.style.display = 'none';
     view.innerHTML = '';
-    backButton.style.display = 'none';
+    //backButton.style.display = 'none';
 } 

@@ -36,7 +36,7 @@ const windowData = [
         initialLeft: '100px',
         initialWidth: '500px',
         initialHeight: '350px',
-        contentHTML: '<iframe src="https://albumizr.com/skins/bandana/index.php?key=I33m#1" scrolling="no" frameborder="0" allowfullscreen width="100%" height="100%"></iframe>',
+        contentHTML: '<iframe src="https://voidwave.com/gallery/index.html" scrolling="no" frameborder="0" allowfullscreen width="100%" height="100%"></iframe>', //https://albumizr.com/skins/bandana/index.php?key=I33m#1
         contentType: 'iframe'
     },
     {

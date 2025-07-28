@@ -92,7 +92,7 @@ body {
 body {
     font-family: monospace;
     color: white;
-    background-color: black;
+    background-color: transparent !important;
 }
 
 @keyframes glitch {

@@ -17,9 +17,29 @@ body {
     height: auto;
     border-radius: 6px;
     object-fit: cover;
+    cursor: pointer;
     transition: transform 0.2s;
 }
 
 .gallery img:hover {
     transform: scale(1.05);
+}
+
+/* Lightbox styles */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    object-fit: contain;
 }

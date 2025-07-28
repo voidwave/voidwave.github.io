@@ -42,17 +42,23 @@
         <button id="mobile-back-button">← Back</button>
         <div id="mobile-content-frame"></div>
     </div>
+    <script src="index.js"></script>
 
     <!-- <canvas id="Matrix"></canvas>
-    <script src="background.js"></script> -->
+    <script src="background.js"></script>
+ -->
 
-    <script src="index.js"></script>
 
     <script type="module" crossorigin src="/assets/index-24cd4a41.js"></script>
     <link rel="stylesheet" href="/assets/index-0bdcf632.css">
     <div id="root" style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;z-index:-1;"></div>
-    <!-- <iframe src="https://voidwave.com/voidwaveBG.html" id="voidwave-bg-frame"
-        style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:none;z-index:-1;"></iframe> -->
+
+    <script>
+        if (/Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent)) {
+            var rootDiv = document.getElementById('root');
+            if (rootDiv) rootDiv.remove();
+        }
+    </script>
 </body>
 
 </html>

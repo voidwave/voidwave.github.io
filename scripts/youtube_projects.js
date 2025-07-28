@@ -19,6 +19,12 @@ const youtubeProjectData = [
         imageUrl: 'img/vw-qr-100.jpg',
         iframeContent: '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/lkFQ3f5EQmM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
     }
+    ,
+    {
+        title: '3D File Explorer (2020)',
+        imageUrl: 'img/vw-qr-100.jpg',
+        iframeContent: '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/PK6jNEWV0NA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>'
+    }
 ];
 
 const filesContainer = document.getElementById('Files');

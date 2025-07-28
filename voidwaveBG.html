@@ -31,9 +31,9 @@
             return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
         }
         if (isMobile()) {
-            document.documentElement.style.setProperty('--dither-scale', '0.5'); // Example: scale down to 50%
+            document.documentElement.style.setProperty('--dither-scale', '0.1'); // Example: scale down to 50%
             // Optionally, you can pass this to your React app via window or root div
-            document.getElementById('root').setAttribute('data-dither-scale', '0.5');
+            document.getElementById('root').setAttribute('data-dither-scale', '0.1');
         } else {
             document.documentElement.style.setProperty('--dither-scale', '1');
             document.getElementById('root').setAttribute('data-dither-scale', '1');

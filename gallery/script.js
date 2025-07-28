@@ -1,4 +1,5 @@
 const imageFolder = 'images/';
+const thumbnailFolder = 'thumbnails/';
 const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
@@ -14,7 +15,7 @@ fetch('images.json')
 
         images.forEach((file, index) => {
             const img = document.createElement('img');
-            img.src = imageFolder + file;
+            img.src = thumbnailFolder + file;
             img.alt = file;
             img.addEventListener('click', () => openLightbox(index));
             gallery.appendChild(img);

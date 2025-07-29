@@ -6,7 +6,7 @@ const windowData = [
     {
         id: 'youtube',
         title: 'DEV VIDEOS',
-        iconClass: 'fa-youtube-square',
+        iconClass: 'hn-youtube',
         iconColor: 'rgb(255, 0, 0)',
         initialTop: '50px',
         initialLeft: '100px',
@@ -18,7 +18,7 @@ const windowData = [
     {
         id: 'steam',
         title: 'HYDROGEN ON STEAM',
-        iconClass: 'fa-steam',
+        iconClass: 'hn-steam',
         iconColor: 'rgb(255, 153, 0)',
         initialTop: '50px',
         initialLeft: '47%',
@@ -30,7 +30,7 @@ const windowData = [
     {
         id: 'gallery',
         title: 'GALLERY',
-        iconClass: 'fa-camera-retro',
+        iconClass: 'hn-image',
         iconColor: 'rgb(0, 114, 0)',
         initialTop: '54%',
         initialLeft: '100px',
@@ -42,7 +42,7 @@ const windowData = [
     {
         id: 'projects',
         title: 'RANDOM PROJECTS',
-        iconClass: 'fa-folder',
+        iconClass: 'hn-folder',
         iconColor: 'rgb(184, 187, 0)',
         initialTop: '310px',
         initialLeft: '47%',
@@ -66,7 +66,7 @@ const windowData = [
     {
         id: 'twitter',
         title: 'TWITTER',
-        iconClass: 'fa-twitter', // Changed from fa-folder
+        iconClass: 'hn-twitter', // Changed from fa-folder
         iconColor: 'rgb(33, 111, 156)',
         initialTop: '150px',
         initialLeft: '350px',
@@ -78,7 +78,7 @@ const windowData = [
     {
         id: 'instagram',
         title: 'INSTAGRAM',
-        iconClass: 'fa-instagram', // Changed from fa-folder
+        iconClass: 'hn-instagram', // Changed from fa-folder
         iconColor: 'rgb(129, 0, 108)',
         initialTop: '170px',
         initialLeft: '400px',
@@ -104,7 +104,7 @@ function createWindowElement(data, index) {
 
     windowEl.innerHTML = `
         <div data-user-action="MOVE" class="draggable" draggable="true">
-            <i style="font-size: 20px; margin-right: 5px;" class="fa ${data.iconClass}"></i> ${data.title}
+            <i style="font-size: 20px; margin-right: 5px;" class="hn ${data.iconClass}"></i> ${data.title}
         </div>
         <button class="close-button" data-action="close">✖</button>
         <button class="max-button" data-action="toggle-maxmin">▢</button>
@@ -131,7 +131,7 @@ function createIconElement(data, index) {
     iconEl.dataset.action = 'toggle'; // Action for event listener
 
     iconEl.innerHTML = `
-        <i style="font-size: 50px; color: ${data.iconColor};" class="fa ${data.iconClass}"></i>
+        <i style="font-size: 50px; color: ${data.iconColor};" class="hn ${data.iconClass}"></i>
         <i class="icon-text">${data.title}</i>
     `;
     return iconEl;

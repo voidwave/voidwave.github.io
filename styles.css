@@ -31,12 +31,17 @@ body {
 
 /* Add styles for the top panel */
 .top-panel {
-    background-color: rgba(0, 0, 0, 1);
-    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 100;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 20px;
+    position: relative;
+}
+
+.top-panel div {
+    z-index: 99;
 }
 
 .top-panel h1 {
@@ -69,10 +74,12 @@ body {
 }
 
 .side-panel {
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.7);
+    /* background: linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(https://grainy-gradients.vercel.app/noise.svg); */
+    /* filter: contrast(170%) brightness(1000%); */
     position: fixed;
     z-index: 0;
-    top: 20px;
+    top: 22px;
     left: 0;
     height: 100%;
     width: 60px;

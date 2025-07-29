@@ -32,7 +32,7 @@ const windowData = [
         title: 'GALLERY',
         iconClass: 'fa-camera-retro',
         iconColor: 'rgb(0, 114, 0)',
-        initialTop: '50%',
+        initialTop: '54%',
         initialLeft: '100px',
         initialWidth: '40%',
         initialHeight: '350px',
@@ -47,7 +47,7 @@ const windowData = [
         initialTop: '310px',
         initialLeft: '47%',
         initialWidth: '500px',
-        initialHeight: '500px',
+        initialHeight: '530px',
         contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
         contentType: 'iframe'
     },

@@ -10,8 +10,8 @@ const windowData = [
         iconColor: 'rgb(255, 0, 0)',
         initialTop: '50px',
         initialLeft: '100px',
-        initialWidth: '500px',
-        initialHeight: '500px',
+        initialWidth: '40%',
+        initialHeight: '45%',
         contentHTML: '<iframe style="width:100%; height:100%;" src="https://www.youtube.com/embed/videoseries?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
         contentType: 'iframe'
     },
@@ -21,7 +21,7 @@ const windowData = [
         iconClass: 'fa-steam',
         iconColor: 'rgb(255, 153, 0)',
         initialTop: '50px',
-        initialLeft: '35%',
+        initialLeft: '47%',
         initialWidth: '500px',
         initialHeight: '250px',
         contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
@@ -32,9 +32,9 @@ const windowData = [
         title: 'GALLERY',
         iconClass: 'fa-camera-retro',
         iconColor: 'rgb(0, 114, 0)',
-        initialTop: '60%',
+        initialTop: '50%',
         initialLeft: '100px',
-        initialWidth: '500px',
+        initialWidth: '40%',
         initialHeight: '350px',
         contentHTML: '<iframe src="https://voidwave.com/gallery/index.html" scrolling="yes" frameborder="0" allowfullscreen width="100%" height="100%"></iframe>', //https://albumizr.com/skins/bandana/index.php?key=I33m#1
         contentType: 'iframe'
@@ -44,8 +44,8 @@ const windowData = [
         title: 'RANDOM PROJECTS',
         iconClass: 'fa-folder',
         iconColor: 'rgb(184, 187, 0)',
-        initialTop: '40%',
-        initialLeft: '35%',
+        initialTop: '310px',
+        initialLeft: '47%',
         initialWidth: '500px',
         initialHeight: '500px',
         contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="projects.html"></iframe>',
@@ -424,14 +424,14 @@ function BringToFront(elmnt) {
         }
         // Optional: Reset border/styles for inactive windows
         win.style.borderStyle = 'solid'; // Assuming default is solid now? Check CSS
-        win.style.borderColor = 'rgb(100, 100, 100)'; // Example inactive border
+        win.style.borderColor = 'rgba(100, 100, 100,0)'; // Example inactive border
     });
 
     // Set the target element's z-index higher than all others
     elmnt.style.zIndex = maxZ + 1;
     // Optional: Apply active styles
     elmnt.style.borderStyle = 'solid';
-    elmnt.style.borderColor = 'rgb(0, 255, 0)'; // Example active border
+    elmnt.style.borderColor = 'rgba(1, 17, 0, 0.5)'; // Example active border
 }
 
 // --- Drag Logic Adaptation --- // DESKTOP ONLY

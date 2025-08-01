@@ -22,9 +22,9 @@ const windowData = [
         iconColor: 'rgb(255, 153, 0)',
         initialTop: '50px',
         initialLeft: '47%',
-        initialWidth: '500px',
-        initialHeight: '250px',
-        contentHTML: '<iframe style="width:100%; height:100%; border: none;" src="https://store.steampowered.com/widget/1746820/" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>',
+        initialWidth: '40vw',
+        initialHeight: '40vh',
+        contentHTML: '<iframe style="width:100%;height:100%;border:none;min-width:320px;min-height:200px;max-width:100vw;max-height:100vh;" src="steam-widget.html" frameborder="0" allowfullscreen scrolling="no"></iframe>',
         contentType: 'iframe'
     },
     {
@@ -321,7 +321,33 @@ if (isMobile) {
     });
 }
 
-// --- Desktop Window Functions (Should not be called if isMobile is true) ---
+
+// --- Desktop Window Auto-Arrange ---
+function autoArrangeWindows() {
+    const visibleWindows = Array.from(windowContainer.querySelectorAll('.window'))
+        .filter(win => win.style.display !== 'none');
+    if (visibleWindows.length === 0) return;
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+    const cols = Math.ceil(Math.sqrt(visibleWindows.length));
+    const rows = Math.ceil(visibleWindows.length / cols);
+    const paddingX = 24; // horizontal padding between windows
+    const paddingY = 24; // vertical padding between windows
+    const offsetX = 60; // extra left offset
+    const offsetY = 20; // extra top offset
+    const winWidth = Math.max(300, (screenWidth - (cols + 1) * paddingX - offsetX) / cols);
+    const winHeight = Math.max(200, (screenHeight - (rows + 1) * paddingY - offsetY) / rows);
+
+    visibleWindows.forEach((win, i) => {
+        const col = i % cols;
+        const row = Math.floor(i / cols);
+        win.style.left = (col * (winWidth + paddingX) + paddingX + offsetX) + 'px';
+        win.style.top = (row * (winHeight + paddingY) + paddingY + offsetY) + 'px';
+        win.style.width = winWidth + 'px';
+        win.style.height = winHeight + 'px';
+    });
+}
 
 function MaxMinWindow(elmnt) {
     // Max
@@ -400,12 +426,16 @@ function AddRemove(elmnt, index) {
             // Make sure position is reasonable (might have been closed then browser resized)
             // TODO: Add logic to ensure window is within viewport bounds on show?
             unfade(elmnt);
+            // Auto-arrange windows after showing a new one (desktop only)
+            if (!isMobile) autoArrangeWindows();
         } else {
             // Hide the window and clear iframe
             fade(elmnt, () => { // Pass callback to clear content after fade
                 if (frame) {
                     frame.innerHTML = ''; // Clear content after hidden
                 }
+                // Auto-arrange windows after hiding one (desktop only)
+                if (!isMobile) autoArrangeWindows();
             });
         }
     }

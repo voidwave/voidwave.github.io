@@ -19,6 +19,11 @@ const youtubeProjectData = [
         imageUrl: 'img/voidwave-white-qr-code.png',
         iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="genai-webgpu/index.html"></iframe>'
     },
+    {
+        title: 'GAMEJAMS ITCH.IO',
+        imageUrl: 'img/itchio.png',
+        externalLink: 'https://voidwave.itch.io'
+    },
 ];
 
 const filesContainer = document.getElementById('Files');
@@ -42,7 +47,14 @@ function renderProjectIcons(projects) {
         titleElement.textContent = project.title;
         projectIcon.appendChild(titleElement);
 
-        projectIcon.addEventListener('click', () => openProject(index), false);
+        projectIcon.addEventListener('click', () => {
+            const project = projects[index];
+            if (project.externalLink) {
+                window.open(project.externalLink, '_blank');
+            } else {
+                openProject(index);
+            }
+        }, false);
         filesContainer.appendChild(projectIcon);
     });
 }

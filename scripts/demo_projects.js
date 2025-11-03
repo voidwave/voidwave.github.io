@@ -1,14 +1,14 @@
 const youtubeProjectData = [
-    {
-        title: 'Al-Quran.js',
-        imageUrl: 'img/JavaScript-logo.png',
-        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>'
-    },
-    {
-        title: 'Quran Scroll',
-        imageUrl: 'img/quran.png',
-        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/quran.html"></iframe>'
-    },
+    // {
+    //     title: 'Al-Quran.js',
+    //     imageUrl: 'img/JavaScript-logo.png',
+    //     iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>'
+    // },
+    // {
+    //     title: 'Quran Scroll',
+    //     imageUrl: 'img/quran.png',
+    //     iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/quran.html"></iframe>'
+    // },
     {
         title: 'Prime Jinn Sandbox (2017)',
         imageUrl: 'img/voidwave_RGB.png',

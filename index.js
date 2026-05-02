@@ -28,6 +28,18 @@ const windowData = [
         contentType: 'iframe'
     },
     {
+        id: 'steam',
+        title: 'DJINN SCROLLS ON STEAM',
+        iconClass: 'hn-steam',
+        iconColor: 'rgb(255, 255, 255)',
+        initialTop: '50px',
+        initialLeft: '47%',
+        initialWidth: '40vw',
+        initialHeight: '40vh',
+        contentURL: 'https://store.steampowered.com/app/4392620/DJINN_SCROLLS/',
+        contentType: 'url'
+    },
+    {
         id: 'gallery',
         title: 'GALLERY',
         iconClass: 'hn-image',

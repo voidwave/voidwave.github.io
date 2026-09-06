@@ -20,6 +20,11 @@ const youtubeProjectData = [
         iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="genai-webgpu/index.html"></iframe>'
     },
     {
+        title: 'JINNI MUSHA [GAMEJAM] (2026)',
+        imageUrl: 'img/itchio.png',
+        iframeContent: '<iframe frameborder="0" src="https://itch.io/embed-upload/19005599?color=000000" allowfullscreen="" width="1280" height="720"><a href="https://voidwave.itch.io/jinnimusha">Play Jinni Musha on itch.io</a></iframe>'
+    },
+    {
         title: 'GAMEJAMS ITCH.IO',
         imageUrl: 'img/itchio.png',
         externalLink: 'https://voidwave.itch.io'

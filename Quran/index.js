@@ -197,7 +197,7 @@ function setupSearchBar() {
     const resultsContainer = document.getElementById('search-results');
 
     function performSearch() {
-        const query = searchBar.value.trim().toLowerCase();
+        const query = normalizeArabic(searchBar.value.trim());
         resultsContainer.innerHTML = ''; // Clear previous results
 
         if (query.length < 2) return; // Avoid overly short searches
@@ -208,7 +208,7 @@ function setupSearchBar() {
             // Search the entire Quran if no surah is selected
             for (let s = 0; s < surasClean.length; s++) {
                 for (let a = 0; a < surasClean[s].children.length; a++) {
-                    const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                    const cleanText = normalizeArabic(surasClean[s].children[a].getAttribute('text'));
                     if (cleanText && cleanText.includes(query)) {
                         matchCount++;
 
@@ -237,7 +237,7 @@ function setupSearchBar() {
             // Search only the selected surah
             const s = selectedSurah;
             for (let a = 0; a < surasClean[s].children.length; a++) {
-                const cleanText = surasClean[s].children[a].getAttribute('text')?.toLowerCase();
+                const cleanText = normalizeArabic(surasClean[s].children[a].getAttribute('text'));
                 if (cleanText && cleanText.includes(query)) {
                     matchCount++;
 
@@ -272,6 +272,15 @@ function setupSearchBar() {
         }
     });
 }
+
+function normalizeArabic(text) {
+    return (text || '')
+        .toLowerCase()
+        .replace(/[أإآٱى]/g, 'ا')
+        .replace(/ئ/g, 'ء')
+        .replace(/ة/g, 'ه');
+}
+
 // Function to select a surah (for example when a surah button is clicked)
 function selectSurah(surahIndex) {
     selectedSurah = surahIndex;  // Store the selected surah index
@@ -293,18 +302,22 @@ function navigateToAyah(surahIndex, ayahIndex) {
     }
 }
 function highlightMatch(text, query) {
-    // Step 1: Escape the query to make it safe for regex
-    const escapedQuery = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // escape regex
-    const regex = new RegExp(`(${escapedQuery})`, 'gi');
+    const normalizedText = normalizeArabic(text);
+    const normalizedQuery = normalizeArabic(query);
+    const originalIndices = [];
 
-    // Step 2: Find the positions of the matches in the clean text
-    let match;
-    let indices = [];
-    while ((match = regex.exec(text)) !== null) {
-        indices.push([match.index, match.index + match[0].length]);
+    for (let index = 0; index < text.length; index++) {
+        originalIndices.push(index);
     }
 
-    // Step 3: Highlight the matched text in the tashkeel text
+    const indices = [];
+    let matchIndex = normalizedText.indexOf(normalizedQuery);
+    while (matchIndex !== -1) {
+        const endIndex = matchIndex + normalizedQuery.length - 1;
+        indices.push([originalIndices[matchIndex], originalIndices[endIndex] + 1]);
+        matchIndex = normalizedText.indexOf(normalizedQuery, matchIndex + normalizedQuery.length);
+    }
+
     let highlightedText = text;
     for (let i = indices.length - 1; i >= 0; i--) {
         let [start, end] = indices[i];

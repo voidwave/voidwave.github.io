@@ -373,7 +373,7 @@ function startWindowGesture(event, element, resizing) {
 
 function updateClock() {
     const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
     const panelClock = document.getElementById('panel-clock');
     panelClock.textContent = `${now.toLocaleDateString([], { month: 'short', day: 'numeric' })}  ${time}`;
     panelClock.dateTime = now.toISOString();

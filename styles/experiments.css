@@ -184,6 +184,23 @@ body {
     background: #131814;
 }
 
+@media (max-width: 760px) {
+    .experiments-toolbar {
+        min-height: 45px;
+        gap: 8px;
+        padding: 0 4px;
+    }
+
+    .experiment-control {
+        width: 44px;
+        height: 44px;
+    }
+
+    body:has(#experiment-view:not([hidden])) .experiments-status {
+        display: none;
+    }
+}
+
 @media (max-width: 420px) {
     #experiment-library {
         padding: 20px 14px;
@@ -196,11 +213,6 @@ body {
 
     .experiments-heading {
         margin-bottom: 15px;
-    }
-
-    .experiments-toolbar {
-        gap: 8px;
-        padding: 4px 8px;
     }
 
     .experiments-path {

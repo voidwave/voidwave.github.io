@@ -609,10 +609,6 @@ body[data-wallpaper="grid"] .wallpaper,
     user-select: none;
 }
 
-.window-gesture .app-window {
-    animation: none;
-}
-
 @keyframes window-in {
     from {
         opacity: 0;
@@ -1460,7 +1456,7 @@ body[data-wallpaper="grid"] .wallpaper,
     }
 
     #mobile-time {
-        font-size: 76px;
+        font-size: 48px;
         font-weight: 400;
         line-height: 1.2;
         margin: 5px 0 14px;
@@ -1720,6 +1716,28 @@ body[data-wallpaper="grid"] .wallpaper,
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+
+    body:has(.app-window[data-app-id="projects"]:not([hidden])) .system-panel {
+        display: none;
+    }
+
+    .app-window[data-app-id="projects"] {
+        top: env(safe-area-inset-top) !important;
+        height: calc(100dvh - 80px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+    }
+
+    .app-window[data-app-id="projects"] .window-titlebar {
+        height: 44px;
+    }
+
+    .app-window[data-app-id="projects"] .mobile-back {
+        width: 44px;
+        height: 44px;
+    }
+
+    .app-window[data-app-id="projects"] .embed-toolbar {
+        display: none;
     }
 
     .about-content,

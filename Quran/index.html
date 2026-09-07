@@ -19,6 +19,7 @@
         }
 
         :root {
+            color-scheme: dark;
             --background: #050705;
             --surface: #101510;
             --surface-raised: #171d17;
@@ -30,6 +31,27 @@
 
         * {
             box-sizing: border-box;
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #515952;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        @supports not selector(::-webkit-scrollbar) {
+            * {
+                scrollbar-color: #515952 transparent;
+                scrollbar-width: thin;
+            }
         }
 
         html {
@@ -76,27 +98,34 @@
             position: sticky;
             top: 0;
             z-index: 10;
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(6, minmax(44px, 52px));
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
             gap: 8px;
-            padding: 10px max(16px, calc((100vw - 1180px) / 2)) 10px 76px;
+            padding: 8px;
             background: rgba(5, 7, 5, 0.94);
             border-bottom: 1px solid rgba(184, 245, 66, 0.25);
             backdrop-filter: blur(10px);
         }
 
         #button-container button {
-            width: 44px;
-            min-height: 40px;
-            padding: 6px;
-            font-size: 0.72rem;
+            width: 100%;
+            height: 44px;
+            min-height: 44px;
+            padding: 4px;
+            font-size: 1rem;
         }
 
-        #button-container .top-action {
-            width: 44px;
-            min-height: 40px;
+        #button-container .random-action {
+            flex-direction: column;
+            gap: 2px;
+            line-height: 1;
+        }
+
+        .random-action .action-label {
+            font-size: 0.75rem;
+            line-height: 1.2;
         }
 
         #button-container .content-toggle {
@@ -204,10 +233,10 @@
         #nav {
             position: fixed;
             z-index: 20;
-            top: 82px;
+            top: 68px;
             left: 50%;
             width: min(880px, calc(100vw - 40px));
-            max-height: calc(100vh - 98px);
+            max-height: calc(100dvh - 80px);
             overflow-y: auto;
             transform: translateX(-50%);
             display: grid;
@@ -218,29 +247,6 @@
             border: 1px solid var(--accent);
             border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
-            scrollbar-color: #718f2d var(--surface);
-            scrollbar-width: thin;
-        }
-
-        #nav::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        #nav::-webkit-scrollbar-track {
-            margin: 10px 0;
-            border-radius: 10px;
-            background: #080b08;
-        }
-
-        #nav::-webkit-scrollbar-thumb {
-            min-height: 42px;
-            border: 2px solid var(--surface);
-            border-radius: 10px;
-            background: #718f2d;
-        }
-
-        #nav::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
         }
 
         #nav-backdrop {
@@ -264,8 +270,8 @@
         }
 
         #nav-close {
-            width: 40px;
-            min-height: 36px;
+            width: 44px;
+            min-height: 44px;
             padding: 4px;
             color: var(--muted);
             font-size: 1.4rem;
@@ -276,16 +282,6 @@
             min-height: 46px;
             padding: 8px 6px;
             font-size: 0.9rem;
-        }
-
-        #show-nav {
-            z-index: 11;
-            left: 16px;
-            top: 10px;
-            width: 52px;
-            min-height: 44px;
-            padding: 6px;
-            font-size: 0.72rem;
         }
 
         .icon-button {
@@ -410,6 +406,10 @@
             padding: 20px 0;
         }
 
+        #search-results:empty {
+            display: none;
+        }
+
         #search-results>div {
             margin-bottom: 10px;
             padding: 14px 16px;
@@ -470,18 +470,11 @@
 
         @media (max-width: 700px) {
             #button-container {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-                padding: 10px 12px 10px 76px;
-            }
-
-            #button-container button {
-                font-size: 0.68rem;
+                gap: 4px;
             }
 
             #nav {
-                top: 178px;
                 width: calc(100vw - 20px);
-                max-height: calc(100vh - 194px);
                 grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 6px;
                 padding: 12px;
@@ -493,7 +486,7 @@
 
             #nav .surah {
                 min-height: 44px;
-                font-size: 0.78rem;
+                font-size: 0.95rem;
             }
 
             #main,
@@ -502,16 +495,25 @@
             }
 
             #home {
-                padding-top: 34px;
+                padding: 12px 0;
             }
 
-            .search-controls {
-                flex-direction: column;
+            #home h1 {
+                font-size: 1.75rem;
+                line-height: 1.4;
+            }
+
+            #search-bar {
+                height: 44px;
+                padding: 6px 10px;
+                font-size: 1rem;
             }
 
             #search-button {
-                flex-basis: auto;
-                width: 100%;
+                flex: 0 0 44px;
+                width: 44px;
+                height: 44px;
+                padding: 6px;
             }
 
             #maincontent h2 {
@@ -525,14 +527,16 @@
 
 <body>
     <div id="button-container">
-        <button id="random-button" class="icon-button top-action" type="button" aria-label="Random ayah"
+        <button id="random-button" class="icon-button top-action random-action" type="button" aria-label="Random ayah"
             title="Random ayah">
-            <i class="fas fa-shuffle" aria-hidden="true"> آيه </i>
+            <i class="fas fa-shuffle" aria-hidden="true"></i>
+            <span class="action-label" aria-hidden="true">آيه</span>
             <span class="sr-only">RANDOM AYAH</span>
         </button>
-        <button id="randomSurah-button" class="icon-button top-action" type="button" aria-label="Random surah"
-            title="Random surah">
-            <i class="fas fa-shuffle" aria-hidden="true"> سوره</i>
+        <button id="randomSurah-button" class="icon-button top-action random-action" type="button"
+            aria-label="Random surah" title="Random surah">
+            <i class="fas fa-shuffle" aria-hidden="true"></i>
+            <span class="action-label" aria-hidden="true">سوره</span>
             <span class="sr-only">RANDOM SURAH</span>
         </button>
         <button id="clear-button" class="icon-button top-action" type="button" aria-label="Clear" title="Clear">

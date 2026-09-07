@@ -38,15 +38,21 @@ const reducedMotionQuery = matchMedia('(prefers-reduced-motion: reduce)');
 function updateLiveWallpaper() {
     const wallpaper = document.querySelector('.wallpaper');
     const frame = wallpaper.querySelector('iframe');
-    const enabled = preferences.wallpaper === 'dither' && !reducedMotionQuery.matches && !document.hidden;
+    const liveWallpapers = {
+        dither: { src: 'dither-wallpaper.html', title: 'Animated dither waves' },
+        matrix: { src: 'matrix-wallpaper.html', title: 'Arabic matrix rain' }
+    };
+    const selected = liveWallpapers[preferences.wallpaper];
+    const enabled = selected && !reducedMotionQuery.matches && !document.hidden;
     if (!enabled) {
         frame?.remove();
         return;
     }
-    if (frame) return;
+    if (frame?.getAttribute('src') === selected.src) return;
+    frame?.remove();
     const liveFrame = document.createElement('iframe');
-    liveFrame.src = 'dither-wallpaper.html';
-    liveFrame.title = 'Animated dither waves';
+    liveFrame.src = selected.src;
+    liveFrame.title = selected.title;
     liveFrame.tabIndex = -1;
     liveFrame.setAttribute('aria-hidden', 'true');
     wallpaper.appendChild(liveFrame);
@@ -75,9 +81,22 @@ function appButton(app, className = 'app-icon') {
     return `<button class="${className}" data-app="${app.id}" aria-label="${app.name}${app.external ? ' (opens in a new tab)' : ''}" title="${app.name}${app.external ? ' (new tab)' : ''}"><span class="app-tile ${app.color}">${icon(app.icon)}</span><span class="app-label">${app.name}</span>${app.external ? `<span class="external-mark">${icon('external-link')}</span>` : ''}</button>`;
 }
 
+const imageWallpapers = [
+    { id: 'blue-sanctuary', name: 'Blue Sanctuary', file: 'ComfyUI_00290_.png' },
+    { id: 'solar-mosque', name: 'Solar Mosque', file: 'ComfyUI_00339_.png' },
+    { id: 'moonlit-domes', name: 'Moonlit Domes', file: 'ComfyUI_00365_.png' },
+    { id: 'ivory-pyramids', name: 'Ivory Pyramids', file: 'ComfyUI_00425_.png' },
+    { id: 'emerald-sky', name: 'Emerald Sky', file: 'ComfyUI_00431_.png' },
+    { id: 'sunset-minarets', name: 'Sunset Minarets', file: 'ComfyUI_00483_.png' },
+    { id: 'crimson-monument', name: 'Crimson Monument', file: 'ComfyUI_00654_.png' },
+    { id: 'autumn-ruins', name: 'Autumn Ruins', file: 'ComfyUI_00779_.png' }
+];
+
 function applyPreferences() {
-    if (!['dither', 'world', 'grid'].includes(preferences.wallpaper)) preferences.wallpaper = 'dither';
+    const imageWallpaper = imageWallpapers.find(wallpaper => wallpaper.id === preferences.wallpaper);
+    if (!imageWallpaper && !['dither', 'matrix', 'world', 'grid'].includes(preferences.wallpaper)) preferences.wallpaper = 'dither';
     document.body.dataset.wallpaper = preferences.wallpaper;
+    document.querySelector('.wallpaper').style.backgroundImage = imageWallpaper ? `url("gallery/images/${imageWallpaper.file}")` : '';
     document.body.dataset.accent = preferences.accent === 'ice' ? 'ice' : 'mint';
     document.body.classList.toggle('reduce-motion', !preferences.motion);
     updateLiveWallpaper();
@@ -253,7 +272,8 @@ function aboutContent() {
 }
 
 function settingsContent() {
-    return `<div class="settings-content"><span class="eyebrow">PERSONALIZE YOUR WORKSPACE</span><h2>Appearance</h2><fieldset><legend>Wallpaper</legend><div class="wallpaper-options"><label><input type="radio" name="wallpaper" value="dither" ${preferences.wallpaper === 'dither' ? 'checked' : ''}><span class="wallpaper-preview dither-preview">${icon('sparkles')}</span>Dither Waves</label><label><input type="radio" name="wallpaper" value="world" ${preferences.wallpaper === 'world' ? 'checked' : ''}><span class="wallpaper-preview world-preview"></span>Otherworld</label><label><input type="radio" name="wallpaper" value="grid" ${preferences.wallpaper === 'grid' ? 'checked' : ''}><span class="wallpaper-preview grid-preview"></span>Graphite</label></div></fieldset><fieldset><legend>Accent color</legend><div class="swatch-options"><label title="Mint"><input type="radio" name="accent" value="mint" ${preferences.accent !== 'ice' ? 'checked' : ''}><span class="swatch mint"></span>Mint</label><label title="Ice"><input type="radio" name="accent" value="ice" ${preferences.accent === 'ice' ? 'checked' : ''}><span class="swatch blue"></span>Ice</label></div></fieldset><label class="setting-toggle"><span>Window animations</span><input type="checkbox" name="motion" ${preferences.motion ? 'checked' : ''}></label></div>`;
+    const imageOptions = imageWallpapers.map(wallpaper => `<label><input type="radio" name="wallpaper" value="${wallpaper.id}" ${preferences.wallpaper === wallpaper.id ? 'checked' : ''}><span class="wallpaper-preview image-preview" style="background-image: url('gallery/thumbnails/${wallpaper.file}')"></span>${wallpaper.name}</label>`).join('');
+    return `<div class="settings-content"><span class="eyebrow">PERSONALIZE YOUR WORKSPACE</span><h2>Appearance</h2><fieldset><legend>Wallpaper</legend><div class="wallpaper-options"><label><input type="radio" name="wallpaper" value="dither" ${preferences.wallpaper === 'dither' ? 'checked' : ''}><span class="wallpaper-preview dither-preview">${icon('sparkles')}</span>Dither Waves</label><label><input type="radio" name="wallpaper" value="matrix" ${preferences.wallpaper === 'matrix' ? 'checked' : ''}><span class="wallpaper-preview matrix-preview">${icon('code-block')}</span>Arabic Matrix</label><label><input type="radio" name="wallpaper" value="world" ${preferences.wallpaper === 'world' ? 'checked' : ''}><span class="wallpaper-preview world-preview"></span>Otherworld</label><label><input type="radio" name="wallpaper" value="grid" ${preferences.wallpaper === 'grid' ? 'checked' : ''}><span class="wallpaper-preview grid-preview"></span>Graphite</label>${imageOptions}</div></fieldset><fieldset><legend>Accent color</legend><div class="swatch-options"><label title="Mint"><input type="radio" name="accent" value="mint" ${preferences.accent !== 'ice' ? 'checked' : ''}><span class="swatch mint"></span>Mint</label><label title="Ice"><input type="radio" name="accent" value="ice" ${preferences.accent === 'ice' ? 'checked' : ''}><span class="swatch blue"></span>Ice</label></div></fieldset><label class="setting-toggle"><span>Window animations</span><input type="checkbox" name="motion" ${preferences.motion ? 'checked' : ''}></label></div>`;
 }
 
 function terminalContent() {

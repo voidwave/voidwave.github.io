@@ -134,7 +134,10 @@ body[data-accent="ice"] {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(90deg, #12191660, #12191615), url('img/desktop-wallpaper.jpg') center 48% / cover;
+    background-image: linear-gradient(90deg, #12191660, #12191615), url('img/desktop-wallpaper.jpg');
+    background-position: center 48%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .wallpaper iframe {
@@ -145,7 +148,8 @@ body[data-accent="ice"] {
     pointer-events: none;
 }
 
-.dither-preview {
+.dither-preview,
+.matrix-preview {
     display: flex !important;
     align-items: center;
     justify-content: center;
@@ -154,11 +158,18 @@ body[data-accent="ice"] {
     font-size: 28px;
 }
 
+body[data-wallpaper="matrix"] .wallpaper,
+.matrix-preview {
+    background: #000;
+    color: #0f0;
+}
+
 body[data-wallpaper="grid"] .wallpaper,
 .grid-preview {
     background-color: #111512;
     background-image: linear-gradient(#81988b0b 1px, transparent 1px), linear-gradient(90deg, #81988b0b 1px, transparent 1px);
     background-size: 48px 48px;
+    background-repeat: repeat;
 }
 
 .system-panel {
@@ -1262,6 +1273,11 @@ body[data-wallpaper="grid"] .wallpaper,
 
 .world-preview {
     background: url('img/desktop-wallpaper.jpg') center / cover;
+}
+
+.image-preview {
+    background-position: center;
+    background-size: cover;
 }
 
 .swatch-options {

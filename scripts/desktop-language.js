@@ -12,7 +12,7 @@ const desktopLanguage = (() => {
         'Majed Altaemi': 'ماجد الطعيمي',
         'GAME DEVELOPER': 'مطوّر ألعاب',
         'Desktop applications': 'تطبيقات سطح المكتب',
-        'MAKE ARABIA GREAT AGAIN': 'لنجعل بلاد العرب عظيمة من جديد',
+        'MAKE ARABIA GREAT AGAIN': 'من المملكه العربيه السعوديه',
         'VOIDWAVE / PERSONAL DESKTOP': 'VOIDWAVE / سطح المكتب الشخصي',
         'Search applications': 'ابحث عن تطبيق',
         'No applications found.': 'لم يتم العثور على تطبيقات.',

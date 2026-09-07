@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Al-Quran</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada"> -->
@@ -16,86 +18,505 @@
             font-style: normal;
         }
 
-        body,
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6,
-        div {
-            background-color: black;
-            color: white;
+        :root {
+            --background: #050705;
+            --surface: #101510;
+            --surface-raised: #171d17;
+            --text: #f4f7f1;
+            --muted: #aeb8aa;
+            --accent: #b8f542;
+            --accent-soft: rgba(184, 245, 66, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-width: 320px;
+            margin: 0;
+            background: radial-gradient(circle at top, #182218 0, var(--background) 420px);
+            color: var(--text);
             font-family: "Uthmanic", sans-serif;
         }
 
-        #button-container {
-            display: flex;
-            justify-content: right;
-            /* Align the buttons to the right */
-            align-items: center;
-            /* Vertically align them to the center */
+        button,
+        input {
+            font: inherit;
         }
 
-        /* For the buttons */
         button {
+            border: 1px solid var(--accent);
+            border-radius: 6px;
             cursor: pointer;
-            color: rgb(255, 255, 255);
-            background-color: black;
-            border: 3px solid greenyellow;
-            font-style: normal;
+            color: var(--text);
+            background: var(--surface);
             font-weight: bold;
-            width: 100px;
-            height: 50px;
-            font-size: 12px;
-            padding: 0;
-            /* Ensure no extra padding */
-            display: inline-flex;
-            justify-content: center;
-            /* Centers text horizontally */
+            min-height: 44px;
+            padding: 8px 12px;
+            transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+        }
+
+        button:hover,
+        button:focus-visible {
+            background: var(--accent-soft);
+            border-color: #d9ff8b;
+            outline: none;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #button-container {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
             align-items: center;
-            /* Centers text vertically */
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 10px max(16px, calc((100vw - 1180px) / 2)) 10px 76px;
+            background: rgba(5, 7, 5, 0.94);
+            border-bottom: 1px solid rgba(184, 245, 66, 0.25);
+            backdrop-filter: blur(10px);
+        }
+
+        #button-container button {
+            width: 44px;
+            min-height: 40px;
+            padding: 6px;
+            font-size: 0.72rem;
+        }
+
+        #button-container .top-action {
+            width: 44px;
+            min-height: 40px;
+        }
+
+        #button-container .content-toggle {
+            color: #858b86;
+            border-color: #626862;
+        }
+
+        #button-container .content-toggle.is-active {
+            color: #ffffff;
+            border-color: #ffffff;
+        }
+
+        .icon-clear {
+            width: 19px;
+            height: 19px;
+        }
+
+        .icon-clear::before,
+        .icon-clear::after {
+            position: absolute;
+            top: 8px;
+            left: 1px;
+            width: 18px;
+            height: 3px;
+            border-radius: 2px;
+            background: #e63946;
+            content: "";
+        }
+
+        .icon-clear::before {
+            transform: rotate(45deg);
+        }
+
+        .icon-clear::after {
+            transform: rotate(-45deg);
+        }
+
+        .icon-random {
+            width: 19px;
+            height: 17px;
+            border-top: 2px solid currentColor;
+            border-bottom: 2px solid currentColor;
+            transform: skewY(-25deg);
+        }
+
+        .icon-random::before,
+        .icon-random::after {
+            position: absolute;
+            right: -1px;
+            width: 6px;
+            height: 6px;
+            border-top: 2px solid currentColor;
+            border-right: 2px solid currentColor;
+            content: "";
+        }
+
+        .icon-random::before {
+            top: -5px;
+            transform: rotate(45deg);
+        }
+
+        .icon-random::after {
+            bottom: -5px;
+            transform: rotate(45deg);
+        }
+
+        .icon-tafsir {
+            width: 19px;
+            height: 19px;
+            border: 1.5px solid currentColor;
+            border-radius: 50%;
+        }
+
+        .icon-tafsir::before,
+        .icon-tafsir::after {
+            position: absolute;
+            content: "";
+        }
+
+        .icon-tafsir::before {
+            top: 3px;
+            left: 4px;
+            width: 8px;
+            height: 10px;
+            border-right: 1px solid currentColor;
+            border-left: 1px solid currentColor;
+            border-radius: 50%;
+        }
+
+        .icon-tafsir::after {
+            top: 8px;
+            left: 2px;
+            width: 12px;
+            border-top: 1px solid currentColor;
+        }
+
+        .icon-english {
+            color: var(--accent);
+            font-family: Arial, sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0;
         }
 
         #nav {
-            margin-top: 0px;
-            left: calc(50% - 150px);
-            /* float: left; */
-            width: 300px;
+            position: fixed;
+            z-index: 20;
+            top: 82px;
+            left: 50%;
+            width: min(880px, calc(100vw - 40px));
+            max-height: calc(100vh - 98px);
+            overflow-y: auto;
+            transform: translateX(-50%);
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(auto-fill, minmax(50px, 1fr));
-            grid-gap: 1px;
-            justify-content: start;
-            align-content: start;
-            transition: all 0.5s ease;
-            position: absolute;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 8px;
+            padding: 16px;
+            background: var(--surface);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+            scrollbar-color: #718f2d var(--surface);
+            scrollbar-width: thin;
+        }
+
+        #nav::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #nav::-webkit-scrollbar-track {
+            margin: 10px 0;
+            border-radius: 10px;
+            background: #080b08;
+        }
+
+        #nav::-webkit-scrollbar-thumb {
+            min-height: 42px;
+            border: 2px solid var(--surface);
+            border-radius: 10px;
+            background: #718f2d;
+        }
+
+        #nav::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        #nav-backdrop {
+            position: fixed;
+            z-index: 19;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.66);
+            backdrop-filter: blur(3px);
+        }
+
+        .nav-header {
+            display: flex;
+            grid-column: 1 / -1;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 0 2px 8px;
+            border-bottom: 1px solid rgba(184, 245, 66, 0.25);
+            color: var(--accent);
+            font-size: 1.1rem;
+        }
+
+        #nav-close {
+            width: 40px;
+            min-height: 36px;
+            padding: 4px;
+            color: var(--muted);
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        #nav .surah {
+            min-height: 46px;
+            padding: 8px 6px;
+            font-size: 0.9rem;
         }
 
         #show-nav {
-            position: fixed;
-            left: 2px;
-            top: 5px
+            z-index: 11;
+            left: 16px;
+            top: 10px;
+            width: 52px;
+            min-height: 44px;
+            padding: 6px;
+            font-size: 0.72rem;
         }
 
-        #search-bar::placeholder {
-            color: #999;
-            direction: rtl;
+        .icon-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .icon {
+            position: relative;
+            display: inline-block;
+            flex: 0 0 auto;
+            color: currentColor;
+        }
+
+        .icon-book {
+            width: 20px;
+            height: 17px;
+            border: 1.5px solid currentColor;
+            border-radius: 2px 3px 3px 2px;
+            transform: skewY(-3deg);
+        }
+
+        .icon-book::before {
+            position: absolute;
+            top: -1.5px;
+            left: 50%;
+            width: 1.5px;
+            height: calc(100% + 3px);
+            background: currentColor;
+            content: "";
+            transform: translateX(-50%);
+        }
+
+        .icon-search {
+            width: 17px;
+            height: 17px;
+            border: 2px solid currentColor;
+            border-radius: 50%;
+        }
+
+        .icon-search::after {
+            position: absolute;
+            right: -5px;
+            bottom: -3px;
+            width: 7px;
+            height: 2px;
+            border-radius: 2px;
+            background: currentColor;
+            content: "";
+            transform: rotate(45deg);
+            transform-origin: left center;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        #main {
+            width: min(100% - 32px, 1180px);
+            margin: 0 auto;
+        }
+
+        #home {
+            padding: clamp(28px, 7vw, 72px) 16px 20px;
+            text-align: center;
 
         }
 
-        #search-results div {
-            background-color: #111;
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid greenyellow;
+        #home h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            color: var(--text);
             border-radius: 8px;
         }
 
+        .search-panel {
+            width: min(100%, 760px);
+            margin: 0 auto;
+        }
+
+        .search-controls {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        #search-bar {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 14px;
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            background: var(--surface);
+            color: var(--text);
+            direction: rtl;
+            font-size: 1.1rem;
+        }
+
+        #search-bar::placeholder {
+            color: var(--muted);
+            direction: rtl;
+        }
+
+        #search-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 112px;
+        }
+
+        #search-results {
+            padding: 20px 0;
+        }
+
+        #search-results>div {
+            margin-bottom: 10px;
+            padding: 14px 16px;
+            background: var(--surface);
+            border: 1px solid rgba(184, 245, 66, 0.48);
+            border-radius: 8px;
+            transition: background-color 160ms ease, border-color 160ms ease;
+        }
+
+        #search-results>div:hover {
+            background: var(--surface-raised);
+            border-color: var(--accent);
+        }
+
+        #search-results h4 {
+            margin: 0 0 8px;
+            color: var(--accent);
+        }
+
+        #search-results p {
+            margin: 8px 0 0;
+            line-height: 1.8;
+        }
+
+        #maincontent {
+            width: min(100% - 32px, 980px);
+            margin: 16px auto 64px;
+            text-align: right;
+        }
+
+        #maincontent>h3:first-child {
+            margin: 0 0 18px;
+            color: var(--accent);
+            font-size: clamp(1.4rem, 3vw, 2rem);
+        }
+
+        #maincontent h2 {
+            margin: 24px 0 8px;
+            color: var(--text) !important;
+            font-size: clamp(1.35rem, 3vw, 2rem);
+            font-weight: normal;
+            line-height: 2;
+        }
+
+        #maincontent h3 {
+            margin: 8px 0;
+            color: var(--muted) !important;
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            font-weight: normal;
+            line-height: 1.9;
+        }
+
         mark {
-            background-color: yellow;
-            color: black;
+            background: #e6f95b;
+            color: #101510;
             font-weight: bold;
+        }
+
+        @media (max-width: 700px) {
+            #button-container {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                padding: 10px 12px 10px 76px;
+            }
+
+            #button-container button {
+                font-size: 0.68rem;
+            }
+
+            #nav {
+                top: 178px;
+                width: calc(100vw - 20px);
+                max-height: calc(100vh - 194px);
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 6px;
+                padding: 12px;
+            }
+
+            .nav-header {
+                font-size: 1rem;
+            }
+
+            #nav .surah {
+                min-height: 44px;
+                font-size: 0.78rem;
+            }
+
+            #main,
+            #maincontent {
+                width: min(100% - 20px, 980px);
+            }
+
+            #home {
+                padding-top: 34px;
+            }
+
+            .search-controls {
+                flex-direction: column;
+            }
+
+            #search-button {
+                flex-basis: auto;
+                width: 100%;
+            }
+
+            #maincontent h2 {
+                line-height: 1.8;
+            }
         }
     </style>
 
@@ -104,41 +525,73 @@
 
 <body>
     <div id="button-container">
-        <button id="random-button" style="color: gray;">RANDOM AYAH</button>
-        <button id="randomSurah-button" style="color: gray;">RANDOM SURAH</button>
-        <button id="clear-button" style="color: gray;">CLEAR</button>
-        <button id="toggle-tafsir">HIDE TAFSIR</button>
-        <button id="toggle-english">HIDE ENGLISH</button>
-        <button id="show-nav">NAV</button>
+        <button id="random-button" class="icon-button top-action" type="button" aria-label="Random ayah"
+            title="Random ayah">
+            <i class="fas fa-shuffle" aria-hidden="true"> آيه </i>
+            <span class="sr-only">RANDOM AYAH</span>
+        </button>
+        <button id="randomSurah-button" class="icon-button top-action" type="button" aria-label="Random surah"
+            title="Random surah">
+            <i class="fas fa-shuffle" aria-hidden="true"> سوره</i>
+            <span class="sr-only">RANDOM SURAH</span>
+        </button>
+        <button id="clear-button" class="icon-button top-action" type="button" aria-label="Clear" title="Clear">
+            <span class="icon icon-clear" aria-hidden="true"></span>
+            <span class="sr-only">CLEAR</span>
+        </button>
+        <button id="toggle-tafsir" class="icon-button top-action content-toggle is-active" type="button"
+            aria-label="Hide Tafsir" aria-pressed="true" title="Hide Tafsir">
+            <span class="icon icon-tafsir" aria-hidden="true"></span>
+            <span class="sr-only">HIDE TAFSIR</span>
+        </button>
+        <button id="toggle-english" class="icon-button top-action content-toggle is-active" type="button"
+            aria-label="Hide English" aria-pressed="true" title="Hide English">
+            <span class="icon icon-english" aria-hidden="true">EN</span>
+            <span class="sr-only">HIDE ENGLISH</span>
+        </button>
+        <button id="show-nav" class="icon-button" type="button" aria-label="Open surah navigation"
+            title="Open surah navigation">
+            <span class="icon icon-book" aria-hidden="true"></span>
+            <span class="sr-only">NAV</span>
+        </button>
     </div>
 
+    <div id="nav-backdrop" hidden></div>
+
     <div id="nav" style="display: none;">
-
-
+        <div class="nav-header">
+            <span>~</span>
+            <button id="nav-close" type="button" aria-label="Close surah navigation" title="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
 
     <div id="main">
         <header id="home">
-            <h1 style="font-size: 40px; text-align: center;color: rgb(255, 255, 255);">
+            <h1>
                 <span>القرآن الكريم</span>
             </h1>
         </header>
 
         <!-- Search Bar -->
-        <div style="padding: 10px; width: 90%; margin: 0 auto;">
-            <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..."
-                style="width: 100%; padding: 12px; font-size: 18px; border-radius: 8px; border: 2px solid greenyellow; background-color: black; color: white;">
+        <div class="search-panel">
+            <div class="search-controls">
+                <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم...">
+                <button id="search-button" class="icon-button" type="button" aria-label="Search" title="Search">
+                    <span class="icon icon-search" aria-hidden="true"></span>
+                    <span class="sr-only">SEARCH</span>
+                </button>
+            </div>
         </div>
 
         <!-- Search Results -->
-        <div id="search-results" style="padding: 10px;"></div>
+        <div id="search-results"></div>
     </div>
 
-    <h2>
-        <div id='maincontent'>
+    <div id='maincontent'>
 
-        </div>
-    </h2>
+    </div>
     <script src="index.js"></script>
 </body>
 

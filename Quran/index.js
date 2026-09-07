@@ -66,6 +66,8 @@ function initializePage() {
     randomSurahButton = document.getElementById("randomSurah-button");
     clearButton = document.getElementById('clear-button');
     var list = document.getElementById("nav");
+    var navBackdrop = document.getElementById("nav-backdrop");
+    var closeNav = document.getElementById("nav-close");
     var toggleTafsirButton = document.getElementById("toggle-tafsir"); // Get the toggle button
     var toggleEnglishButton = document.getElementById("toggle-english"); // Get the toggle button
 
@@ -74,8 +76,12 @@ function initializePage() {
         showTafsir = !showTafsir;
 
 
-        // Optionally, update the button text to reflect the current state
-        toggleTafsirButton.innerText = showTafsir ? "HIDE TAFSIR" : "SHOW TAFSIR";
+        const tafsirLabel = showTafsir ? "HIDE TAFSIR" : "SHOW TAFSIR";
+        toggleTafsirButton.querySelector('.sr-only').innerText = tafsirLabel;
+        toggleTafsirButton.setAttribute('aria-label', tafsirLabel);
+        toggleTafsirButton.setAttribute('aria-pressed', showTafsir);
+        toggleTafsirButton.classList.toggle('is-active', showTafsir);
+        toggleTafsirButton.title = tafsirLabel;
 
         // Re-render the content based on the new visibility state
         if (selectedSurah !== null) {
@@ -86,8 +92,12 @@ function initializePage() {
         // Toggle the visibility flags
         showEnglish = !showEnglish;
 
-        // Optionally, update the button text to reflect the current state
-        toggleEnglishButton.innerText = showEnglish ? "HIDE ENGLISH" : "SHOW ENGLISH";
+        const englishLabel = showEnglish ? "HIDE ENGLISH" : "SHOW ENGLISH";
+        toggleEnglishButton.querySelector('.sr-only').innerText = englishLabel;
+        toggleEnglishButton.setAttribute('aria-label', englishLabel);
+        toggleEnglishButton.setAttribute('aria-pressed', showEnglish);
+        toggleEnglishButton.classList.toggle('is-active', showEnglish);
+        toggleEnglishButton.title = englishLabel;
 
         // Re-render the content based on the new visibility state
         if (selectedSurah !== null) {
@@ -105,10 +115,24 @@ function initializePage() {
     showNav.addEventListener('click', function () {
         if (list.style.display == 'none') {
             list.style.display = 'grid';
+            navBackdrop.hidden = false;
+            showNav.setAttribute('aria-expanded', 'true');
             SurahText.innerHTML = '';
         } else {
             list.style.display = 'none';
+            navBackdrop.hidden = true;
+            showNav.setAttribute('aria-expanded', 'false');
         }
+    });
+
+    closeNav.addEventListener('click', function () {
+        list.style.display = 'none';
+        navBackdrop.hidden = true;
+        showNav.setAttribute('aria-expanded', 'false');
+    });
+
+    navBackdrop.addEventListener('click', function () {
+        closeNav.click();
     });
 
     // Random Ayah button functionality
@@ -169,10 +193,11 @@ var selectedSurah = null; // Variable to track selected Surah
 
 function setupSearchBar() {
     const searchBar = document.getElementById('search-bar');
+    const searchButton = document.getElementById('search-button');
     const resultsContainer = document.getElementById('search-results');
 
-    searchBar.addEventListener('input', function () {
-        const query = this.value.trim().toLowerCase();
+    function performSearch() {
+        const query = searchBar.value.trim().toLowerCase();
         resultsContainer.innerHTML = ''; // Clear previous results
 
         if (query.length < 2) return; // Avoid overly short searches
@@ -197,8 +222,8 @@ function setupSearchBar() {
                         const highlightedAyahText = highlightMatch(cleanAyahText, query);
 
                         const result = document.createElement('div');
-                        result.style.padding = '10px';
-                        result.style.borderBottom = '1px solid #ccc';
+                        result.style.cursor = 'pointer';
+                        result.addEventListener('click', () => navigateToAyah(s, a));
                         result.innerHTML = `
                            <h4>${surahName} [${a + 1}:${s + 1}]</h4>
                         <p style="color: white;">${highlightedAyahText}</p>` +
@@ -223,8 +248,8 @@ function setupSearchBar() {
                     const highlightedAyahText = highlightMatch(cleanAyahText, query);
 
                     const result = document.createElement('div');
-                    result.style.padding = '10px';
-                    result.style.borderBottom = '1px solid #ccc';
+                    result.style.cursor = 'pointer';
+                    result.addEventListener('click', () => navigateToAyah(s, a));
                     result.innerHTML = `
                         <h4>${surahName} [${a + 1}:${s + 1}]</h4>
                         <p style="color: white;">${highlightedAyahText}</p>` +
@@ -237,6 +262,13 @@ function setupSearchBar() {
 
         if (matchCount === 0) {
             resultsContainer.innerHTML = '<p>No results found.</p>';
+        }
+    }
+
+    searchButton.addEventListener('click', performSearch);
+    searchBar.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+            performSearch();
         }
     });
 }
@@ -251,7 +283,14 @@ function selectSurah(surahIndex) {
 // Reset the search to search the entire Quran
 function clearSurahSelection() {
     selectedSurah = null;  // Clear the selected surah
-    document.getElementById('search-bar').dispatchEvent(new Event('input')); // Trigger search based on the new state
+}
+
+function navigateToAyah(surahIndex, ayahIndex) {
+    ViewSurah(surahIndex);
+    const ayah = document.getElementById(`ayah-${surahIndex}-${ayahIndex}`);
+    if (ayah) {
+        ayah.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 function highlightMatch(text, query) {
     // Step 1: Escape the query to make it safe for regex
@@ -303,10 +342,12 @@ setTimeout(function () {
 function ViewSurah(index) {
     selectSurah(index);
     document.getElementById("nav").style.display = 'none';
+    document.getElementById("nav-backdrop").hidden = true;
+    document.getElementById("show-nav").setAttribute('aria-expanded', 'false');
     SurahText.innerHTML = "<h3>" + surasTashkeel[index].getAttribute('name') + " [" + (index + 1) + "]" + "</h3>";
     SurahText.innerHTML += '<h3 style="text-align: center;">' + surasTashkeel[0].children[0].getAttribute('text') + '</h3>';
     for (var a = 0; a < surasTashkeel[index].children.length; a++)
-        SurahText.innerHTML += '<h2 style="color: white; ">  ' + surasTashkeel[index].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
+        SurahText.innerHTML += '<h2 id="ayah-' + index + '-' + a + '" style="color: white; ">  ' + surasTashkeel[index].children[a].getAttribute('text') + " { " + (a + 1) + " } " + '</h2>'
             + (showTafsir ? '<h3 style="color: gray;">' + surasTafsirJalalyn[index].children[a].getAttribute('text') + "</h3>" : '')
             + (showEnglish ? "<h3 style='direction: ltr; color: gray;'>" + surasEnglish[index].children[a].getAttribute('text') + "</h3>" : '')
             + '<br>';

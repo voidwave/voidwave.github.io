@@ -1,9 +1,9 @@
 const youtubeProjectData = [
-    // {
-    //     title: 'Al-Quran.js',
-    //     imageUrl: 'img/JavaScript-logo.png',
-    //     iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>'
-    // },
+    {
+        title: 'Al-Quran.js',
+        imageUrl: 'img/quran.png',
+        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>'
+    },
     // {
     //     title: 'Quran Scroll',
     //     imageUrl: 'img/quran.png',

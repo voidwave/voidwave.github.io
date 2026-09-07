@@ -277,7 +277,7 @@ function normalizeArabic(text) {
     return (text || '')
         .toLowerCase()
         .replace(/[أإآٱى]/g, 'ا')
-        .replace(/ئ/g, 'ء')
+        .replace(/[ئؤ]/g, 'ء')
         .replace(/ة/g, 'ه');
 }
 

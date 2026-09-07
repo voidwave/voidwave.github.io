@@ -1,7 +1,7 @@
 :root {
     color-scheme: dark;
     --accent: lab(64.67% -65.51 62.29);
-    --accent-soft: #a7edc21a;
+    --accent-soft: lab(64.67% -65.51 62.29 / 10%);
     --text: #e9eeea;
     --muted: #9ca6a1;
     --line: #ffffff12;
@@ -126,8 +126,8 @@ input {
 }
 
 body[data-accent="ice"] {
-    --accent: #a9d5f4;
-    --accent-soft: #a9d5f41a;
+    --accent: #f46b6b;
+    --accent-soft: #f46b6b1a;
 }
 
 .wallpaper {
@@ -156,6 +156,11 @@ body[data-accent="ice"] {
     color: #8fb34d;
     background: #101810;
     font-size: 28px;
+}
+
+body[data-accent="ice"][data-wallpaper="dither"] .wallpaper iframe,
+body[data-accent="ice"] .dither-preview {
+    filter: grayscale(1) brightness(0.4) sepia(1) saturate(6) hue-rotate(-45deg) saturate(4);
 }
 
 body[data-wallpaper="matrix"] .wallpaper,
@@ -1302,6 +1307,14 @@ body[data-wallpaper="grid"] .wallpaper,
     height: 20px;
     border-radius: 50%;
     background: var(--tile-bg);
+}
+
+.swatch.red {
+    --tile-bg: #f46b6b;
+}
+
+.swatch.green {
+    --tile-bg: lab(64.67% -65.51 62.29);
 }
 
 .setting-toggle {

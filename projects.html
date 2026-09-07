@@ -1,41 +1,38 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>voidwave Projects</title>
-    <link rel="stylesheet" href="styles/projects.css">
-    <!-- Add Font Awesome link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1c201f">
+    <title>Project Archive / voidwave</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="styles/experiments.css">
 </head>
 
-<body>
-    <!-- Back button might not be needed here anymore, or could go back to index.html -->
-    <!-- <div class="top-panel">
-        <button id="backButton">Back</button>
-    </div> -->
-
-    <div id="Files">
-        <!-- Folder Icon for YouTube Projects -->
-        <a href="youtube_projects.html" class="folder-link">
-            <div class="folder-icon">
-                <i class="fa fa-folder"></i> <!-- Using Font Awesome folder icon -->
-                <p>YouTube Projects</p>
-            </div>
-        </a>
-
-        <!-- Folder Icon for Other Projects -->
-        <a href="demos_projects.html" class="folder-link">
-            <div class="folder-icon">
-                <i class="fa fa-folder"></i> <!-- Using Font Awesome folder icon -->
-                <p>Demo Projects</p>
-            </div>
-        </a>
-    </div>
-
-    <!-- Remove the View div as it's not needed on this page anymore -->
-    <!-- <div id="View"></div> -->
-
-    <!-- Remove script link as the JS logic moves to the sub-pages -->
-    <!-- <script src="scripts/projects.js"></script> -->
+<body data-library="archive">
+    <header class="experiments-toolbar">
+        <button id="backButton" class="experiment-control" title="Back to archive" aria-label="Back to archive"
+            disabled><i class="hn hn-arrow-left" aria-hidden="true"></i></button>
+        <div class="experiments-path"><i class="hn hn-folder" aria-hidden="true"></i><span>archive <span
+                    id="current-project"></span></span></div>
+        <a id="open-project" class="experiment-control" target="_blank" rel="noopener noreferrer"
+            title="Open in browser" aria-label="Open in browser" hidden><i class="hn hn-external-link"
+                aria-hidden="true"></i></a>
+    </header>
+    <main id="experiment-library">
+        <div class="experiments-heading">
+            <h1>Project Archive</h1><span id="project-count"></span>
+        </div>
+        <div id="Files" class="experiment-grid" aria-label="Project collections"></div>
+    </main>
+    <section id="experiment-view" aria-label="Open collection" hidden></section>
+    <footer class="experiments-status"><span class="status-dot"></span><span id="experiment-status"
+            role="status">voidwave / archive</span></footer>
+    <script src="scripts/project-library.js"></script>
 </body>
 
 </html>

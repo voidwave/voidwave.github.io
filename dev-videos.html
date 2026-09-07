@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1c201f">
+    <title>Dev Videos / voidwave</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="styles/experiments.css">
+    <link rel="stylesheet" href="styles/dev-videos.css">
+    <script src="scripts/dev-videos.js" defer></script>
+</head>
+
+<body>
+    <header class="experiments-toolbar">
+        <div class="experiments-path"><i class="hn hn-youtube" aria-hidden="true"></i><span>dev videos <span
+                    class="muted">/ playlist</span></span></div>
+        <a class="playlist-link" href="https://www.youtube.com/playlist?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq"
+            target="_blank" rel="noopener noreferrer">YouTube <i class="hn hn-external-link" aria-hidden="true"></i></a>
+    </header>
+    <main class="playlist-layout">
+        <section class="watch-panel" aria-label="Video player">
+            <div class="player-stage">
+                <div id="playlist-player"></div>
+            </div>
+            <div class="now-playing"><span class="eyebrow">NOW PLAYING</span>
+                <h1 id="video-title">Dev Videos</h1>
+                <p id="player-status" role="status">Loading playlist...</p>
+            </div>
+            <p id="player-error" class="player-error" role="alert" hidden></p>
+        </section>
+        <section class="playlist-panel" aria-label="Playlist videos">
+            <header class="queue-heading">
+                <h2>Playlist</h2><span id="playlist-count"></span>
+            </header>
+            <p id="queue-status" class="queue-status" role="status">Loading videos...</p>
+            <ol id="playlist-queue" class="playlist-queue"></ol>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,104 +1,83 @@
-const youtubeProjectData = [
-    {
-        title: 'Al-Quran.js',
-        imageUrl: 'img/quran.png',
-        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/index.html"></iframe>'
-    },
-    // {
-    //     title: 'Quran Scroll',
-    //     imageUrl: 'img/quran.png',
-    //     iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="Quran/quran.html"></iframe>'
-    // },
-    {
-        title: 'Prime Jinn Sandbox (2017)',
-        imageUrl: 'img/voidwave_RGB.png',
-        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="primejinn/index.html"></iframe>'
-    },
-    {
-        title: 'AI PRERENDERED BACKGROUNDS (2024)',
-        imageUrl: 'img/voidwave-white-qr-code.png',
-        iframeContent: '<iframe style="width:100%; height:100%; border: none;" src="genai-webgpu/index.html"></iframe>'
-    },
-    {
-        title: 'JINNI MUSHA [GAMEJAM] (2026)',
-        imageUrl: 'img/itchio.png',
-        iframeContent: '<iframe frameborder="0" src="https://itch.io/embed-upload/19005599?color=000000" allowfullscreen="" width="1280" height="720"><a href="https://voidwave.itch.io/jinnimusha">Play Jinni Musha on itch.io</a></iframe>'
-    },
-    {
-        title: 'GAMEJAMS ITCH.IO',
-        imageUrl: 'img/itchio.png',
-        externalLink: 'https://voidwave.itch.io'
-    },
+const experimentData = [
+    { title: 'Al-Quran.js', detail: 'Quran reader', image: 'img/quran.png', color: 'mint', src: 'Quran/index.html' },
+    { title: 'Prime Jinn', detail: 'Sandbox / 2017', icon: 'robot', color: 'gold', src: 'primejinn/index.html' },
+    { title: 'AI Backgrounds', detail: 'WebGPU / 2024', icon: 'image', color: 'blue', src: 'genai-webgpu/index.html' },
+    { title: 'Jinni Musha', detail: 'Game jam / 2026', icon: 'sparkles', color: 'coral', src: 'https://itch.io/embed-upload/19005599?color=151a18', url: 'https://voidwave.itch.io/jinnimusha' },
+    { title: 'Game Jams', detail: 'itch.io', image: 'img/itchio.png', color: 'graphite', external: 'https://voidwave.itch.io' }
 ];
 
 const filesContainer = document.getElementById('Files');
-// const view = document.getElementById('View'); // Remove reference to view
-//const backButton = document.getElementById('backButton');
+const library = document.getElementById('experiment-library');
+const view = document.getElementById('experiment-view');
+const backButton = document.getElementById('backButton');
+const openLink = document.getElementById('open-project');
+const currentProject = document.getElementById('current-project');
+const statusText = document.getElementById('experiment-status');
+let activeIndex = null;
 
-// Function to generate project icons
-function renderProjectIcons(projects) {
-    filesContainer.innerHTML = ''; // Clear existing content
-    filesContainer.style.display = 'grid'; // Ensure grid display for icons
-    // Add a class for styling the icon grid view if preferred
-    // filesContainer.classList.remove('iframe-view');
-    // filesContainer.classList.add('icon-grid-view');
-
-    projects.forEach((project, index) => {
-        const projectIcon = document.createElement('div');
-        projectIcon.className = 'project-icon';
-        projectIcon.style.backgroundImage = `url('${project.imageUrl}')`;
-
-        const titleElement = document.createElement('p');
-        titleElement.textContent = project.title;
-        projectIcon.appendChild(titleElement);
-
-        projectIcon.addEventListener('click', () => {
-            const project = projects[index];
-            if (project.externalLink) {
-                window.open(project.externalLink, '_blank');
-            } else {
-                openProject(index);
-            }
-        }, false);
-        filesContainer.appendChild(projectIcon);
-    });
+function syncTheme() {
+    try {
+        const settings = JSON.parse(localStorage.getItem('voidwave.desktop'));
+        document.body.dataset.accent = settings?.accent === 'ice' ? 'ice' : 'mint';
+        document.body.classList.toggle('reduce-motion', settings?.motion === false);
+    } catch { }
 }
 
-// Function to open a project directly in the #Files container
 function openProject(index) {
-    if (index >= 0 && index < youtubeProjectData.length) {
-        filesContainer.innerHTML = youtubeProjectData[index].iframeContent; // Load iframe into #Files
-        filesContainer.style.display = 'block'; // Change display for single iframe
-        // Add a class for styling the iframe view if preferred
-        // filesContainer.classList.remove('icon-grid-view');
-        // filesContainer.classList.add('iframe-view');
-
-        // Make the iframe fill the container (adjust height as needed)
-        const iframe = filesContainer.querySelector('iframe');
-        if (iframe) {
-            iframe.style.width = '100%';
-            iframe.style.height = 'calc(100vh - 40px)'; // Example: Adjust based on top panel height
-            // Or set height relative to parent: iframe.style.height = '100%';
-            // Requires #Files to have a defined height when in this mode.
-        }
-
-        //backButton.style.display = 'block'; // Show the specific back button
-    } else {
-        console.error('Invalid project index:', index);
-    }
+    const project = experimentData[index];
+    if (!project || project.external) return;
+    activeIndex = index;
+    const frame = document.createElement('iframe');
+    frame.title = project.title;
+    frame.src = project.src;
+    frame.allow = 'autoplay; fullscreen; gamepad';
+    frame.addEventListener('load', () => {
+        if (activeIndex === index) statusText.textContent = project.detail;
+    });
+    view.replaceChildren(frame);
+    view.hidden = false;
+    library.hidden = true;
+    backButton.disabled = false;
+    currentProject.textContent = `/ ${project.title}`;
+    openLink.href = project.url || project.src;
+    openLink.hidden = false;
+    statusText.textContent = `Opening ${project.title}...`;
+    backButton.focus();
 }
 
-// Function to close the project view and show the icon list again
 function closeProject() {
-    // Re-render the icons
-    renderProjectIcons(youtubeProjectData);
-    //backButton.style.display = 'none'; // Hide the specific back button
+    const previousIndex = activeIndex;
+    activeIndex = null;
+    view.replaceChildren();
+    view.hidden = true;
+    library.hidden = false;
+    backButton.disabled = true;
+    openLink.hidden = true;
+    openLink.removeAttribute('href');
+    currentProject.textContent = '';
+    statusText.textContent = 'voidwave / experiments';
+    if (previousIndex !== null) filesContainer.children[previousIndex]?.focus();
 }
 
-// Initial setup
-// view.style.display = 'none'; // Remove view logic
-// backButton.style.display = 'none'; // Hide the back button initially
-// backButton.addEventListener('click', closeProject, false);
+experimentData.forEach((project, index) => {
+    const tile = document.createElement(project.external ? 'a' : 'button');
+    tile.className = 'experiment-app';
+    if (project.external) {
+        tile.href = project.external;
+        tile.target = '_blank';
+        tile.rel = 'noopener noreferrer';
+        tile.setAttribute('aria-label', `${project.title} (opens in a new tab)`);
+        tile.title = 'Open on itch.io';
+    } else {
+        tile.type = 'button';
+        tile.addEventListener('click', () => openProject(index));
+    }
+    const artwork = project.image ? `<img src="${project.image}" alt="" width="42" height="42">` : `<i class="hn hn-${project.icon}" aria-hidden="true"></i>`;
+    tile.innerHTML = `<span class="app-tile ${project.color}">${artwork}${project.external ? '<i class="hn hn-external-link app-shortcut" aria-hidden="true"></i>' : ''}</span><span class="experiment-name">${project.title}</span><span class="experiment-meta">${project.detail}</span>`;
+    filesContainer.appendChild(tile);
+});
 
-// Render the YouTube project icons on load
-renderProjectIcons(youtubeProjectData); 
+document.getElementById('project-count').textContent = `${experimentData.length} APPS`;
+backButton.addEventListener('click', closeProject);
+addEventListener('storage', syncTheme);
+syncTheme();

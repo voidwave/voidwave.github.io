@@ -4,15 +4,26 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GALLERY</title>
+    <title>Gallery / voidwave</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="../assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="../desktop.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="gallery" id="gallery"></div>
+    <header class="gallery-toolbar">
+        <i class="hn hn-image" aria-hidden="true"></i>
+        <h1>Gallery</h1>
+        <span>ART &amp; SCREENSHOTS</span>
+    </header>
+    <main class="gallery" id="gallery" aria-label="Art and screenshots"></main>
 
     <!-- Zoom overlay -->
     <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" type="button" aria-label="Close image" title="Close image"><i class="hn hn-times"
+                aria-hidden="true"></i></button>
         <img id="lightbox-img" src="" alt="Zoomed Image">
     </div>
 

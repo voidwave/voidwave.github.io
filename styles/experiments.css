@@ -1,0 +1,210 @@
+body {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+}
+
+.experiments-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    min-height: 52px;
+    padding: 5px 12px;
+    background: #151b16;
+    border-bottom: 1px solid var(--line);
+}
+
+.experiment-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    color: var(--accent);
+}
+
+.experiment-control:hover:not(:disabled) {
+    background: var(--accent-soft);
+}
+
+.experiment-control:disabled {
+    opacity: .25;
+}
+
+.experiments-path {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    flex: 1;
+    font: 11px/1.6 var(--mono);
+    color: var(--muted);
+}
+
+.experiments-path>.hn {
+    color: var(--accent);
+}
+
+.experiments-path>span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+#current-project {
+    color: var(--text);
+}
+
+#experiment-library {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    padding: 25px 24px 32px;
+    background-image: linear-gradient(135deg, #ffffff02, transparent 55%);
+}
+
+.experiments-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 25px;
+}
+
+.experiments-heading h1 {
+    font-size: 19px;
+    font-weight: 500;
+}
+
+.experiments-heading>span {
+    color: var(--muted);
+    font: 9px var(--mono);
+    white-space: nowrap;
+}
+
+.experiment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(126px, 1fr));
+    gap: 18px 12px;
+    align-content: start;
+}
+
+.experiment-app {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 0;
+    min-height: 157px;
+    padding: 14px 6px 10px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 150ms, border-color 150ms;
+}
+
+.experiment-app:hover,
+.experiment-app:focus-visible {
+    background: var(--accent-soft);
+    border-color: #a7edc22e;
+}
+
+.experiment-app .app-tile {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    margin-bottom: 13px;
+    position: relative;
+    box-shadow: inset 0 1px 0 #ffffff30, 0 4px 9px #0003;
+}
+
+.experiment-app .app-tile img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+}
+
+.experiment-app .app-tile .hn {
+    font-size: 30px;
+}
+
+.experiment-app .app-tile .app-shortcut {
+    position: absolute;
+    right: -4px;
+    bottom: -4px;
+    background: #17221b;
+    color: var(--accent);
+    border: 1px solid #56665a;
+    border-radius: 3px;
+    font-size: 10px;
+    padding: 4px;
+}
+
+.experiment-name {
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.experiment-meta {
+    font: 9px/1.6 var(--mono);
+    color: var(--muted);
+    margin-top: 4px;
+}
+
+#experiment-view {
+    flex: 1;
+    min-height: 0;
+    background: #0b0e0c;
+}
+
+#experiment-view iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: #0b0e0c;
+}
+
+.experiments-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    min-height: 31px;
+    padding: 8px 18px;
+    border-top: 1px solid var(--line);
+    color: var(--muted);
+    font: 9px/1.5 var(--mono);
+    background: #131814;
+}
+
+@media (max-width: 420px) {
+    #experiment-library {
+        padding: 20px 14px;
+    }
+
+    .experiment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 8px;
+    }
+
+    .experiments-heading {
+        margin-bottom: 15px;
+    }
+
+    .experiments-toolbar {
+        gap: 8px;
+        padding: 4px 8px;
+    }
+
+    .experiments-path {
+        gap: 8px;
+        font-size: 10px;
+    }
+}

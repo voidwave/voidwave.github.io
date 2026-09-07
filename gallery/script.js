@@ -4,6 +4,16 @@ const gallery = document.getElementById('gallery');
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
 
+function syncGalleryTheme() {
+    try {
+        const preferences = JSON.parse(localStorage.getItem('voidwave.desktop'));
+        document.body.dataset.accent = preferences?.accent === 'ice' ? 'ice' : 'mint';
+    } catch { }
+}
+
+addEventListener('storage', syncGalleryTheme);
+syncGalleryTheme();
+
 let images = [];
 let currentIndex = 0;
 

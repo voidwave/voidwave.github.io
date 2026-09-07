@@ -4,25 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Projects</title>
-    <!-- Reusing the same CSS for now -->
-    <link rel="stylesheet" href="styles/projects.css">
-    <!-- Add Font Awesome link if not globally available -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="theme-color" content="#1c201f">
+    <title>YouTube Projects / voidwave</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="desktop.css">
+    <link rel="stylesheet" href="styles/experiments.css">
 </head>
 
-<body>
-    <div class="top-panel">
-        <!-- Consider adding a link back to projects.html or index.html -->
-        <!-- <button onclick="window.location.href='projects.html'">Back to Folders</button>
-        <button id="backButton">Back to Project List</button>  -->
-    </div>
-
-    <div id="Files">
-        <!-- Project icons will be dynamically added here by JavaScript -->
-    </div>
-
-    <script src="scripts/youtube_projects.js"></script>
+<body data-library="youtube">
+    <header class="experiments-toolbar">
+        <button id="backButton" class="experiment-control" title="Back to videos" aria-label="Back to videos"
+            disabled><i class="hn hn-arrow-left" aria-hidden="true"></i></button>
+        <div class="experiments-path"><i class="hn hn-youtube" aria-hidden="true"></i><span>youtube projects <span
+                    id="current-project"></span></span></div>
+        <a id="open-project" class="experiment-control" target="_blank" rel="noopener noreferrer"
+            title="Watch on YouTube" aria-label="Watch on YouTube" hidden><i class="hn hn-external-link"
+                aria-hidden="true"></i></a>
+    </header>
+    <main id="experiment-library">
+        <div class="experiments-heading">
+            <h1>YouTube Projects</h1><span id="project-count"></span>
+        </div>
+        <div id="Files" class="experiment-grid" aria-label="Project videos"></div>
+    </main>
+    <section id="experiment-view" aria-label="Video player" hidden></section>
+    <footer class="experiments-status"><span class="status-dot"></span><span id="experiment-status"
+            role="status">voidwave / youtube projects</span></footer>
+    <script src="scripts/project-library.js"></script>
 </body>
 
 </html>

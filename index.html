@@ -1,68 +1,79 @@
 <!--بسم الله الرحمن الرحيم-->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="manifest" href="Quran/QuranPWA/manifest.json" />
-    <script type="module" crossorigin src="/assets/index-1b251b3b.js"></script>
-    <link rel="stylesheet" href="/assets/index-0bdcf632.css">
-    <title>voidwave</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#171b1b">
+    <meta name="description"
+        content="The personal desktop of Majed Altaemi. Explore games, experiments, and digital worlds by voidwave.">
+    <link rel="icon" href="img/voidwave-512.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="desktop.css">
+    <script src="desktop.js" defer></script>
+    <title>voidwave / Majed Altaemi</title>
 </head>
 
 <body>
-    <div id="root" style="position:fixed;top:0;left:0;width:100vw;height:100vh;border:none; ">
-    </div>
-
-    <!-- TopPanel -->
-    <div class="top-panel">
-        <h1>voidwave</h1>
-        <div>
-            <a href=" mailto:majed@voidwave.com">majed@voidwave.com</a>
-            <!-- <a href="https://twitter.com/majedaltaemi"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.youtube.com/user/majedemon"><i class="fa fa-youtube-square"></i></a> -->
+    <div class="wallpaper" aria-hidden="true"></div>
+    <header class="system-panel">
+        <div class="panel-left">
+            <button id="activities-button" class="panel-button" aria-label="Applications" aria-expanded="false"
+                aria-controls="app-launcher"><i class="fa hn hn-grid"
+                    aria-hidden="true"></i><span>Applications</span></button>
+            <span class="panel-divider"></span>
+            <span class="panel-brand">voidwave<span class="accent">.</span></span>
         </div>
-    </div>
+        <time id="panel-clock" class="panel-clock"></time>
+        <div class="panel-right">
+            <a href="mailto:majed@voidwave.com" class="panel-button" aria-label="Email Majed" title="Email Majed"><i
+                    class="fa hn hn-envelope" aria-hidden="true"></i></a>
+            <button id="settings-button" class="panel-button" aria-label="Desktop settings" title="Desktop settings"><i
+                    class="fa hn hn-cog" aria-hidden="true"></i></button>
+        </div>
+    </header>
 
-    <!-- Window Container -->
-    <div id="window-container"></div>
+    <main id="desktop" aria-label="Portfolio desktop">
+        <div class="desktop-signature">
+            <span class="eyebrow">MAJED ALTAEMI / INDEPENDENT GAME DEVELOPER</span>
+            <h1>voidwave<span>.</span></h1>
+            <p>Games. Experiments. Other worlds.</p>
+        </div>
+        <section class="mobile-clock" aria-label="Date and time">
+            <p id="mobile-date"></p>
+            <div id="mobile-time"></div>
+            <span>MAJED ALTAEMI <span class="accent">/</span> GAME DEVELOPER</span>
+        </section>
+        <nav id="desktop-icons" class="desktop-icons" aria-label="Desktop applications"></nav>
+        <div class="desktop-caption"><span class="status-dot"></span> MAKE ARABIA GREAT AGAIN <span>VOIDWAVE / PERSONAL
+                DESKTOP</span></div>
+        <div id="window-container"></div>
+    </main>
 
-    <!--SidePanel Container-->
-    <div id="side-panel-container" class="side-panel">
-        <!-- Icons will be generated here by JavaScript -->
-    </div>
+    <section id="app-launcher" class="app-launcher" aria-label="Applications" hidden>
+        <div class="launcher-search"><i class="fa hn hn-search" aria-hidden="true"></i><input id="app-search"
+                type="search" placeholder="Search applications" aria-label="Search applications"
+                autocomplete="off"><kbd>Esc</kbd></div>
+        <div class="launcher-heading"><span>APPLICATIONS</span><span id="app-count"></span></div>
+        <div id="launcher-apps" class="launcher-apps"></div>
+        <p id="search-empty" hidden>No applications found.</p>
+        <footer class="launcher-footer"><img src="img/voidwave-512.png" alt=""><span>majed<span
+                    class="muted">@voidwave</span></span><a href="mailto:majed@voidwave.com" title="Email Majed"
+                aria-label="Email Majed"><i class="fa hn hn-envelope" aria-hidden="true"></i></a></footer>
+    </section>
 
-    <!-- Mobile Logo -->
-    <img id="mobile-logo" src="img/voidwave-512.png" alt="Voidwave Logo">
-
-    <!-- Mobile Fullscreen View Container -->
-    <div id="mobile-content-view" style="display: none;">
-        <button id="mobile-back-button">← Back</button>
-        <div id="mobile-content-frame"></div>
-    </div>
-    <script src="index.js"></script>
-
-    <!-- <canvas id="Matrix"></canvas>
-    <script src="background.js"></script>
- -->
-
-
-
-
-
-    <!-- <script>
-        if (/Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent)) {
-            var rootDiv = document.getElementById('root');
-            if (rootDiv) rootDiv.remove();
-        }
-    </script> -->
+    <nav id="dock" class="dock" aria-label="Favorite and running applications"></nav>
+    <noscript>
+        <div class="no-script">Majed Altaemi / voidwave. <a href="projects.html">Explore projects</a> or <a
+                href="mailto:majed@voidwave.com">get in touch</a>. JavaScript enables the desktop experience.</div>
+    </noscript>
 </body>
 
 </html>

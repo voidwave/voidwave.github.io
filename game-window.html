@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1c201f">
+    <title>Game / voidwave</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap">
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
+    <link rel="stylesheet" href="desktop.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            background: var(--surface);
+            overflow: auto;
+        }
+
+        .game-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            flex-wrap: wrap;
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+
+        .game-header h1 {
+            font-size: 24px;
+            font-weight: 500;
+        }
+
+        .game-header p {
+            margin-top: 5px;
+            font: 9px var(--mono);
+            color: var(--muted);
+        }
+
+        .game-header .primary-action {
+            min-height: 44px;
+        }
+
+        .game-trailer {
+            position: relative;
+            flex: 1;
+            min-height: 200px;
+            background: #101410;
+        }
+
+        .game-trailer iframe,
+        .game-trailer video {
+            position: absolute;
+            inset: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            object-fit: contain;
+        }
+
+        .game-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            padding: 10px 20px;
+            border-top: 1px solid var(--line);
+            flex-shrink: 0;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .game-footer a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            min-height: 36px;
+        }
+
+        #trailer-status {
+            padding: 10px 20px;
+            background: var(--surface);
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--muted);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 400px) {
+            .game-header {
+                padding: 14px 12px;
+                gap: 10px;
+            }
+
+            .game-header h1 {
+                font-size: 21px;
+            }
+
+            .game-header .primary-action {
+                padding: 10px 12px;
+            }
+
+            .game-footer {
+                padding: 10px 12px;
+            }
+        }
+    </style>
+    <script src="scripts/game-window.js" defer></script>
+</head>
+
+<body>
+    <header class="game-header">
+        <div>
+            <h1 id="game-title"></h1>
+            <p id="game-category"></p>
+        </div>
+        <a id="game-steam" class="primary-action" target="_blank" rel="noopener noreferrer"><i class="hn hn-steam"
+                aria-hidden="true"></i>View on Steam</a>
+    </header>
+    <main id="game-trailer" class="game-trailer" aria-label="Game trailer"></main>
+    <p id="trailer-status" role="status" hidden></p>
+    <footer class="game-footer"><span id="trailer-caption"></span><a id="trailer-external" target="_blank"
+            rel="noopener noreferrer"><span id="trailer-link-label"></span><i class="hn hn-external-link"
+                aria-hidden="true"></i></a></footer>
+</body>
+
+</html>

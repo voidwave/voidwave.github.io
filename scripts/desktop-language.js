@@ -93,7 +93,7 @@ const desktopLanguage = (() => {
 
     function text(source) {
         const key = source.replace(/\s+/g, ' ');
-        return language === 'ar' && Object.hasOwn(arabic, key) ? arabic[key] : source;
+        return language === 'ar' && Object.prototype.hasOwnProperty.call(arabic, key) ? arabic[key] : source;
     }
 
     function translatedValue(value, previous) {

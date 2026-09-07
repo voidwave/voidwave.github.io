@@ -52,7 +52,12 @@ function updateLiveWallpaper() {
     wallpaper.appendChild(liveFrame);
 }
 
-reducedMotionQuery.addEventListener('change', updateLiveWallpaper);
+function listenForMediaChange(query, listener) {
+    if (typeof query.addEventListener === 'function') query.addEventListener('change', listener);
+    else query.addListener(listener);
+}
+
+listenForMediaChange(reducedMotionQuery, updateLiveWallpaper);
 document.addEventListener('visibilitychange', updateLiveWallpaper);
 
 function icon(name) {
@@ -447,7 +452,7 @@ addEventListener('popstate', () => {
     else syncActiveWindow();
 });
 addEventListener('resize', () => windows.forEach(clampWindow));
-mobileQuery.addEventListener('change', () => {
+listenForMediaChange(mobileQuery, () => {
     toggleLauncher(false);
     if (mobileQuery.matches) closeOtherWindows(activeApp);
     windows.forEach(clampWindow);

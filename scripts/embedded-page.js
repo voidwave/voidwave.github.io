@@ -1,0 +1,1 @@
+document.documentElement.classList.toggle('desktop-embedded', window.self !== window.top);

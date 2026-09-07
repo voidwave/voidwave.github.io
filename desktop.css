@@ -504,6 +504,14 @@ body[data-wallpaper="grid"] .wallpaper,
     border-color: #7c8b777a;
 }
 
+@supports ((backdrop-filter: blur(16px)) or (-webkit-backdrop-filter: blur(16px))) {
+    .app-window {
+        background: #101311cc;
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+    }
+}
+
 .window-titlebar {
     height: 43px;
     flex-shrink: 0;
@@ -511,7 +519,7 @@ body[data-wallpaper="grid"] .wallpaper,
     align-items: center;
     justify-content: space-between;
     padding: 0 8px 0 16px;
-    background: #191e1a;
+    background: #191e1a66;
     border-bottom: 1px solid #0005;
     user-select: none;
     touch-action: none;
@@ -631,7 +639,7 @@ body[data-wallpaper="grid"] .wallpaper,
     display: flex;
     flex-direction: column;
     padding: 20px 9px 12px;
-    background: #131814;
+    background: #13181440;
     border-right: 1px solid var(--line);
     gap: 3px;
 }
@@ -1071,7 +1079,20 @@ body[data-wallpaper="grid"] .wallpaper,
     border: 0;
     flex: 1;
     min-height: 0;
-    background: #111;
+    background: transparent;
+}
+
+:root.desktop-embedded,
+:root.desktop-embedded body,
+:root.desktop-embedded #experiment-view,
+:root.desktop-embedded #experiment-view iframe {
+    background: transparent;
+}
+
+:root.desktop-embedded .experiments-toolbar,
+:root.desktop-embedded .experiments-status,
+:root.desktop-embedded .gallery-toolbar {
+    background: #13181440;
 }
 
 .about-content {
@@ -1250,7 +1271,7 @@ body[data-wallpaper="grid"] .wallpaper,
 .terminal-content {
     padding: 25px;
     font: 12px/1.9 var(--mono);
-    background: #0b100d;
+    background: #0b100d33;
     min-height: 100%;
     overflow-wrap: anywhere;
 }

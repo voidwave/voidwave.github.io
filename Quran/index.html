@@ -12,6 +12,12 @@
     <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada"> -->
     <style>
         @font-face {
+            font-family: 'Amiri Quran';
+            src: url('https://fonts.gstatic.com/s/amiriquran/v19/_Xmo-Hk0rD6DbUL4_vH8Zp5v5i2ssg.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        @font-face {
             font-family: 'Uthmanic';
             src: url('https://voidwave.com/Quran/fonts/uthmanic_hafs_v22.ttf') format('truetype');
             font-weight: normal;
@@ -460,6 +466,14 @@
             font-size: clamp(1rem, 2vw, 1.25rem);
             font-weight: normal;
             line-height: 1.9;
+        }
+
+        .quran-text,
+        #maincontent .quran-text,
+        #search-results .quran-text {
+            font-family: 'Amiri Quran', serif;
+            font-size: 26px;
+            line-height: 2.2;
         }
 
         mark {

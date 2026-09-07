@@ -5,7 +5,7 @@ const apps = [
     { id: 'projects', name: 'Experiments', icon: 'flask', color: 'coral', description: 'Playable demos & projects', src: 'demos_projects.html' },
     { id: 'videos', name: 'Dev Videos', icon: 'youtube-play', color: 'coral', description: 'Development playlist', src: 'dev-videos.html', url: 'https://www.youtube.com/playlist?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq' },
     { id: 'gallery', name: 'Gallery', icon: 'picture-o', color: 'blue', description: 'Art & screenshots', src: 'gallery/index.html' },
-    { id: 'terminal', name: 'Terminal', icon: 'terminal', color: 'graphite', description: 'majed@voidwave: ~' },
+    { id: 'terminal', name: 'Terminal', icon: 'terminal', color: 'graphite', description: 'majed@voidwave.com: ~' },
     { id: 'about', name: 'About Me', icon: 'user-o', color: 'mint', description: 'Majed Altaemi' },
     { id: 'settings', name: 'Settings', icon: 'sliders', color: 'graphite', description: 'Desktop appearance' },
     { id: 'archive', name: 'Project Archive', icon: 'folder', color: 'gold', description: 'All videos & demo projects', src: 'projects.html' },
@@ -22,7 +22,7 @@ const dock = document.getElementById('dock');
 const windows = new Map();
 const favorites = ['portfolio', 'projects', 'videos', 'gallery', 'terminal', 'about'];
 let activeApp = null;
-let preferences = { wallpaper: 'dither', wallpaperVersion: 2, accent: 'mint', motion: true };
+let preferences = { wallpaper: 'dither', wallpaperVersion: 2, accent: 'mint', motion: true, language: 'en' };
 
 try {
     const stored = JSON.parse(localStorage.getItem('voidwave.desktop'));
@@ -83,12 +83,23 @@ function savePreferences() {
     try { localStorage.setItem('voidwave.desktop', JSON.stringify(preferences)); } catch { }
 }
 
+function applyLanguage() {
+    preferences.language = preferences.language === 'ar' ? 'ar' : 'en';
+    desktopLanguage.setLanguage(preferences.language);
+    document.getElementById('language-select').value = preferences.language;
+    desktopLanguage.localize(document.body);
+    renderLauncher();
+    renderDock();
+    updateClock();
+}
+
 function renderLauncher() {
     const search = appSearch.value.trim().toLowerCase();
-    const matches = apps.filter(app => `${app.name} ${app.description}`.toLowerCase().includes(search));
+    const matches = apps.filter(app => `${app.name} ${app.description} ${desktopLanguage.text(app.name)} ${desktopLanguage.text(app.description)}`.toLowerCase().includes(search));
     document.getElementById('launcher-apps').innerHTML = matches.map(app => appButton(app, 'launcher-app')).join('');
-    document.getElementById('app-count').textContent = `${matches.length} apps`;
+    document.getElementById('app-count').textContent = preferences.language === 'ar' ? `التطبيقات: ${matches.length.toLocaleString('ar')}` : `${matches.length} apps`;
     document.getElementById('search-empty').hidden = matches.length > 0;
+    desktopLanguage.localize(launcher);
 }
 
 function toggleLauncher(show = launcher.hidden) {
@@ -107,6 +118,7 @@ function renderDock() {
         const app = apps.find(item => item.id === id);
         return `<button class="dock-button ${windows.has(id) ? 'running' : ''} ${activeApp === id ? 'active' : ''}" data-app="${id}" aria-label="${app.name}" title="${app.name}" aria-pressed="${activeApp === id}"><span class="app-tile ${app.color}">${icon(app.icon)}</span><span class="dock-tooltip">${app.name}</span></button>`;
     }).join('');
+    desktopLanguage.localize(dock);
 }
 
 function focusWindow(id, moveFocus = true) {
@@ -141,6 +153,7 @@ function syncActiveWindow() {
 
 function goHome() {
     toggleLauncher(false);
+    if (mobileQuery.matches) closeOtherWindows();
     if (mobileQuery.matches && history.state?.voidwaveApp) {
         history.back();
         return;
@@ -152,6 +165,15 @@ function goHome() {
 function closeWindow(id) {
     windows.get(id)?.remove();
     windows.delete(id);
+    syncActiveWindow();
+}
+
+function closeOtherWindows(keepId) {
+    windows.forEach((element, id) => {
+        if (id === keepId) return;
+        element.remove();
+        windows.delete(id);
+    });
     syncActiveWindow();
 }
 
@@ -183,6 +205,7 @@ function toggleMaximize(element) {
     button.innerHTML = icon(maximized ? 'window-restore' : 'window-maximize');
     button.title = maximized ? 'Restore window' : 'Maximize window';
     button.setAttribute('aria-label', button.title);
+    desktopLanguage.localize(button);
     if (!maximized) clampWindow(element);
 }
 
@@ -197,7 +220,7 @@ function portfolioContent() {
             <span class="sidebar-label">PERSONAL</span>
             <button data-app="about">${icon('user-o')}<span>About me</span></button>
             <a href="mailto:majed@voidwave.com">${icon('envelope-o')}<span>Get in touch</span></a>
-            <div class="sidebar-bottom">${icon('linux')}<span>majed@voidwave<br><small>personal workspace</small></span></div>
+            <div class="sidebar-bottom">${icon('linux')}<span>majed@voidwave.com<br><small>personal workspace</small></span></div>
         </nav>
         <div class="file-main">
             <div class="file-path">${icon('folder-open-o')}<span>home <span class="muted">/</span> majed <span class="muted">/</span> <b id="folder-name">portfolio</b></span><span class="path-end">${icon('th-large')}</span></div>
@@ -221,7 +244,7 @@ function portfolioContent() {
 }
 
 function aboutContent() {
-    return `<article class="about-content"><img class="about-logo" src="img/voidwave-512.png" alt="voidwave"><span class="eyebrow">THE PERSON BEHIND VOIDWAVE</span><h2>Hi, I'm Majed<span class="accent">.</span></h2><p>I'm an independent game developer. This is my corner of the internet: games, playable experiments, and the things I make along the way.</p><div class="about-facts"><span>NAME<b>Majed Altaemi</b></span><span>FOCUS<b>Game development</b></span></div><a class="primary-action" href="mailto:majed@voidwave.com">${icon('envelope-o')} majed@voidwave.com</a><div class="social-links"><a href="https://store.steampowered.com/app/1746820/" target="_blank" rel="noopener noreferrer">Steam ${icon('external-link')}</a><a href="https://voidwave.itch.io" target="_blank" rel="noopener noreferrer">itch.io ${icon('external-link')}</a><a href="https://x.com/majedaltaemi" target="_blank" rel="noopener noreferrer">Twitter / X ${icon('external-link')}</a><a href="https://www.instagram.com/majedaltaemi/" target="_blank" rel="noopener noreferrer">Instagram ${icon('external-link')}</a><a href="https://www.youtube.com/@majedemon" target="_blank" rel="noopener noreferrer">YouTube ${icon('external-link')}</a><a href="https://www.linkedin.com/in/majed-altaemi/" target="_blank" rel="noopener noreferrer">LinkedIn ${icon('external-link')}</a><a href="https://www.twitch.tv/voidwave" target="_blank" rel="noopener noreferrer">Twitch ${icon('external-link')}</a></div></article>`;
+    return `<article class="about-content"><img class="about-logo" src="img/majedphoto.png" alt="Majed Altaemi"><span class="eyebrow">THE PERSON BEHIND VOIDWAVE</span><h2>Hi, I'm Majed<span class="accent">.</span></h2><p>I'm an independent game developer. This is my corner of the internet: games, playable experiments, and the things I make along the way.</p><div class="about-facts"><span>NAME<b>Majed Altaemi</b></span><span>FOCUS<b>Game development</b></span></div><a class="primary-action" href="mailto:majed@voidwave.com">${icon('envelope-o')} majed@voidwave.com</a><div class="social-links"><a href="https://store.steampowered.com/app/1746820/" target="_blank" rel="noopener noreferrer">Steam ${icon('external-link')}</a><a href="https://voidwave.itch.io" target="_blank" rel="noopener noreferrer">itch.io ${icon('external-link')}</a><a href="https://x.com/majedaltaemi" target="_blank" rel="noopener noreferrer">Twitter / X ${icon('external-link')}</a><a href="https://www.instagram.com/majedaltaemi/" target="_blank" rel="noopener noreferrer">Instagram ${icon('external-link')}</a><a href="https://www.youtube.com/@majedemon" target="_blank" rel="noopener noreferrer">YouTube ${icon('external-link')}</a><a href="https://www.linkedin.com/in/majed-altaemi/" target="_blank" rel="noopener noreferrer">LinkedIn ${icon('external-link')}</a><a href="https://www.twitch.tv/voidwave" target="_blank" rel="noopener noreferrer">Twitch ${icon('external-link')}</a></div></article>`;
 }
 
 function settingsContent() {
@@ -287,6 +310,7 @@ function createWindow(app) {
     element.setAttribute('aria-label', app.name);
     const content = app.id === 'portfolio' ? portfolioContent() : app.id === 'about' ? aboutContent() : app.id === 'settings' ? settingsContent() : app.id === 'terminal' ? terminalContent() : `<div class="embed-view"><div class="embed-toolbar"><span>${app.description}</span><a href="${app.url || app.src}" target="_blank" rel="noopener noreferrer" title="Open in a new tab">Open in browser ${icon('external-link')}</a></div><iframe src="${app.src}" title="${app.name}" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>`;
     element.innerHTML = `<header class="window-titlebar"><button class="mobile-back window-control" data-window-action="back" title="Back" aria-label="Back">${icon('arrow-left')}</button><div class="window-title">${icon(app.icon)}<span>${app.name}</span></div><div class="window-controls"><button class="window-control" data-window-action="minimize" title="Minimize window" aria-label="Minimize window">${icon('minus')}</button><button class="window-control" data-window-action="maximize" title="Maximize window" aria-label="Maximize window">${icon('window-maximize')}</button><button class="window-control close-control" data-window-action="close" title="Close window" aria-label="Close window">${icon('times')}</button></div></header><div class="window-body">${content}</div><div class="resize-handle" aria-hidden="true"></div>`;
+    desktopLanguage.localize(element);
     windowContainer.appendChild(element);
     setInitialBounds(element, app.id);
     element.addEventListener('pointerdown', () => focusWindow(app.id, false));
@@ -326,9 +350,13 @@ function openApp(id, recordHistory = true) {
     const app = apps.find(item => item.id === id);
     if (!app) return;
     toggleLauncher(false);
-    if (app.external) { window.open(app.external, '_blank', 'noopener,noreferrer'); return; }
+    if (app.external) {
+        if (mobileQuery.matches) goHome();
+        window.open(app.external, '_blank', 'noopener,noreferrer');
+        return;
+    }
     if (mobileQuery.matches) {
-        windows.forEach(element => { element.hidden = true; });
+        closeOtherWindows(id);
         if (recordHistory) {
             try {
                 const method = history.state?.voidwaveApp ? 'replaceState' : 'pushState';
@@ -373,12 +401,13 @@ function startWindowGesture(event, element, resizing) {
 
 function updateClock() {
     const now = new Date();
-    const time = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+    const locale = preferences.language === 'ar' ? 'ar' : 'en';
+    const time = now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', hour12: true });
     const panelClock = document.getElementById('panel-clock');
-    panelClock.textContent = `${now.toLocaleDateString([], { month: 'short', day: 'numeric' })}  ${time}`;
+    panelClock.textContent = `${now.toLocaleDateString(locale, { month: 'short', day: 'numeric' })}  ${time}`;
     panelClock.dateTime = now.toISOString();
     document.getElementById('mobile-time').textContent = time;
-    document.getElementById('mobile-date').textContent = now.toLocaleDateString([], { weekday: 'long', month: 'long', day: 'numeric' });
+    document.getElementById('mobile-date').textContent = now.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric' });
 }
 
 document.getElementById('desktop-icons').innerHTML = apps.filter(app => !['settings', 'archive', 'twitter', 'instagram'].includes(app.id)).map(app => appButton(app)).join('');
@@ -395,6 +424,11 @@ document.addEventListener('click', event => {
     if (!launcher.hidden && !event.target.closest('#app-launcher, #activities-button')) toggleLauncher(false);
 });
 activitiesButton.addEventListener('click', () => toggleLauncher());
+document.getElementById('language-select').addEventListener('change', event => {
+    preferences.language = event.target.value;
+    savePreferences();
+    applyLanguage();
+});
 document.getElementById('settings-button').addEventListener('click', () => openApp('settings'));
 appSearch.addEventListener('input', renderLauncher);
 appSearch.addEventListener('keydown', event => {
@@ -407,22 +441,21 @@ document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && !launcher.hidden) { toggleLauncher(false); activitiesButton.focus(); }
 });
 addEventListener('popstate', () => {
-    windows.forEach(element => { element.hidden = true; });
+    if (mobileQuery.matches) closeOtherWindows(history.state?.voidwaveApp);
+    else windows.forEach(element => { element.hidden = true; });
     if (history.state?.voidwaveApp) openApp(history.state.voidwaveApp, false);
     else syncActiveWindow();
 });
 addEventListener('resize', () => windows.forEach(clampWindow));
 mobileQuery.addEventListener('change', () => {
     toggleLauncher(false);
-    if (mobileQuery.matches) windows.forEach((element, id) => { element.hidden = id !== activeApp; });
+    if (mobileQuery.matches) closeOtherWindows(activeApp);
     windows.forEach(clampWindow);
     syncActiveWindow();
 });
 
 applyPreferences();
-renderLauncher();
-renderDock();
-updateClock();
+applyLanguage();
 setInterval(updateClock, 1000);
 const linkedApp = location.hash.slice(1);
 if (apps.some(app => app.id === linkedApp && !app.external)) openApp(linkedApp);

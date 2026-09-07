@@ -13,10 +13,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+Arabic:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="assets/fonts/iconfont.css">
     <link rel="stylesheet" href="desktop.css">
+    <script src="scripts/desktop-language.js" defer></script>
     <script src="desktop.js" defer></script>
     <title>voidwave / Majed Altaemi</title>
 </head>
@@ -33,6 +34,10 @@
         </div>
         <time id="panel-clock" class="panel-clock"></time>
         <div class="panel-right">
+            <select id="language-select" class="language-select" aria-label="Language / اللغة" title="Language / اللغة">
+                <option value="en" lang="en">English</option>
+                <option value="ar" lang="ar">العربية</option>
+            </select>
             <a href="mailto:majed@voidwave.com" class="panel-button" aria-label="Email Majed" title="Email Majed"><i
                     class="fa hn hn-envelope" aria-hidden="true"></i></a>
             <button id="settings-button" class="panel-button" aria-label="Desktop settings" title="Desktop settings"><i

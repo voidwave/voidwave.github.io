@@ -228,6 +228,41 @@ body[data-wallpaper="grid"] .wallpaper,
     gap: 2px;
 }
 
+.language-select {
+    width: 88px;
+    height: 32px;
+    padding: 0 6px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: var(--surface);
+    color: var(--text);
+    font: 12px 'Noto Sans Arabic', var(--font);
+    cursor: pointer;
+}
+
+.language-select:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+:root[lang="ar"] {
+    --font: 'Noto Sans Arabic', sans-serif;
+    --mono: 'Noto Sans Arabic', monospace;
+}
+
+[dir="rtl"] .mobile-back .fa,
+[dir="rtl"] .folder-grid .fa-angle-right {
+    transform: scaleX(-1);
+}
+
+.file-path,
+.terminal-content,
+.panel-brand,
+.primary-action[href^="mailto:"] {
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
 #desktop {
     position: fixed;
     inset: 40px 0 0;
@@ -1102,8 +1137,8 @@ body[data-wallpaper="grid"] .wallpaper,
 }
 
 .about-logo {
-    width: 60px;
-    height: 60px;
+    width: 160px;
+    height: 160px;
     object-fit: contain;
     margin-bottom: 22px;
 }

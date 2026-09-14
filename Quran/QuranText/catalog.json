@@ -1,0 +1,1028 @@
+{
+    "generated":  "2026-09-14",
+    "source":  "https://tanzil.net/trans/",
+    "tafsirs":  [
+                    {
+                        "id":  "ar.jalalayn",
+                        "code":  "ar",
+                        "lang":  "Arabic",
+                        "rtl":  true,
+                        "flag":  "sa",
+                        "name":  "تفسير الجلالين",
+                        "translator":  "Jalal ad-Din al-Mahalli and Jalal ad-Din as-Suyuti *",
+                        "path":  "QuranText/Arabic-Tafsir/ar.jalalayn.xml"
+                    },
+                    {
+                        "id":  "ar.muyassar",
+                        "code":  "ar",
+                        "lang":  "Arabic",
+                        "rtl":  true,
+                        "flag":  "sa",
+                        "name":  "تفسير المیسر",
+                        "translator":  "King Fahad Quran Complex *",
+                        "path":  "QuranText/Arabic-Tafsir/ar.muyassar.xml"
+                    },
+                    {
+                        "id":  "id.jalalayn",
+                        "code":  "id",
+                        "lang":  "Indonesian",
+                        "rtl":  false,
+                        "flag":  "id",
+                        "name":  "Tafsir Jalalayn",
+                        "translator":  "Jalal ad-Din al-Mahalli and Jalal ad-Din as-Suyuti *",
+                        "path":  "QuranText/Translations/id.jalalayn.xml"
+                    }
+                ],
+    "translations":  [
+                         {
+                             "id":  "sq.nahi",
+                             "code":  "sq",
+                             "lang":  "Albanian",
+                             "rtl":  false,
+                             "flag":  "al",
+                             "name":  "Efendi Nahi",
+                             "translator":  "Hasan Efendi Nahi",
+                             "path":  "QuranText/Translations/sq.nahi.xml"
+                         },
+                         {
+                             "id":  "sq.mehdiu",
+                             "code":  "sq",
+                             "lang":  "Albanian",
+                             "rtl":  false,
+                             "flag":  "al",
+                             "name":  "Feti Mehdiu",
+                             "translator":  "Feti Mehdiu",
+                             "path":  "QuranText/Translations/sq.mehdiu.xml"
+                         },
+                         {
+                             "id":  "sq.ahmeti",
+                             "code":  "sq",
+                             "lang":  "Albanian",
+                             "rtl":  false,
+                             "flag":  "al",
+                             "name":  "Sherif Ahmeti",
+                             "translator":  "Sherif Ahmeti",
+                             "path":  "QuranText/Translations/sq.ahmeti.xml"
+                         },
+                         {
+                             "id":  "ber.mensur",
+                             "code":  "ber",
+                             "lang":  "Amazigh",
+                             "rtl":  false,
+                             "flag":  "ma",
+                             "name":  "At Mensur",
+                             "translator":  "Ramdane At Mansour *",
+                             "path":  "QuranText/Translations/ber.mensur.xml"
+                         },
+                         {
+                             "id":  "am.sadiq",
+                             "code":  "am",
+                             "lang":  "Amharic",
+                             "rtl":  false,
+                             "flag":  "et",
+                             "name":  "ሳዲቅ \u0026 ሳኒ ሐቢብ",
+                             "translator":  "Muhammed Sadiq and Muhammed Sani Habib *",
+                             "path":  "QuranText/Translations/am.sadiq.xml"
+                         },
+                         {
+                             "id":  "az.mammadaliyev",
+                             "code":  "az",
+                             "lang":  "Azerbaijani",
+                             "rtl":  false,
+                             "flag":  "az",
+                             "name":  "Məmmədəliyev \u0026 Bünyadov",
+                             "translator":  "Vasim Mammadaliyev and Ziya Bunyadov * †",
+                             "path":  "QuranText/Translations/az.mammadaliyev.xml"
+                         },
+                         {
+                             "id":  "az.musayev",
+                             "code":  "az",
+                             "lang":  "Azerbaijani",
+                             "rtl":  false,
+                             "flag":  "az",
+                             "name":  "Musayev",
+                             "translator":  "Alikhan Musayev",
+                             "path":  "QuranText/Translations/az.musayev.xml"
+                         },
+                         {
+                             "id":  "bn.hoque",
+                             "code":  "bn",
+                             "lang":  "Bengali",
+                             "rtl":  false,
+                             "flag":  "bd",
+                             "name":  "জহুরুল হক",
+                             "translator":  "Zohurul Hoque *",
+                             "path":  "QuranText/Translations/bn.hoque.xml"
+                         },
+                         {
+                             "id":  "bn.bengali",
+                             "code":  "bn",
+                             "lang":  "Bengali",
+                             "rtl":  false,
+                             "flag":  "bd",
+                             "name":  "মুহিউদ্দীন খান",
+                             "translator":  "Muhiuddin Khan",
+                             "path":  "QuranText/Translations/bn.bengali.xml"
+                         },
+                         {
+                             "id":  "bs.korkut",
+                             "code":  "bs",
+                             "lang":  "Bosnian",
+                             "rtl":  false,
+                             "flag":  "ba",
+                             "name":  "Korkut",
+                             "translator":  "Besim Korkut *",
+                             "path":  "QuranText/Translations/bs.korkut.xml"
+                         },
+                         {
+                             "id":  "bs.mlivo",
+                             "code":  "bs",
+                             "lang":  "Bosnian",
+                             "rtl":  false,
+                             "flag":  "ba",
+                             "name":  "Mlivo",
+                             "translator":  "Mustafa Mlivo",
+                             "path":  "QuranText/Translations/bs.mlivo.xml"
+                         },
+                         {
+                             "id":  "bg.theophanov",
+                             "code":  "bg",
+                             "lang":  "Bulgarian",
+                             "rtl":  false,
+                             "flag":  "bg",
+                             "name":  "Теофанов",
+                             "translator":  "Tzvetan Theophanov",
+                             "path":  "QuranText/Translations/bg.theophanov.xml"
+                         },
+                         {
+                             "id":  "zh.jian",
+                             "code":  "zh",
+                             "lang":  "Chinese",
+                             "rtl":  false,
+                             "flag":  "cn",
+                             "name":  "Ma Jian",
+                             "translator":  "Ma Jian",
+                             "path":  "QuranText/Translations/zh.jian.xml"
+                         },
+                         {
+                             "id":  "zh.majian",
+                             "code":  "zh",
+                             "lang":  "Chinese",
+                             "rtl":  false,
+                             "flag":  "cn",
+                             "name":  "Ma Jian (Traditional)",
+                             "translator":  "Ma Jian",
+                             "path":  "QuranText/Translations/zh.majian.xml"
+                         },
+                         {
+                             "id":  "cs.hrbek",
+                             "code":  "cs",
+                             "lang":  "Czech",
+                             "rtl":  false,
+                             "flag":  "cz",
+                             "name":  "Hrbek",
+                             "translator":  "Preklad I. Hrbek",
+                             "path":  "QuranText/Translations/cs.hrbek.xml"
+                         },
+                         {
+                             "id":  "cs.nykl",
+                             "code":  "cs",
+                             "lang":  "Czech",
+                             "rtl":  false,
+                             "flag":  "cz",
+                             "name":  "Nykl",
+                             "translator":  "A. R. Nykl",
+                             "path":  "QuranText/Translations/cs.nykl.xml"
+                         },
+                         {
+                             "id":  "dv.divehi",
+                             "code":  "dv",
+                             "lang":  "Divehi",
+                             "rtl":  true,
+                             "flag":  "mv",
+                             "name":  "ދިވެހި",
+                             "translator":  "Office of the President of Maldives",
+                             "path":  "QuranText/Translations/dv.divehi.xml"
+                         },
+                         {
+                             "id":  "nl.keyzer",
+                             "code":  "nl",
+                             "lang":  "Dutch",
+                             "rtl":  false,
+                             "flag":  "nl",
+                             "name":  "Keyzer",
+                             "translator":  "Salomo Keyzer",
+                             "path":  "QuranText/Translations/nl.keyzer.xml"
+                         },
+                         {
+                             "id":  "nl.leemhuis",
+                             "code":  "nl",
+                             "lang":  "Dutch",
+                             "rtl":  false,
+                             "flag":  "nl",
+                             "name":  "Leemhuis",
+                             "translator":  "Fred Leemhuis",
+                             "path":  "QuranText/Translations/nl.leemhuis.xml"
+                         },
+                         {
+                             "id":  "nl.siregar",
+                             "code":  "nl",
+                             "lang":  "Dutch",
+                             "rtl":  false,
+                             "flag":  "nl",
+                             "name":  "Siregar",
+                             "translator":  "Sofian S. Siregar",
+                             "path":  "QuranText/Translations/nl.siregar.xml"
+                         },
+                         {
+                             "id":  "en.ahmedali",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Ahmed Ali",
+                             "translator":  "Ahmed Ali *",
+                             "path":  "QuranText/English-Translation/en.ahmedali.xml"
+                         },
+                         {
+                             "id":  "en.ahmedraza",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Ahmed Raza Khan",
+                             "translator":  "Ahmed Raza Khan *",
+                             "path":  "QuranText/English-Translation/en.ahmedraza.xml"
+                         },
+                         {
+                             "id":  "en.arberry",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Arberry",
+                             "translator":  "A. J. Arberry *",
+                             "path":  "QuranText/English-Translation/en.arberry.xml"
+                         },
+                         {
+                             "id":  "en.daryabadi",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Daryabadi",
+                             "translator":  "Abdul Majid Daryabadi *",
+                             "path":  "QuranText/English-Translation/en.daryabadi.xml"
+                         },
+                         {
+                             "id":  "en.hilali",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Hilali \u0026 Khan",
+                             "translator":  "Muhammad Taqi-ud-Din al-Hilali and Muhammad Muhsin Khan *",
+                             "path":  "QuranText/English-Translation/en.hilali.xml"
+                         },
+                         {
+                             "id":  "en.itani",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Itani",
+                             "translator":  "Talal Itani",
+                             "path":  "QuranText/English-Translation/en.itani.xml"
+                         },
+                         {
+                             "id":  "en.maududi",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Maududi",
+                             "translator":  "Abul Ala Maududi *",
+                             "path":  "QuranText/English-Translation/en.maududi.xml"
+                         },
+                         {
+                             "id":  "en.mubarakpuri",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Mubarakpuri",
+                             "translator":  "Safi-ur-Rahman al-Mubarakpuri *",
+                             "path":  "QuranText/English-Translation/en.mubarakpuri.xml"
+                         },
+                         {
+                             "id":  "en.pickthall",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Pickthall",
+                             "translator":  "Mohammed Marmaduke William Pickthall *",
+                             "path":  "QuranText/English-Translation/en.pickthall.xml"
+                         },
+                         {
+                             "id":  "en.qarai",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Qarai",
+                             "translator":  "Ali Quli Qarai",
+                             "path":  "QuranText/English-Translation/en.qarai.xml"
+                         },
+                         {
+                             "id":  "en.qaribullah",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Qaribullah \u0026 Darwish",
+                             "translator":  "Hasan al-Fatih Qaribullah and Ahmad Darwish",
+                             "path":  "QuranText/English-Translation/en.qaribullah.xml"
+                         },
+                         {
+                             "id":  "en.sahih",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Saheeh International",
+                             "translator":  "Saheeh International *",
+                             "path":  "QuranText/English-Translation/en.sahih.xml"
+                         },
+                         {
+                             "id":  "en.sarwar",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Sarwar",
+                             "translator":  "Muhammad Sarwar *",
+                             "path":  "QuranText/English-Translation/en.sarwar.xml"
+                         },
+                         {
+                             "id":  "en.shakir",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Shakir",
+                             "translator":  "Mohammad Habib Shakir *",
+                             "path":  "QuranText/English-Translation/en.shakir.xml"
+                         },
+                         {
+                             "id":  "en.transliteration",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Transliteration",
+                             "translator":  "English Transliteration",
+                             "path":  "QuranText/English-Translation/en.transliteration.xml"
+                         },
+                         {
+                             "id":  "en.wahiduddin",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Wahiduddin Khan",
+                             "translator":  "Wahiduddin Khan *",
+                             "path":  "QuranText/English-Translation/en.wahiduddin.xml"
+                         },
+                         {
+                             "id":  "en.yusufali",
+                             "code":  "en",
+                             "lang":  "English",
+                             "rtl":  false,
+                             "flag":  "gb",
+                             "name":  "Yusuf Ali",
+                             "translator":  "Abdullah Yusuf Ali *",
+                             "path":  "QuranText/English-Translation/en.yusufali.xml"
+                         },
+                         {
+                             "id":  "fr.hamidullah",
+                             "code":  "fr",
+                             "lang":  "French",
+                             "rtl":  false,
+                             "flag":  "fr",
+                             "name":  "Hamidullah",
+                             "translator":  "Muhammad Hamidullah *",
+                             "path":  "QuranText/Translations/fr.hamidullah.xml"
+                         },
+                         {
+                             "id":  "de.aburida",
+                             "code":  "de",
+                             "lang":  "German",
+                             "rtl":  false,
+                             "flag":  "de",
+                             "name":  "Abu Rida",
+                             "translator":  "Abu Rida Muhammad ibn Ahmad ibn Rassoul",
+                             "path":  "QuranText/Translations/de.aburida.xml"
+                         },
+                         {
+                             "id":  "de.bubenheim",
+                             "code":  "de",
+                             "lang":  "German",
+                             "rtl":  false,
+                             "flag":  "de",
+                             "name":  "Bubenheim \u0026 Elyas",
+                             "translator":  "A. S. F. Bubenheim and N. Elyas *",
+                             "path":  "QuranText/Translations/de.bubenheim.xml"
+                         },
+                         {
+                             "id":  "de.khoury",
+                             "code":  "de",
+                             "lang":  "German",
+                             "rtl":  false,
+                             "flag":  "de",
+                             "name":  "Khoury",
+                             "translator":  "Adel Theodor Khoury *",
+                             "path":  "QuranText/Translations/de.khoury.xml"
+                         },
+                         {
+                             "id":  "de.zaidan",
+                             "code":  "de",
+                             "lang":  "German",
+                             "rtl":  false,
+                             "flag":  "de",
+                             "name":  "Zaidan",
+                             "translator":  "Amir Zaidan",
+                             "path":  "QuranText/Translations/de.zaidan.xml"
+                         },
+                         {
+                             "id":  "ha.gumi",
+                             "code":  "ha",
+                             "lang":  "Hausa",
+                             "rtl":  false,
+                             "flag":  "ng",
+                             "name":  "Gumi",
+                             "translator":  "Abubakar Mahmoud Gumi",
+                             "path":  "QuranText/Translations/ha.gumi.xml"
+                         },
+                         {
+                             "id":  "hi.farooq",
+                             "code":  "hi",
+                             "lang":  "Hindi",
+                             "rtl":  false,
+                             "flag":  "in",
+                             "name":  "फ़ारूक़ ख़ान \u0026 अहमद",
+                             "translator":  "Muhammad Farooq Khan and Muhammad Ahmed",
+                             "path":  "QuranText/Translations/hi.farooq.xml"
+                         },
+                         {
+                             "id":  "hi.hindi",
+                             "code":  "hi",
+                             "lang":  "Hindi",
+                             "rtl":  false,
+                             "flag":  "in",
+                             "name":  "फ़ारूक़ ख़ान \u0026 नदवी",
+                             "translator":  "Suhel Farooq Khan and Saifur Rahman Nadwi",
+                             "path":  "QuranText/Translations/hi.hindi.xml"
+                         },
+                         {
+                             "id":  "id.indonesian",
+                             "code":  "id",
+                             "lang":  "Indonesian",
+                             "rtl":  false,
+                             "flag":  "id",
+                             "name":  "Bahasa Indonesia",
+                             "translator":  "Indonesian Ministry of Religious Affairs",
+                             "path":  "QuranText/Translations/id.indonesian.xml"
+                         },
+                         {
+                             "id":  "id.muntakhab",
+                             "code":  "id",
+                             "lang":  "Indonesian",
+                             "rtl":  false,
+                             "flag":  "id",
+                             "name":  "Quraish Shihab",
+                             "translator":  "Muhammad Quraish Shihab et al. *",
+                             "path":  "QuranText/Translations/id.muntakhab.xml"
+                         },
+                         {
+                             "id":  "it.piccardo",
+                             "code":  "it",
+                             "lang":  "Italian",
+                             "rtl":  false,
+                             "flag":  "it",
+                             "name":  "Piccardo",
+                             "translator":  "Hamza Roberto Piccardo *",
+                             "path":  "QuranText/Translations/it.piccardo.xml"
+                         },
+                         {
+                             "id":  "ja.japanese",
+                             "code":  "ja",
+                             "lang":  "Japanese",
+                             "rtl":  false,
+                             "flag":  "jp",
+                             "name":  "Japanese",
+                             "translator":  "Unknown",
+                             "path":  "QuranText/Translations/ja.japanese.xml"
+                         },
+                         {
+                             "id":  "ko.korean",
+                             "code":  "ko",
+                             "lang":  "Korean",
+                             "rtl":  false,
+                             "flag":  "kr",
+                             "name":  "Korean",
+                             "translator":  "Unknown",
+                             "path":  "QuranText/Translations/ko.korean.xml"
+                         },
+                         {
+                             "id":  "ku.asan",
+                             "code":  "ku",
+                             "lang":  "Kurdish",
+                             "rtl":  true,
+                             "flag":  "iq",
+                             "name":  "ته‌فسیری ئاسان",
+                             "translator":  "Burhan Muhammad-Amin",
+                             "path":  "QuranText/Translations/ku.asan.xml"
+                         },
+                         {
+                             "id":  "ms.basmeih",
+                             "code":  "ms",
+                             "lang":  "Malay",
+                             "rtl":  false,
+                             "flag":  "my",
+                             "name":  "Basmeih",
+                             "translator":  "Abdullah Muhammad Basmeih",
+                             "path":  "QuranText/Translations/ms.basmeih.xml"
+                         },
+                         {
+                             "id":  "ml.abdulhameed",
+                             "code":  "ml",
+                             "lang":  "Malayalam",
+                             "rtl":  false,
+                             "flag":  "in",
+                             "name":  "അബ്ദുല്‍ ഹമീദ് \u0026 പറപ്പൂര്‍",
+                             "translator":  "Cheriyamundam Abdul Hameed and Kunhi Mohammed Parappoor",
+                             "path":  "QuranText/Translations/ml.abdulhameed.xml"
+                         },
+                         {
+                             "id":  "ml.karakunnu",
+                             "code":  "ml",
+                             "lang":  "Malayalam",
+                             "rtl":  false,
+                             "flag":  "in",
+                             "name":  "കാരകുന്ന് \u0026 എളയാവൂര്",
+                             "translator":  "Muhammad Karakunnu and Vanidas Elayavoor *",
+                             "path":  "QuranText/Translations/ml.karakunnu.xml"
+                         },
+                         {
+                             "id":  "no.berg",
+                             "code":  "no",
+                             "lang":  "Norwegian",
+                             "rtl":  false,
+                             "flag":  "no",
+                             "name":  "Einar Berg",
+                             "translator":  "Einar Berg",
+                             "path":  "QuranText/Translations/no.berg.xml"
+                         },
+                         {
+                             "id":  "ps.abdulwali",
+                             "code":  "ps",
+                             "lang":  "Pashto",
+                             "rtl":  true,
+                             "flag":  "af",
+                             "name":  "عبدالولي",
+                             "translator":  "Abdulwali Khan",
+                             "path":  "QuranText/Translations/ps.abdulwali.xml"
+                         },
+                         {
+                             "id":  "pl.bielawskiego",
+                             "code":  "pl",
+                             "lang":  "Polish",
+                             "rtl":  false,
+                             "flag":  "pl",
+                             "name":  "Bielawskiego",
+                             "translator":  "Józefa Bielawskiego",
+                             "path":  "QuranText/Translations/pl.bielawskiego.xml"
+                         },
+                         {
+                             "id":  "pt.elhayek",
+                             "code":  "pt",
+                             "lang":  "Portuguese",
+                             "rtl":  false,
+                             "flag":  "pt",
+                             "name":  "El-Hayek",
+                             "translator":  "Samir El-Hayek",
+                             "path":  "QuranText/Translations/pt.elhayek.xml"
+                         },
+                         {
+                             "id":  "ro.grigore",
+                             "code":  "ro",
+                             "lang":  "Romanian",
+                             "rtl":  false,
+                             "flag":  "ro",
+                             "name":  "Grigore",
+                             "translator":  "George Grigore",
+                             "path":  "QuranText/Translations/ro.grigore.xml"
+                         },
+                         {
+                             "id":  "ru.abuadel",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Абу Адель",
+                             "translator":  "Abu Adel",
+                             "path":  "QuranText/Translations/ru.abuadel.xml"
+                         },
+                         {
+                             "id":  "ru.muntahab",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Аль-Мунтахаб",
+                             "translator":  "Ministry of Awqaf, Egypt",
+                             "path":  "QuranText/Translations/ru.muntahab.xml"
+                         },
+                         {
+                             "id":  "ru.kalam",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Калям Шариф",
+                             "translator":  "Muslim Religious Board of the Republiс of Tatarstan *",
+                             "path":  "QuranText/Translations/ru.kalam.xml"
+                         },
+                         {
+                             "id":  "ru.krachkovsky",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Крачковский",
+                             "translator":  "Ignaty Yulianovich Krachkovsky *",
+                             "path":  "QuranText/Translations/ru.krachkovsky.xml"
+                         },
+                         {
+                             "id":  "ru.kuliev",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Кулиев",
+                             "translator":  "Elmir Kuliev",
+                             "path":  "QuranText/Translations/ru.kuliev.xml"
+                         },
+                         {
+                             "id":  "ru.kuliev-alsaadi",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Кулиев + ас-Саади",
+                             "translator":  "Elmir Kuliev (with Abd ar-Rahman as-Saadi\u0027s commentaries)",
+                             "path":  "QuranText/Translations/ru.kuliev-alsaadi.xml"
+                         },
+                         {
+                             "id":  "ru.osmanov",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Османов",
+                             "translator":  "Magomed-Nuri Osmanovich Osmanov",
+                             "path":  "QuranText/Translations/ru.osmanov.xml"
+                         },
+                         {
+                             "id":  "ru.porokhova",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Порохова",
+                             "translator":  "V. Porokhova",
+                             "path":  "QuranText/Translations/ru.porokhova.xml"
+                         },
+                         {
+                             "id":  "ru.sablukov",
+                             "code":  "ru",
+                             "lang":  "Russian",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Саблуков",
+                             "translator":  "Gordy Semyonovich Sablukov",
+                             "path":  "QuranText/Translations/ru.sablukov.xml"
+                         },
+                         {
+                             "id":  "sd.amroti",
+                             "code":  "sd",
+                             "lang":  "Sindhi",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "امروٽي",
+                             "translator":  "Taj Mehmood Amroti",
+                             "path":  "QuranText/Translations/sd.amroti.xml"
+                         },
+                         {
+                             "id":  "so.abduh",
+                             "code":  "so",
+                             "lang":  "Somali",
+                             "rtl":  false,
+                             "flag":  "so",
+                             "name":  "Abduh",
+                             "translator":  "Mahmud Muhammad Abduh",
+                             "path":  "QuranText/Translations/so.abduh.xml"
+                         },
+                         {
+                             "id":  "es.bornez",
+                             "code":  "es",
+                             "lang":  "Spanish",
+                             "rtl":  false,
+                             "flag":  "es",
+                             "name":  "Bornez",
+                             "translator":  "Raúl González Bórnez *",
+                             "path":  "QuranText/Translations/es.bornez.xml"
+                         },
+                         {
+                             "id":  "es.cortes",
+                             "code":  "es",
+                             "lang":  "Spanish",
+                             "rtl":  false,
+                             "flag":  "es",
+                             "name":  "Cortes",
+                             "translator":  "Julio Cortes",
+                             "path":  "QuranText/Translations/es.cortes.xml"
+                         },
+                         {
+                             "id":  "es.garcia",
+                             "code":  "es",
+                             "lang":  "Spanish",
+                             "rtl":  false,
+                             "flag":  "es",
+                             "name":  "Garcia",
+                             "translator":  "Muhammad Isa García *",
+                             "path":  "QuranText/Translations/es.garcia.xml"
+                         },
+                         {
+                             "id":  "sw.barwani",
+                             "code":  "sw",
+                             "lang":  "Swahili",
+                             "rtl":  false,
+                             "flag":  "ke",
+                             "name":  "Al-Barwani",
+                             "translator":  "Ali Muhsin Al-Barwani",
+                             "path":  "QuranText/Translations/sw.barwani.xml"
+                         },
+                         {
+                             "id":  "sv.bernstrom",
+                             "code":  "sv",
+                             "lang":  "Swedish",
+                             "rtl":  false,
+                             "flag":  "se",
+                             "name":  "Bernström",
+                             "translator":  "Knut Bernström",
+                             "path":  "QuranText/Translations/sv.bernstrom.xml"
+                         },
+                         {
+                             "id":  "tg.ayati",
+                             "code":  "tg",
+                             "lang":  "Tajik",
+                             "rtl":  false,
+                             "flag":  "tj",
+                             "name":  "Оятӣ",
+                             "translator":  "AbdolMohammad Ayati",
+                             "path":  "QuranText/Translations/tg.ayati.xml"
+                         },
+                         {
+                             "id":  "ta.tamil",
+                             "code":  "ta",
+                             "lang":  "Tamil",
+                             "rtl":  false,
+                             "flag":  "lk",
+                             "name":  "ஜான் டிரஸ்ட்",
+                             "translator":  "Jan Turst Foundation",
+                             "path":  "QuranText/Translations/ta.tamil.xml"
+                         },
+                         {
+                             "id":  "tt.nugman",
+                             "code":  "tt",
+                             "lang":  "Tatar",
+                             "rtl":  false,
+                             "flag":  "ru",
+                             "name":  "Yakub Ibn Nugman",
+                             "translator":  "Yakub Ibn Nugman",
+                             "path":  "QuranText/Translations/tt.nugman.xml"
+                         },
+                         {
+                             "id":  "th.thai",
+                             "code":  "th",
+                             "lang":  "Thai",
+                             "rtl":  false,
+                             "flag":  "th",
+                             "name":  "ภาษาไทย",
+                             "translator":  "King Fahad Quran Complex",
+                             "path":  "QuranText/Translations/th.thai.xml"
+                         },
+                         {
+                             "id":  "tr.golpinarli",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Abdulbakî Gölpınarlı",
+                             "translator":  "Abdulbaki Golpinarli",
+                             "path":  "QuranText/Translations/tr.golpinarli.xml"
+                         },
+                         {
+                             "id":  "tr.bulac",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Alİ Bulaç",
+                             "translator":  "Alİ Bulaç",
+                             "path":  "QuranText/Translations/tr.bulac.xml"
+                         },
+                         {
+                             "id":  "tr.transliteration",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Çeviriyazı",
+                             "translator":  "Muhammet Abay",
+                             "path":  "QuranText/Translations/tr.transliteration.xml"
+                         },
+                         {
+                             "id":  "tr.diyanet",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Diyanet İşleri",
+                             "translator":  "Diyanet Isleri",
+                             "path":  "QuranText/Translations/tr.diyanet.xml"
+                         },
+                         {
+                             "id":  "tr.vakfi",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Diyanet Vakfı",
+                             "translator":  "Diyanet Vakfi",
+                             "path":  "QuranText/Translations/tr.vakfi.xml"
+                         },
+                         {
+                             "id":  "tr.yuksel",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Edip Yüksel",
+                             "translator":  "Edip Yüksel",
+                             "path":  "QuranText/Translations/tr.yuksel.xml"
+                         },
+                         {
+                             "id":  "tr.yazir",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Elmalılı Hamdi Yazır",
+                             "translator":  "Elmalili Hamdi Yazir",
+                             "path":  "QuranText/Translations/tr.yazir.xml"
+                         },
+                         {
+                             "id":  "tr.ozturk",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Öztürk",
+                             "translator":  "Yasar Nuri Ozturk *",
+                             "path":  "QuranText/Translations/tr.ozturk.xml"
+                         },
+                         {
+                             "id":  "tr.yildirim",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Suat Yıldırım",
+                             "translator":  "Suat Yildirim",
+                             "path":  "QuranText/Translations/tr.yildirim.xml"
+                         },
+                         {
+                             "id":  "tr.ates",
+                             "code":  "tr",
+                             "lang":  "Turkish",
+                             "rtl":  false,
+                             "flag":  "tr",
+                             "name":  "Süleyman Ateş",
+                             "translator":  "Suleyman Ates",
+                             "path":  "QuranText/Translations/tr.ates.xml"
+                         },
+                         {
+                             "id":  "ur.maududi",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "ابوالاعلی مودودی",
+                             "translator":  "Abul A\u0027ala Maududi *",
+                             "path":  "QuranText/Translations/ur.maududi.xml"
+                         },
+                         {
+                             "id":  "ur.kanzuliman",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "احمد رضا خان",
+                             "translator":  "Ahmed Raza Khan *",
+                             "path":  "QuranText/Translations/ur.kanzuliman.xml"
+                         },
+                         {
+                             "id":  "ur.ahmedali",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "احمد علی",
+                             "translator":  "Ahmed Ali *",
+                             "path":  "QuranText/Translations/ur.ahmedali.xml"
+                         },
+                         {
+                             "id":  "ur.jalandhry",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "جالندہری",
+                             "translator":  "Fateh Muhammad Jalandhry",
+                             "path":  "QuranText/Translations/ur.jalandhry.xml"
+                         },
+                         {
+                             "id":  "ur.qadri",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "طاہر القادری",
+                             "translator":  "Tahir ul Qadri *",
+                             "path":  "QuranText/Translations/ur.qadri.xml"
+                         },
+                         {
+                             "id":  "ur.jawadi",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "علامہ جوادی",
+                             "translator":  "Syed Zeeshan Haider Jawadi",
+                             "path":  "QuranText/Translations/ur.jawadi.xml"
+                         },
+                         {
+                             "id":  "ur.junagarhi",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "محمد جوناگڑھی",
+                             "translator":  "Muhammad Junagarhi *",
+                             "path":  "QuranText/Translations/ur.junagarhi.xml"
+                         },
+                         {
+                             "id":  "ur.najafi",
+                             "code":  "ur",
+                             "lang":  "Urdu",
+                             "rtl":  true,
+                             "flag":  "pk",
+                             "name":  "محمد حسین نجفی",
+                             "translator":  "Muhammad Hussain Najafi  *",
+                             "path":  "QuranText/Translations/ur.najafi.xml"
+                         },
+                         {
+                             "id":  "ug.saleh",
+                             "code":  "ug",
+                             "lang":  "Uyghur",
+                             "rtl":  true,
+                             "flag":  null,
+                             "name":  "محمد صالح",
+                             "translator":  "Muhammad Saleh",
+                             "path":  "QuranText/Translations/ug.saleh.xml"
+                         },
+                         {
+                             "id":  "uz.sodik",
+                             "code":  "uz",
+                             "lang":  "Uzbek",
+                             "rtl":  false,
+                             "flag":  "uz",
+                             "name":  "Мухаммад Содик",
+                             "translator":  "Muhammad Sodik Muhammad Yusuf",
+                             "path":  "QuranText/Translations/uz.sodik.xml"
+                         }
+                     ]
+}

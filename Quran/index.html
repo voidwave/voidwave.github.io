@@ -4,12 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Al-Quran</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-
-    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mada"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0f10">
+    <title>القرآن الكريم</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
+    <script>
+        // Apply the saved colour scheme before the first paint to avoid a flash.
+        (function () {
+            var theme = 'dark';
+            try {
+                theme = localStorage.getItem('quran-theme')
+                    || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            } catch (error) {
+                theme = 'dark';
+            }
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
     <style>
         @font-face {
             font-family: 'Amiri Quran';
@@ -19,34 +33,100 @@
 
         @font-face {
             font-family: 'Uthmanic';
-            src: url('https://voidwave.com/Quran/fonts/uthmanic_hafs_v22.ttf') format('truetype');
+            src: url('fonts/uthmanic_hafs_v22.ttf') format('truetype');
             font-weight: normal;
             font-style: normal;
+            font-display: swap;
         }
 
+        /* ------------------------------------------------------------------
+           Design tokens (dark is the default, light is opt-in)
+        ------------------------------------------------------------------ */
         :root {
             color-scheme: dark;
-            --background: #050705;
-            --surface: #101510;
-            --surface-raised: #171d17;
-            --text: #f4f7f1;
-            --muted: #aeb8aa;
-            --accent: #b8f542;
-            --accent-soft: rgba(184, 245, 66, 0.18);
+            --font-ui: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+            --font-ar: "Noto Naskh Arabic", "Segoe UI", Tahoma, serif;
+            --font-quran: "Amiri Quran", "Uthmanic", "Noto Naskh Arabic", serif;
+
+            --bg: #0a0f10;
+            --bg-glow: #15231f;
+            --appbar: rgba(10, 15, 16, 0.86);
+            --surface: #111a1b;
+            --surface-2: #16211f;
+            --surface-3: #1e2b29;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(226, 190, 106, 0.38);
+
+            --text: #edf3f1;
+            --text-dim: #b4c1bd;
+            --muted: #8b9a96;
+
+            --accent: #e2be6a;
+            --accent-strong: #c9a24f;
+            --accent-soft: rgba(226, 190, 106, 0.14);
+            --accent-ring: rgba(226, 190, 106, 0.45);
+            --on-accent: #1b1508;
+
+            --quran: #f7f3e7;
+            --mark-bg: #f2d475;
+            --mark-text: #241a08;
+
+            --radius: 16px;
+            --radius-sm: 10px;
+            --shadow: 0 18px 42px rgba(0, 0, 0, 0.5);
         }
 
+        :root[data-theme="light"] {
+            color-scheme: light;
+            --bg: #f7f5ef;
+            --bg-glow: #ffffff;
+            --appbar: rgba(250, 248, 243, 0.9);
+            --surface: #ffffff;
+            --surface-2: #f4f1e9;
+            --surface-3: #eae5d9;
+            --border: rgba(23, 43, 38, 0.12);
+            --border-strong: rgba(150, 112, 28, 0.42);
+
+            --text: #17211f;
+            --text-dim: #46544f;
+            --muted: #6d7b76;
+
+            --accent: #96701d;
+            --accent-strong: #7c5b13;
+            --accent-soft: rgba(150, 112, 28, 0.12);
+            --accent-ring: rgba(150, 112, 28, 0.38);
+            --on-accent: #fffaf0;
+
+            --quran: #14201d;
+            --mark-bg: #ffe08a;
+            --mark-text: #3a2a00;
+
+            --shadow: 0 16px 34px rgba(28, 38, 35, 0.14);
+        }
+
+        /* ------------------------------------------------------------------
+           Base
+        ------------------------------------------------------------------ */
         * {
             box-sizing: border-box;
         }
 
+        [hidden] {
+            display: none !important;
+        }
+
+        ::selection {
+            background: var(--accent-soft);
+        }
+
         ::-webkit-scrollbar {
-            width: 7px;
-            height: 5px;
+            width: 8px;
+            height: 8px;
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #515952;
-            border-radius: 4px;
+            background: var(--surface-3);
+            border-radius: 99px;
         }
 
         ::-webkit-scrollbar-track {
@@ -55,7 +135,7 @@
 
         @supports not selector(::-webkit-scrollbar) {
             * {
-                scrollbar-color: #515952 transparent;
+                scrollbar-color: var(--surface-3) transparent;
                 scrollbar-width: thin;
             }
         }
@@ -67,280 +147,642 @@
         body {
             min-width: 320px;
             margin: 0;
-            background: radial-gradient(circle at top, #182218 0, var(--background) 420px);
+            background: var(--bg);
             color: var(--text);
-            font-family: "Uthmanic", sans-serif;
+            font-family: var(--font-ui);
+            font-size: 16px;
+            line-height: 1.6;
+            overflow-wrap: break-word;
+            -webkit-text-size-adjust: 100%;
         }
 
+        body::before {
+            position: fixed;
+            z-index: -1;
+            inset: 0;
+            background:
+                radial-gradient(1100px 520px at 50% -10%, var(--bg-glow), transparent 72%),
+                radial-gradient(680px 420px at 100% 100%, var(--accent-soft), transparent 70%);
+            pointer-events: none;
+            content: "";
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            * {
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* ------------------------------------------------------------------
+           Buttons
+        ------------------------------------------------------------------ */
         button,
         input {
             font: inherit;
+            color: inherit;
         }
 
         button {
-            border: 1px solid var(--accent);
-            border-radius: 6px;
             cursor: pointer;
+        }
+
+        .btn {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: center;
+            min-height: 42px;
+            padding: 8px 13px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-2);
             color: var(--text);
-            background: var(--surface);
-            font-weight: bold;
-            min-height: 44px;
-            padding: 8px 12px;
-            transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 120ms ease;
         }
 
-        button:hover,
-        button:focus-visible {
-            background: var(--accent-soft);
-            border-color: #d9ff8b;
-            outline: none;
+        .btn:hover {
+            border-color: var(--border-strong);
+            background: var(--surface-3);
         }
 
-        button:active {
+        .btn:active {
             transform: translateY(1px);
         }
 
-        #button-container {
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            display: grid;
-            grid-template-columns: repeat(6, minmax(44px, 52px));
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(5, 7, 5, 0.94);
-            border-bottom: 1px solid rgba(184, 245, 66, 0.25);
-            backdrop-filter: blur(10px);
+        .btn:focus-visible {
+            outline: 2px solid var(--accent-ring);
+            outline-offset: 2px;
         }
 
-        #button-container button {
-            width: 100%;
-            height: 44px;
-            min-height: 44px;
-            padding: 4px;
-            font-size: 1rem;
+        .btn[disabled] {
+            opacity: 0.45;
+            cursor: progress;
         }
 
-        #button-container .random-action {
-            flex-direction: column;
-            gap: 2px;
+        .btn svg {
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn--primary {
+            border-color: transparent;
+            background: linear-gradient(180deg, var(--accent), var(--accent-strong));
+            color: var(--on-accent);
+            box-shadow: 0 10px 22px var(--accent-soft);
+        }
+
+        .btn--primary:hover {
+            border-color: transparent;
+            background: linear-gradient(180deg, var(--accent-strong), var(--accent-strong));
+        }
+
+        .btn.is-active {
+            border-color: var(--accent-ring);
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .btn.is-active:hover {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        /* ------------------------------------------------------------------
+           Source picker (tafsir / translation check boxes)
+        ------------------------------------------------------------------ */
+        .picker {
+            position: relative;
+            display: inline-flex;
+        }
+
+        .picker__count {
+            display: inline-grid;
+            place-items: center;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 999px;
+            background: var(--accent);
+            color: var(--on-accent);
+            font-family: var(--font-ar);
+            font-size: 0.8rem;
+            font-weight: 700;
             line-height: 1;
         }
 
-        .random-action .action-label {
-            font-size: 0.75rem;
-            line-height: 1.2;
-        }
-
-        #button-container .content-toggle {
-            color: #858b86;
-            border-color: #626862;
-        }
-
-        #button-container .content-toggle.is-active {
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-
-        .icon-clear {
-            width: 19px;
-            height: 19px;
-        }
-
-        .icon-clear::before,
-        .icon-clear::after {
+        .picker__panel {
             position: absolute;
-            top: 8px;
-            left: 1px;
-            width: 18px;
-            height: 3px;
-            border-radius: 2px;
-            background: #e63946;
-            content: "";
+            z-index: 40;
+            top: calc(100% + 8px);
+            left: 8px;
+            width: min(360px, calc(100vw - 24px));
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow);
         }
 
-        .icon-clear::before {
-            transform: rotate(45deg);
+        .picker__list {
+            max-height: min(62vh, 430px);
+            padding: 8px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
         }
 
-        .icon-clear::after {
-            transform: rotate(-45deg);
-        }
-
-        .icon-random {
-            width: 19px;
-            height: 17px;
-            border-top: 2px solid currentColor;
-            border-bottom: 2px solid currentColor;
-            transform: skewY(-25deg);
-        }
-
-        .icon-random::before,
-        .icon-random::after {
-            position: absolute;
-            right: -1px;
-            width: 6px;
-            height: 6px;
-            border-top: 2px solid currentColor;
-            border-right: 2px solid currentColor;
-            content: "";
-        }
-
-        .icon-random::before {
-            top: -5px;
-            transform: rotate(45deg);
-        }
-
-        .icon-random::after {
-            bottom: -5px;
-            transform: rotate(45deg);
-        }
-
-        .icon-tafsir {
-            width: 19px;
-            height: 19px;
-            border: 1.5px solid currentColor;
-            border-radius: 50%;
-        }
-
-        .icon-tafsir::before,
-        .icon-tafsir::after {
-            position: absolute;
-            content: "";
-        }
-
-        .icon-tafsir::before {
-            top: 3px;
-            left: 4px;
-            width: 8px;
-            height: 10px;
-            border-right: 1px solid currentColor;
-            border-left: 1px solid currentColor;
-            border-radius: 50%;
-        }
-
-        .icon-tafsir::after {
-            top: 8px;
-            left: 2px;
-            width: 12px;
-            border-top: 1px solid currentColor;
-        }
-
-        .icon-english {
-            color: var(--accent);
-            font-family: Arial, sans-serif;
-            font-size: 0.78rem;
+        .picker__group {
+            margin: 10px 8px 6px;
+            color: var(--muted);
+            font-family: var(--font-ar);
+            font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0;
+            letter-spacing: 0.06em;
         }
 
+        .picker__group:first-child {
+            margin-top: 2px;
+        }
+
+        .source-option {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            padding: 8px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 140ms ease, opacity 140ms ease;
+        }
+
+        .source-option:hover {
+            background: var(--surface-2);
+        }
+
+        .source-option.is-loading {
+            opacity: 0.5;
+        }
+
+        .source-option input {
+            flex: 0 0 auto;
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .flag {
+            flex: 0 0 auto;
+            width: 22px;
+            height: 15px;
+            border-radius: 2px;
+            box-shadow: 0 0 0 1px var(--border);
+            object-fit: cover;
+        }
+
+        .source-option__text {
+            display: grid;
+            flex: 1 1 auto;
+            min-width: 0;
+            gap: 1px;
+        }
+
+        .source-option__name {
+            font-family: var(--font-ar);
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .source-option__meta {
+            overflow: hidden;
+            color: var(--muted);
+            font-family: var(--font-ui);
+            font-size: 0.74rem;
+            line-height: 1.35;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        /* ------------------------------------------------------------------
+           Reciter picker + ayah play buttons
+        ------------------------------------------------------------------ */
+        .reciter-picker {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .reciter-select {
+            min-height: 42px;
+            max-width: 12rem;
+            padding: 8px 12px 8px 32px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: var(--font-ar);
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
+        }
+
+        .reciter-select:hover {
+            border-color: var(--border-strong);
+            background: var(--surface-3);
+        }
+
+        .reciter-select:focus-visible {
+            outline: 2px solid var(--accent-ring);
+            outline-offset: 2px;
+        }
+
+        .reciter-select[disabled] {
+            opacity: 0.45;
+            cursor: progress;
+        }
+
+        .reciter-picker::after {
+            position: absolute;
+            inset-inline-end: 12px;
+            top: 50%;
+            width: 7px;
+            height: 7px;
+            border-right: 2px solid var(--muted);
+            border-bottom: 2px solid var(--muted);
+            transform: translateY(-65%) rotate(45deg);
+            pointer-events: none;
+            content: "";
+        }
+
+        .play-btn {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            padding: 0;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--accent);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background-color 160ms ease, border-color 160ms ease, transform 120ms ease;
+        }
+
+        .play-btn:hover {
+            border-color: var(--border-strong);
+            background: var(--surface-3);
+        }
+
+        .play-btn:active {
+            transform: translateY(1px);
+        }
+
+        .play-btn:focus-visible {
+            outline: 2px solid var(--accent-ring);
+            outline-offset: 2px;
+        }
+
+        .play-btn svg {
+            width: 15px;
+            height: 15px;
+            fill: currentColor;
+        }
+
+        .play-btn .icon-pause {
+            display: none;
+        }
+
+        .play-btn.is-playing {
+            border-color: var(--accent-ring);
+            background: var(--accent-soft);
+        }
+
+        .play-btn.is-playing .icon-play {
+            display: none;
+        }
+
+        .play-btn.is-playing .icon-pause {
+            display: block;
+        }
+
+        .basmala-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0 18px;
+        }
+
+        .basmala-row .basmala {
+            margin: 0;
+        }
+
+        .basmala-row.is-playing {
+            border-radius: 14px;
+            background: var(--accent-soft);
+        }
+
+        /* Small status message (for example when a file cannot be loaded). */
+        .toast {
+            position: fixed;
+            z-index: 50;
+            inset-inline: 0;
+            bottom: calc(76px + env(safe-area-inset-bottom));
+            width: fit-content;
+            max-width: min(92vw, 460px);
+            margin: 0 auto;
+            padding: 10px 16px;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: var(--surface-3);
+            color: var(--text);
+            font-family: var(--font-ar);
+            font-size: 0.95rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: opacity 200ms ease, transform 200ms ease;
+        }
+
+        .toast.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ------------------------------------------------------------------
+           Sticky app bar
+        ------------------------------------------------------------------ */
+        .appbar {
+            position: sticky;
+            z-index: 30;
+            top: 0;
+            padding-top: env(safe-area-inset-top);
+            background: var(--appbar);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .appbar__inner {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            width: min(100% - 24px, 1180px);
+            margin: 0 auto;
+            padding: 10px 0;
+        }
+
+        .appbar__tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .search-panel {
+            flex: 1 1 240px;
+            min-width: 168px;
+        }
+
+        .search-controls {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-controls .search-icon {
+            position: absolute;
+            inset-inline-start: 14px;
+            display: grid;
+            place-items: center;
+            color: var(--muted);
+            pointer-events: none;
+        }
+
+        .search-controls .search-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        #search-bar {
+            flex: 1 1 auto;
+            min-width: 0;
+            height: 46px;
+            padding-block: 0;
+            padding-inline: 44px 56px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--text);
+            font-family: var(--font-ar);
+            font-size: 1.05rem;
+            transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+        }
+
+        #search-bar::placeholder {
+            color: var(--muted);
+        }
+
+        #search-bar:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: var(--surface-2);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        #search-button {
+            position: absolute;
+            inset-inline-end: 4px;
+            width: 38px;
+            height: 38px;
+            min-height: 38px;
+            padding: 0;
+            border-color: transparent;
+            border-radius: 999px;
+            background: transparent;
+            color: var(--muted);
+        }
+
+        #search-button:hover {
+            border-color: transparent;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        #theme-toggle .icon-sun {
+            display: none;
+        }
+
+        :root[data-theme="light"] #theme-toggle .icon-sun {
+            display: block;
+        }
+
+        :root[data-theme="light"] #theme-toggle .icon-moon {
+            display: none;
+        }
+
+        /* ------------------------------------------------------------------
+           Surah navigation
+        ------------------------------------------------------------------ */
         #nav {
             position: fixed;
-            z-index: 20;
-            top: 68px;
+            z-index: 60;
+            top: 50%;
             left: 50%;
-            width: min(880px, calc(100vw - 40px));
-            max-height: calc(100dvh - 80px);
-            overflow-y: auto;
-            transform: translateX(-50%);
             display: grid;
-            grid-template-columns: repeat(6, minmax(0, 1fr));
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 8px;
-            padding: 16px;
+            width: min(720px, calc(100vw - 32px));
+            max-height: min(78dvh, 760px);
+            padding: 14px;
+            overflow-y: auto;
+            overscroll-behavior: contain;
             background: var(--surface);
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transform: translate(-50%, -50%);
         }
 
         #nav-backdrop {
             position: fixed;
-            z-index: 19;
+            z-index: 50;
             inset: 0;
-            background: rgba(0, 0, 0, 0.66);
-            backdrop-filter: blur(3px);
+            background: rgba(4, 8, 8, 0.6);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
         }
 
         .nav-header {
+            position: sticky;
+            z-index: 2;
+            top: -14px;
             display: flex;
+            flex-direction: column;
+            gap: 10px;
             grid-column: 1 / -1;
+            margin: -14px -14px 4px;
+            padding: 14px 14px 12px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-header__row {
+            display: flex;
+            gap: 10px;
             align-items: center;
             justify-content: space-between;
-            gap: 16px;
-            padding: 0 2px 8px;
-            border-bottom: 1px solid rgba(184, 245, 66, 0.25);
+        }
+
+        .nav-title {
             color: var(--accent);
-            font-size: 1.1rem;
+            font-family: var(--font-ar);
+            font-size: 1.15rem;
+            font-weight: 600;
         }
 
         #nav-close {
-            width: 44px;
-            min-height: 44px;
-            padding: 4px;
+            width: 40px;
+            height: 40px;
+            min-height: 40px;
+            padding: 0;
+            border-radius: 999px;
             color: var(--muted);
-            font-size: 1.4rem;
-            line-height: 1;
         }
 
-        #nav .surah {
-            min-height: 46px;
-            padding: 8px 6px;
-            font-size: 0.9rem;
+        #surah-filter {
+            width: 100%;
+            height: 44px;
+            padding-inline: 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: var(--font-ar);
+            font-size: 1rem;
         }
 
-        .icon-button {
-            display: inline-flex;
+        #surah-filter:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .surah {
+            display: flex;
+            gap: 10px;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
+            min-height: 48px;
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--surface-2);
+            color: var(--text);
+            font-family: var(--font-ar);
+            font-size: 1.02rem;
+            font-weight: 500;
+            text-align: start;
+            transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
         }
 
-        .icon {
-            position: relative;
-            display: inline-block;
+        .surah:hover {
+            border-color: var(--border-strong);
+            background: var(--surface-3);
+        }
+
+        .surah:focus-visible {
+            outline: 2px solid var(--accent-ring);
+            outline-offset: 2px;
+        }
+
+        .surah.is-active {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .surah__num {
+            display: grid;
             flex: 0 0 auto;
-            color: currentColor;
+            place-items: center;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 9px;
+            background: var(--surface-3);
+            color: var(--muted);
+            font-family: var(--font-ui);
+            font-size: 0.78rem;
+            font-weight: 600;
         }
 
-        .icon-book {
-            width: 20px;
-            height: 17px;
-            border: 1.5px solid currentColor;
-            border-radius: 2px 3px 3px 2px;
-            transform: skewY(-3deg);
+        .surah.is-active .surah__num {
+            background: var(--accent);
+            color: var(--on-accent);
         }
 
-        .icon-book::before {
-            position: absolute;
-            top: -1.5px;
-            left: 50%;
-            width: 1.5px;
-            height: calc(100% + 3px);
-            background: currentColor;
-            content: "";
-            transform: translateX(-50%);
-        }
-
-        .icon-search {
-            width: 17px;
-            height: 17px;
-            border: 2px solid currentColor;
-            border-radius: 50%;
-        }
-
-        .icon-search::after {
-            position: absolute;
-            right: -5px;
-            bottom: -3px;
-            width: 7px;
-            height: 2px;
-            border-radius: 2px;
-            background: currentColor;
-            content: "";
-            transform: rotate(45deg);
-            transform-origin: left center;
+        .surah__name {
+            flex: 1 1 auto;
         }
 
         .sr-only {
@@ -355,183 +797,402 @@
             border: 0;
         }
 
+        /* ------------------------------------------------------------------
+           Search results
+        ------------------------------------------------------------------ */
         #main {
-            width: min(100% - 32px, 1180px);
+            width: min(100% - 24px, 1080px);
             margin: 0 auto;
         }
 
         #home {
-            padding: clamp(28px, 7vw, 72px) 16px 20px;
+            padding: clamp(24px, 5vw, 46px) 0 clamp(14px, 3vw, 24px);
             text-align: center;
-
         }
 
         #home h1 {
-            margin: 0;
-            font-size: clamp(2rem, 5vw, 3.2rem);
-            color: var(--text);
-            border-radius: 8px;
-        }
-
-        .search-panel {
-            width: min(100%, 760px);
-            margin: 0 auto;
-        }
-
-        .search-controls {
-            display: flex;
-            gap: 8px;
-            align-items: stretch;
-        }
-
-        #search-bar {
-            flex: 1;
-            min-width: 0;
-            padding: 12px 14px;
-            border: 1px solid var(--accent);
-            border-radius: 6px;
-            background: var(--surface);
-            color: var(--text);
-            direction: rtl;
-            font-size: 1.1rem;
-        }
-
-        #search-bar::placeholder {
-            color: var(--muted);
-            direction: rtl;
-        }
-
-        #search-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            flex: 0 0 112px;
+            margin: 0 0 10px;
+            /* The gradient is clipped to the text, so any glyph part outside
+               the box would vanish. The Quran font has deep descenders and
+               huge metrics, so the box needs extra room at the bottom. */
+            padding: 0 0.2em 0.48em;
+            background: linear-gradient(180deg, var(--accent) 25%, var(--accent-strong));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: var(--accent);
+            font-family: var(--font-quran);
+            font-size: clamp(2.1rem, 5.4vw, 3.4rem);
+            font-weight: 400;
+            line-height: 1.4;
+            -webkit-text-fill-color: transparent;
         }
 
         #search-results {
-            padding: 20px 0;
+            display: grid;
+            gap: 12px;
+            padding-bottom: 24px;
         }
 
         #search-results:empty {
             display: none;
         }
 
-        #search-results>div {
-            margin-bottom: 10px;
+        .results-meta {
+            margin: 0;
+            color: var(--muted);
+            font-family: var(--font-ar);
+            font-size: 0.95rem;
+        }
+
+        .result {
             padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
             background: var(--surface);
-            border: 1px solid rgba(184, 245, 66, 0.48);
-            border-radius: 8px;
-            transition: background-color 160ms ease, border-color 160ms ease;
+            cursor: pointer;
+            text-align: start;
+            transition: background-color 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
         }
 
-        #search-results>div:hover {
-            background: var(--surface-raised);
-            border-color: var(--accent);
+        .result:hover {
+            border-color: var(--border-strong);
+            background: var(--surface-2);
+            box-shadow: var(--shadow);
+            transform: translateY(-1px);
         }
 
-        #search-results h4 {
+        .result:focus-visible {
+            outline: 2px solid var(--accent-ring);
+            outline-offset: 2px;
+        }
+
+        .result__head {
+            display: flex;
+            gap: 10px;
+            align-items: baseline;
             margin: 0 0 8px;
-            color: var(--accent);
         }
 
-        #search-results p {
-            margin: 8px 0 0;
+        .result__ref {
+            margin: 0;
+            color: var(--accent);
+            font-family: var(--font-ar);
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .result__loc {
+            color: var(--muted);
+            font-family: var(--font-ui);
+            font-size: 0.78rem;
+        }
+
+        .result .quran-text {
+            margin: 0;
+            color: var(--quran);
+            font-size: clamp(1.25rem, 1rem + 1vw, 1.6rem);
+            line-height: 2.1;
+        }
+
+        .empty {
+            padding: 28px 18px;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--muted);
+            font-family: var(--font-ar);
+            font-size: 1.05rem;
+            text-align: center;
+        }
+
+        .load-more {
+            width: 100%;
+            font-family: var(--font-ar);
+        }
+
+        /* ------------------------------------------------------------------
+           Ayah cards
+        ------------------------------------------------------------------ */
+        #maincontent {
+            width: min(100% - 24px, 860px);
+            margin: 6px auto 96px;
+        }
+
+        .surah-head {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            justify-content: center;
+            padding: 18px;
+            margin: 10px 0 16px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, var(--surface-2), var(--surface));
+        }
+
+        .surah-head__badge {
+            display: grid;
+            place-items: center;
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: var(--font-ar);
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .surah-head__name {
+            margin: 0;
+            color: var(--text);
+            font-family: var(--font-quran);
+            font-size: clamp(1.5rem, 3.6vw, 2.1rem);
+            font-weight: 400;
+        }
+
+        .basmala {
+            margin: 0 0 18px;
+            color: var(--accent);
+            font-family: var(--font-quran);
+            font-size: clamp(1.35rem, 1rem + 2vw, 1.9rem);
+            line-height: 2;
+            text-align: center;
+        }
+
+        .ayah {
+            padding: 16px 18px 18px;
+            margin: 0 0 14px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            scroll-margin-top: 150px;
+            transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+        }
+
+        .ayah:hover {
+            border-color: var(--border-strong);
+        }
+
+        .ayah.is-flash {
+            border-color: var(--accent);
+            background: var(--surface-2);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+
+        .ayah.is-playing {
+            border-color: var(--accent);
+            background: var(--surface-2);
+            box-shadow: 0 0 0 3px var(--accent-soft);
+        }
+
+        .ayah__head {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin: 0 0 12px;
+        }
+
+        .ayah__num {
+            display: grid;
+            place-items: center;
+            min-width: 32px;
+            height: 32px;
+            padding: 0 8px;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .ayah__rule {
+            flex: 1 1 auto;
+            height: 1px;
+            background: linear-gradient(to left, var(--border), transparent);
+        }
+
+        .quran-text {
+            font-family: var(--font-quran);
+            font-size: clamp(1.45rem, 1rem + 1.9vw, 2.05rem);
+            line-height: 2.25;
+            color: var(--quran);
+        }
+
+        .ayah__text {
+            margin: 0;
+        }
+
+        .ayah__block {
+            padding-top: 12px;
+            margin-top: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .ayah__label {
+            display: inline-flex;
+            gap: 6px;
+            align-items: center;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-family: var(--font-ui);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .ayah__label .flag {
+            width: 18px;
+            height: 12px;
+        }
+
+        .ayah__tafsir {
+            margin: 0;
+            color: var(--text-dim);
+            font-family: var(--font-ar);
+            font-size: 1.05rem;
+            line-height: 2.05;
+        }
+
+        .ayah__english {
+            margin: 0;
+            color: var(--text-dim);
+            font-family: var(--font-ui);
+            font-size: 0.97rem;
             line-height: 1.8;
         }
 
-        #maincontent {
-            width: min(100% - 32px, 980px);
-            margin: 16px auto 64px;
-            text-align: right;
-        }
-
-        #maincontent>h3:first-child {
-            margin: 0 0 18px;
-            color: var(--accent);
-            font-size: clamp(1.4rem, 3vw, 2rem);
-        }
-
-        #maincontent h2 {
-            margin: 24px 0 8px;
-            color: var(--text) !important;
-            font-size: clamp(1.35rem, 3vw, 2rem);
-            font-weight: normal;
-            line-height: 2;
-        }
-
-        #maincontent h3 {
-            margin: 8px 0;
-            color: var(--muted) !important;
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            font-weight: normal;
-            line-height: 1.9;
-        }
-
-        .quran-text,
-        #maincontent .quran-text,
-        #search-results .quran-text {
-            font-family: 'Amiri Quran', serif;
-            font-size: 26px;
-            line-height: 2.2;
+        .clamp-text {
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
         }
 
         mark {
-            background: #e6f95b;
-            color: #101510;
-            font-weight: bold;
+            padding: 0 3px;
+            border-radius: 5px;
+            background: var(--mark-bg);
+            color: var(--mark-text);
+            font-weight: inherit;
+        }
+
+        .to-top {
+            position: fixed;
+            z-index: 40;
+            inset-inline-start: 16px;
+            bottom: calc(16px + env(safe-area-inset-bottom));
+            display: grid;
+            place-items: center;
+            width: 46px;
+            height: 46px;
+            border: 1px solid var(--border-strong);
+            border-radius: 999px;
+            background: var(--surface-2);
+            color: var(--accent);
+            box-shadow: var(--shadow);
+        }
+
+        .to-top svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ------------------------------------------------------------------
+           Small screens
+        ------------------------------------------------------------------ */
+        @media (max-width: 1040px) {
+            .btn__label {
+                display: none;
+            }
+
+            .btn__label--always {
+                display: inline;
+            }
         }
 
         @media (max-width: 700px) {
-            #button-container {
-                gap: 4px;
+            .appbar__inner {
+                gap: 8px;
             }
 
-            #nav {
-                width: calc(100vw - 20px);
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+            #show-nav {
+                order: 1;
+            }
+
+            .search-panel {
+                order: 2;
+            }
+
+            .appbar__tools {
+                order: 3;
+                flex-basis: 100%;
+                justify-content: center;
                 gap: 6px;
-                padding: 12px;
             }
 
-            .nav-header {
-                font-size: 1rem;
+            .btn {
+                padding: 8px 10px;
             }
 
-            #nav .surah {
-                min-height: 44px;
-                font-size: 0.95rem;
+            .reciter-select {
+                max-width: 9rem;
+                font-size: 0.9rem;
             }
 
             #main,
             #maincontent {
-                width: min(100% - 20px, 980px);
+                width: calc(100% - 20px);
             }
 
             #home {
-                padding: 12px 0;
+                padding: 18px 0 12px;
             }
 
-            #home h1 {
-                font-size: 1.75rem;
-                line-height: 1.4;
+            .ayah {
+                padding: 14px 14px 16px;
+                scroll-margin-top: 170px;
             }
 
-            #search-bar {
-                height: 44px;
-                padding: 6px 10px;
-                font-size: 1rem;
+            #nav {
+                top: auto;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                max-height: 86dvh;
+                grid-template-columns: minmax(0, 1fr);
+                padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+                border-width: 1px 0 0;
+                border-radius: 18px 18px 0 0;
+                transform: none;
             }
 
-            #search-button {
-                flex: 0 0 44px;
-                width: 44px;
-                height: 44px;
-                padding: 6px;
+            .nav-header {
+                top: -12px;
+                margin: -12px -12px 4px;
+                padding: 12px 12px 10px;
             }
 
-            #maincontent h2 {
-                line-height: 1.8;
+            .to-top {
+                inset-inline-start: 12px;
+                bottom: calc(12px + env(safe-area-inset-bottom));
+            }
+        }
+
+        @media (max-width: 380px) {
+            .appbar__tools {
+                gap: 4px;
+            }
+
+            .btn {
+                padding: 8px 8px;
+            }
+
+            .reciter-select {
+                max-width: 8rem;
             }
         }
     </style>
@@ -540,51 +1201,146 @@
 </head>
 
 <body>
-    <div id="button-container">
-        <button id="random-button" class="icon-button top-action random-action" type="button" aria-label="Random ayah"
-            title="Random ayah">
-            <i class="fas fa-shuffle" aria-hidden="true"></i>
-            <span class="action-label" aria-hidden="true">آيه</span>
-            <span class="sr-only">RANDOM AYAH</span>
-        </button>
-        <button id="randomSurah-button" class="icon-button top-action random-action" type="button"
-            aria-label="Random surah" title="Random surah">
-            <i class="fas fa-shuffle" aria-hidden="true"></i>
-            <span class="action-label" aria-hidden="true">سوره</span>
-            <span class="sr-only">RANDOM SURAH</span>
-        </button>
-        <button id="clear-button" class="icon-button top-action" type="button" aria-label="Clear" title="Clear">
-            <span class="icon icon-clear" aria-hidden="true"></span>
-            <span class="sr-only">CLEAR</span>
-        </button>
-        <button id="toggle-tafsir" class="icon-button top-action content-toggle is-active" type="button"
-            aria-label="Hide Tafsir" aria-pressed="true" title="Hide Tafsir">
-            <span class="icon icon-tafsir" aria-hidden="true"></span>
-            <span class="sr-only">HIDE TAFSIR</span>
-        </button>
-        <button id="toggle-english" class="icon-button top-action content-toggle is-active" type="button"
-            aria-label="Hide English" aria-pressed="true" title="Hide English">
-            <span class="icon icon-english" aria-hidden="true">EN</span>
-            <span class="sr-only">HIDE ENGLISH</span>
-        </button>
-        <button id="show-nav" class="icon-button" type="button" aria-label="Open surah navigation"
-            title="Open surah navigation">
-            <span class="icon icon-book" aria-hidden="true"></span>
-            <span class="sr-only">NAV</span>
-        </button>
-    </div>
+    <!-- ==================== Sticky app bar ==================== -->
+    <header id="button-container" class="appbar">
+        <div class="appbar__inner">
+            <button id="show-nav" class="btn btn--primary" type="button" aria-label="Open surah navigation"
+                aria-expanded="false" aria-controls="nav" title="قائمة السور" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                    stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                </svg>
+                <span class="btn__label">السور</span>
+            </button>
 
+            <div class="search-panel">
+                <div class="search-controls">
+                    <span class="search-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-3.3-3.3"></path>
+                        </svg>
+                    </span>
+                    <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم..." autocomplete="off"
+                        spellcheck="false" enterkeyhint="search" disabled>
+                    <button id="search-button" class="btn" type="button" aria-label="Search" title="ابحث" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" aria-hidden="true">
+                            <circle cx="11" cy="11" r="7"></circle>
+                            <path d="m20 20-3.3-3.3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="appbar__tools">
+                <button id="random-button" class="btn" type="button" aria-label="Random ayah" title="آية عشوائية"
+                    disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M16 3h5v5"></path>
+                        <path d="M4 20 21 3"></path>
+                        <path d="M21 16v5h-5"></path>
+                        <path d="m15 15 6 6"></path>
+                        <path d="m4 4 5 5"></path>
+                    </svg>
+                    <span class="btn__label btn__label--always">آية</span>
+                </button>
+                <button id="randomSurah-button" class="btn" type="button" aria-label="Random surah" title="سورة عشوائية"
+                    disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M16 3h5v5"></path>
+                        <path d="M4 20 21 3"></path>
+                        <path d="M21 16v5h-5"></path>
+                        <path d="m15 15 6 6"></path>
+                        <path d="m4 4 5 5"></path>
+                    </svg>
+                    <span class="btn__label btn__label--always">سورة</span>
+                </button>
+                <div class="picker" id="source-picker">
+                    <button id="sources-toggle" class="btn" type="button" aria-label="اختر المصادر المعروضة"
+                        aria-expanded="false" aria-controls="sources-panel" title="اختر التفسير والترجمات" disabled>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M8 6h13M8 12h13M8 18h13"></path>
+                            <path d="M3 6h.01M3 12h.01M3 18h.01"></path>
+                        </svg>
+                        <span class="btn__label btn__label--always">المصادر</span>
+                        <span id="sources-count" class="picker__count" hidden></span>
+                    </button>
+                    <div id="sources-panel" class="picker__panel" hidden>
+                        <div id="sources-list" class="picker__list"></div>
+                    </div>
+                </div>
+                <label class="reciter-picker" id="reciter-picker" title="اختر القارئ">
+                    <select id="reciter-select" class="reciter-select" aria-label="اختر القارئ" disabled>
+                        <option value="">جارٍ التحميل…</option>
+                    </select>
+                </label>
+                <button id="repeat-toggle" class="btn" type="button" aria-label="تشغيل متواصل" aria-pressed="false"
+                    title="تشغيل متواصل — ينتقل تلقائيًا إلى الآية التالية" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M17 2l4 4-4 4"></path>
+                        <path d="M3 11v-1a4 4 0 0 1 4-4h14"></path>
+                        <path d="M7 22l-4-4 4-4"></path>
+                        <path d="M21 13v1a4 4 0 0 1-4 4H3"></path>
+                    </svg>
+                    <span class="btn__label">متواصل</span>
+                </button>
+                <button id="theme-toggle" class="btn" type="button" aria-label="Switch to light mode"
+                    title="تفعيل الوضع النهاري" disabled>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+                    </svg>
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <path
+                            d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5">
+                        </path>
+                    </svg>
+                    <span class="sr-only">THEME</span>
+                </button>
+                <button id="clear-button" class="btn" type="button" aria-label="Clear" title="مسح المحتوى والبحث"
+                    disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 6h18"></path>
+                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+                        <path d="M10 11v6M14 11v6"></path>
+                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                    </svg>
+                    <span class="btn__label">مسح</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== Surah navigation ==================== -->
     <div id="nav-backdrop" hidden></div>
 
-    <div id="nav" style="display: none;">
+    <div id="nav" style="display: none;" role="dialog" aria-modal="true" aria-label="قائمة السور">
         <div class="nav-header">
-            <span>~</span>
-            <button id="nav-close" type="button" aria-label="Close surah navigation" title="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+            <div class="nav-header__row">
+                <span class="nav-title">قائمة السور</span>
+                <button id="nav-close" class="btn" type="button" aria-label="Close surah navigation" title="إغلاق">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        aria-hidden="true">
+                        <path d="M6 6l12 12M18 6 6 18"></path>
+                    </svg>
+                </button>
+            </div>
+            <input id="surah-filter" type="search" placeholder="ابحث عن سورة بالاسم أو الرقم..." autocomplete="off"
+                aria-label="Filter surahs">
         </div>
     </div>
 
+    <!-- ==================== Hero + search results ==================== -->
     <div id="main">
         <header id="home">
             <h1>
@@ -592,24 +1348,20 @@
             </h1>
         </header>
 
-        <!-- Search Bar -->
-        <div class="search-panel">
-            <div class="search-controls">
-                <input type="text" id="search-bar" placeholder="ابحث في القرآن الكريم...">
-                <button id="search-button" class="icon-button" type="button" aria-label="Search" title="Search">
-                    <span class="icon icon-search" aria-hidden="true"></span>
-                    <span class="sr-only">SEARCH</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Search Results -->
         <div id="search-results"></div>
     </div>
 
     <div id='maincontent'>
-
+        <p class="empty">جارٍ تحميل النص القرآني...</p>
     </div>
+
+    <button id="to-top" class="to-top" type="button" aria-label="Back to top" title="أعلى الصفحة" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="m18 15-6-6-6 6"></path>
+        </svg>
+    </button>
+
     <script src="index.js"></script>
 </body>
 

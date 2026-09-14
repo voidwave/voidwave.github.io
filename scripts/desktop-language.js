@@ -47,6 +47,7 @@ const desktopLanguage = (() => {
         'Portfolio folders': 'مجلدات الأعمال',
         'PLACES': 'المجلدات',
         'Home': 'الرئيسية',
+        'AlQuran': 'القرآن',
         'Games': 'الألعاب',
         'PERSONAL': 'شخصي',
         'About me': 'نبذة عني',

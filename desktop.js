@@ -1,5 +1,6 @@
 const apps = [
     { id: 'portfolio', name: 'Portfolio', icon: 'folder-open', color: 'gold', description: 'Games & selected work' },
+    { id: 'alquran', name: 'AlQuran', icon: 'book', color: 'mint', description: 'Quran App', src: 'Quran/index.html' },
     { id: 'hydrogen', name: 'Hydrogen', icon: 'gamepad', color: 'mint', description: 'Hydrogen trailer', src: 'game-window.html?game=hydrogen', url: 'https://store.steampowered.com/app/1746820/' },
     { id: 'djinn', name: 'Djinn Scrolls', icon: 'magic', color: 'coral', description: 'Djinn Scrolls trailer', src: 'game-window.html?game=djinn', url: 'https://store.steampowered.com/app/4392620/DJINN_SCROLLS/' },
     { id: 'projects', name: 'Experiments', icon: 'flask', color: 'coral', description: 'Playable demos & projects', src: 'demos_projects.html' },
@@ -7,10 +8,10 @@ const apps = [
     { id: 'gallery', name: 'Gallery', icon: 'picture-o', color: 'blue', description: 'Art & screenshots', src: 'gallery/index.html' },
     { id: 'terminal', name: 'Terminal', icon: 'terminal', color: 'graphite', description: 'majed@voidwave.com: ~' },
     { id: 'about', name: 'About Me', icon: 'user-o', color: 'mint', description: 'Majed Altaemi' },
-    { id: 'settings', name: 'Settings', icon: 'sliders', color: 'graphite', description: 'Desktop appearance' },
     { id: 'archive', name: 'Project Archive', icon: 'folder', color: 'gold', description: 'All videos & demo projects', src: 'projects.html' },
     { id: 'twitter', name: 'Twitter / X', icon: 'twitter', color: 'blue', description: '@majedaltaemi', external: 'https://x.com/majedaltaemi' },
-    { id: 'instagram', name: 'Instagram', icon: 'instagram', color: 'coral', description: '@majedaltaemi', external: 'https://www.instagram.com/majedaltaemi/' }
+    { id: 'instagram', name: 'Instagram', icon: 'instagram', color: 'coral', description: '@majedaltaemi', external: 'https://www.instagram.com/majedaltaemi/' },
+    { id: 'settings', name: 'Settings', icon: 'sliders', color: 'graphite', description: 'Desktop appearance' }
 ];
 
 const mobileQuery = matchMedia('(max-width: 760px)');

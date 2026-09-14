@@ -1,0 +1,11 @@
+# Ignore the massive data folder causing DeepSeek to loop
+Quran/QuranAudio/
+Quran/QuranText/
+primejinn/
+genai-webgpu/
+
+
+# Recommended defaults to keep the context clean
+node_modules/
+.git/
+*.log

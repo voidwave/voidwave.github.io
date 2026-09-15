@@ -1,0 +1,84 @@
+{
+ "chapter": 18,
+ "nameArabic": "الكهف",
+ "nameSimple": "Al-Kahf",
+ "versesCount": 110,
+ "firstPage": 293,
+ "lastPage": 304,
+ "surahNamesFont": "fonts/mushaf/sura_names.woff2",
+ "pages": [
+  {
+   "page": 293,
+   "file": "QuranText/MushafPages/p293.json",
+   "font": "fonts/mushaf/p293.woff2",
+   "fontBytes": 176904
+  },
+  {
+   "page": 294,
+   "file": "QuranText/MushafPages/p294.json",
+   "font": "fonts/mushaf/p294.woff2",
+   "fontBytes": 184424
+  },
+  {
+   "page": 295,
+   "file": "QuranText/MushafPages/p295.json",
+   "font": "fonts/mushaf/p295.woff2",
+   "fontBytes": 185304
+  },
+  {
+   "page": 296,
+   "file": "QuranText/MushafPages/p296.json",
+   "font": "fonts/mushaf/p296.woff2",
+   "fontBytes": 185888
+  },
+  {
+   "page": 297,
+   "file": "QuranText/MushafPages/p297.json",
+   "font": "fonts/mushaf/p297.woff2",
+   "fontBytes": 197324
+  },
+  {
+   "page": 298,
+   "file": "QuranText/MushafPages/p298.json",
+   "font": "fonts/mushaf/p298.woff2",
+   "fontBytes": 196816
+  },
+  {
+   "page": 299,
+   "file": "QuranText/MushafPages/p299.json",
+   "font": "fonts/mushaf/p299.woff2",
+   "fontBytes": 194416
+  },
+  {
+   "page": 300,
+   "file": "QuranText/MushafPages/p300.json",
+   "font": "fonts/mushaf/p300.woff2",
+   "fontBytes": 189852
+  },
+  {
+   "page": 301,
+   "file": "QuranText/MushafPages/p301.json",
+   "font": "fonts/mushaf/p301.woff2",
+   "fontBytes": 191848
+  },
+  {
+   "page": 302,
+   "file": "QuranText/MushafPages/p302.json",
+   "font": "fonts/mushaf/p302.woff2",
+   "fontBytes": 186624
+  },
+  {
+   "page": 303,
+   "file": "QuranText/MushafPages/p303.json",
+   "font": "fonts/mushaf/p303.woff2",
+   "fontBytes": 200420
+  },
+  {
+   "page": 304,
+   "file": "QuranText/MushafPages/p304.json",
+   "font": "fonts/mushaf/p304.woff2",
+   "fontBytes": 211648
+  }
+ ],
+ "builtAt": "2026-09-15T13:08:30.791Z"
+}

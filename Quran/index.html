@@ -655,6 +655,42 @@
         }
 
         /* ------------------------------------------------------------------
+           Switch between the reader and the Mushaf view
+        ------------------------------------------------------------------ */
+        .view-switch {
+            display: inline-flex;
+            align-items: center;
+            padding: 3px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-2);
+        }
+
+        .view-switch__option {
+            display: inline-flex;
+            align-items: center;
+            min-height: 34px;
+            padding: 4px 15px;
+            border-radius: 9px;
+            color: var(--muted);
+            font-family: var(--font-ar);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background-color 160ms ease, color 160ms ease;
+        }
+
+        .view-switch__option:hover {
+            color: var(--text);
+        }
+
+        .view-switch__option.is-active {
+            background: var(--accent);
+            color: var(--on-accent);
+        }
+
+        /* ------------------------------------------------------------------
            Surah navigation
         ------------------------------------------------------------------ */
         #nav {
@@ -1187,6 +1223,17 @@
                 display: inline;
             }
 
+            /* The view switch takes a full row of the menu, easy to tap. */
+            .appbar__tools .view-switch {
+                grid-column: 1 / -1;
+            }
+
+            .appbar__tools .view-switch__option {
+                flex: 1 1 0;
+                justify-content: center;
+                min-height: 40px;
+            }
+
             /* The sources picker opens inside the menu, so it cannot overflow. */
             .appbar__tools .picker {
                 grid-column: 1 / -1;
@@ -1319,6 +1366,11 @@
             </button>
 
             <div id="appbar-tools" class="appbar__tools">
+                <div class="view-switch" role="group" aria-label="التنقل بين القارئ والمصحف">
+                    <span class="view-switch__option is-active" aria-current="page">القارئ</span>
+                    <a class="view-switch__option" id="mushaf-link" href="index2.html"
+                        title="فتح المصحف: الصفحات المطبوعة، كل كلمة فيها رسم متجهي">المصحف</a>
+                </div>
                 <button id="random-button" class="btn" type="button" aria-label="Random ayah" title="آية عشوائية"
                     disabled>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -1390,14 +1442,13 @@
                     <span class="menu-label">الوضع</span>
                     <span class="sr-only">THEME</span>
                 </button>
-                <button id="clear-button" class="btn" type="button" aria-label="Clear" title="مسح المحتوى والبحث"
-                    disabled>
+                <button id="clear-button" class="btn" type="button" aria-label="مسح المحتوى والبحث"
+                    title="مسح المحتوى والبحث" disabled>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">
-                        <path d="M3 6h18"></path>
-                        <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
-                        <path d="M10 11v6M14 11v6"></path>
-                        <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"></path>
+                        <rect x="4.5" y="7.5" width="15" height="9" rx="1.8" transform="rotate(-45 12 12)"></rect>
+                        <path d="m9.9 7.7 6.4 6.4"></path>
+                        <path d="M8 20.5H21"></path>
                     </svg>
                     <span class="btn__label">مسح</span>
                 </button>

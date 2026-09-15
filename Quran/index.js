@@ -111,6 +111,7 @@ Promise.all([
     setupReciterPicker();
     initializePage();
     setupSearchBar(); // Call the function that initializes the page
+    openSurahFromUrl(); // ?surah=18, used by the Mushaf view
 }).catch(error => {
     console.error("Error loading XML files:", error);
     var target = document.getElementById('maincontent');
@@ -1483,8 +1484,36 @@ function ViewSurah(index, scrollToTop) {
     closeSurahNav();
     closeToolsMenu();
     renderSurah(index);
+    syncViewSwitch(index);
 
     if (scrollToTop !== false) {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+/* Keeps the mushaf link and the address bar in step with the surah on screen,
+ * so switching to the Mushaf view opens the page that surah starts on. */
+function syncViewSwitch(index) {
+    const link = document.getElementById('mushaf-link');
+    if (link) {
+        link.href = 'index2.html#s' + (index + 1);
+    }
+    try {
+        history.replaceState(null, '', '?surah=' + (index + 1));
+    } catch (error) {
+        // History may be blocked (file://); the link above still works.
+    }
+}
+
+/* index2.html links here as ?surah=18 so the two views stay in step. */
+function openSurahFromUrl() {
+    let requested = 0;
+    try {
+        requested = Number(new URLSearchParams(window.location.search).get('surah'));
+    } catch (error) {
+        requested = 0;
+    }
+    if (requested >= 1 && requested <= 114) {
+        ViewSurah(requested - 1, false);
     }
 }

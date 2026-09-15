@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- صفحة معاينة الرسومات (أداة تطوير) — sprite preview / QA tool -->
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="utf-8" />
+    <title>معاينة الرسومات — sprite preview</title>
+    <style>
+        body {
+            background: #1a1622;
+            color: #e8e2d4;
+            font: 13px/1.5 monospace;
+            margin: 16px;
+        }
+
+        #issues {
+            color: #ffb0a0;
+            white-space: pre-wrap;
+            margin-bottom: 12px;
+        }
+
+        canvas {
+            image-rendering: pixelated;
+            background: #2a2434;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="issues">checking…</div>
+    <canvas id="out"></canvas>
+    <script type="module">
+        import { ART } from '../js/render/sprite-data.js';
+        import { bakeAll, spriteInfo } from '../js/render/sprites.js';
+
+        // 1) تحقق من تساوي أطوال الصفوف — row-length validation
+        const issues = [];
+        for (const [name, def] of Object.entries(ART)) {
+            if (!def.px) continue;
+            const w = def.px[0].length;
+            def.px.forEach((row, i) => {
+                if (row.length !== w) issues.push(`${name}: row ${i} length ${row.length} != ${w}`);
+                for (const ch of row) {
+                    if (ch !== '.' && ch !== ' ' && !def.pal[ch]) issues.push(`${name}: char "${ch}" missing in palette`);
+                }
+            });
+        }
+        document.getElementById('issues').textContent =
+            issues.length ? `⚠️ ${issues.length} issue(s):\n` + issues.join('\n') : '✅ all pixel rows consistent';
+
+        // 2) ارسم كل الرسومات على شبكة — draw everything on a grid (paginated)
+        bakeAll();
+        const params = new URLSearchParams(location.search);
+        const PAGE = Number(params.get('page') || 1);
+        const PER = Number(params.get('per') || 12);
+        const S = Number(params.get('scale') || 5);
+        const COLS = Number(params.get('cols') || 4);
+        const PAD = 12;
+        const all = Object.keys(ART);
+        const names = all.slice((PAGE - 1) * PER, PAGE * PER);
+        document.getElementById('issues').textContent +=
+            `\npage ${PAGE}/${Math.ceil(all.length / PER)} — size=${S} show=${names.length}`;
+        const CELL_W = 250, CELL_H = 300;
+        const rows = Math.ceil(names.length / COLS);
+        const cv = document.getElementById('out');
+        cv.width = COLS * CELL_W;
+        cv.height = rows * CELL_H;
+        const ctx = cv.getContext('2d');
+        ctx.imageSmoothingEnabled = false;
+        ctx.fillStyle = '#2a2434';
+        ctx.fillRect(0, 0, cv.width, cv.height);
+        names.forEach((name, i) => {
+            const cx = (i % COLS) * CELL_W;
+            const cy = Math.floor(i / COLS) * CELL_H;
+            const s = spriteInfo(name);
+            // floor line
+            ctx.fillStyle = '#3a3450';
+            ctx.fillRect(cx + PAD, cy + CELL_H - 40, CELL_W - 2 * PAD, 2);
+            ctx.drawImage(s.canvas, cx + PAD, cy + CELL_H - 40 - s.h * S, s.w * S, s.h * S);
+            if (s.solid) {
+                ctx.strokeStyle = '#ff6a5a';
+                ctx.strokeRect(cx + PAD + s.solid.x * S + 0.5, cy + CELL_H - 40 - s.h * S + s.solid.y * S + 0.5, s.solid.w * S, s.solid.h * S);
+            }
+            ctx.fillStyle = '#c9bfa4';
+            ctx.font = '13px monospace';
+            ctx.textAlign = 'left';
+            ctx.fillText(`${name} ${s.w}x${s.h}`, cx + PAD, cy + 16);
+        });
+    </script>
+</body>
+
+</html>

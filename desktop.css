@@ -319,7 +319,8 @@ body[data-wallpaper="grid"] .wallpaper,
     top: 208px;
     bottom: 105px;
     display: grid;
-    grid-template-rows: repeat(5, minmax(0, 92px));
+    grid-template-rows: repeat(6, minmax(0, 92px));
+    grid-auto-rows: minmax(0, 92px);
     width: 88px;
 }
 
@@ -360,6 +361,20 @@ body[data-wallpaper="grid"] .wallpaper,
     font-size: 24px;
 }
 
+.tile-text {
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+}
+
+.tile-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: inherit;
+}
+
 .gold {
     --tile-bg: #d6b56b;
     --tile-color: #463615;
@@ -383,6 +398,11 @@ body[data-wallpaper="grid"] .wallpaper,
 .graphite {
     --tile-bg: #303b35;
     --tile-color: #b5d6c1;
+}
+
+.dark {
+    --tile-bg: #111213;
+    --tile-color: #e9eeea;
 }
 
 .app-label {
@@ -595,6 +615,12 @@ body[data-wallpaper="grid"] .wallpaper,
 .window-title>.fa {
     color: var(--accent);
     font-size: 13px;
+}
+
+.window-title .tile-image {
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
 }
 
 .window-controls {
@@ -1562,6 +1588,7 @@ body[data-wallpaper="grid"] .wallpaper,
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
         grid-template-rows: none;
+        grid-auto-rows: auto;
         gap: 22px 7px;
     }
 

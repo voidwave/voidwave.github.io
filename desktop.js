@@ -1,8 +1,8 @@
 const apps = [
     { id: 'portfolio', name: 'Portfolio', icon: 'folder-open', color: 'gold', description: 'Games & selected work' },
     { id: 'alquran', name: 'AlQuran', icon: 'book', color: 'mint', description: 'Quran App', src: 'Quran/index.html' },
-    { id: 'hydrogen', name: 'Hydrogen', icon: 'gamepad', color: 'mint', description: 'Hydrogen trailer', src: 'game-window.html?game=hydrogen', url: 'https://store.steampowered.com/app/1746820/' },
-    { id: 'djinn', name: 'Djinn Scrolls', icon: 'magic', color: 'coral', description: 'Djinn Scrolls trailer', src: 'game-window.html?game=djinn', url: 'https://store.steampowered.com/app/4392620/DJINN_SCROLLS/' },
+    { id: 'hydrogen', name: 'Hydrogen', icon: { text: 'H2' }, color: 'mint', description: 'Hydrogen trailer', src: 'game-window.html?game=hydrogen', url: 'https://store.steampowered.com/app/1746820/' },
+    { id: 'djinn', name: 'Djinn Scrolls', icon: { image: 'img/DS%20PIXEL%20LOGO.png' }, color: 'dark', description: 'Djinn Scrolls trailer', src: 'game-window.html?game=djinn', url: 'https://store.steampowered.com/app/4392620/DJINN_SCROLLS/' },
     { id: 'projects', name: 'Experiments', icon: 'flask', color: 'coral', description: 'Playable demos & projects', src: 'demos_projects.html' },
     { id: 'videos', name: 'Dev Videos', icon: 'youtube-play', color: 'coral', description: 'Development playlist', src: 'dev-videos.html', url: 'https://www.youtube.com/playlist?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq' },
     { id: 'gallery', name: 'Gallery', icon: 'picture-o', color: 'blue', description: 'Art & screenshots', src: 'gallery/index.html' },
@@ -68,12 +68,17 @@ listenForMediaChange(reducedMotionQuery, updateLiveWallpaper);
 document.addEventListener('visibilitychange', updateLiveWallpaper);
 
 function icon(name) {
+    if (name && typeof name === 'object') {
+        if (name.text) return `<span class="fa tile-text" aria-hidden="true">${name.text}</span>`;
+        if (name.image) return `<img class="tile-image" src="${name.image}" alt="" aria-hidden="true">`;
+        return '';
+    }
     const names = {
         gamepad: 'robot', magic: 'sparkles', flask: 'code', 'youtube-play': 'youtube',
         'picture-o': 'image', terminal: 'code-block', 'user-o': 'user', sliders: 'cog',
         desktop: 'grid', 'th-large': 'grid', 'window-maximize': 'expand', 'window-restore': 'copy',
         'folder-open-o': 'folder-open', 'folder-o': 'folder', 'envelope-o': 'envelope',
-        linux: 'code-block', 'level-down': 'arrow-right'
+        linux: 'code-block', 'level-down': 'arrow-right', book: 'star-crescent'
     };
     return `<i class="fa fa-${name} hn hn-${names[name] || name}" aria-hidden="true"></i>`;
 }

@@ -560,6 +560,18 @@
             align-items: center;
         }
 
+        /* Extra tools of the app bar. On small screens they move into a menu
+           that drops out of #tools-toggle, so the button is hidden here. */
+        #tools-toggle {
+            display: none;
+            flex: 0 0 auto;
+        }
+
+        /* Label that only exists inside the tool menu. */
+        .menu-label {
+            display: none;
+        }
+
         .search-panel {
             flex: 1 1 240px;
             min-width: 168px;
@@ -904,6 +916,15 @@
             text-align: center;
         }
 
+        .empty__text {
+            margin: 0;
+        }
+
+        .empty__cta {
+            margin-top: 16px;
+            padding-inline: 20px;
+        }
+
         .load-more {
             width: 100%;
             font-family: var(--font-ar);
@@ -1116,6 +1137,7 @@
 
         @media (max-width: 700px) {
             .appbar__inner {
+                flex-wrap: nowrap;
                 gap: 8px;
             }
 
@@ -1125,13 +1147,69 @@
 
             .search-panel {
                 order: 2;
+                min-width: 0;
             }
 
-            .appbar__tools {
+            #tools-toggle {
                 order: 3;
-                flex-basis: 100%;
-                justify-content: center;
-                gap: 6px;
+                display: inline-flex;
+            }
+
+            /* The tools drop down from the bar instead of taking a row of their own. */
+            .appbar__tools {
+                position: absolute;
+                top: 100%;
+                inset-inline: 0;
+                display: none;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                align-items: center;
+                gap: 8px;
+                max-height: calc(100dvh - 68px);
+                padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+                overflow-y: auto;
+                overscroll-behavior: contain;
+                background: var(--surface);
+                border-bottom: 1px solid var(--border-strong);
+                box-shadow: var(--shadow);
+            }
+
+            .appbar.is-menu-open .appbar__tools {
+                display: grid;
+            }
+
+            .appbar__tools .btn {
+                width: 100%;
+            }
+
+            /* The menu has room for the labels the squeezed bar has to drop. */
+            .appbar__tools .btn__label,
+            .appbar__tools .menu-label {
+                display: inline;
+            }
+
+            /* The sources picker opens inside the menu, so it cannot overflow. */
+            .appbar__tools .picker {
+                grid-column: 1 / -1;
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .appbar__tools .picker__panel {
+                position: static;
+                width: auto;
+            }
+
+            .appbar__tools .picker__list {
+                max-height: min(46vh, 320px);
+            }
+
+            .appbar__tools .reciter-picker {
+                grid-column: 1 / -1;
+            }
+
+            #clear-button {
+                grid-column: 1 / -1;
             }
 
             .btn {
@@ -1139,7 +1217,8 @@
             }
 
             .reciter-select {
-                max-width: 9rem;
+                width: 100%;
+                max-width: none;
                 font-size: 0.9rem;
             }
 
@@ -1183,16 +1262,12 @@
         }
 
         @media (max-width: 380px) {
-            .appbar__tools {
-                gap: 4px;
+            .appbar__inner {
+                gap: 6px;
             }
 
             .btn {
                 padding: 8px 8px;
-            }
-
-            .reciter-select {
-                max-width: 8rem;
             }
         }
     </style>
@@ -1235,7 +1310,15 @@
                 </div>
             </div>
 
-            <div class="appbar__tools">
+            <button id="tools-toggle" class="btn" type="button" aria-label="أدوات أخرى" aria-expanded="false"
+                aria-controls="appbar-tools" title="أدوات أخرى" disabled>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    aria-hidden="true">
+                    <path d="M12 5h.01M12 12h.01M12 19h.01"></path>
+                </svg>
+            </button>
+
+            <div id="appbar-tools" class="appbar__tools">
                 <button id="random-button" class="btn" type="button" aria-label="Random ayah" title="آية عشوائية"
                     disabled>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
@@ -1304,6 +1387,7 @@
                             d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M4.9 19.1l1.5-1.5M17.6 6.4l1.5-1.5">
                         </path>
                     </svg>
+                    <span class="menu-label">الوضع</span>
                     <span class="sr-only">THEME</span>
                 </button>
                 <button id="clear-button" class="btn" type="button" aria-label="Clear" title="مسح المحتوى والبحث"

@@ -764,6 +764,30 @@ function showToast(message) {
     }, 4000);
 }
 
+/* The tool menu lives in the app bar on wide screens and behind the menu
+ * button on small ones; the class on the bar decides which one is shown. */
+function toolsMenuIsOpen() {
+    const appbar = document.getElementById('button-container');
+    return Boolean(appbar && appbar.classList.contains('is-menu-open'));
+}
+
+function setToolsMenu(open) {
+    const appbar = document.getElementById('button-container');
+    const toggle = document.getElementById('tools-toggle');
+    if (!appbar || !toggle) {
+        return;
+    }
+
+    appbar.classList.toggle('is-menu-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+
+function closeToolsMenu() {
+    if (toolsMenuIsOpen()) {
+        setToolsMenu(false);
+    }
+}
+
 function initializePage() {
     SurahText = document.getElementById('maincontent');
     var randomButton = document.getElementById("random-button");
@@ -776,6 +800,7 @@ function initializePage() {
     var themeButton = document.getElementById("theme-toggle");
     var toTop = document.getElementById('to-top');
     var showNav = document.getElementById('show-nav');
+    var toolsToggle = document.getElementById('tools-toggle');
 
     // The text is available now, so the toolbar can be used.
     document.querySelectorAll('.appbar [disabled]').forEach(function (element) {
@@ -820,14 +845,36 @@ function initializePage() {
 
     showNav.addEventListener('click', function () {
         if (list.style.display == 'none') {
-            list.style.display = 'grid';
-            navBackdrop.hidden = false;
-            showNav.setAttribute('aria-expanded', 'true');
-            surahFilter.focus({ preventScroll: true });
+            openSurahNav();
         } else {
             closeSurahNav();
         }
     });
+
+    // On small screens the extra tools sit behind the menu button.
+    toolsToggle.addEventListener('click', function () {
+        setToolsMenu(!toolsMenuIsOpen());
+    });
+
+    // A tap anywhere outside the app bar closes the menu again.
+    document.addEventListener('click', function (event) {
+        if (toolsMenuIsOpen() && !event.target.closest('.appbar')) {
+            setToolsMenu(false);
+        }
+    });
+
+    // The menu button is a small screen affordance, so a wider window closes it.
+    var narrowAppbar = window.matchMedia('(max-width: 700px)');
+    var closeMenuWhenWide = function (event) {
+        if (!event.matches) {
+            setToolsMenu(false);
+        }
+    };
+    if (typeof narrowAppbar.addEventListener === 'function') {
+        narrowAppbar.addEventListener('change', closeMenuWhenWide);
+    } else if (typeof narrowAppbar.addListener === 'function') {
+        narrowAppbar.addListener(closeMenuWhenWide);
+    }
 
     closeNavButton.addEventListener('click', closeSurahNav);
 
@@ -836,11 +883,13 @@ function initializePage() {
     document.addEventListener('keydown', function (event) {
         if (event.key === 'Escape') {
             closeSurahNav();
+            closeToolsMenu();
         }
     });
 
     // Random Ayah button functionality
     randomButton.addEventListener('click', function () {
+        closeToolsMenu();
         var randomSura = generateRandomNumber(0, 113);
         var randomAyahNumber = generateRandomNumber(0, surasTashkeel[randomSura].children.length - 1);
 
@@ -860,6 +909,7 @@ function initializePage() {
 
     // Clear button functionality
     clearButton.addEventListener('click', function () {
+        closeToolsMenu();
         stopPlayback();
         SurahText.innerHTML = emptyStateHTML(); // Clear the displayed surah and ayah
         clearSearch();                          // Clear the search field and the results
@@ -877,6 +927,10 @@ function initializePage() {
         const playButton = event.target.closest('.play-btn');
         if (playButton) {
             playAyah(Number(playButton.dataset.surah), Number(playButton.dataset.ayah));
+            return;
+        }
+        if (event.target.closest('[data-open-nav]')) {
+            openSurahNav();
         }
     });
 
@@ -947,6 +1001,8 @@ function runSearch(scrollToResults) {
         clearResults();
         return;
     }
+
+    closeToolsMenu(); // The results appear under the bar, so give them the screen
 
     cancelPendingRender();
     currentMatches = collectMatches(query);
@@ -1317,7 +1373,16 @@ function searchResultHTML(match) {
 }
 
 function emptyStateHTML() {
-    return '<p class="empty">اختر سورة من قائمة السور، أو ابحث في القرآن الكريم من الشريط في الأعلى.</p>';
+    return '<div class="empty">'
+        + '<p class="empty__text">اختر سورة من قائمة السور، أو ابحث في القرآن الكريم من الشريط في الأعلى.</p>'
+        + '<button class="btn btn--primary empty__cta" type="button" data-open-nav>'
+        + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+        + '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>'
+        + '<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
+        + '</svg>'
+        + '<span>قائمة السور</span>'
+        + '</button>'
+        + '</div>';
 }
 
 function applyTheme(theme) {
@@ -1339,6 +1404,29 @@ function addSurahClickHandler(button, surahIndex) {
     button.addEventListener('click', function () {
         ViewSurah(surahIndex);
     }, false);
+}
+
+/* Opens the surah list, from the app bar button or the empty state button. */
+function openSurahNav() {
+    const list = document.getElementById('nav');
+    const backdrop = document.getElementById('nav-backdrop');
+    const showNav = document.getElementById('show-nav');
+    const filter = document.getElementById('surah-filter');
+    if (!list) {
+        return;
+    }
+
+    closeToolsMenu(); // The tool menu and the surah list never share the screen
+    list.style.display = 'grid';
+    if (backdrop) {
+        backdrop.hidden = false;
+    }
+    if (showNav) {
+        showNav.setAttribute('aria-expanded', 'true');
+    }
+    if (filter) {
+        filter.focus({ preventScroll: true });
+    }
 }
 
 function closeSurahNav() {
@@ -1393,6 +1481,7 @@ function ViewSurah(index, scrollToTop) {
     }
     selectSurah(index);
     closeSurahNav();
+    closeToolsMenu();
     renderSurah(index);
 
     if (scrollToTop !== false) {

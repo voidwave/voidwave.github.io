@@ -638,7 +638,7 @@
    "nameSimple": "'Abasa",
    "versesCount": 42,
    "firstPage": 585,
-   "lastPage": 585
+   "lastPage": 586
   },
   {
    "id": 81,
@@ -670,7 +670,7 @@
    "nameSimple": "Al-Inshiqaq",
    "versesCount": 25,
    "firstPage": 589,
-   "lastPage": 589
+   "lastPage": 590
   },
   {
    "id": 85,
@@ -702,7 +702,7 @@
    "nameSimple": "Al-Ghashiyah",
    "versesCount": 26,
    "firstPage": 592,
-   "lastPage": 592
+   "lastPage": 593
   },
   {
    "id": 89,
@@ -718,7 +718,7 @@
    "nameSimple": "Al-Balad",
    "versesCount": 20,
    "firstPage": 594,
-   "lastPage": 594
+   "lastPage": 595
   },
   {
    "id": 91,
@@ -750,7 +750,7 @@
    "nameSimple": "Ash-Sharh",
    "versesCount": 8,
    "firstPage": 596,
-   "lastPage": 596
+   "lastPage": 597
   },
   {
    "id": 95,
@@ -766,7 +766,7 @@
    "nameSimple": "Al-'Alaq",
    "versesCount": 19,
    "firstPage": 597,
-   "lastPage": 597
+   "lastPage": 598
   },
   {
    "id": 97,
@@ -1868,9 +1868,9 @@
   },
   {
    "page": 120,
-   "slots": 13,
-   "verses": 6,
-   "words": 132,
+   "slots": 15,
+   "verses": 7,
+   "words": 156,
    "font": "fonts/mushaf/p120.woff2",
    "fontBytes": 135960
   },
@@ -1878,7 +1878,7 @@
    "page": 121,
    "slots": 15,
    "verses": 6,
-   "words": 116,
+   "words": 114,
    "font": "fonts/mushaf/p121.woff2",
    "fontBytes": 114388
   },
@@ -1886,15 +1886,15 @@
    "page": 122,
    "slots": 15,
    "verses": 7,
-   "words": 139,
+   "words": 133,
    "font": "fonts/mushaf/p122.woff2",
    "fontBytes": 133120
   },
   {
    "page": 123,
    "slots": 15,
-   "verses": 6,
-   "words": 151,
+   "verses": 5,
+   "words": 135,
    "font": "fonts/mushaf/p123.woff2",
    "fontBytes": 131016
   },
@@ -2061,16 +2061,16 @@
   {
    "page": 144,
    "slots": 15,
-   "verses": 7,
-   "words": 134,
+   "verses": 6,
+   "words": 123,
    "font": "fonts/mushaf/p144.woff2",
    "fontBytes": 124796
   },
   {
    "page": 145,
-   "slots": 14,
-   "verses": 6,
-   "words": 109,
+   "slots": 15,
+   "verses": 7,
+   "words": 120,
    "font": "fonts/mushaf/p145.woff2",
    "fontBytes": 115112
   },
@@ -5156,33 +5156,33 @@
   },
   {
    "page": 531,
-   "slots": 14,
-   "verses": 22,
-   "words": 112,
+   "slots": 15,
+   "verses": 24,
+   "words": 122,
    "font": "fonts/mushaf/p531.woff2",
    "fontBytes": 155952
   },
   {
    "page": 532,
    "slots": 15,
-   "verses": 24,
-   "words": 151,
+   "verses": 23,
+   "words": 148,
    "font": "fonts/mushaf/p532.woff2",
    "fontBytes": 190332
   },
   {
    "page": 533,
    "slots": 15,
-   "verses": 27,
-   "words": 144,
+   "verses": 28,
+   "words": 147,
    "font": "fonts/mushaf/p533.woff2",
    "fontBytes": 187508
   },
   {
    "page": 534,
    "slots": 15,
-   "verses": 27,
-   "words": 126,
+   "verses": 25,
+   "words": 116,
    "font": "fonts/mushaf/p534.woff2",
    "fontBytes": 152932
   },
@@ -5421,16 +5421,16 @@
   {
    "page": 564,
    "slots": 15,
-   "verses": 19,
-   "words": 138,
+   "verses": 20,
+   "words": 142,
    "font": "fonts/mushaf/p564.woff2",
    "fontBytes": 167992
   },
   {
    "page": 565,
    "slots": 15,
-   "verses": 27,
-   "words": 178,
+   "verses": 26,
+   "words": 174,
    "font": "fonts/mushaf/p565.woff2",
    "fontBytes": 214192
   },
@@ -5445,32 +5445,32 @@
   {
    "page": 567,
    "slots": 15,
-   "verses": 26,
-   "words": 164,
+   "verses": 27,
+   "words": 170,
    "font": "fonts/mushaf/p567.woff2",
    "fontBytes": 210736
   },
   {
    "page": 568,
    "slots": 15,
-   "verses": 28,
-   "words": 149,
+   "verses": 27,
+   "words": 143,
    "font": "fonts/mushaf/p568.woff2",
    "fontBytes": 168156
   },
   {
    "page": 569,
    "slots": 15,
-   "verses": 29,
-   "words": 163,
+   "verses": 30,
+   "words": 171,
    "font": "fonts/mushaf/p569.woff2",
    "fontBytes": 211728
   },
   {
    "page": 570,
    "slots": 15,
-   "verses": 15,
-   "words": 142,
+   "verses": 14,
+   "words": 134,
    "font": "fonts/mushaf/p570.woff2",
    "fontBytes": 174200
   },
@@ -5509,16 +5509,16 @@
   {
    "page": 575,
    "slots": 15,
-   "verses": 18,
-   "words": 147,
+   "verses": 19,
+   "words": 151,
    "font": "fonts/mushaf/p575.woff2",
    "fontBytes": 186660
   },
   {
    "page": 576,
    "slots": 15,
-   "verses": 30,
-   "words": 188,
+   "verses": 29,
+   "words": 184,
    "font": "fonts/mushaf/p576.woff2",
    "fontBytes": 205308
   },
@@ -5573,48 +5573,48 @@
   {
    "page": 583,
    "slots": 15,
-   "verses": 25,
-   "words": 138,
+   "verses": 26,
+   "words": 145,
    "font": "fonts/mushaf/p583.woff2",
    "fontBytes": 175184
   },
   {
    "page": 584,
-   "slots": 15,
-   "verses": 31,
-   "words": 165,
+   "slots": 14,
+   "verses": 30,
+   "words": 158,
    "font": "fonts/mushaf/p584.woff2",
    "fontBytes": 186356
   },
   {
    "page": 585,
-   "slots": 17,
-   "verses": 42,
-   "words": 175,
+   "slots": 16,
+   "verses": 40,
+   "words": 167,
    "font": "fonts/mushaf/p585.woff2",
    "fontBytes": 183416
   },
   {
    "page": 586,
-   "slots": 14,
-   "verses": 29,
-   "words": 133,
+   "slots": 15,
+   "verses": 31,
+   "words": 141,
    "font": "fonts/mushaf/p586.woff2",
    "fontBytes": 163748
   },
   {
    "page": 587,
-   "slots": 16,
-   "verses": 25,
-   "words": 130,
+   "slots": 15,
+   "verses": 23,
+   "words": 121,
    "font": "fonts/mushaf/p587.woff2",
    "fontBytes": 144296
   },
   {
    "page": 588,
    "slots": 15,
-   "verses": 28,
-   "words": 163,
+   "verses": 29,
+   "words": 165,
    "font": "fonts/mushaf/p588.woff2",
    "fontBytes": 198276
   },
@@ -5622,95 +5622,95 @@
    "page": 589,
    "slots": 15,
    "verses": 27,
-   "words": 143,
+   "words": 140,
    "font": "fonts/mushaf/p589.woff2",
    "fontBytes": 162860
   },
   {
    "page": 590,
-   "slots": 14,
-   "verses": 22,
-   "words": 131,
+   "slots": 15,
+   "verses": 23,
+   "words": 141,
    "font": "fonts/mushaf/p590.woff2",
    "fontBytes": 196148
   },
   {
    "page": 591,
-   "slots": 17,
-   "verses": 32,
-   "words": 150,
+   "slots": 15,
+   "verses": 27,
+   "words": 125,
    "font": "fonts/mushaf/p591.woff2",
    "fontBytes": 141332
   },
   {
    "page": 592,
    "slots": 15,
-   "verses": 30,
-   "words": 137,
+   "verses": 31,
+   "words": 143,
    "font": "fonts/mushaf/p592.woff2",
    "fontBytes": 165068
   },
   {
    "page": 593,
    "slots": 15,
-   "verses": 23,
-   "words": 134,
+   "verses": 26,
+   "words": 143,
    "font": "fonts/mushaf/p593.woff2",
    "fontBytes": 182256
   },
   {
    "page": 594,
    "slots": 15,
-   "verses": 27,
-   "words": 135,
+   "verses": 26,
+   "words": 134,
    "font": "fonts/mushaf/p594.woff2",
    "fontBytes": 156160
   },
   {
    "page": 595,
-   "slots": 16,
-   "verses": 29,
-   "words": 128,
+   "slots": 15,
+   "verses": 26,
+   "words": 116,
    "font": "fonts/mushaf/p595.woff2",
    "fontBytes": 140064
   },
   {
    "page": 596,
    "slots": 15,
-   "verses": 26,
-   "words": 119,
+   "verses": 25,
+   "words": 116,
    "font": "fonts/mushaf/p596.woff2",
    "fontBytes": 135632
   },
   {
    "page": 597,
-   "slots": 16,
-   "verses": 27,
-   "words": 133,
+   "slots": 15,
+   "verses": 26,
+   "words": 125,
    "font": "fonts/mushaf/p597.woff2",
    "fontBytes": 140520
   },
   {
    "page": 598,
    "slots": 15,
-   "verses": 12,
-   "words": 115,
+   "verses": 17,
+   "words": 122,
    "font": "fonts/mushaf/p598.woff2",
    "fontBytes": 150284
   },
   {
    "page": 599,
    "slots": 15,
-   "verses": 18,
-   "words": 106,
+   "verses": 16,
+   "words": 110,
    "font": "fonts/mushaf/p599.woff2",
    "fontBytes": 138180
   },
   {
    "page": 600,
-   "slots": 13,
-   "verses": 21,
-   "words": 94,
+   "slots": 15,
+   "verses": 25,
+   "words": 117,
    "font": "fonts/mushaf/p600.woff2",
    "fontBytes": 135564
   },
@@ -5749,5 +5749,5 @@
  ],
  "surahNamesFont": "fonts/mushaf/sura_names.woff2",
  "surahNamesFontBytes": 88560,
- "builtAt": "2026-09-15T13:19:42.255Z"
+ "builtAt": "2026-09-15T14:19:43.911Z"
 }

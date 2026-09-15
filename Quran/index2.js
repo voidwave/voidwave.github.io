@@ -204,6 +204,29 @@ function wordElement(word, words) {
     return span;
 }
 
+/* Three pages hold lines that do not reach the sheet's width: al-Fātiḥah and
+ * the opening of al-Baqarah (1 and 2) and the last page with the short surahs
+ * of juzʾ 30 (604). There a line that is not full keeps the words' natural
+ * spacing, centred, while a line that does fill the sheet still stretches edge
+ * to edge - the way quran.com shows those pages (604 mixes both). */
+const CENTERED_PAGES = [1, 2, 604];
+
+/* Beyond this share of the sheet the line counts as full and is left stretched. */
+const FULL_LINE_RATIO = 0.8;
+
+/* A line that does not reach the sheet's width keeps its natural spacing and is
+ * centred; a full line still stretches (see CENTERED_PAGES). */
+function fitCenteredLines(card) {
+    const lines = card.querySelector('.page__lines');
+    if (!lines) return;
+    const width = lines.clientWidth;
+    for (const row of lines.querySelectorAll('.line-row')) {
+        const words = [...row.querySelectorAll('.word')];
+        const total = words.reduce((sum, word) => sum + word.offsetWidth, 0);
+        row.classList.toggle('is-centered', total < width * FULL_LINE_RATIO);
+    }
+}
+
 /* Draws one printed page into a page sheet. */
 function buildCard(data, fontOk) {
     const card = element('div', 'page');
@@ -211,6 +234,7 @@ function buildCard(data, fontOk) {
     card.lang = 'ar';
     card.setAttribute('translate', 'no');
     card.style.setProperty('--page-font', fontOk ? '"' + data.font + '"' : '"Uthmanic"');
+    if (CENTERED_PAGES.includes(data.page)) card.classList.add('page--center');
 
     const lines = element('div', 'page__lines');
     const words = new Map();
@@ -266,6 +290,7 @@ function openSlot(slot) {
             if (state.open.has(page)) return;   // drawn while it was loading
             const card = buildCard(data, fontOk);
             slot.appendChild(card);
+            if (CENTERED_PAGES.includes(page)) fitCenteredLines(card);
             state.open.set(page, { slot, card, words: card._words });
             /* A page drawn while it is being recited shows the highlight too. */
             if (recitation.key) markPlaying(recitation.key);
@@ -404,6 +429,12 @@ function refit() {
     if (!changed) return;
     const anchor = state.current;
     applySize(size);
+    /* The shared size has changed, so every drawn line re-measures: a line that
+     * no longer fills the sheet keeps its natural spacing from now on (and a
+     * line that grew back into the sheet stretches again). */
+    for (const record of state.open.values()) {
+        if (CENTERED_PAGES.includes(Number(record.slot.dataset.page))) fitCenteredLines(record.card);
+    }
     if (state.offsets.length) scrollToPage(anchor, false);
 }
 
@@ -523,10 +554,25 @@ document.addEventListener('copy', event => {
  * ------------------------------------------------------------------------ */
 let wordAudio = null;
 
+/* The word files are named after the word's position in the verse: the fifth
+ * word of 17:105 is wbw/017_105_005.mp3 (the same rule quran.com's own reader
+ * uses). The API's audio_url must not be used: it numbers the ۞ and waqf marks
+ * (ۚ ۖ ۗ ۛ) as extra slots, so from the first mark on it points one file too
+ * far and the played word drifts forward with every mark that follows. */
+function wordAudioPath(word) {
+    if (word.t === 'end') return null;
+    const [surah, ayah] = String(word.k || '').split(':').map(Number);
+    if (surah && ayah && word.p) {
+        return 'wbw/' + padNumber(surah) + '_' + padNumber(ayah) + '_' + padNumber(word.p) + '.mp3';
+    }
+    return word.a || null;        // page data without a position: keep the old path
+}
+
 function playWord(word) {
-    if (!word.a) return;
+    const file = wordAudioPath(word);
+    if (!file) return;
     if (!wordAudio) wordAudio = new Audio();
-    wordAudio.src = WORD_AUDIO_BASE + word.a;
+    wordAudio.src = WORD_AUDIO_BASE + file;
     wordAudio.play().catch(() => showToast('تعذّر تشغيل تلاوة الكلمة.'));
 }
 
@@ -560,7 +606,7 @@ function openPopover(node) {
     const foot = element('div', 'popover__foot');
     foot.appendChild(element('span', 'popover__loc',
         toArabicDigits(word.k) + ' — الكلمة ' + toArabicDigits(word.p)));
-    if (word.a) {
+    if (wordAudioPath(word)) {
         const play = element('button', 'play-btn', 'سماع الكلمة');
         play.type = 'button';
         play.addEventListener('click', () => playWord(word));

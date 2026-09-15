@@ -1,0 +1,193 @@
+{
+ "chapters": [
+  {
+   "id": 5,
+   "nameArabic": "المائدة",
+   "nameSimple": "Al-Ma'idah",
+   "versesCount": 120,
+   "firstPage": 106,
+   "lastPage": 127
+  }
+ ],
+ "pages": [
+  {
+   "page": 106,
+   "slots": 15,
+   "verses": 3,
+   "words": 128,
+   "font": "fonts/mushaf/p106.woff2",
+   "fontBytes": 120044
+  },
+  {
+   "page": 107,
+   "slots": 15,
+   "verses": 3,
+   "words": 138,
+   "font": "fonts/mushaf/p107.woff2",
+   "fontBytes": 140724
+  },
+  {
+   "page": 108,
+   "slots": 15,
+   "verses": 4,
+   "words": 120,
+   "font": "fonts/mushaf/p108.woff2",
+   "fontBytes": 123160
+  },
+  {
+   "page": 109,
+   "slots": 15,
+   "verses": 4,
+   "words": 111,
+   "font": "fonts/mushaf/p109.woff2",
+   "fontBytes": 119676
+  },
+  {
+   "page": 110,
+   "slots": 15,
+   "verses": 4,
+   "words": 112,
+   "font": "fonts/mushaf/p110.woff2",
+   "fontBytes": 108748
+  },
+  {
+   "page": 111,
+   "slots": 15,
+   "verses": 6,
+   "words": 138,
+   "font": "fonts/mushaf/p111.woff2",
+   "fontBytes": 130252
+  },
+  {
+   "page": 112,
+   "slots": 15,
+   "verses": 8,
+   "words": 138,
+   "font": "fonts/mushaf/p112.woff2",
+   "fontBytes": 126128
+  },
+  {
+   "page": 113,
+   "slots": 15,
+   "verses": 5,
+   "words": 129,
+   "font": "fonts/mushaf/p113.woff2",
+   "fontBytes": 121212
+  },
+  {
+   "page": 114,
+   "slots": 15,
+   "verses": 5,
+   "words": 130,
+   "font": "fonts/mushaf/p114.woff2",
+   "fontBytes": 121960
+  },
+  {
+   "page": 115,
+   "slots": 15,
+   "verses": 4,
+   "words": 117,
+   "font": "fonts/mushaf/p115.woff2",
+   "fontBytes": 122980
+  },
+  {
+   "page": 116,
+   "slots": 15,
+   "verses": 5,
+   "words": 141,
+   "font": "fonts/mushaf/p116.woff2",
+   "fontBytes": 137212
+  },
+  {
+   "page": 117,
+   "slots": 15,
+   "verses": 7,
+   "words": 156,
+   "font": "fonts/mushaf/p117.woff2",
+   "fontBytes": 149920
+  },
+  {
+   "page": 118,
+   "slots": 15,
+   "verses": 7,
+   "words": 155,
+   "font": "fonts/mushaf/p118.woff2",
+   "fontBytes": 144492
+  },
+  {
+   "page": 119,
+   "slots": 15,
+   "verses": 6,
+   "words": 135,
+   "font": "fonts/mushaf/p119.woff2",
+   "fontBytes": 132180
+  },
+  {
+   "page": 120,
+   "slots": 15,
+   "verses": 7,
+   "words": 156,
+   "font": "fonts/mushaf/p120.woff2",
+   "fontBytes": 135960
+  },
+  {
+   "page": 121,
+   "slots": 15,
+   "verses": 6,
+   "words": 114,
+   "font": "fonts/mushaf/p121.woff2",
+   "fontBytes": 114388
+  },
+  {
+   "page": 122,
+   "slots": 15,
+   "verses": 7,
+   "words": 133,
+   "font": "fonts/mushaf/p122.woff2",
+   "fontBytes": 133120
+  },
+  {
+   "page": 123,
+   "slots": 15,
+   "verses": 5,
+   "words": 135,
+   "font": "fonts/mushaf/p123.woff2",
+   "fontBytes": 131016
+  },
+  {
+   "page": 124,
+   "slots": 15,
+   "verses": 8,
+   "words": 145,
+   "font": "fonts/mushaf/p124.woff2",
+   "fontBytes": 133460
+  },
+  {
+   "page": 125,
+   "slots": 15,
+   "verses": 5,
+   "words": 147,
+   "font": "fonts/mushaf/p125.woff2",
+   "fontBytes": 140480
+  },
+  {
+   "page": 126,
+   "slots": 15,
+   "verses": 5,
+   "words": 132,
+   "font": "fonts/mushaf/p126.woff2",
+   "fontBytes": 128232
+  },
+  {
+   "page": 127,
+   "slots": 15,
+   "verses": 7,
+   "words": 165,
+   "font": "fonts/mushaf/p127.woff2",
+   "fontBytes": 142772
+  }
+ ],
+ "surahNamesFont": "fonts/mushaf/sura_names.woff2",
+ "surahNamesFontBytes": 88560,
+ "builtAt": "2026-09-15T14:18:27.189Z"
+}

@@ -506,6 +506,21 @@
             height: var(--lh);
         }
 
+        /* A line that does not reach the sheet's width (the short surahs on
+           pages 1, 2 and 604) keeps the words' natural spacing, centred - the
+           way quran.com shows those pages; a full line still stretches edge to
+           edge. index2.js measures each line and sets the class. */
+        .line-row.is-centered {
+            justify-content: center;
+        }
+
+        /* The 0.04em padding exists to give the hover highlight some air; the
+           centred pages drop it, so the words sit on their glyph advances the
+           way quran.com lays them out. */
+        .page--center .word {
+            padding: 0;
+        }
+
         .word {
             font-family: var(--page-font, 'Uthmanic'), 'Uthmanic', serif;
             font-size: var(--fs);
@@ -924,9 +939,7 @@
     <main id="mushaf"></main>
 
     <footer class="foot">
-        النص ورموز الرسم من <span dir="ltr">api.quran.com</span>، وخطوط صفحات المصحف لمجمع الملك فهد بن عبد العزيز
-        (عبر <span dir="ltr">quran.com</span>) — للتجربة المحلية، راجع رخصة <span dir="ltr">qul.tarteel.ai</span> قبل
-        النشر.
+        خطوط صفحات المصحف لمجمع الملك فهد بن عبد العزيز
     </footer>
 
     <div class="popover" id="popover" hidden></div>

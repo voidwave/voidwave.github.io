@@ -12,6 +12,17 @@
  *     width, so the words break exactly where the printed page breaks.
  *   - The real ʿUthmānī word is kept next to the glyph, so the text can still be
  *     selected, searched and copied.
+ *   - The word audio files are named after the word's *position* in the verse
+ *     (wbw/017_105_005.mp3 is the fifth word of 17:105). The API's audio_url
+ *     field must not be used to name them: it counts the ۞ and waqf marks
+ *     (ۚ ۖ ۗ ۛ) as extra slots, so it drifts one file further with every mark.
+ *   - The API's by_page filter follows the *older* Mushaf pagination. Up to
+ *     page 120 the two layouts agree, from page 121 they part: a by_page/N
+ *     response carries page N-1's last verse (whose glyphs are not in page N's
+ *     font, so it drew as garbage) and leaves out page N's own last verse
+ *     (which only shows up in page N+1). Every word's own page_number is the
+ *     page of the print the fonts belong to, so the build fetches whole
+ *     chapters and groups the words by that field instead.
  *
  * Data sources:
  *   - api.quran.com/api/v4        word fields: code_v2, line_number, text_uthmani
@@ -103,12 +114,14 @@ async function runPool(items, limit, worker) {
     await Promise.all(runners);
 }
 
-/* All verses that appear on one printed page, following API pagination. */
-async function fetchPageVerses(pageNumber) {
+/* Every verse of one chapter, with its words. The words are grouped by their
+ * own page_number afterwards (groupByPage) instead of trusting the API's
+ * by_page filter, which follows the older pagination. */
+async function fetchChapterVerses(chapterId) {
     const verses = [];
     let pageParam = 1;
     for (; ;) {
-        const url = `${API}/verses/by_page/${pageNumber}?words=true&word_fields=${WORD_FIELDS}` +
+        const url = `${API}/verses/by_chapter/${chapterId}?words=true&word_fields=${WORD_FIELDS}` +
             `&per_page=50&page=${pageParam}`;
         const data = await getJson(url);
         verses.push(...(data.verses || []));
@@ -120,17 +133,37 @@ async function fetchPageVerses(pageNumber) {
     return verses;
 }
 
-/* The API answers with one object per verse; the page needs lines of words. */
-function buildPage(pageNumber, verses) {
-    const lines = new Map();
-    const realVerses = [];
+/* The word audio of a verse: quran.com numbers the files by the word's position
+ * in the verse (wbw/017_105_005.mp3 = the fifth word of 17:105). */
+function wordAudioPath(verseKey, position) {
+    const [surah, ayah] = verseKey.split(':');
+    const pad = value => String(value).padStart(3, '0');
+    return `wbw/${pad(surah)}_${pad(ayah)}_${pad(position)}.mp3`;
+}
+
+/* Groups every word of the fetched verses by the page it is printed on. The
+ * word's own page_number is the page of the print the fonts belong to; the
+ * API's by_page filter instead follows the older pagination, which parts from
+ * it at page 121 - it hands page 120's last verse to page 121 and page 121's
+ * last verse to page 122, so the first drew as garbage (those glyphs are not
+ * in that page's font) and the second went missing. */
+function groupByPage(verses) {
+    const pages = new Map();        // page -> word entries, in reading order
+    const texts = new Map();        // verse_key -> the verse and its full text
+    const chapterPages = new Map(); // chapter -> { first, last }
 
     for (const verse of verses) {
-        const words = [];
+        const [chapterId, verseNumber] = verse.verse_key.split(':').map(Number);
+        const realWords = [];
+        let page = 0;
         for (const word of verse.words || []) {
-            const line = word.line_number || 1;
-            if (!lines.has(line)) lines.set(line, []);
-            lines.get(line).push({
+            if (word.page_number) page = word.page_number;
+            if (!page) continue;                      // no page known: never happens
+            if (word.char_type_name !== 'end') realWords.push(word.text_uthmani);
+
+            if (!pages.has(page)) pages.set(page, []);
+            pages.get(page).push({
+                line: word.line_number || 1,
                 k: verse.verse_key,                       // "18:1"
                 p: word.position,                         // word number in the verse
                 t: word.char_type_name,                   // "word" | "end"
@@ -138,16 +171,36 @@ function buildPage(pageNumber, verses) {
                 x: word.text_uthmani,                     // the real word
                 tr: word.translation ? word.translation.text : null,
                 tl: word.transliteration ? word.transliteration.text : null,
-                a: word.audio_url || null                 // word audio, relative path
+                a: word.char_type_name === 'end' ? null   // word audio, relative path
+                    : wordAudioPath(verse.verse_key, word.position)
             });
-            if (word.char_type_name !== 'end') words.push(word.text_uthmani);
+
+            const range = chapterPages.get(chapterId) || { first: page, last: page };
+            range.first = Math.min(range.first, page);
+            range.last = Math.max(range.last, page);
+            chapterPages.set(chapterId, range);
         }
-        realVerses.push({
-            k: verse.verse_key,
-            n: verse.verse_number,
-            c: Number(verse.verse_key.split(':')[0]),
-            text: words.join(' ')
-        });
+        if (realWords.length) {
+            texts.set(verse.verse_key, {
+                k: verse.verse_key,
+                n: verseNumber,
+                c: chapterId,
+                text: realWords.join(' ')
+            });
+        }
+    }
+    return { pages, texts, chapterPages };
+}
+
+/* The page index2.js draws: lines of words, plus the verses written on it. */
+function buildPageData(pageNumber, entries, texts) {
+    const lines = new Map();
+    const verseKeys = new Set();
+
+    for (const { line, ...word } of entries) {
+        if (!lines.has(line)) lines.set(line, []);
+        lines.get(line).push(word);
+        if (!verseKeys.has(word.k)) verseKeys.add(word.k);
     }
 
     return {
@@ -157,14 +210,13 @@ function buildPage(pageNumber, verses) {
         lines: [...lines.entries()]
             .sort((a, b) => a[0] - b[0])
             .map(([line, words]) => ({ line, words })),
-        verses: realVerses
+        verses: [...verseKeys].map(key => texts.get(key)).filter(Boolean)
     };
 }
 
-/* Builds one printed page: its word list and its font. */
-async function buildOnePage(pageNumber) {
-    const verses = await fetchPageVerses(pageNumber);
-    const built = buildPage(pageNumber, verses);
+/* Writes one printed page: its word list and its font. */
+async function buildOnePage(pageNumber, entries, texts) {
+    const built = buildPageData(pageNumber, entries, texts);
     await writeFile(path.join(PAGE_DIR, `p${pageNumber}.json`), JSON.stringify(built, null, 1) + '\n', 'utf8');
 
     /* How many of the 15 printed lines the page uses; a surah banner takes two
@@ -194,13 +246,38 @@ async function main() {
     const selected = everything ? chapters : chapters.filter(item => item.id === chapter);
     if (!selected.length) throw new Error(`Unknown chapter ${chapter}`);
 
-    /* Every page the selected chapters cover, without duplicates: the page
-     * ranges of the chapters follow each other. */
-    const pageNumbers = [...new Set(selected.flatMap(item => {
-        const range = [];
-        for (let page = item.pages[0]; page <= item.pages[1]; page += 1) range.push(page);
-        return range;
-    }))].sort((a, b) => a - b);
+    /* Whole chapters are fetched (every chapter once for the whole Quran),
+     * because which page a word is printed on is decided by the word itself.
+     * A single chapter also needs its neighbours: their verses share its first
+     * and last printed page. */
+    const wanted = everything
+        ? chapters.map(item => item.id)
+        : [chapter - 1, chapter, chapter + 1].filter(id => chapters.some(item => item.id === id));
+
+    const verses = [];
+    await runPool(wanted, 3, async id => {
+        verses.push(...await fetchChapterVerses(id));
+    });
+    verses.sort((a, b) => {
+        const [chapterA, verseA] = a.verse_key.split(':').map(Number);
+        const [chapterB, verseB] = b.verse_key.split(':').map(Number);
+        return chapterA - chapterB || verseA - verseB;
+    });
+
+    const { pages: wordsByPage, texts, chapterPages } = groupByPage(verses);
+
+    /* Every page the selected chapters cover, from the built words: a single
+     * chapter's range is its own words' range (the pages may carry the
+     * neighbours' verses too). */
+    let pageNumbers;
+    if (everything) {
+        pageNumbers = [...wordsByPage.keys()].sort((a, b) => a - b);
+    } else {
+        const range = chapterPages.get(chapter);
+        if (!range) throw new Error(`Chapter ${chapter} has no words`);
+        pageNumbers = [];
+        for (let page = range.first; page <= range.last; page += 1) pageNumbers.push(page);
+    }
 
     console.log(everything
         ? `Whole Quran — ${pageNumbers.length} pages`
@@ -210,7 +287,7 @@ async function main() {
     let done = 0;
     let megabytes = 0;
     await runPool(pageNumbers, 3, async pageNumber => {
-        const info = await buildOnePage(pageNumber);
+        const info = await buildOnePage(pageNumber, wordsByPage.get(pageNumber) || [], texts);
         megabytes += info.fontBytes / 1048576;
         pages.push(info);
         done += 1;
@@ -229,14 +306,19 @@ async function main() {
     );
 
     const manifest = {
-        chapters: selected.map(item => ({
-            id: item.id,
-            nameArabic: item.name_arabic,
-            nameSimple: item.name_simple,
-            versesCount: item.verses_count,
-            firstPage: item.pages[0],
-            lastPage: item.pages[1]
-        })),
+        chapters: selected.map(item => {
+            /* The page range comes from the built words, not the API's chapter
+             * pages: those follow the older pagination the fonts do not use. */
+            const range = chapterPages.get(item.id);
+            return {
+                id: item.id,
+                nameArabic: item.name_arabic,
+                nameSimple: item.name_simple,
+                versesCount: item.verses_count,
+                firstPage: range ? range.first : item.pages[0],
+                lastPage: range ? range.last : item.pages[1]
+            };
+        }),
         pages,
         surahNamesFont: 'fonts/mushaf/sura_names.woff2',
         surahNamesFontBytes: surahFontBytes,

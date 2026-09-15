@@ -52,11 +52,46 @@ function openLibraryProject(index) {
     back.focus();
 }
 
+// YouTube stills, best resolution first; each size falls back to the next on error.
+const thumbnailSizes = ['maxresdefault', 'sddefault', 'hqdefault'];
+
+function thumbnailSources(video) {
+    return thumbnailSizes.map(size => `https://i.ytimg.com/vi/${video}/${size}.jpg`);
+}
+
 projects.forEach((project, index) => {
     const button = document.createElement('button');
     button.type = 'button';
     button.className = 'experiment-app';
-    button.innerHTML = `<span class="app-tile ${project.color}"><i class="hn hn-${project.icon}" aria-hidden="true"></i></span><span class="experiment-name">${project.title}</span><span class="experiment-meta">${project.detail}</span>`;
+    const icon = `<i class="hn hn-${project.icon}" aria-hidden="true"></i>`;
+    const sources = project.video ? thumbnailSources(project.video) : [];
+    const artwork = sources.length
+        ? `${icon}<img class="app-thumb" src="${sources[0]}" alt="" loading="lazy" decoding="async"><i class="hn hn-play app-play" aria-hidden="true"></i>`
+        : icon;
+    button.innerHTML = `<span class="app-tile ${project.color}">${artwork}</span><span class="experiment-name">${project.title}</span><span class="experiment-meta">${project.detail}</span>`;
+    const thumb = button.querySelector('.app-thumb');
+    if (thumb) {
+        let attempt = 0;
+        let settled = false;
+        // YouTube answers missing sizes with a 404 *page* that still decodes as a
+        // 120x90 placeholder image, so onerror alone never fires. Treat that size
+        // (and a decode failure) as a miss and drop to the next resolution.
+        const useNextSource = () => {
+            if (settled) return;
+            attempt += 1;
+            if (attempt < sources.length) thumb.src = sources[attempt];
+            else {
+                settled = true;
+                thumb.remove(); // reveal the icon underneath
+            }
+        };
+        thumb.addEventListener('error', useNextSource);
+        thumb.addEventListener('load', () => {
+            if (settled) return;
+            if (thumb.naturalWidth > 120) settled = true;
+            else useNextSource();
+        });
+    }
     button.addEventListener('click', () => openLibraryProject(index));
     files.appendChild(button);
 });

@@ -157,6 +157,52 @@ body {
     margin-top: 4px;
 }
 
+/* YouTube collection: 16:9 video stills replace the icon tiles */
+body[data-library="youtube"] .experiment-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 18px 14px;
+}
+
+body[data-library="youtube"] .experiment-app {
+    align-items: stretch;
+    min-height: 0;
+    padding: 8px 8px 10px;
+    text-align: left;
+}
+
+body[data-library="youtube"] .experiment-app .app-tile {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #0003;
+}
+
+body[data-library="youtube"] .app-tile .app-thumb {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+body[data-library="youtube"] .app-tile .app-play {
+    position: absolute;
+    right: 7px;
+    bottom: 7px;
+    padding: 5px 6px;
+    border: 1px solid #ffffff26;
+    border-radius: 4px;
+    background: #0b0e0ccc;
+    color: var(--accent);
+    font-size: 12px;
+    line-height: 1;
+}
+
 #experiment-view {
     flex: 1;
     min-height: 0;
@@ -207,6 +253,11 @@ body {
     }
 
     .experiment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px 8px;
+    }
+
+    body[data-library="youtube"] .experiment-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px 8px;
     }

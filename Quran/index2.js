@@ -43,7 +43,8 @@ const PRINTED_LINES = 15;
 
 /* Pages are drawn when they come this close to the viewport, and dropped again
  * once they are that far away from it. */
-const RENDER_MARGIN = '1500px 0px';
+const RENDER_PX = 1500;
+const RENDER_MARGIN = RENDER_PX + 'px 0px';
 const KEEP_MARGIN = '4000px 0px';
 
 /* Parsed pages kept in memory. */
@@ -325,30 +326,71 @@ function closeSlot(slot) {
     state.open.delete(page);
 }
 
-/* Drawing a page costs a font load and a layout pass; a couple at a time is
- * plenty to keep scrolling smooth. */
-const queue = [];
+/* Drawing a page costs a font download and a layout pass, so a couple at a
+ * time is plenty to keep scrolling smooth. The pages that still have to be
+ * drawn are kept as a set instead of a queue: the next one drawn is always the
+ * page nearest the reader, so flying over a hundred pages cannot park the page
+ * in front of the reader behind all the pages that were flown over. */
+const wanted = new Set();
+const MAX_BUSY = 3;
 let busy = 0;
 
+/* The page nearest the reader: the one at the top of the viewport, the same
+ * one the bar shows. Pages that were drawn or are being drawn on the way are
+ * shed here too; the page itself is left in the set until it is started. */
+function pickWanted() {
+    const anchor = pageAtTop();
+    let page = 0;
+    let distance = Infinity;
+    for (const candidate of wanted) {
+        if (state.open.has(candidate) || state.loading.has(candidate) || !state.pageInfo.has(candidate)) {
+            wanted.delete(candidate);
+            continue;
+        }
+        const away = Math.abs(candidate - anchor);
+        if (away < distance) {
+            distance = away;
+            page = candidate;
+        }
+    }
+    return { page, distance };
+}
+
+/* How far the loads that are running right now are from the reader. */
+function loadingDistance() {
+    if (!state.loading.size) return Infinity;
+    const anchor = pageAtTop();
+    let farthest = 0;
+    for (const page of state.loading.keys()) farthest = Math.max(farthest, Math.abs(page - anchor));
+    return farthest;
+}
+
 function pump() {
-    while (busy < 2 && queue.length) {
-        const task = queue.shift();
+    for (; ;) {
+        const next = pickWanted();
+        if (!next.page) return;
+        /* While the reader is flying over the Mushaf, the loads that are
+         * running fall behind them. The page in front of the reader is drawn
+         * without waiting for those loads — one at a time, and never more than
+         * MAX_BUSY loads running together. */
+        if (busy >= 2 && (busy >= MAX_BUSY || next.distance >= loadingDistance())) return;
+        wanted.delete(next.page);
         busy += 1;
-        task().catch(error => console.warn(error)).finally(() => {
+        openSlot(slotFor(next.page)).catch(error => console.warn(error)).finally(() => {
             busy -= 1;
             pump();
         });
     }
 }
 
-function enqueue(task) {
-    queue.push(task);
+function enqueue(page) {
+    wanted.add(page);
     pump();
 }
 
 const loader = new IntersectionObserver(entries => {
     for (const entry of entries) {
-        if (entry.isIntersecting) enqueue(() => openSlot(entry.target));
+        if (entry.isIntersecting) enqueue(Number(entry.target.dataset.page));
     }
 }, { rootMargin: RENDER_MARGIN });
 
@@ -526,11 +568,37 @@ function trimFarPages() {
     }
 }
 
+/* The pages the reader flew over while they were still waiting to be drawn: a
+ * load for them would only spend a font download on a page that is already
+ * behind the reader. Only pages that are certainly outside the render margin
+ * (the same margin the loader watches) are dropped, so nothing that is on
+ * screen can be forgotten — and the loader asks for them again the moment they
+ * come back. */
+function pruneWanted() {
+    if (!wanted.size || !state.offsets.length) return;
+    const above = window.scrollY - RENDER_PX;
+    const below = window.scrollY + window.innerHeight + RENDER_PX;
+    for (const page of wanted) {
+        const index = state.pages.indexOf(page);
+        const top = state.offsets[index];
+        if (top === undefined) continue;
+        /* The next slot's top is this slot's bottom plus the column gap, which
+         * is exactly the room the slot takes up in the column. */
+        const next = state.offsets[index + 1];
+        const end = next !== undefined
+            ? next
+            : top + PRINTED_LINES * state.size * LINE_RATIO + state.extraHeight;
+        if (top < below && end > above) continue;   // still within the render margin
+        wanted.delete(page);
+    }
+}
+
 function updateChrome() {
     const page = pageAtTop();
     if (page !== state.current) {
         setCurrent(page);
         trimFarPages();
+        pruneWanted();
     }
 }
 

@@ -3,6 +3,7 @@ const experimentData = [
     { title: 'Prime Jinn', detail: 'Sandbox / 2017', icon: 'robot', color: 'gold', src: 'primejinn/index.html', pcOnly: true },
     { title: 'AI Backgrounds', detail: 'WebGPU / 2024', icon: 'image', color: 'blue', src: 'genai-webgpu/index.html' },
     { title: 'Jinni Musha', detail: 'Game jam / 2026', icon: 'sparkles', color: 'coral', src: 'https://itch.io/embed-upload/19005599?color=151a18', url: 'https://voidwave.itch.io/jinnimusha' },
+    { title: 'DeLightFul', detail: 'Unity / WebGL', icon: 'lightbulb', color: 'gold', src: 'delightful-webgl/index.html' },
     { title: 'Game Jams', detail: 'itch.io', image: 'img/itchio.png', color: 'graphite', external: 'https://voidwave.itch.io' }
 ];
 

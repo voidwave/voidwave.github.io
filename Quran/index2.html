@@ -70,7 +70,8 @@
             /* Size of one glyph, written by index2.js once the pages are set. */
             --fs: 34px;
             --lh: 60px;
-            /* Height of the app bar, written by index2.js; pages scroll under it. */
+            /* Height of the app bar, written by index2.js; the page reserves
+               room for it at the bottom. */
             --appbar-h: 64px;
         }
 
@@ -124,28 +125,17 @@
         /* ------------------------------------------------------------------
            App bar (the same pieces as index.html)
         ------------------------------------------------------------------ */
+        /* The bar sits at the BOTTOM of the screen and never hides. */
         .appbar {
-            position: sticky;
+            position: fixed;
             z-index: 30;
-            top: 0;
-            padding-top: env(safe-area-inset-top);
+            bottom: 0;
+            inset-inline: 0;
+            padding-bottom: env(safe-area-inset-bottom);
             background: var(--appbar);
-            border-bottom: 1px solid var(--border);
+            border-top: 1px solid var(--border);
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
-            transition: transform 260ms ease;
-        }
-
-        /* Slides away while the reader is not scrolling, and comes back on the
-           next scroll, touch or hover. */
-        .appbar.is-hidden {
-            transform: translateY(-100%);
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .appbar {
-                transition: none;
-            }
         }
 
         .appbar__inner {
@@ -212,14 +202,37 @@
             filter: brightness(1.06);
         }
 
-        .pager {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        /* The page chip is a button now: it opens the page chooser. */
+        #page-chip {
+            min-height: 42px;
+            cursor: pointer;
+            transition: border-color 160ms ease, background-color 160ms ease;
         }
 
-        .pager .btn {
-            padding: 8px 10px;
+        #page-chip:hover {
+            border-color: rgba(226, 190, 106, 0.7);
+        }
+
+        #page-chip[aria-expanded="true"] {
+            border-color: var(--accent);
+            background: rgba(226, 190, 106, 0.22);
+        }
+
+        #page-chip:focus-visible {
+            outline: 2px solid var(--accent-soft);
+            outline-offset: 2px;
+        }
+
+        /* The chooser drops out of the chip, centred on it. The double class
+           beats the base .picker__panel rule, which sits later in the file. */
+        .picker__panel.page-panel {
+            inset-inline-start: auto;
+            left: 50%;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 8px;
+            width: min(220px, calc(100vw - 32px));
+            transform: translateX(-50%);
         }
 
         .chip {
@@ -247,7 +260,7 @@
         .picker__panel {
             position: absolute;
             z-index: 40;
-            top: calc(100% + 8px);
+            bottom: calc(100% + 8px);
             inset-inline-start: 0;
             width: min(330px, calc(100vw - 32px));
             max-height: min(64vh, 520px);
@@ -468,7 +481,8 @@
         }
 
         .foot {
-            padding: 26px 16px 40px;
+            /* Room for the bottom bar so the credit reads above it. */
+            padding: 26px 16px calc(var(--appbar-h) + 40px);
             color: var(--muted);
             font-size: 12px;
             line-height: 2;
@@ -710,6 +724,12 @@
             font-size: 12px;
         }
 
+        .popover__actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
         .play-btn {
             background: var(--accent-soft);
             border: 1px solid rgba(226, 190, 106, 0.35);
@@ -728,7 +748,7 @@
         .toast {
             position: fixed;
             inset-inline: 0;
-            bottom: 18px;
+            bottom: calc(var(--appbar-h) + 18px);
             margin-inline: auto;
             width: fit-content;
             max-width: min(720px, calc(100vw - 24px));
@@ -756,6 +776,21 @@
 
             .appbar__inner {
                 gap: 8px;
+                /* Buttons hug the LEFT side of the bar: the thumb that scrolls
+                   stays over the empty right side, away from the buttons. */
+                justify-content: flex-end;
+            }
+
+            /* The surah list opens from the left screen edge so it is always
+               fully on screen now that its button sits on the left. Making the
+               wrapper static hands the panel the bar as its containing block. */
+            #surah-picker {
+                position: static;
+            }
+
+            #surah-panel {
+                inset-inline-start: auto;
+                left: 12px;
             }
 
             #tools-toggle {
@@ -764,16 +799,16 @@
 
             .appbar__tools {
                 position: absolute;
-                top: 100%;
+                bottom: 100%;
                 inset-inline: 0;
                 display: none;
                 flex-direction: column;
                 align-items: stretch;
                 gap: 8px;
                 margin-inline-start: 0;
-                padding: 12px 12px calc(12px + env(safe-area-inset-bottom));
+                padding: 12px;
                 background: var(--surface);
-                border-bottom: 1px solid var(--border);
+                border-top: 1px solid var(--border);
                 box-shadow: var(--shadow);
             }
 
@@ -789,6 +824,16 @@
 
             .appbar__tools .btn__label {
                 display: inline;
+            }
+
+            /* The view switch moves into the menu so the bar keeps one row. */
+            .appbar__tools .view-switch {
+                width: 100%;
+            }
+
+            .appbar__tools .view-switch__option {
+                flex: 1 1 0;
+                justify-content: center;
             }
 
             .appbar__tools .reciter-picker,
@@ -808,10 +853,6 @@
                 font-size: 15px;
             }
 
-            .pager .btn {
-                padding: 8px 8px;
-            }
-
             .listen-group {
                 gap: 6px;
             }
@@ -823,15 +864,28 @@
             }
         }
 
-        /* Phones: tighten the bar a little more. */
+        /* Phones: tighten the bar a little more so it keeps to one row. */
         @media (max-width: 480px) {
             .appbar__inner {
-                gap: 8px;
+                gap: 6px;
                 padding: 8px 0;
+            }
+
+            .chip {
+                min-width: 40px;
+                padding: 8px 8px;
             }
 
             .btn {
                 padding: 8px 11px;
+            }
+        }
+
+        /* Very narrow phones (320-340 px): the surah button goes icon-only so
+           the bar still fits on one row. */
+        @media (max-width: 340px) {
+            #surah-toggle .btn__label {
+                display: none;
             }
         }
     </style>
@@ -857,20 +911,14 @@
                 </div>
             </div>
 
-            <div class="pager">
-                <button id="prev-page" class="btn" type="button" aria-label="الصفحة السابقة" title="الصفحة السابقة">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path d="m9 6 6 6-6 6"></path>
-                    </svg>
-                </button>
-                <span class="chip" id="page-chip">١</span>
-                <button id="next-page" class="btn" type="button" aria-label="الصفحة التالية" title="الصفحة التالية">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path d="m15 6-6 6 6 6"></path>
-                    </svg>
-                </button>
+            <div class="picker page-picker" id="page-picker">
+                <button id="page-chip" class="chip" type="button" aria-label="اختيار رقم الصفحة" aria-expanded="false"
+                    aria-controls="page-panel" title="اختيار رقم الصفحة">١</button>
+                <div id="page-panel" class="picker__panel page-panel" hidden>
+                    <input id="page-input" class="picker__filter" type="text" inputmode="numeric" autocomplete="off"
+                        spellcheck="false" placeholder="رقم الصفحة…" aria-label="رقم الصفحة من ١ إلى ٦٠٤">
+                    <button id="page-go" class="btn btn--primary" type="button">اذهب</button>
+                </div>
             </div>
 
             <div class="listen-group">
@@ -886,12 +934,6 @@
                 </button>
             </div>
 
-            <div class="view-switch" role="group" aria-label="التنقل بين القارئ والمصحف">
-                <a class="view-switch__option" id="reader-link" href="index.html"
-                    title="فتح القارئ: النص العثماني مع التفاسير والترجمات والبحث">القارئ</a>
-                <span class="view-switch__option is-active" aria-current="page">المصحف</span>
-            </div>
-
             <button id="tools-toggle" class="btn" type="button" aria-label="أدوات أخرى" aria-expanded="false"
                 aria-controls="appbar-tools" title="أدوات أخرى">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -901,6 +943,11 @@
             </button>
 
             <div class="appbar__tools" id="appbar-tools">
+                <div class="view-switch" role="group" aria-label="التنقل بين القارئ والمصحف">
+                    <a class="view-switch__option" id="reader-link" href="index.html"
+                        title="فتح القارئ: النص العثماني مع التفاسير والترجمات والبحث">القارئ</a>
+                    <span class="view-switch__option is-active" aria-current="page">المصحف</span>
+                </div>
                 <button id="random-button" class="btn" type="button" aria-label="سورة عشوائية" title="سورة عشوائية">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                         stroke-linejoin="round" aria-hidden="true">

@@ -57,7 +57,14 @@ const SLOT_MARGIN = 6;
 const AYAH_GAP_MS = 250;
 
 const ARABIC_DIGITS = '٠١٢٣٤٥٦٧٨٩';
+const PERSIAN_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 const toArabicDigits = value => String(value).replace(/\d/g, digit => ARABIC_DIGITS[Number(digit)]);
+
+/* The other way around: digits typed on an Arabic or Persian keyboard. */
+const toLatinDigits = value => String(value).replace(/[٠-٩۰-۹]/g, digit => {
+    const index = ARABIC_DIGITS.indexOf(digit);
+    return index > -1 ? index : PERSIAN_DIGITS.indexOf(digit);
+});
 
 const state = {
     manifest: null,
@@ -83,8 +90,10 @@ const el = {
     appbar: document.getElementById('appbar'),
     mushaf: document.getElementById('mushaf'),
     chip: document.getElementById('page-chip'),
-    prev: document.getElementById('prev-page'),
-    next: document.getElementById('next-page'),
+    pagePicker: document.getElementById('page-picker'),
+    pagePanel: document.getElementById('page-panel'),
+    pageInput: document.getElementById('page-input'),
+    pageGo: document.getElementById('page-go'),
     surahToggle: document.getElementById('surah-toggle'),
     surahPanel: document.getElementById('surah-panel'),
     surahFilter: document.getElementById('surah-filter'),
@@ -465,9 +474,10 @@ function chapterOfPage(page) {
     return chapter;
 }
 
-/* The printed page the reader is looking at: the last one under the app bar. */
+/* The printed page the reader is looking at: the last one at the top of the
+ * viewport (the bar sits at the bottom, so it covers nothing up there). */
 function pageAtTop() {
-    const line = window.scrollY + appbarHeight() + 12;
+    const line = window.scrollY + 12;
     let low = 0;
     let high = state.offsets.length - 1;
     let index = 0;
@@ -484,7 +494,7 @@ function scrollToPage(page, smooth) {
     const slot = slotFor(page);
     const top = state.offsets[index] !== undefined ? state.offsets[index] : slot.offsetTop;
     window.scrollTo({
-        top: Math.max(0, top - appbarHeight() - 10),
+        top: Math.max(0, top - 10),
         behavior: smooth ? 'smooth' : 'instant'
     });
 }
@@ -492,8 +502,6 @@ function scrollToPage(page, smooth) {
 function setCurrent(page) {
     state.current = page;
     el.chip.textContent = toArabicDigits(page);
-    el.prev.disabled = page <= state.pages[0];
-    el.next.disabled = page >= state.pages[state.pages.length - 1];
     if (el.readerLink) {
         el.readerLink.href = 'index.html?surah=' + chapterOfPage(page).id;
     }
@@ -576,6 +584,24 @@ function playWord(word) {
     wordAudio.play().catch(() => showToast('تعذّر تشغيل تلاوة الكلمة.'));
 }
 
+/* Plays the whole verse the word belongs to, with the chosen reciter — the
+ * same files the bar's التلاوة button plays. That verse already reciting
+ * pauses and resumes instead of restarting. */
+function playAyah(key) {
+    if (!state.reciterId) {
+        showToast('لا توجد ملفات تلاوة — تأكّد من QuranAudio/reciters.json.');
+        return;
+    }
+    if (recitation.key === key) {
+        const audio = recitationAudio();
+        if (audio.paused) audio.play().catch(() => { });
+        else audio.pause();
+        syncListenButton();
+        return;
+    }
+    startRecitation(key);
+}
+
 function placePopover(node) {
     const rect = node.getBoundingClientRect();
     const box = el.popover.getBoundingClientRect();
@@ -606,12 +632,21 @@ function openPopover(node) {
     const foot = element('div', 'popover__foot');
     foot.appendChild(element('span', 'popover__loc',
         toArabicDigits(word.k) + ' — الكلمة ' + toArabicDigits(word.p)));
+    const actions = element('div', 'popover__actions');
+    if (word.k) {
+        const ayah = element('button', 'play-btn', 'سماع الآية');
+        ayah.type = 'button';
+        ayah.title = 'تلاوة الآية كاملة';
+        ayah.addEventListener('click', () => playAyah(word.k));
+        actions.appendChild(ayah);
+    }
     if (wordAudioPath(word)) {
         const play = element('button', 'play-btn', 'سماع الكلمة');
         play.type = 'button';
         play.addEventListener('click', () => playWord(word));
-        foot.appendChild(play);
+        actions.appendChild(play);
     }
+    if (actions.childElementCount) foot.appendChild(actions);
     el.popover.appendChild(foot);
 
     el.popover.hidden = false;
@@ -977,7 +1012,10 @@ function randomChapter() {
 }
 
 function setPanel(open) {
-    if (open) setMenu(false);
+    if (open) {
+        setMenu(false);
+        setPagePanel(false);
+    }
     el.surahPanel.hidden = !open;
     el.surahToggle.setAttribute('aria-expanded', String(open));
     if (open) {
@@ -988,47 +1026,36 @@ function setPanel(open) {
     }
 }
 
+/* The page chooser behind the page chip: type a page number and go. */
+function setPagePanel(open) {
+    if (open) {
+        setPanel(false);
+        setMenu(false);
+        el.pageInput.value = String(state.current);
+        el.pagePanel.hidden = false;
+        el.chip.setAttribute('aria-expanded', 'true');
+        el.pageInput.focus();
+        el.pageInput.select();
+        return;
+    }
+    el.pagePanel.hidden = true;
+    el.chip.setAttribute('aria-expanded', 'false');
+}
+
 /* The tools menu: a dropdown on small screens, and the plain row of tools on
  * wide ones, where the button is hidden and this only keeps the state. */
 function setMenu(open) {
     el.appbar.classList.toggle('is-menu-open', open);
     el.toolsToggle.setAttribute('aria-expanded', String(open));
-    if (open) setPanel(false);
-    resetBarTimer();
+    if (open) {
+        setPanel(false);
+        setPagePanel(false);
+    }
 }
 
 /* ---------------------------------------------------------------------------
- * The bar slides away while nothing is going on, and returns on the next
- * scroll, touch or hover.
+ * The bar is always there: no idle hiding, no show/hide timers.
  * ------------------------------------------------------------------------ */
-const BAR_IDLE_MS = 2600;
-let barTimer = null;
-
-/* Kept on screen while the reader is using it. */
-function barBusy() {
-    return !el.surahPanel.hidden
-        || el.appbar.classList.contains('is-menu-open')
-        || el.appbar.matches(':hover')
-        || el.appbar.contains(document.activeElement);
-}
-
-function hideBar() {
-    if (barBusy()) {
-        resetBarTimer();
-        return;
-    }
-    el.appbar.classList.add('is-hidden');
-}
-
-function showBar() {
-    el.appbar.classList.remove('is-hidden');
-    resetBarTimer();
-}
-
-function resetBarTimer() {
-    clearTimeout(barTimer);
-    barTimer = setTimeout(hideBar, BAR_IDLE_MS);
-}
 
 function setTheme(theme) {
     const light = theme === 'light';
@@ -1046,8 +1073,23 @@ function setTheme(theme) {
 }
 
 function wireEvents() {
-    el.prev.addEventListener('click', () => goToPage(state.current - 1, true));
-    el.next.addEventListener('click', () => goToPage(state.current + 1, true));
+    /* The page chip opens the page chooser: type a page (Arabic or Latin
+     * digits) and go — the bar carries no separate prev/next buttons. */
+    el.chip.addEventListener('click', () => setPagePanel(el.pagePanel.hidden));
+
+    const goToEnteredPage = () => {
+        const entered = Number(toLatinDigits(el.pageInput.value).replace(/[^0-9]/g, ''));
+        if (!entered) return;
+        setPagePanel(false);
+        goToPage(Math.min(Math.max(entered, state.pages[0]), state.pages[state.pages.length - 1]), false);
+    };
+
+    el.pageGo.addEventListener('click', goToEnteredPage);
+    el.pageInput.addEventListener('keydown', event => {
+        if (event.key !== 'Enter') return;
+        event.preventDefault();
+        goToEnteredPage();
+    });
 
     el.random.addEventListener('click', () => {
         goToPage(randomChapter().firstPage, false);
@@ -1081,10 +1123,55 @@ function wireEvents() {
         goToPage(Number(item.dataset.page), false);
     });
 
-    /* Word popover, wherever the pointer lands on a drawn page. */
-    el.mushaf.addEventListener('click', event => {
+    /* The word panel opens on a press-and-hold: a quick tap keeps scrolling
+     * and selecting text usable and does not flash the panel. */
+    const WORD_HOLD_MS = 400;
+    const WORD_HOLD_SLOP = 10;
+    let wordHoldTimer = null;
+    let wordHoldX = 0;
+    let wordHoldY = 0;
+
+    function cancelWordHold() {
+        clearTimeout(wordHoldTimer);
+        wordHoldTimer = null;
+    }
+
+    el.mushaf.addEventListener('pointerdown', event => {
+        if (event.button > 0) return;
         const node = event.target.closest('.word');
-        if (node) openPopover(node); else closePopover();
+        if (!node) return;
+        cancelWordHold();
+        wordHoldX = event.clientX;
+        wordHoldY = event.clientY;
+        wordHoldTimer = setTimeout(() => {
+            wordHoldTimer = null;
+            if (!node.isConnected) return;
+            /* Holding a word also starts the browser's own text selection;
+             * drop it so the panel is the only thing that appears. */
+            const selection = window.getSelection();
+            if (selection && !selection.isCollapsed) selection.removeAllRanges();
+            openPopover(node);
+        }, WORD_HOLD_MS);
+    });
+
+    /* Scrolling, dragging or releasing early cancels the hold. */
+    el.mushaf.addEventListener('pointermove', event => {
+        if (wordHoldTimer
+            && (Math.abs(event.clientX - wordHoldX) > WORD_HOLD_SLOP
+                || Math.abs(event.clientY - wordHoldY) > WORD_HOLD_SLOP)) {
+            cancelWordHold();
+        }
+    });
+
+    el.mushaf.addEventListener('pointerup', cancelWordHold);
+    el.mushaf.addEventListener('pointercancel', cancelWordHold);
+    el.mushaf.addEventListener('pointerleave', cancelWordHold);
+
+    /* The browser's own long-press menu would fight the word panel on touch. */
+    el.mushaf.addEventListener('contextmenu', event => {
+        if (event.pointerType === 'touch' && event.target.closest('.word')) {
+            event.preventDefault();
+        }
     });
 
     el.mushaf.addEventListener('keydown', event => {
@@ -1097,32 +1184,40 @@ function wireEvents() {
 
     document.addEventListener('click', event => {
         if (!el.surahPanel.hidden && !event.target.closest('#surah-picker')) setPanel(false);
+        if (!el.pagePanel.hidden && !event.target.closest('#page-picker')) setPagePanel(false);
         if (el.appbar.classList.contains('is-menu-open')
             && !event.target.closest('#appbar-tools')
             && !event.target.closest('#tools-toggle')) {
             setMenu(false);
         }
-        if (el.popover.contains(event.target) || event.target.closest('.word')) return;
-        closePopover();
+    });
+
+    /* Any press outside the panel closes it; a press inside (the play button)
+     * keeps it open. On pointerdown rather than click so the release that ends
+     * a hold cannot close the panel that hold just opened. */
+    document.addEventListener('pointerdown', event => {
+        if (!el.popover.hidden && !el.popover.contains(event.target)) closePopover();
     });
 
     document.addEventListener('keydown', event => {
         if (event.key === 'Escape') {
             setPanel(false);
             setMenu(false);
+            setPagePanel(false);
             closePopover();
             return;
         }
+        /* Typing in a field must not flip pages. */
+        if (event.target instanceof Element && event.target.closest('input, textarea, select')) return;
         /* In a Mushaf the next page is the one on the left. */
         if (event.key === 'ArrowLeft') goToPage(state.current + 1, true);
         if (event.key === 'ArrowRight') goToPage(state.current - 1, true);
     });
 
-    /* The app bar follows the scroll, so it always shows the page under it, and
-     * it comes back as soon as the reader scrolls. */
+    /* The bar follows the scroll, so the page chip always shows the page at
+     * the top of the viewport. */
     let scrollPending = false;
     window.addEventListener('scroll', () => {
-        showBar();
         if (scrollPending) return;
         scrollPending = true;
         requestAnimationFrame(() => {
@@ -1131,20 +1226,9 @@ function wireEvents() {
         });
     }, { passive: true });
 
-    /* Touching, pointing at or tabbing into the bar keeps it on screen. */
-    el.appbar.addEventListener('pointerenter', showBar);
-    el.appbar.addEventListener('pointerdown', showBar);
-    el.appbar.addEventListener('focusin', showBar);
-    el.appbar.addEventListener('pointerleave', resetBarTimer);
-    window.addEventListener('mousemove', event => {
-        if (event.clientY <= appbarHeight() + 24) showBar();
-    }, { passive: true });
-
     el.toolsToggle.addEventListener('click', () => {
         setMenu(!el.appbar.classList.contains('is-menu-open'));
     });
-
-    resetBarTimer();
 
     window.addEventListener('resize', debounce(() => {
         document.documentElement.style.setProperty('--appbar-h', appbarHeight() + 'px');

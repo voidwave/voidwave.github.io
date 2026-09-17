@@ -1,0 +1,783 @@
+<title>Starwoven</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Manrope:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  /* Deliberately single-theme: a night-sky game world on either host ground. */
+  :root{
+    color-scheme: dark;
+    --ink:#070B1F; --night:#0E1433; --panel:#171E45; --line:#2A3366;
+    --text:#ECEEFF; --soft:#C9CDF0; --muted:#8E95C4;
+    --gold:#FFC857; --coral:#FF6B6B; --mint:#5CE1C6; --sky:#6FA8FF; --violet:#B58CFF;
+    --display:"Unbounded", "Arial Rounded MT Bold", system-ui, sans-serif;
+    --body:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  }
+  html,body{background:var(--ink);color:var(--text)}
+  body{
+    font-family:var(--body);
+    padding-inline:16px; padding-block:36px 56px;
+    background:
+      radial-gradient(900px 520px at 50% -8%, #1d2766 0%, transparent 62%),
+      radial-gradient(600px 400px at 90% 70%, #2a1a5a55 0%, transparent 70%),
+      var(--ink);
+    min-height:100%;
+  }
+  button{font-family:inherit}
+  button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  .stage{max-width:1180px;margin:0 auto}
+  .intro{max-width:640px}
+  .eyebrow{font:500 11px/1.4 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+  .intro h1{font:900 clamp(40px,6.4vw,76px)/.95 var(--display);letter-spacing:-.02em;margin:10px 0 14px}
+  .intro h1 span{color:var(--gold);text-shadow:0 0 28px #FFC85766}
+  .intro p.lede{font-size:17px;line-height:1.55;color:var(--soft);margin:0;max-width:56ch}
+
+  .layout{display:grid;grid-template-columns:1fr auto 1fr;gap:48px;align-items:start;margin-top:40px}
+  .notes{display:flex;flex-direction:column;gap:30px;max-width:320px}
+  .notes.left{justify-self:end}
+  .notes h3{font:700 11px var(--display);text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin:0 0 12px}
+  .notes p{font-size:14px;line-height:1.6;color:var(--soft);margin:0}
+  .rules{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
+  .rules li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:14px;line-height:1.5;color:var(--soft)}
+  .rules li b{color:var(--text)}
+  .rules svg{margin-top:2px}
+  .spec{margin:0}
+  .spec div{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-bottom:1px solid var(--line)}
+  .spec div:first-child{border-top:1px solid var(--line)}
+  .spec dt{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .spec dd{margin:0;font-size:13.5px;font-weight:600;text-align:right;color:var(--text)}
+
+  /* ---------- Device ---------- */
+  .device{
+    width:min(372px,100%);height:792px;padding:10px;border-radius:48px;position:relative;
+    background:linear-gradient(150deg,#2c3150,#0b0e1d 60%,#1a1e36);
+    box-shadow:0 0 0 1px #3a4170,0 50px 90px -30px rgba(0,0,0,.8),0 0 140px -30px rgba(111,168,255,.35);
+  }
+  .device::before{content:"";position:absolute;right:-3px;top:150px;width:3px;height:64px;border-radius:0 3px 3px 0;background:#2c3150}
+  .screen{
+    height:100%;border-radius:38px;overflow:hidden;position:relative;display:flex;flex-direction:column;
+    background:
+      radial-gradient(1.2px 1.2px at 12% 18%,#ffffffb0 50%,transparent 51%),
+      radial-gradient(1px 1px at 78% 12%,#ffffff90 50%,transparent 51%),
+      radial-gradient(1.4px 1.4px at 64% 42%,#ffffff60 50%,transparent 51%),
+      radial-gradient(1px 1px at 30% 66%,#ffffff70 50%,transparent 51%),
+      radial-gradient(1.2px 1.2px at 88% 80%,#ffffff80 50%,transparent 51%),
+      radial-gradient(1px 1px at 8% 90%,#ffffff60 50%,transparent 51%),
+      radial-gradient(420px 300px at 80% 105%,#3a1f7a66,transparent 70%),
+      linear-gradient(180deg,#101742,#0A0E28 55%,#140F36);
+    user-select:none;-webkit-user-select:none;
+  }
+  .statusbar{height:32px;flex:none;display:flex;justify-content:space-between;align-items:center;padding:0 24px;font:700 12px var(--body);position:relative;color:var(--text)}
+  .statusbar::after{content:"";position:absolute;left:50%;top:9px;width:13px;height:13px;margin-left:-6.5px;border-radius:50%;background:#000;box-shadow:inset 0 0 0 2px #151a33}
+  .sb-icons{display:flex;gap:5px;align-items:center}
+  .navbar{height:24px;flex:none;display:grid;place-items:center}
+  .navbar i{width:110px;height:4px;border-radius:2px;background:#ECEEFFaa}
+  .view{flex:1;min-height:0;display:flex;flex-direction:column}
+
+  /* ---------- Game HUD ---------- */
+  .hud{padding:4px 14px 6px;flex:none}
+  .hud-top{display:flex;align-items:center;gap:8px}
+  .icon-btn{width:36px;height:36px;border-radius:12px;border:1px solid var(--line);background:#ffffff0a;color:var(--text);display:grid;place-items:center;cursor:pointer;padding:0}
+  .lvl{flex:1;font:700 13px var(--display);letter-spacing:.02em}
+  .lvl small{display:block;font:600 10px var(--body);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:2px}
+  .score{font:500 13px var(--mono);color:var(--gold);font-variant-numeric:tabular-nums;padding-right:4px}
+  .hud-main{display:flex;gap:10px;margin-top:10px}
+  .moves{width:80px;flex:none;border-radius:18px;background:linear-gradient(160deg,#28316d,#161c44);border:1px solid #3a4590;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0}
+  .moves span{font:900 30px/1 var(--display);font-variant-numeric:tabular-nums}
+  .moves small{font:700 9.5px var(--body);text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin-top:4px}
+  .moves.low span{color:var(--coral);animation:throb .8s ease-in-out infinite}
+  .goals{flex:1;display:flex;justify-content:space-around;align-items:center;border-radius:18px;background:#ffffff08;border:1px solid var(--line);padding:8px 6px}
+  .goal{display:flex;flex-direction:column;align-items:center;gap:5px}
+  .orb{width:26px;height:26px;border-radius:50%;background:radial-gradient(circle at 34% 30%,#fff 0,var(--c) 32%,var(--cd) 100%);box-shadow:0 0 14px var(--c)}
+  .goal .n{font:700 15px/1 var(--display);font-variant-numeric:tabular-nums;min-width:2ch;text-align:center}
+  .goal.done .n{color:var(--mint)}
+  .goal.bump .orb{animation:bump .35s ease-out}
+
+  .board{flex:1;min-height:0;position:relative;margin:4px 12px}
+  #cv{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);touch-action:none;display:block;cursor:pointer}
+  .toast{position:absolute;left:50%;top:42%;font:900 24px var(--display);opacity:0;pointer-events:none;white-space:nowrap;text-shadow:0 0 22px currentColor,0 2px 0 #0008;transform:translate(-50%,-50%)}
+  .toast.show{animation:toast 1.15s ease-out}
+
+  .boosters{flex:none;display:flex;gap:10px;padding:8px 14px 8px}
+  .boost{position:relative;flex:1;height:54px;border-radius:16px;border:1px solid var(--line);background:#ffffff0a;color:var(--text);font:700 11px var(--body);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+  .boost b{position:absolute;top:-7px;right:-5px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--gold);color:#241700;font:800 11px/20px var(--body)}
+  .boost:disabled{opacity:.4;cursor:default}
+  .boost:not(:disabled):active{transform:translateY(2px)}
+
+  /* ---------- Overlay ---------- */
+  .overlay{position:absolute;inset:0;z-index:5;background:rgba(5,8,25,.74);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:grid;place-items:center;padding:22px}
+  .ov-card{width:100%;border-radius:28px;background:linear-gradient(170deg,#232b66,#131943);border:1px solid #3d4899;padding:26px 20px 20px;text-align:center;display:flex;flex-direction:column;gap:12px;animation:rise .4s cubic-bezier(.2,1.4,.4,1)}
+  .ov-card h2{font:900 26px/1.1 var(--display);margin:0}
+  .ov-card p{margin:0;color:var(--soft);font-size:14px;line-height:1.5}
+  .big-stars{display:flex;justify-content:center;gap:6px;margin:4px 0}
+  .big-stars svg{width:54px;height:54px}
+  .big-stars .on{animation:starIn .5s cubic-bezier(.2,1.6,.4,1) both;filter:drop-shadow(0 0 12px #FFC857aa)}
+  .big-stars .on:nth-child(2){animation-delay:.18s;transform-origin:center}
+  .big-stars .on:nth-child(3){animation-delay:.36s}
+  .reward{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
+  .chip{font:700 12px var(--body);padding:6px 10px;border-radius:999px;background:#ffffff10;border:1px solid var(--line)}
+  .cta{height:54px;border-radius:17px;border:0;background:linear-gradient(180deg,#FFDA7A,#F5A524);color:#2a1a00;font:700 15px var(--display);cursor:pointer;box-shadow:0 6px 0 #B8730F;margin-top:6px}
+  .cta:active{transform:translateY(4px);box-shadow:0 2px 0 #B8730F}
+  .cta small{display:block;font:600 10px var(--body);opacity:.7;margin-top:1px}
+  .ghost{height:46px;border-radius:15px;border:1px solid var(--line);background:transparent;color:var(--text);font:700 14px var(--body);cursor:pointer}
+
+  /* ---------- Map ---------- */
+  .map-head{flex:none;display:flex;gap:6px;padding:4px 14px 8px;align-items:center}
+  .pill{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;background:#ffffff0c;border:1px solid var(--line);font:800 12px var(--body);font-variant-numeric:tabular-nums}
+  .pill.grow{margin-left:auto}
+  .daily{flex:none;margin:0 14px 6px;padding:12px 14px;border-radius:20px;background:linear-gradient(120deg,#2d2468,#1a2b60);border:1px solid #4a3d99;display:grid;grid-template-columns:1fr auto;gap:6px 10px;align-items:center}
+  .daily strong{font:700 13px var(--display)}
+  .daily span{font-size:12px;color:var(--soft)}
+  .pips{display:flex;gap:4px;grid-column:1}
+  .pips i{width:20px;height:6px;border-radius:3px;background:#ffffff22}
+  .pips i.on{background:var(--gold)}
+  .claim{grid-row:1/span 3;grid-column:2;height:40px;padding:0 14px;border-radius:13px;border:0;background:var(--mint);color:#062a24;font:800 12px var(--body);cursor:pointer}
+  .claim:disabled{background:#ffffff18;color:var(--muted);cursor:default}
+  .chapter{flex:none;padding:8px 18px 2px;display:flex;justify-content:space-between;align-items:baseline}
+  .chapter b{font:700 15px var(--display)}
+  .chapter span{font:500 11px var(--mono);color:var(--muted)}
+  .scroller{flex:1;min-height:0;overflow-y:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(transparent,#000 24px,#000 calc(100% - 24px),transparent)}
+  .scroller::-webkit-scrollbar{display:none}
+  .path{position:relative;margin:0 20px}
+  .path svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+  .node{position:absolute;width:54px;height:54px;transform:translate(-50%,-50%);border-radius:50%;border:0;padding:0;font:900 16px var(--display);color:#1b1440;cursor:pointer;
+    background:radial-gradient(circle at 34% 30%,#fff 0,#B58CFF 34%,#6E45C9 100%);box-shadow:0 0 0 4px #ffffff14,0 0 22px #B58CFF77}
+  .node.current{width:64px;height:64px;font-size:19px;color:#2a1a00;background:radial-gradient(circle at 34% 30%,#fff 0,#FFC857 34%,#C8861A 100%);animation:pulse 1.8s ease-in-out infinite}
+  .node.locked{background:#1c2350;color:#56608f;box-shadow:0 0 0 4px #ffffff08;cursor:default}
+  .node .st{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:4px;font-size:12px;letter-spacing:1px;color:var(--gold);white-space:nowrap;text-shadow:0 0 8px #FFC85788}
+  .node .st i{font-style:normal;color:#39427a;text-shadow:none}
+  .map-foot{flex:none;padding:6px 14px 6px}
+  .map-foot .cta{width:100%;margin:0}
+
+  @keyframes throb{50%{transform:scale(1.12)}}
+  @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+  @keyframes toast{0%{opacity:0;transform:translate(-50%,-50%) scale(.6)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}65%{opacity:1;transform:translate(-50%,-62%) scale(1)}100%{opacity:0;transform:translate(-50%,-85%) scale(1)}}
+  @keyframes rise{from{opacity:0;transform:translateY(24px) scale(.94)}}
+  @keyframes starIn{from{opacity:0;transform:scale(.2) rotate(-40deg)}}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px #FFC85744,0 0 24px #FFC857aa}50%{box-shadow:0 0 0 10px #FFC85722,0 0 40px #FFC857}}
+
+  @media (max-width:1080px){
+    .layout{grid-template-columns:1fr 1fr;gap:40px 32px}
+    .device{grid-column:1/-1;justify-self:center;order:-1}
+    .notes,.notes.left{max-width:none;justify-self:stretch}
+  }
+  @media (max-width:640px){ .layout{grid-template-columns:1fr} }
+  @media (max-width:420px){
+    .device{padding:6px;border-radius:40px;height:760px}
+    .screen{border-radius:34px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important}
+  }
+</style>
+
+<main class="stage">
+  <header class="intro">
+    <p class="eyebrow">Android puzzle concept · playable mockup · build 0.1</p>
+    <h1>Starwoven<span>✦</span></h1>
+    <p class="lede">Drag across matching stars to weave constellations before your moves run out. Short levels, one-thumb play, and a near miss on almost every loss. Try it on the phone below.</p>
+  </header>
+
+  <div class="layout">
+    <aside class="notes left">
+      <section>
+        <h3>How it plays</h3>
+        <ul class="rules">
+          <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="7" fill="#FFC857"/></svg><span><b>Chain 3 or more</b> matching stars. Diagonals count.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="none" stroke="#5CE1C6" stroke-width="3"/></svg><span><b>Close a loop</b> back onto your own chain and every star of that colour clears.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1 L11 7 L17 9 L11 11 L9 17 L7 11 L1 9 L7 7Z" fill="#B58CFF"/></svg><span><b>Chain 6 or more</b> and the last star becomes a Nova. Clear it to blast its 3×3.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="3" width="12" height="12" rx="3" fill="none" stroke="#6FA8FF" stroke-width="2.5"/></svg><span><b>Hit every goal</b> before the move counter reaches zero.</span></li>
+        </ul>
+      </section>
+      <section>
+        <h3>The session shape</h3>
+        <p>Each level lasts 60–120 seconds. Stars you earn fill a chest every 10★, so the reward always sits a level or two away and pulls the next level in. Novas and loops give surprise payouts, and big chains cascade, so a lucky clear feels earned.</p>
+      </section>
+    </aside>
+
+    <div class="device" aria-label="Android phone mockup">
+      <div class="screen" id="screen">
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="sb-icons" aria-hidden="true">
+            <svg width="15" height="11" viewBox="0 0 15 11"><path d="M1 10h2V7H1zM5 10h2V5H5zM9 10h2V3H9zM13 10h2V0h-2z" fill="#ECEEFF"/></svg>
+            <svg width="14" height="11" viewBox="0 0 14 11"><path d="M7 11 0 3.5a10 10 0 0 1 14 0z" fill="#ECEEFF"/></svg>
+            <svg width="22" height="11" viewBox="0 0 22 11"><rect x=".5" y=".5" width="19" height="10" rx="2.5" fill="none" stroke="#ECEEFF99"/><rect x="2" y="2" width="13" height="7" rx="1.5" fill="#ECEEFF"/><rect x="20.5" y="3.5" width="1.5" height="4" rx=".7" fill="#ECEEFF99"/></svg>
+          </span>
+        </div>
+
+        <!-- MAP -->
+        <section class="view" id="scr-map" hidden>
+          <div class="map-head">
+            <span class="pill" title="Coins"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><circle cx="7" cy="7" r="6" fill="#FFC857"/><circle cx="7" cy="7" r="3.2" fill="none" stroke="#C8861A" stroke-width="1.6"/></svg><span id="map-coins">1,240</span></span>
+            <span class="pill" title="Lives"><svg width="14" height="13" viewBox="0 0 14 13" aria-hidden="true"><path d="M7 12.5S0 8 0 3.8A3.6 3.6 0 0 1 7 2.3a3.6 3.6 0 0 1 7 1.5C14 8 7 12.5 7 12.5z" fill="#FF6B6B"/></svg><span id="map-lives">5</span></span>
+            <span class="pill grow" title="Stars collected"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z" fill="#FFC857"/></svg><span id="map-stars">31</span></span>
+          </div>
+          <div class="daily">
+            <strong>Daily Sky</strong>
+            <span>Day 4 streak. Come back tomorrow for the comet.</span>
+            <div class="pips" aria-label="Streak day 4 of 7"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></div>
+            <button class="claim" id="claim">Claim 60</button>
+          </div>
+          <div class="chapter"><b>Orion Reach</b><span id="chest-progress">chest 7/10★</span></div>
+          <div class="scroller" id="scroller"><div class="path" id="path"></div></div>
+          <div class="map-foot"><button class="cta" id="btn-play">Play level 12</button></div>
+        </section>
+
+        <!-- GAME -->
+        <section class="view" id="scr-game">
+          <div class="hud">
+            <div class="hud-top">
+              <button class="icon-btn" id="btn-back" aria-label="Back to map"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 2 4 8l6 6" fill="none" stroke="#ECEEFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div class="lvl">Level <span id="lvl-num">12</span><small>Orion Reach</small></div>
+              <div class="score" id="score" aria-label="Score">0</div>
+              <button class="icon-btn" id="btn-sound" aria-label="Mute sound"></button>
+            </div>
+            <div class="hud-main">
+              <div class="moves" id="moves-box"><span id="moves">18</span><small>moves</small></div>
+              <div class="goals" id="goals" aria-label="Goals"></div>
+            </div>
+          </div>
+          <div class="board" id="board">
+            <canvas id="cv" aria-label="Star board. Drag across matching stars."></canvas>
+            <div class="toast" id="toast"></div>
+          </div>
+          <div class="boosters">
+            <button class="boost" id="b-shuffle"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h4c4 0 6 10 10 10h4M3 17h4c1.6 0 2.9-1.6 4-3.6M13 9.6C14.1 8 15.4 7 17 7h4M18 4l3 3-3 3M18 14l3 3-3 3" fill="none" stroke="#6FA8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Shuffle<b id="c-shuffle">2</b></button>
+            <button class="boost" id="b-hint"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z" fill="none" stroke="#FFC857" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Hint<b id="c-hint">3</b></button>
+            <button class="boost" id="b-comet"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="16" cy="8" r="4" fill="#FF6B6B"/><path d="M13 11 3 21M11 8 4 15M16 13l-6 7" stroke="#FF6B6B" stroke-width="2" stroke-linecap="round" opacity=".6"/></svg>Comet<b id="c-comet">1</b></button>
+          </div>
+        </section>
+
+        <div class="overlay" id="ov" hidden></div>
+        <div class="navbar" aria-hidden="true"><i></i></div>
+      </div>
+    </div>
+
+    <aside class="notes right">
+      <section>
+        <h3>Retention hooks</h3>
+        <dl class="spec">
+          <div><dt>Near miss</dt><dd>Loss screen names the gap, offers +5 moves</dd></div>
+          <div><dt>Streak</dt><dd>7-day Daily Sky ladder</dd></div>
+          <div><dt>Lives</dt><dd>5 max, 1 refills every 30 min</dd></div>
+          <div><dt>Chest</dt><dd>Opens every 10★</dd></div>
+          <div><dt>Boosters</dt><dd>Shuffle · Hint · Comet</dd></div>
+        </dl>
+      </section>
+      <section>
+        <h3>Android target</h3>
+        <dl class="spec">
+          <div><dt>Min SDK</dt><dd>API 26 · Android 8.0</dd></div>
+          <div><dt>Format</dt><dd>Portrait, 20:9, one thumb</dd></div>
+          <div><dt>Feel</dt><dd>60 fps, haptic tick per link</dd></div>
+          <div><dt>Access</dt><dd>Colour plus glyph on every star</dd></div>
+          <div><dt>Revenue</dt><dd>Rewarded ads + star pass IAP</dd></div>
+          <div><dt>Services</dt><dd>Play Games leaderboards</dd></div>
+        </dl>
+      </section>
+      <p>Comet booster: tap it, then tap any column to clear that column.</p>
+    </aside>
+  </div>
+</main>
+
+<script>
+(() => {
+  const COLS = 6, ROWS = 7;
+  const PAL = [
+    { name: 'Gold',   c: '#FFC857', d: '#C8861A' },
+    { name: 'Coral',  c: '#FF6B6B', d: '#B8324A' },
+    { name: 'Mint',   c: '#5CE1C6', d: '#1E9C8A' },
+    { name: 'Sky',    c: '#6FA8FF', d: '#2F5FC4' },
+    { name: 'Violet', c: '#B58CFF', d: '#6E45C9' },
+  ];
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem('starwoven:' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem('starwoven:' + k, JSON.stringify(v)); } catch (e) {} },
+  };
+  const $ = s => document.querySelector(s);
+
+  // ---------- persistent-ish meta ----------
+  const progress = store.get('progress', { level: 12, stars: {} });
+  for (let i = 1; i < progress.level; i++) if (progress.stars[i] == null) progress.stars[i] = i % 4 === 0 ? 2 : 3;
+  let coins = store.get('coins', 1240), lives = 5, muted = store.get('muted', false), claimed = false;
+  const saveMeta = () => { store.set('progress', progress); store.set('coins', coins); };
+
+  // ---------- state ----------
+  const cv = $('#cv'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, cell = 0, dpr = 1;
+  let grid = [], level, nc, moves, score, goals, adUsed;
+  let chain = [], chainColor = 0, loop = false, pointer = null, busy = false, state = 'play';
+  let particles = [], rings = [], hint = null, lastAct = performance.now(), cometArmed = false, flash = 0;
+  const boosters = { shuffle: 2, hint: 3, comet: 1 };
+
+  function levelCfg(n) {
+    const nc = n < 4 ? 4 : 5;
+    const moves = Math.max(16, 24 - Math.floor(n / 2));
+    const g = n >= 10 ? 3 : 2;
+    const order = [(n * 2) % nc, (n * 2 + 2) % nc, (n * 2 + 4) % nc];
+    return { nc, moves, goals: order.slice(0, g).map((ci, i) => ({ ci, need: 8 + Math.round(n * 0.6) + i * 2, got: 0 })) };
+  }
+  const newTile = () => ({ ci: Math.floor(Math.random() * nc), nova: false, y: 0, v: 0, pop: 0 });
+
+  function neighbors(r, c) {
+    const out = [];
+    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+      if (!dr && !dc) continue;
+      const rr = r + dr, cc = c + dc;
+      if (rr >= 0 && rr < ROWS && cc >= 0 && cc < COLS) out.push([rr, cc]);
+    }
+    return out;
+  }
+  function findChain() {
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const ci = grid[r][c].ci;
+      for (const a of neighbors(r, c)) {
+        if (grid[a[0]][a[1]].ci !== ci) continue;
+        for (const b of neighbors(a[0], a[1])) {
+          if ((b[0] === r && b[1] === c) || grid[b[0]][b[1]].ci !== ci) continue;
+          return [[r, c], a, b];
+        }
+      }
+    }
+    return null;
+  }
+
+  // ---------- level flow ----------
+  function startLevel(n) {
+    level = n; const cfg = levelCfg(n);
+    nc = cfg.nc; moves = cfg.moves; score = 0; adUsed = false;
+    goals = cfg.goals.map(g => ({ ...g }));
+    chain = []; loop = false; state = 'play'; busy = false; hint = null; particles = []; rings = []; cometArmed = false;
+    do {
+      grid = [];
+      for (let r = 0; r < ROWS; r++) { const row = []; for (let c = 0; c < COLS; c++) row.push(newTile()); grid.push(row); }
+    } while (!findChain());
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) grid[r][c].y = r - ROWS - 1 - c * 0.18;
+    buildGoals(); renderHud(); $('#ov').hidden = true; lastAct = performance.now();
+  }
+
+  function resolve() {
+    const seen = new Set(), uniq = [];
+    for (const [r, c] of chain) { const k = r * COLS + c; if (!seen.has(k)) { seen.add(k); uniq.push([r, c]); } }
+    const clear = new Set(seen);
+    if (loop) for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) if (grid[r][c].ci === chainColor) clear.add(r * COLS + c);
+    let spawn = null;
+    if (!loop && uniq.length >= 6) { const [r, c] = uniq[uniq.length - 1]; spawn = r * COLS + c; }
+    if (loop) flash = 1;
+    applyClear(clear, spawn);
+
+    let msg = null;
+    if (lastExploded >= 2) msg = 'Supernova!';
+    else if (loop) msg = 'Constellation!';
+    else if (spawn != null) msg = 'Nova formed!';
+    else if (lastExploded) msg = 'Boom!';
+    else if (uniq.length >= 5) msg = 'Stellar!';
+    if (msg) showToast(msg, PAL[chainColor].c);
+    const mult = 1 + Math.floor(uniq.length / 3) + (loop ? 2 : 0) + lastExploded;
+    score += lastCleared * 10 * mult;
+    moves--;
+    tone(uniq.length + 3, 'triangle', .28, .09);
+    buzz(loop || lastExploded ? [20, 30, 40] : 16);
+    settle();
+  }
+
+  let lastCleared = 0, lastExploded = 0;
+  function applyClear(clear, spawn) {
+    const queue = [...clear], exploded = new Set();
+    while (queue.length) {
+      const k = queue.pop(), r = Math.floor(k / COLS), c = k % COLS;
+      if (!grid[r][c].nova || exploded.has(k)) continue;
+      exploded.add(k);
+      rings.push({ x: (c + .5) * cell, y: (r + .5) * cell, r: 0, life: 1, c: PAL[grid[r][c].ci].c });
+      for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+        const rr = r + dr, cc = c + dc;
+        if (rr < 0 || rr >= ROWS || cc < 0 || cc >= COLS) continue;
+        const k2 = rr * COLS + cc;
+        if (!clear.has(k2)) { clear.add(k2); queue.push(k2); }
+      }
+    }
+    if (spawn != null) clear.delete(spawn);
+    lastCleared = clear.size; lastExploded = exploded.size;
+    const bumped = new Set();
+    for (const k of clear) {
+      const r = Math.floor(k / COLS), c = k % COLS, t = grid[r][c];
+      for (const g of goals) if (g.ci === t.ci && g.got < g.need) { g.got++; bumped.add(g.ci); }
+      burst((c + .5) * cell, (t.y + .5) * cell, PAL[t.ci].c, t.nova ? 22 : 9);
+      grid[r][c] = null;
+    }
+    if (spawn != null) { const t = grid[Math.floor(spawn / COLS)][spawn % COLS]; t.nova = true; t.pop = 1; }
+    gravity();
+    renderHud(bumped);
+  }
+
+  function gravity() {
+    for (let c = 0; c < COLS; c++) {
+      const col = [];
+      for (let r = ROWS - 1; r >= 0; r--) if (grid[r][c]) col.push(grid[r][c]);
+      let r = ROWS - 1;
+      for (const t of col) grid[r--][c] = t;
+      const missing = r + 1;
+      for (let rr = r; rr >= 0; rr--) { const t = newTile(); t.y = rr - missing - 0.4; grid[rr][c] = t; }
+    }
+  }
+
+  function settle() {
+    busy = true; hint = null;
+    setTimeout(() => {
+      busy = false; lastAct = performance.now();
+      if (goals.every(g => g.got >= g.need)) return win();
+      if (moves <= 0) return lose();
+      if (!findChain()) { showToast('Reshuffling', '#ECEEFF'); shuffle(); }
+    }, 460);
+  }
+
+  function shuffle() {
+    const flat = grid.flat();
+    for (let tries = 0; tries < 60; tries++) {
+      for (let i = flat.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [flat[i], flat[j]] = [flat[j], flat[i]]; }
+      for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) grid[r][c] = flat[r * COLS + c];
+      if (findChain()) break;
+      if (tries === 59) flat.forEach(t => t.ci = Math.floor(Math.random() * nc));
+    }
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) { grid[r][c].y = r; grid[r][c].pop = 1; }
+    tone(6, 'sine', .2, .06);
+  }
+
+  function win() {
+    state = 'won';
+    const stars = moves >= 5 ? 3 : moves >= 2 ? 2 : 1;
+    score += moves * 60;
+    const earned = 30 + stars * 10;
+    coins += earned;
+    progress.stars[level] = Math.max(progress.stars[level] || 0, stars);
+    progress.level = Math.max(progress.level, level + 1);
+    saveMeta();
+    for (let i = 0; i < 6; i++) setTimeout(() => { burst(Math.random() * W, Math.random() * H * .8, PAL[i % 5].c, 26); tone(i * 2 + 5, 'triangle', .3, .07); }, i * 110);
+    buzz([30, 40, 30, 40, 60]);
+    const total = Object.values(progress.stars).reduce((a, b) => a + b, 0);
+    setTimeout(() => showOverlay(`
+      <div class="ov-card" role="dialog" aria-label="Level complete">
+        <p class="eyebrow">Level ${level} complete</p>
+        <div class="big-stars">${[0, 1, 2].map(i => starSvg(i < stars)).join('')}</div>
+        <h2>${stars === 3 ? 'Flawless sky' : stars === 2 ? 'Bright work' : 'Just made it'}</h2>
+        <p>Score <b style="color:var(--gold);font-family:var(--mono)">${score.toLocaleString()}</b> · ${moves} moves left became bonus</p>
+        <div class="reward"><span class="chip">+${earned} coins</span><span class="chip">Chest ${total % 10}/10★</span></div>
+        <button class="cta" data-act="next">Next level</button>
+        <button class="ghost" data-act="map">Back to map</button>
+      </div>`), 750);
+  }
+
+  function lose() {
+    state = 'lost';
+    const short = goals.map(g => ({ ...g, left: g.need - g.got })).filter(g => g.left > 0).sort((a, b) => a.left - b.left);
+    const gap = short.map(g => `${g.left} ${PAL[g.ci].name}`).join(', ');
+    const close = short.reduce((a, g) => a + g.left, 0) <= 6;
+    buzz(60);
+    showOverlay(`
+      <div class="ov-card" role="dialog" aria-label="Out of moves">
+        <p class="eyebrow">Out of moves</p>
+        <h2>${close ? 'So close!' : 'The sky got away'}</h2>
+        <p>You needed just <b style="color:var(--text)">${gap}</b>.</p>
+        ${adUsed
+          ? `<button class="cta" data-act="buy" ${coins < 900 ? 'disabled style="opacity:.5"' : ''}>+5 moves · 900 coins<small>You have ${coins.toLocaleString()}</small></button>`
+          : `<button class="cta" data-act="plus5">Watch ad · +5 moves<small>mock rewarded video</small></button>`}
+        <button class="ghost" data-act="retry">${lives > 0 ? `Retry · uses 1 of ${lives} lives` : 'Refill lives · mock'}</button>
+      </div>`);
+  }
+
+  function starSvg(on) {
+    return `<svg viewBox="0 0 24 24" class="${on ? 'on' : ''}" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.7-5.2 4.6 1.5 6.8L12 17l-6.1 3.4 1.5-6.8L2.2 9l6.9-.7z" fill="${on ? '#FFC857' : '#2C3570'}" stroke="${on ? '#FFE9A8' : '#3a4590'}" stroke-width=".8"/></svg>`;
+  }
+
+  // ---------- HUD ----------
+  function buildGoals() {
+    $('#goals').innerHTML = goals.map(g =>
+      `<div class="goal" data-ci="${g.ci}" style="--c:${PAL[g.ci].c};--cd:${PAL[g.ci].d}" aria-label="${PAL[g.ci].name}"><span class="orb"></span><span class="n"></span></div>`).join('');
+  }
+  function renderHud(bumped) {
+    $('#lvl-num').textContent = level;
+    $('#moves').textContent = moves;
+    $('#moves-box').classList.toggle('low', moves <= 3);
+    $('#score').textContent = score.toLocaleString();
+    for (const g of goals) {
+      const el = $(`.goal[data-ci="${g.ci}"]`);
+      const left = g.need - g.got;
+      el.querySelector('.n').textContent = left > 0 ? left : '✓';
+      el.classList.toggle('done', left <= 0);
+      if (bumped && bumped.has && bumped.has(g.ci)) { el.classList.remove('bump'); void el.offsetWidth; el.classList.add('bump'); }
+    }
+    for (const k of ['shuffle', 'hint', 'comet']) { $('#c-' + k).textContent = boosters[k]; $('#b-' + k).disabled = boosters[k] <= 0; }
+    $('#b-comet').style.outline = cometArmed ? '2px solid var(--coral)' : '';
+  }
+  function showToast(text, color) {
+    const t = $('#toast'); t.textContent = text; t.style.color = color;
+    t.classList.remove('show'); void t.offsetWidth; t.classList.add('show');
+  }
+  function showOverlay(html) { const ov = $('#ov'); ov.innerHTML = html; ov.hidden = false; ov.querySelector('.cta')?.focus({ preventScroll: true }); }
+
+  // ---------- audio + haptics ----------
+  let actx = null;
+  function tone(step, type = 'sine', dur = .12, vol = .07) {
+    if (muted) return;
+    try {
+      actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+      const scale = [0, 2, 4, 7, 9];
+      const semis = scale[step % 5] + 12 * Math.floor(step / 5);
+      const o = actx.createOscillator(), g = actx.createGain(), now = actx.currentTime;
+      o.type = type; o.frequency.value = 392 * Math.pow(2, semis / 12);
+      g.gain.setValueAtTime(vol, now); g.gain.exponentialRampToValueAtTime(.0001, now + dur);
+      o.connect(g).connect(actx.destination); o.start(now); o.stop(now + dur);
+    } catch (e) {}
+  }
+  function buzz(p) { try { navigator.vibrate && navigator.vibrate(p); } catch (e) {} }
+  const SOUND_ON = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="#ECEEFF"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="#ECEEFF" stroke-width="2" stroke-linecap="round"/></svg>';
+  const SOUND_OFF = '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="#8E95C4"/><path d="m16 9 6 6m0-6-6 6" stroke="#8E95C4" stroke-width="2" stroke-linecap="round"/></svg>';
+  function renderSound() { const b = $('#btn-sound'); b.innerHTML = muted ? SOUND_OFF : SOUND_ON; b.setAttribute('aria-label', muted ? 'Unmute sound' : 'Mute sound'); }
+
+  // ---------- input ----------
+  function local(e) { const r = cv.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+  function cellAt(p, strict) {
+    const c = Math.floor(p.x / cell), r = Math.floor(p.y / cell);
+    if (c < 0 || c >= COLS || r < 0 || r >= ROWS) return null;
+    if (strict && Math.hypot(p.x - (c + .5) * cell, p.y - (r + .5) * cell) > cell * .42) return null;
+    return [r, c];
+  }
+  const same = (a, b) => a[0] === b[0] && a[1] === b[1];
+
+  cv.addEventListener('pointerdown', e => {
+    if (state !== 'play' || busy || !cell) return;
+    const p = local(e), at = cellAt(p, false);
+    if (!at) return;
+    lastAct = performance.now(); hint = null;
+    if (cometArmed) {
+      cometArmed = false; boosters.comet--;
+      const clear = new Set(); for (let r = 0; r < ROWS; r++) clear.add(r * COLS + at[1]);
+      chainColor = grid[at[0]][at[1]].ci;
+      applyClear(clear, null); showToast('Comet!', '#FF6B6B'); tone(9, 'sawtooth', .3, .05); buzz([15, 25, 35]);
+      settle(); return;
+    }
+    chain = [at]; chainColor = grid[at[0]][at[1]].ci; loop = false; pointer = p;
+    try { cv.setPointerCapture(e.pointerId); } catch (_) {}
+    tone(0); buzz(8);
+  });
+  cv.addEventListener('pointermove', e => {
+    if (!chain.length) return;
+    pointer = local(e);
+    const at = cellAt(pointer, true);
+    if (!at) return;
+    const last = chain[chain.length - 1];
+    if (same(at, last)) return;
+    if (chain.length >= 2 && same(at, chain[chain.length - 2])) { chain.pop(); loop = false; tone(Math.max(0, chain.length - 1)); return; }
+    if (loop) return;
+    if (Math.abs(at[0] - last[0]) > 1 || Math.abs(at[1] - last[1]) > 1) return;
+    if (grid[at[0]][at[1]].ci !== chainColor) return;
+    if (chain.findIndex(q => same(q, at)) === -1) { chain.push(at); tone(chain.length - 1); buzz(6); }
+    else if (chain.length >= 4) { chain.push(at); loop = true; tone(chain.length + 4, 'triangle', .3, .09); buzz([10, 20, 10]); }
+  });
+  function endDrag() {
+    if (!chain.length) return;
+    const n = new Set(chain.map(q => q[0] * COLS + q[1])).size;
+    if (loop || n >= 3) resolve();
+    chain = []; loop = false; pointer = null;
+  }
+  cv.addEventListener('pointerup', endDrag);
+  cv.addEventListener('pointercancel', () => { chain = []; loop = false; pointer = null; });
+
+  $('#b-shuffle').addEventListener('click', () => { if (state !== 'play' || busy || boosters.shuffle <= 0) return; boosters.shuffle--; shuffle(); renderHud(); lastAct = performance.now(); });
+  $('#b-hint').addEventListener('click', () => {
+    if (state !== 'play' || busy || boosters.hint <= 0) return;
+    boosters.hint--; const p = findChain();
+    if (p) hint = { keys: new Set(p.map(q => q[0] * COLS + q[1])), until: performance.now() + 3200 };
+    renderHud();
+  });
+  $('#b-comet').addEventListener('click', () => {
+    if (state !== 'play' || busy || boosters.comet <= 0) return;
+    cometArmed = !cometArmed; renderHud();
+    if (cometArmed) showToast('Tap a column', '#FF6B6B');
+  });
+  $('#btn-sound').addEventListener('click', () => { muted = !muted; store.set('muted', muted); renderSound(); if (!muted) tone(4); });
+  $('#btn-back').addEventListener('click', () => showView('map'));
+  $('#btn-play').addEventListener('click', () => { showView('game'); startLevel(progress.level); });
+  $('#claim').addEventListener('click', e => { if (claimed) return; claimed = true; coins += 60; saveMeta(); e.currentTarget.disabled = true; e.currentTarget.textContent = 'Claimed'; renderMapHead(); tone(7, 'triangle', .25, .08); buzz(20); });
+
+  $('#ov').addEventListener('click', e => {
+    const b = e.target.closest('[data-act]'); if (!b || b.disabled) return;
+    const a = b.dataset.act;
+    if (a === 'next') startLevel(level + 1);
+    else if (a === 'retry') { if (lives > 0) lives--; else lives = 5; startLevel(level); }
+    else if (a === 'plus5' || a === 'buy') {
+      if (a === 'buy') { coins -= 900; saveMeta(); }
+      adUsed = true; moves += 5; state = 'play'; $('#ov').hidden = true; renderHud(); showToast('+5 moves', '#5CE1C6');
+    }
+    else if (a === 'map') { $('#ov').hidden = true; showView('map'); }
+  });
+
+  // ---------- views ----------
+  function showView(v) {
+    $('#scr-map').hidden = v !== 'map';
+    $('#scr-game').hidden = v !== 'game';
+    if (v === 'map') { $('#ov').hidden = true; state = state === 'play' ? 'paused' : state; renderMap(); }
+    else if (state === 'paused') state = 'play';
+  }
+  function renderMapHead() {
+    $('#map-coins').textContent = coins.toLocaleString();
+    $('#map-lives').textContent = lives;
+    const total = Object.values(progress.stars).reduce((a, b) => a + b, 0);
+    $('#map-stars').textContent = total;
+    $('#chest-progress').textContent = `chest ${total % 10}/10★`;
+    $('#btn-play').textContent = `Play level ${progress.level}`;
+  }
+  function renderMap() {
+    renderMapHead();
+    const cur = progress.level, from = Math.max(1, cur - 6), to = cur + 4;
+    const xs = [50, 74, 64, 36, 22, 40, 66, 80, 58, 30];
+    const step = 92, n = to - from + 1, h = n * step + 40;
+    const path = $('#path'); path.style.height = h + 'px';
+    const pts = [];
+    for (let lv = from; lv <= to; lv++) pts.push({ lv, x: xs[lv % xs.length], y: h - 50 - (lv - from) * step });
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + p.x + ' ' + p.y).join(' ');
+    const done = pts.filter(p => p.lv <= cur).map((p, i) => (i ? 'L' : 'M') + p.x + ' ' + p.y).join(' ');
+    path.innerHTML =
+      `<svg viewBox="0 0 100 ${h}" preserveAspectRatio="none" aria-hidden="true">
+        <path d="${d}" fill="none" stroke="#2A3366" stroke-width="3" stroke-dasharray="2 8" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
+        <path d="${done}" fill="none" stroke="#B58CFF" stroke-width="3" stroke-linecap="round" vector-effect="non-scaling-stroke" opacity=".7"/>
+      </svg>` +
+      pts.map(p => {
+        const cls = p.lv < cur ? '' : p.lv === cur ? 'current' : 'locked';
+        const s = progress.stars[p.lv] || 0;
+        const st = p.lv < cur ? `<span class="st">${'★'.repeat(s)}<i>${'★'.repeat(3 - s)}</i></span>` : '';
+        return `<button class="node ${cls}" style="left:${p.x}%;top:${p.y}px" data-lv="${p.lv}" ${p.lv > cur ? 'disabled aria-disabled="true"' : ''} aria-label="Level ${p.lv}">${p.lv}${st}</button>`;
+      }).join('');
+    const sc = $('#scroller');
+    const curPt = pts.find(p => p.lv === cur);
+    requestAnimationFrame(() => { sc.scrollTop = curPt.y - sc.clientHeight * .6; });
+  }
+  $('#path').addEventListener('click', e => {
+    const b = e.target.closest('.node'); if (!b || b.disabled) return;
+    showView('game'); startLevel(+b.dataset.lv);
+  });
+
+  // ---------- rendering ----------
+  function resize() {
+    const box = $('#board').getBoundingClientRect();
+    if (!box.width || !box.height) return;
+    dpr = Math.min(2, window.devicePixelRatio || 1);
+    cell = Math.floor(Math.min(box.width / COLS, box.height / ROWS));
+    W = cell * COLS; H = cell * ROWS;
+    cv.style.width = W + 'px'; cv.style.height = H + 'px';
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  new ResizeObserver(resize).observe($('#board'));
+
+  function burst(x, y, c, n) {
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2, s = (.5 + Math.random()) * cell * .06;
+      particles.push({ x, y, vx: Math.cos(a) * s, vy: Math.sin(a) * s - cell * .02, life: 1, c, r: 1 + Math.random() * 2.5 });
+    }
+  }
+
+  function glyph(ci, cx, cy, s) {
+    ctx.fillStyle = 'rgba(12,16,48,.55)'; ctx.strokeStyle = 'rgba(12,16,48,.55)';
+    ctx.lineWidth = Math.max(1.6, s * .26); ctx.lineCap = 'round';
+    ctx.beginPath();
+    switch (ci) {
+      case 0: ctx.moveTo(cx, cy - s); ctx.quadraticCurveTo(cx, cy, cx + s, cy); ctx.quadraticCurveTo(cx, cy, cx, cy + s); ctx.quadraticCurveTo(cx, cy, cx - s, cy); ctx.quadraticCurveTo(cx, cy, cx, cy - s); ctx.fill(); break;
+      case 1: ctx.moveTo(cx, cy - s * .8); ctx.lineTo(cx + s * .6, cy); ctx.lineTo(cx, cy + s * .8); ctx.lineTo(cx - s * .6, cy); ctx.closePath(); ctx.fill(); break;
+      case 2: ctx.arc(cx, cy, s * .55, 0, Math.PI * 2); ctx.stroke(); break;
+      case 3: ctx.moveTo(cx - s * .6, cy); ctx.lineTo(cx + s * .6, cy); ctx.moveTo(cx, cy - s * .6); ctx.lineTo(cx, cy + s * .6); ctx.stroke(); break;
+      case 4: ctx.moveTo(cx, cy - s * .7); ctx.lineTo(cx + s * .65, cy + s * .5); ctx.lineTo(cx - s * .65, cy + s * .5); ctx.closePath(); ctx.fill(); break;
+    }
+  }
+
+  function drawTile(t, cx, cy, sel, hinted, now) {
+    const p = PAL[t.ci];
+    let R = cell * .27 * (sel ? 1.16 : 1) * (1 + t.pop * .35);
+    if (hinted) R *= 1 + .1 * Math.sin(now / 110);
+    const glowR = R * (sel ? 2.4 : 1.9);
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, glowR);
+    g.addColorStop(0, p.c + (sel || hinted ? '77' : '40')); g.addColorStop(1, p.c + '00');
+    ctx.fillStyle = g; ctx.beginPath(); ctx.arc(cx, cy, glowR, 0, Math.PI * 2); ctx.fill();
+    if (t.nova) {
+      ctx.save(); ctx.translate(cx, cy); ctx.rotate(now / 900);
+      ctx.strokeStyle = '#ffffffcc'; ctx.lineWidth = 2; ctx.setLineDash([3, 5]);
+      ctx.beginPath(); ctx.arc(0, 0, R * 1.45, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle = p.c;
+      for (let i = 0; i < 4; i++) { ctx.rotate(Math.PI / 2); ctx.beginPath(); ctx.moveTo(-R * .22, -R * 1.1); ctx.lineTo(0, -R * 1.75); ctx.lineTo(R * .22, -R * 1.1); ctx.fill(); }
+      ctx.restore();
+    }
+    const b = ctx.createRadialGradient(cx - R * .35, cy - R * .4, R * .08, cx, cy, R);
+    b.addColorStop(0, '#ffffff'); b.addColorStop(.3, p.c); b.addColorStop(1, p.d);
+    ctx.fillStyle = b; ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
+    glyph(t.ci, cx + R * .05, cy + R * .08, R * .48);
+  }
+
+  let prev = performance.now();
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min(3, (now - prev) / 16.67); prev = now;
+    if (!cell || $('#scr-game').hidden) return;
+
+    if (state === 'play' && !busy && !chain.length && !hint && now - lastAct > 7000) {
+      const p = findChain();
+      if (p) hint = { keys: new Set(p.map(q => q[0] * COLS + q[1])), until: now + 2600 };
+      lastAct = now;
+    }
+    if (hint && now > hint.until) { hint = null; lastAct = now; }
+
+    ctx.clearRect(0, 0, W, H);
+    if (flash > 0) { ctx.fillStyle = PAL[chainColor].c + Math.round(flash * 40).toString(16).padStart(2, '0'); ctx.fillRect(0, 0, W, H); flash = Math.max(0, flash - .04 * dt); }
+
+    ctx.fillStyle = 'rgba(140,160,255,.07)';
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) { ctx.beginPath(); ctx.arc((c + .5) * cell, (r + .5) * cell, 2, 0, Math.PI * 2); ctx.fill(); }
+
+    if (cometArmed) { ctx.fillStyle = '#FF6B6B14'; ctx.fillRect(0, 0, W, H); }
+
+    const inChain = new Set(chain.map(q => q[0] * COLS + q[1]));
+    if (chain.length) {
+      const col = PAL[chainColor].c;
+      ctx.save();
+      ctx.strokeStyle = col; ctx.lineWidth = cell * .085; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+      ctx.shadowColor = col; ctx.shadowBlur = 14;
+      ctx.beginPath();
+      chain.forEach(([r, c], i) => { const x = (c + .5) * cell, y = (r + .5) * cell; i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); });
+      if (pointer && !loop) ctx.lineTo(pointer.x, pointer.y);
+      ctx.stroke(); ctx.restore();
+    }
+
+    for (let r = 0; r < ROWS; r++) for (let c = 0; c < COLS; c++) {
+      const t = grid[r][c]; if (!t) continue;
+      if (t.y < r) { t.v += .018 * dt; t.y = Math.min(r, t.y + (t.v + .04) * dt); if (t.y >= r) { t.v = 0; } }
+      else { t.y = r; t.v = 0; }
+      if (t.pop > 0) t.pop = Math.max(0, t.pop - .05 * dt);
+      const k = r * COLS + c;
+      const sel = inChain.has(k) || (loop && t.ci === chainColor);
+      const cy = (t.y + .5) * cell;
+      if (cy < -cell) continue;
+      drawTile(t, (c + .5) * cell, cy, sel, hint && hint.keys.has(k), now);
+    }
+
+    for (let i = rings.length - 1; i >= 0; i--) {
+      const g = rings[i]; g.r += cell * .12 * dt; g.life -= .035 * dt;
+      if (g.life <= 0) { rings.splice(i, 1); continue; }
+      ctx.strokeStyle = g.c; ctx.globalAlpha = g.life; ctx.lineWidth = 4 * g.life + 1;
+      ctx.beginPath(); ctx.arc(g.x, g.y, g.r, 0, Math.PI * 2); ctx.stroke(); ctx.globalAlpha = 1;
+    }
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vy += cell * .002 * dt; p.life -= .025 * dt;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.globalAlpha = p.life; ctx.fillStyle = p.c;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (0.6 + p.life * .6), 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  renderSound();
+  startLevel(progress.level);
+  resize();
+  requestAnimationFrame(frame);
+})();
+</script>

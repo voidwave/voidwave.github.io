@@ -145,12 +145,19 @@ function toggleLauncher(show = launcher.hidden) {
     }
 }
 
+// iOS Safari cancels a tap's click when visible buttons are inserted during the touch,
+// so only rebuild the dock when its contents actually change.
+let dockMarkup = '';
+
 function renderDock() {
     const ids = [...new Set([...favorites, ...windows.keys()])];
-    dock.innerHTML = `<button class="dock-button show-desktop" data-action="home" title="Show desktop" aria-label="Show desktop">${icon('desktop')}<span class="dock-tooltip">Desktop</span></button><span class="dock-divider"></span>` + ids.map(id => {
+    const markup = `<button class="dock-button show-desktop" data-action="home" title="Show desktop" aria-label="Show desktop">${icon('desktop')}<span class="dock-tooltip">Desktop</span></button><span class="dock-divider"></span>` + ids.map(id => {
         const app = apps.find(item => item.id === id);
         return `<button class="dock-button ${windows.has(id) ? 'running' : ''} ${activeApp === id ? 'active' : ''}" data-app="${id}" aria-label="${app.name}" title="${app.name}" aria-pressed="${activeApp === id}"><span class="app-tile ${app.color}">${icon(app.icon)}</span><span class="dock-tooltip">${app.name}</span></button>`;
     }).join('');
+    if (markup + preferences.language === dockMarkup) return;
+    dockMarkup = markup + preferences.language;
+    dock.innerHTML = markup;
     desktopLanguage.localize(dock);
 }
 
@@ -347,7 +354,9 @@ function createWindow(app) {
     desktopLanguage.localize(element);
     windowContainer.appendChild(element);
     setInitialBounds(element, app.id);
-    element.addEventListener('pointerdown', () => focusWindow(app.id, false));
+    element.addEventListener('pointerdown', () => {
+        if (activeApp !== app.id) focusWindow(app.id, false);
+    });
     element.addEventListener('focusin', () => {
         if (activeApp !== app.id) focusWindow(app.id, false);
     });

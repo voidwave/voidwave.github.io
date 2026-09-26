@@ -376,28 +376,28 @@ body[data-wallpaper="grid"] .wallpaper,
 }
 
 .gold {
-    --tile-bg: #d6b56b;
-    --tile-color: #463615;
+    --tile-bg: #f2bb3b;
+    --tile-color: #3c2b00;
 }
 
 .mint {
-    --tile-bg: #9ac4a7;
-    --tile-color: #243d2c;
+    --tile-bg: #54c457;
+    --tile-color: #08320b;
 }
 
 .coral {
-    --tile-bg: #ca8f81;
-    --tile-color: #492620;
+    --tile-bg: #f46b6b;
+    --tile-color: #4c1013;
 }
 
 .blue {
-    --tile-bg: #8aacc7;
-    --tile-color: #25374e;
+    --tile-bg: #53a9ed;
+    --tile-color: #002a4e;
 }
 
 .graphite {
-    --tile-bg: #303b35;
-    --tile-color: #b5d6c1;
+    --tile-bg: #202921;
+    --tile-color: var(--accent);
 }
 
 .dark {

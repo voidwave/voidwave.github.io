@@ -128,6 +128,13 @@ body {
     object-fit: contain;
 }
 
+.experiment-app .app-tile img.tile-fill {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
 .experiment-app .app-tile .hn {
     font-size: 30px;
 }

@@ -3,6 +3,7 @@ const experimentData = [
     { title: 'Hadith', detail: 'Hadith search', icon: 'comment-quote', color: 'mint', src: 'Hadith/' },
     { title: 'Color Sort', detail: 'Puzzle game', icon: 'themes', color: 'coral', src: 'ColorSort/' },
     { title: 'Foz Arrows', detail: '3D puzzle game', icon: 'shuffle', color: 'blue', src: 'FozArrows/' },
+    { title: 'Qareen', detail: 'Web app', image: 'img/qareen.png', fullBleed: true, color: 'dark', src: 'https://qareen.voidwave.com/', url: 'https://qareen.voidwave.com/' },
     { title: 'Prime Jinn', detail: 'Sandbox / 2017', icon: 'robot', color: 'gold', src: 'primejinn/index.html', pcOnly: true },
     { title: 'AI Backgrounds', detail: 'WebGPU / 2024', icon: 'image', color: 'blue', src: 'genai-webgpu/index.html' },
     { title: 'Jinni Musha', detail: 'Game jam / 2026', icon: 'sparkles', color: 'coral', src: 'https://itch.io/embed-upload/19005599?color=151a18', url: 'https://voidwave.itch.io/jinnimusha' },
@@ -109,7 +110,7 @@ experimentData.forEach((project, index) => {
         tile.title = 'Windows PC only';
         if (locked) tile.setAttribute('aria-label', `${project.title} — Windows PC only, not available on this device`);
     }
-    const artwork = project.image ? `<img src="${project.image}" alt="" width="42" height="42">` : `<i class="hn hn-${project.icon}" aria-hidden="true"></i>`;
+    const artwork = project.image ? `<img${project.fullBleed ? ' class="tile-fill"' : ''} src="${project.image}" alt="" width="42" height="42">` : `<i class="hn hn-${project.icon}" aria-hidden="true"></i>`;
     const badge = project.pcOnly ? '<span class="app-badge" aria-hidden="true">PC ONLY</span>' : '';
     tile.innerHTML = `<span class="app-tile ${project.color}">${artwork}${badge}${project.external ? '<i class="hn hn-external-link app-shortcut" aria-hidden="true"></i>' : ''}</span><span class="experiment-name">${project.title}</span><span class="experiment-meta">${project.detail}</span>`;
     filesContainer.appendChild(tile);

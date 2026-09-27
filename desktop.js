@@ -6,6 +6,7 @@ const apps = [
     { id: 'djinn', name: 'Djinn Scrolls', icon: { image: 'img/DS%20PIXEL%20LOGO.png' }, color: 'dark', description: 'Djinn Scrolls trailer', src: 'game-window.html?game=djinn', url: 'https://store.steampowered.com/app/4392620/DJINN_SCROLLS/' },
     { id: 'colorsort', name: 'Color Sort', icon: 'themes', color: 'coral', description: 'Puzzle game', src: 'ColorSort/' },
     { id: 'fozarrows', name: 'Foz Arrows', icon: 'shuffle', color: 'blue', description: '3D arrow puzzle', src: 'FozArrows/' },
+    { id: 'qareen', name: 'Qareen', icon: { image: 'img/qareen.png' }, color: 'dark', description: 'qareen.voidwave.com', src: 'https://qareen.voidwave.com/', url: 'https://qareen.voidwave.com/' },
     { id: 'projects', name: 'Experiments', icon: 'flask', color: 'coral', description: 'Playable demos & projects', src: 'demos_projects.html' },
     { id: 'videos', name: 'Dev Videos', icon: 'youtube-play', color: 'coral', description: 'Development playlist', src: 'dev-videos.html', url: 'https://www.youtube.com/playlist?list=PLCyM3qNxv8UyJ2vV6gZb3smWyrJB5fnGq' },
     { id: 'gallery', name: 'Gallery', icon: 'picture-o', color: 'blue', description: 'Art & screenshots', src: 'gallery/index.html' },
@@ -453,7 +454,7 @@ function updateClock() {
     document.getElementById('mobile-date').textContent = now.toLocaleDateString(locale, { weekday: 'long', month: 'long', day: 'numeric' });
 }
 
-document.getElementById('desktop-icons').innerHTML = apps.filter(app => !['settings', 'archive', 'twitter', 'instagram', 'hadith', 'colorsort', 'fozarrows'].includes(app.id)).map(app => appButton(app)).join('');
+document.getElementById('desktop-icons').innerHTML = apps.filter(app => !['settings', 'archive', 'twitter', 'instagram', 'hadith', 'colorsort', 'fozarrows', 'qareen'].includes(app.id)).map(app => appButton(app)).join('');
 document.addEventListener('click', event => {
     const appButtonElement = event.target.closest('[data-app]');
     if (appButtonElement) {
